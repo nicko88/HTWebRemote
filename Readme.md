@@ -42,4 +42,4 @@ No installation or prerequisites are necessary.
 
 Simply download the latest build from the releases page, extract the archive, and copy the files to your preferred folder location on your HTPC.
 
-See the documentation within the program for detailed operation instructions.
+See the [documentation](https://raw.githack.com/nicko88/HTPCRemote/master/HTPCRemote/Util/html/doc.html) within the program for detailed operation instructions.
