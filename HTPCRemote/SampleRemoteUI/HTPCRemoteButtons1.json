@@ -1,0 +1,230 @@
+{
+  "RemoteID": 1,
+  "RemoteName": "MPC",
+  "ButtonHeight": 50,
+  "RemoteItems": [
+    {
+      "ItemType": 1,
+      "Label": "MPC Remote"
+    },
+    {
+      "ItemType": 2,
+      "Label": "Fullscreen",
+      "RelativeSize": 1,
+      "Color": "Blue",
+      "Commands": [
+        {
+          "DeviceName": "keys",
+          "Cmd": "alt({ENTER})"
+        }
+      ]
+    },
+    {
+      "ItemType": 3,
+      "RelativeSize": 1
+    },
+    {
+      "ItemType": 2,
+      "Label": "Close",
+      "RelativeSize": 1,
+      "Color": "Red",
+      "ConfirmPopup": true,
+      "Commands": [
+        {
+          "DeviceName": "keys",
+          "Cmd": "alt(x)"
+        }
+      ]
+    },
+    {
+      "ItemType": 4
+    },
+    {
+      "ItemType": 4
+    },
+    {
+      "ItemType": 2,
+      "Label": "Subs",
+      "RelativeSize": 2,
+      "Color": "Blue",
+      "Commands": [
+        {
+          "DeviceName": "keys",
+          "Cmd": "w"
+        }
+      ]
+    },
+    {
+      "ItemType": 3,
+      "RelativeSize": 2
+    },
+    {
+      "ItemType": 2,
+      "Label": "Prev Sub",
+      "RelativeSize": 1,
+      "Color": "Blue",
+      "Commands": [
+        {
+          "DeviceName": "keys",
+          "Cmd": "shift(s)"
+        }
+      ]
+    },
+    {
+      "ItemType": 2,
+      "Label": "Next Sub",
+      "RelativeSize": 1,
+      "Color": "Blue",
+      "Commands": [
+        {
+          "DeviceName": "keys",
+          "Cmd": "s"
+        }
+      ]
+    },
+    {
+      "ItemType": 4
+    },
+    {
+      "ItemType": 2,
+      "Label": "<<",
+      "RelativeSize": 1,
+      "Color": "Blue",
+      "Commands": [
+        {
+          "DeviceName": "keys",
+          "Cmd": "{PGUP}"
+        }
+      ]
+    },
+    {
+      "ItemType": 2,
+      "Label": "<",
+      "RelativeSize": 1,
+      "Color": "Grey",
+      "Commands": [
+        {
+          "DeviceName": "keys",
+          "Cmd": "{LEFT}"
+        }
+      ]
+    },
+    {
+      "ItemType": 2,
+      "Label": ">||",
+      "RelativeSize": 1,
+      "Color": "Green",
+      "Commands": [
+        {
+          "DeviceName": "keys",
+          "Cmd": "{SPACE}"
+        }
+      ]
+    },
+    {
+      "ItemType": 2,
+      "Label": "X",
+      "RelativeSize": 1,
+      "Color": "Red",
+      "Commands": [
+        {
+          "DeviceName": "keys",
+          "Cmd": "."
+        }
+      ]
+    },
+    {
+      "ItemType": 2,
+      "Label": ">",
+      "RelativeSize": 1,
+      "Color": "Grey",
+      "Commands": [
+        {
+          "DeviceName": "keys",
+          "Cmd": "{RIGHT}"
+        }
+      ]
+    },
+    {
+      "ItemType": 2,
+      "Label": ">>",
+      "RelativeSize": 1,
+      "Color": "Blue",
+      "Commands": [
+        {
+          "DeviceName": "keys",
+          "Cmd": "{PGDN}"
+        }
+      ]
+    },
+    {
+      "ItemType": 4
+    },
+    {
+      "ItemType": 4
+    },
+    {
+      "ItemType": 2,
+      "Label": "-Vol",
+      "RelativeSize": 4,
+      "Color": "Blue",
+      "Commands": [
+        {
+          "DeviceName": "win",
+          "Cmd": "editvol=-5"
+        }
+      ]
+    },
+    {
+      "ItemType": 3,
+      "RelativeSize": 1
+    },
+    {
+      "ItemType": 2,
+      "Label": "Mute",
+      "RelativeSize": 2,
+      "Color": "Blue",
+      "Commands": [
+        {
+          "DeviceName": "win",
+          "Cmd": "mutevol"
+        }
+      ]
+    },
+    {
+      "ItemType": 3,
+      "RelativeSize": 1
+    },
+    {
+      "ItemType": 2,
+      "Label": "Vol+",
+      "RelativeSize": 4,
+      "Color": "Blue",
+      "Commands": [
+        {
+          "DeviceName": "win",
+          "Cmd": "editvol=5"
+        }
+      ]
+    },
+    {
+      "ItemType": 4
+    },
+    {
+      "ItemType": 3,
+      "RelativeSize": 2
+    },
+    {
+      "ItemType": 2,
+      "Label": "Vol?",
+      "RelativeSize": 1,
+      "Color": "Blue",
+      "Commands": [
+        {
+          "DeviceName": "win",
+          "Cmd": "query:getvol"
+        }
+      ]
+    }
+  ]
+}

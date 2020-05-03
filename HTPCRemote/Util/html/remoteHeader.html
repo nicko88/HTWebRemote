@@ -1,0 +1,110 @@
+﻿<html>
+<head>
+	<title>HTPCRemote</title>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<link rel="manifest" href='data:application/manifest+json,{"name": "HTPCRemote","short_name": "HTPCRemote","lang": "en-US","start_url": "/","scope": "/","display": "fullscreen"}' />
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="application-name" content="HTPCRemote">
+	<meta name="apple-mobile-web-app-title" content="HTPCRemote">
+	<meta name="msapplication-starturl" content="/">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="icon" type="image/png" href="https://i.ibb.co/gSSrZ2k/HTControl.png" />
+	<link rel="apple-touch-icon" type="image/png" href="https://i.ibb.co/gSSrZ2k/HTControl.png" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<style>
+        * {
+            touch-action: pinch-zoom pan-y;
+        }
+
+        h4 {
+            color: white;
+            margin-bottom: 2px;
+        }
+
+        .btn {
+            min-width: 0;
+            padding: 0;
+            height: 42px;
+            line-height: 1;
+            width: 100%;
+            border: 2px solid black;
+            border-radius: 6px;
+        }
+
+        .btn:focus {
+            box-shadow: none;
+        }
+
+        .btn-primary:hover, .btn-success:hover, .btn-danger:hover, .btn-warning:hover, .btn-info:hover, .btn-secondary:hover, .btn-light:hover, .btn-dark:hover {
+            border-color: black;
+        }
+
+        .btn-primary:hover, .btn-success:hover, .btn-danger:hover, .btn-warning:hover, .btn-info:hover, .btn-secondary:hover, .btn-light:hover, .btn-dark:hover {
+            box-shadow: none;
+        }
+
+        .ngroup {
+            outline: 1px solid gray;
+            padding-top: 6px;
+            padding-left: 4px;
+            padding-right: 4px;
+            margin-bottom: 8px;
+        }
+
+        .nrow {
+            display: flex;
+        }
+
+        .nitem {
+            margin-bottom: 6px;
+            flex-shrink: 1;
+            flex-basis: 0;
+        }
+
+        ul {
+            display: flex;
+            margin-left: -15px;
+            margin-right: -15px;
+        }
+
+        li {
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        .nav-link {
+            padding-left: 0;
+            padding-right: 0;
+        }
+	</style>
+
+	<script>
+		function sendbtn(remoteID, btnIndex, popup) {
+			var r = true;
+			if (popup == 'True') {
+				r = confirm("Are you sure?");
+			}
+			if (r == true) {
+				fetch('http://{IP}:5000/?remoteID=' + remoteID + '&btnIndex=' + btnIndex);
+			}
+        }
+        function sendquery(remoteID, devName, cmd, popup) {
+            var r = true;
+            if (popup == 'True') {
+                r = confirm("Are you sure?");
+            }
+            if (r == true) {
+                window.location.href = 'http://{IP}:5000/?rID=' + remoteID + '&devname=' + devName + '&cmd=' + cmd;
+            }
+        }
+	</script>
+
+</head>
+<body style="background-color: black; max-width: 500px;">
+<div class="container body-content">
+
