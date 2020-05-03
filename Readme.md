@@ -11,6 +11,12 @@ As a primary method of control, HTPCRemote helps you create simple web pages wit
 
 Included in the web page mode of operation is a simple file browser interface which lets you add folders from your HTPC and then browse them to easily select media to play on your HTPC.
 
+#### Screenshots and Demo
+<img src="https://user-images.githubusercontent.com/1866075/80928490-6217d400-8d6a-11ea-9d13-19f90fbe70ee.png" width="500px" style="padding-bottom: 25px;"/>
+<br/>
+<img src="https://user-images.githubusercontent.com/1866075/80928492-6fcd5980-8d6a-11ea-86aa-8f5d3bb3e619.png" width="500px" style="padding-right: 50px;" />
+<img src="https://user-images.githubusercontent.com/1866075/80928497-78be2b00-8d6a-11ea-919a-03c93deb7be7.gif" width="222px" style="position: absolute; margin-top: -100px;" />
+
 #### Command Line Mode
 
 HTPCRemote also offers a command line mode of operation that lets you send commands to your devices by running HTPCRemote from the command line and passing in a few parameters to tell it which command to send to which device.
