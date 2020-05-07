@@ -6,6 +6,7 @@ using System.Net;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
+using HTPCRemote.Util;
 
 namespace HTPCRemote
 {
@@ -26,18 +27,18 @@ namespace HTPCRemote
 
         public void Setup()
         {
-            Util.ConfigHelper.Setup();
+            ConfigHelper.Setup();
 
             string version = Assembly.GetExecutingAssembly().GetName().Version.ToString(2);
-            IP = Util.ConfigHelper.GetLocalIPAddress();
+            IP = ConfigHelper.GetLocalIPAddress();
             Text = "HTPCRemote v" + version + "   (IP: " + IP + ":5000)";
 
-            if(Util.ConfigHelper.CheckRegKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", "HTPCRemote"))
+            if(ConfigHelper.CheckRegKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", "HTPCRemote"))
             {
                 cbStartAutomatically.Checked = true;
             }
 
-            if (Util.ConfigHelper.CheckRegKey("SOFTWARE\\HTPCRemote", "StartMinimized"))
+            if (ConfigHelper.CheckRegKey("SOFTWARE\\HTPCRemote", "StartMinimized"))
             {
                 cbStartMinimized.Checked = true;
 
@@ -46,7 +47,7 @@ namespace HTPCRemote
                 ShowInTaskbar = false;
             }
 
-            if (Util.ConfigHelper.CheckRegKey("SOFTWARE\\HTPCRemote", "ShowErrors"))
+            if (ConfigHelper.CheckRegKey("SOFTWARE\\HTPCRemote", "ShowErrors"))
             {
                 cbxShowErrors.Checked = true;
             }
@@ -91,7 +92,7 @@ namespace HTPCRemote
             if(request.RawUrl.Contains("/FB"))
             {
 
-                buffer = Util.FileBrowserV2.LoadFileBrowser(context);
+                buffer = FileBrowserV2.LoadFileBrowser(context);
             }
             else
             {
@@ -116,13 +117,13 @@ namespace HTPCRemote
                     RemoteID = rID;
                 }
 
-                if (File.Exists(Util.ConfigHelper.jsonButtonFiles + RemoteID + ".html"))
+                if (File.Exists(ConfigHelper.jsonButtonFiles + RemoteID + ".html"))
                 {
-                    htmlPage = File.ReadAllText(Util.ConfigHelper.jsonButtonFiles + RemoteID + ".html");
+                    htmlPage = File.ReadAllText(ConfigHelper.jsonButtonFiles + RemoteID + ".html");
                 }
                 else
                 {
-                    htmlPage = Util.RemoteParser.GetRemoteHTML(RemoteID, true);
+                    htmlPage = RemoteParser.GetRemoteHTML(RemoteID, true);
                 }
 
                 htmlPage = htmlPage.Replace("{IP}", IP);
@@ -182,11 +183,13 @@ namespace HTPCRemote
                     {
                         remoteID = request.QueryString["remoteID"];
                         btnIndex = request.QueryString["btnIndex"];
+                        if (!string.IsNullOrEmpty(remoteID) && !string.IsNullOrEmpty(btnIndex))
+                        {
+                            Remote remote = RemoteJSONLoader.LoadRemoteJSON(remoteID);
 
-                        Remote remote = RemoteJSONLoader.LoadRemoteJSON(remoteID);
-
-                        Thread commandThread = new Thread(remote.RemoteItems[Convert.ToInt32(btnIndex)].RunButtonCommands);
-                        commandThread.Start();
+                            Thread commandThread = new Thread(remote.RemoteItems[Convert.ToInt32(btnIndex)].RunButtonCommands);
+                            commandThread.Start();
+                        }
                     }
                     catch { }
                 }

@@ -80,17 +80,19 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Devices\DBOXControl.cs" />
+    <Compile Include="Devices\Controllers\DBOXControl.cs" />
+    <Compile Include="Devices\Controllers\YamahaControl.cs" />
     <Compile Include="Devices\DeviceSelector.cs" />
-    <Compile Include="Devices\DMControl.cs" />
-    <Compile Include="Devices\BenQControl.cs" />
-    <Compile Include="Devices\EmotivaControl.cs" />
-    <Compile Include="Devices\KeysControl.cs" />
-    <Compile Include="Devices\LIRCControl.cs" />
-    <Compile Include="Devices\JVCControl.cs" />
-    <Compile Include="Devices\MPCControl.cs" />
-    <Compile Include="Devices\WemoPlugControl.cs" />
-    <Compile Include="Devices\WinControl.cs" />
+    <Compile Include="Devices\Controllers\DMControl.cs" />
+    <Compile Include="Devices\Controllers\BenQControl.cs" />
+    <Compile Include="Devices\Controllers\EmotivaControl.cs" />
+    <Compile Include="Devices\Controllers\KeysControl.cs" />
+    <Compile Include="Devices\Controllers\LIRCControl.cs" />
+    <Compile Include="Devices\Controllers\JVCControl.cs" />
+    <Compile Include="Devices\Controllers\MPCControl.cs" />
+    <Compile Include="Devices\Controllers\WemoPlugControl.cs" />
+    <Compile Include="Devices\Controllers\WinControl.cs" />
+    <Compile Include="Devices\SocketConnection.cs" />
     <Compile Include="Forms\ButtonSizeExample.cs">
       <SubType>Form</SubType>
     </Compile>

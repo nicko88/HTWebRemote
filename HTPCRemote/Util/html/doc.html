@@ -143,6 +143,7 @@
 	  <li><a href="#lirc">LIRC / WinLIRC</a></li>
 	  <li><a href="#wemo">Wemo Smart Plug</a></li>
 	  <li><a href="#dm">Denon / Marantz AVRs</a></li>
+	  <li><a href="#yamaha">Yamaha AVRs</a></li>
 	  <li><a href="#jvc">JVC Projectors</a></li>
 	  <li><a href="#benq">BenQ Projectors</a></li>
 	  <li><a href="#emotiva">Emotiva AVRs</a></li>
@@ -566,6 +567,33 @@
 	<a href="https://github.com/nicko88/HTPCRemote/blob/master/IP%20Control%20Spec%20Documents/Marantz_AV8805.pdf">Marantz_AV8805.pdf</a></p>
 	
 	<p>Or look up the IP control document for your particular Denon or Marantz AVR or processor.</p>
+	<br/>
+	
+	<h2><a id="yamaha"></a>Yamaha AVR Control</h2>
+	
+	For Yamaha control, the device identifier is <b>yamaha</b>
+	
+	<h3>Some Basic Commands</h3>
+	
+	<ul>
+	  <li><code>SYS:PWR=On</code> (Power ON)</li>
+	  <li><code>SYS:PWR=Standby</code> (Power OFF)</li>
+	  <li><code>MAIN:MUTE=On</code> (Mute)</li>
+	  <li><code>MAIN:MUTE=Off</code> (Unmute)</li>
+	  <li><code>MAIN:VOL=0.0</code> (Reference Volume)</li>
+		  <ul>
+			<li>Volume is from -80.5 to 16.5, with 0 being reference level.</li>
+			<li>You must always include 1 decimal place (Ex: 10.0, -25.0 or 0.0)</li>
+		  </ul>
+	</ul>
+	
+	<p>For all Yamaha commands, see the full Yamaha command document here:<br/>
+	<a href="https://github.com/nicko88/HTPCRemote/blob/master/IP%20Control%20Spec%20Documents/Yamaha_YNCA.pdf">Yamaha_YNCA.pdf</a></p>
+	
+	<p>See the full list of raw Yamaha commands here:<br/>
+	<a href="https://github.com/nicko88/HTPCRemote/blob/master/IP%20Control%20Spec%20Documents/Yamaha_Commands.txt">Yamaha_Commands.txt</a></p>
+	
+	<p>Or look up the IP control document for your particular Yamaha AVR</p>
 	<br/>
 	
 	<h2><a id="jvc"></a>JVC Projector Control</h2>

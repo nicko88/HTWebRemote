@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using HTPCRemote.Util;
+using Microsoft.Win32;
 
 namespace HTPCRemote.Forms
 {
@@ -14,12 +16,12 @@ namespace HTPCRemote.Forms
 
             LoadPaths();
 
-            if (Util.ConfigHelper.CheckRegKey("SOFTWARE\\HTPCRemote", "ShowFileBrowser"))
+            if (ConfigHelper.CheckRegKey("SOFTWARE\\HTPCRemote", "ShowFileBrowser"))
             {
                 cbShowFileBrowser.Checked = true;
             }
 
-            cmbFileBrowserRemote.SelectedItem = Util.ConfigHelper.GetRegKey("SOFTWARE\\HTPCRemote", "FileBrowserRemote");
+            cmbFileBrowserRemote.SelectedItem = ConfigHelper.GetRegKey("SOFTWARE\\HTPCRemote", "FileBrowserRemote");
 
             if(cmbFileBrowserRemote.SelectedIndex == -1)
             {
@@ -31,9 +33,9 @@ namespace HTPCRemote.Forms
         {
             lbPaths.Items.Clear();
 
-            if (File.Exists(Util.ConfigHelper.browsePaths))
+            if (File.Exists(ConfigHelper.browsePaths))
             {
-                List<string> paths = File.ReadLines(Util.ConfigHelper.browsePaths).ToList();
+                List<string> paths = File.ReadLines(ConfigHelper.browsePaths).ToList();
 
                 foreach (string path in paths)
                 {
@@ -49,7 +51,7 @@ namespace HTPCRemote.Forms
 
             if(result == DialogResult.OK)
             {
-                File.AppendAllText(Util.ConfigHelper.browsePaths, selectPath.SelectedPath + Environment.NewLine);
+                File.AppendAllText(ConfigHelper.browsePaths, selectPath.SelectedPath + Environment.NewLine);
             }
 
             LoadPaths();
@@ -59,15 +61,15 @@ namespace HTPCRemote.Forms
         {
             try
             {
-                List<string> paths = File.ReadLines(Util.ConfigHelper.browsePaths).ToList();
+                List<string> paths = File.ReadLines(ConfigHelper.browsePaths).ToList();
 
                 paths.Remove(lbPaths.SelectedItem.ToString());
 
-                File.Delete(Util.ConfigHelper.browsePaths);
+                File.Delete(ConfigHelper.browsePaths);
 
                 foreach (string path in paths)
                 {
-                    File.AppendAllText(Util.ConfigHelper.browsePaths, path + Environment.NewLine);
+                    File.AppendAllText(ConfigHelper.browsePaths, path + Environment.NewLine);
                 }
             }
             catch { }
@@ -77,7 +79,7 @@ namespace HTPCRemote.Forms
 
         private void cmbFileBrowserRemote_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("SOFTWARE\\HTPCRemote", true);
+            RegistryKey key = Registry.CurrentUser.CreateSubKey("SOFTWARE\\HTPCRemote", true);
             key.SetValue("FileBrowserRemote", cmbFileBrowserRemote.SelectedItem.ToString());
         }
 
@@ -85,12 +87,12 @@ namespace HTPCRemote.Forms
         {
             if (cbShowFileBrowser.Checked)
             {
-                Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("SOFTWARE\\HTPCRemote", true);
+                RegistryKey key = Registry.CurrentUser.CreateSubKey("SOFTWARE\\HTPCRemote", true);
                 key.SetValue("ShowFileBrowser", true);
             }
             else
             {
-                Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\\HTPCRemote", true);
+                RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\HTPCRemote", true);
                 key.DeleteValue("ShowFileBrowser", false);
             }
         }

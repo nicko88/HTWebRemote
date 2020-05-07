@@ -58,12 +58,12 @@
             // 
             this.lblRemoteUI.AutoSize = true;
             this.lblRemoteUI.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRemoteUI.Location = new System.Drawing.Point(141, 55);
+            this.lblRemoteUI.Location = new System.Drawing.Point(127, 55);
             this.lblRemoteUI.Name = "lblRemoteUI";
-            this.lblRemoteUI.Size = new System.Drawing.Size(122, 16);
+            this.lblRemoteUI.Size = new System.Drawing.Size(111, 16);
             this.lblRemoteUI.TabIndex = 11;
             this.lblRemoteUI.TabStop = true;
-            this.lblRemoteUI.Text = "Open Remote UI";
+            this.lblRemoteUI.Text = "Open Remotes";
             this.lblRemoteUI.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LblRemoteUI_LinkClicked);
             // 
             // cbxShowErrors
@@ -94,7 +94,7 @@
             // 
             this.lblDoc.AutoSize = true;
             this.lblDoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDoc.Location = new System.Drawing.Point(179, 19);
+            this.lblDoc.Location = new System.Drawing.Point(164, 19);
             this.lblDoc.Name = "lblDoc";
             this.lblDoc.Size = new System.Drawing.Size(257, 16);
             this.lblDoc.TabIndex = 15;
@@ -107,9 +107,9 @@
             this.btnEditRemoteUI.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEditRemoteUI.Location = new System.Drawing.Point(12, 48);
             this.btnEditRemoteUI.Name = "btnEditRemoteUI";
-            this.btnEditRemoteUI.Size = new System.Drawing.Size(123, 30);
+            this.btnEditRemoteUI.Size = new System.Drawing.Size(109, 30);
             this.btnEditRemoteUI.TabIndex = 21;
-            this.btnEditRemoteUI.Text = "Edit Remote UI";
+            this.btnEditRemoteUI.Text = "Edit Remotes";
             this.btnEditRemoteUI.UseVisualStyleBackColor = true;
             this.btnEditRemoteUI.Click += new System.EventHandler(this.btnEditRemoteUI_Click);
             // 
@@ -153,9 +153,9 @@
             this.btnConfigureIPs.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnConfigureIPs.Location = new System.Drawing.Point(12, 12);
             this.btnConfigureIPs.Name = "btnConfigureIPs";
-            this.btnConfigureIPs.Size = new System.Drawing.Size(161, 30);
+            this.btnConfigureIPs.Size = new System.Drawing.Size(146, 30);
             this.btnConfigureIPs.TabIndex = 27;
-            this.btnConfigureIPs.Text = "Configure Device IPs";
+            this.btnConfigureIPs.Text = "Configure Devices";
             this.btnConfigureIPs.UseVisualStyleBackColor = true;
             this.btnConfigureIPs.Click += new System.EventHandler(this.btnConfigureIPs_Click);
             // 

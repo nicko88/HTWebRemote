@@ -386,9 +386,12 @@ namespace HTPCRemote.Forms
 
                 if (currentItem.ItemType == RemoteItem.RemoteItemType.Button)
                 {
+                    int index = lbRemoteItems.SelectedIndex;
                     CommandEditor commandEditor = new CommandEditor(currentItem.Commands);
                     commandEditor.ShowDialog();
                     SaveRemote();
+
+                    lbRemoteItems.SelectedIndex = index;
                 }
             }
         }

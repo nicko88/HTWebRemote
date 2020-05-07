@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using HTPCRemote.Util;
+using HTPCRemote.Devices.Controllers;
 
 namespace HTPCRemote.Devices
 {
     class DeviceSelector
     {
-        public static List<string> DeviceTypes = new List<string> { "mpc", "lirc", "wemo", "dm", "jvc", "benq", "emotiva", "dbox" };
+        public static List<string> DeviceTypes = new List<string> { "mpc", "lirc", "wemo", "dm", "jvc", "yamaha", "benq", "emotiva", "dbox" };
 
         public static string FindDevice(string devName, string cmd, string param)
         {
-            bool showErrors = Util.ConfigHelper.CheckRegKey("SOFTWARE\\HTPCRemote", "ShowErrors");
+            bool showErrors = ConfigHelper.CheckRegKey("SOFTWARE\\HTPCRemote", "ShowErrors");
 
             string returnQuery = "";
             bool query = cmd.StartsWith("query:");
@@ -33,7 +35,7 @@ namespace HTPCRemote.Devices
             }
             else
             {
-                foreach (string device in File.ReadLines(Util.ConfigHelper.DeviceFile))
+                foreach (string device in File.ReadLines(ConfigHelper.DeviceFile))
                 {
                     string[] values = device.Split(',');
 
@@ -57,30 +59,30 @@ namespace HTPCRemote.Devices
 
         public static void CommandDevice(string IP, string devType, string cmd, string param)
         {
-            bool showErrors = Util.ConfigHelper.CheckRegKey("SOFTWARE\\HTPCRemote", "ShowErrors");
+            bool showErrors = ConfigHelper.CheckRegKey("SOFTWARE\\HTPCRemote", "ShowErrors");
 
             switch (devType)
             {
                 case "dm":
-                    DMControl.RunCmd(IP, cmd, showErrors);
+                    DMControl.RunCmd(IP, cmd, param);
                     break;
                 case "jvc":
-                    JVCControl.RunCmd(IP, cmd, param, showErrors);
+                    JVCControl.RunCmd(IP, cmd, param);
                     break;
                 case "benq":
-                    BenQControl.RunCmd(IP, cmd, showErrors);
+                    BenQControl.RunCmd(IP, cmd);
                     break;
                 case "emotiva":
-                    EmotivaControl.RunCmd(IP, cmd, param, showErrors);
+                    EmotivaControl.RunCmd(IP, cmd, param);
                     break;
                 case "dbox":
-                    DBOXControl.RunCmd(IP, cmd, param, showErrors);
+                    DBOXControl.RunCmd(IP, cmd, param);
                     break;
                 case "mpc":
                     MPCControl.RunCmd(IP, cmd, param, showErrors);
                     break;
                 case "lirc":
-                    LIRCControl.RunCmd(IP, cmd, param, showErrors);
+                    LIRCControl.RunCmd(IP, cmd, param);
                     break;
                 case "wemo":
                     WemoPlugControl.RunCmd(IP, cmd, showErrors);
@@ -92,7 +94,7 @@ namespace HTPCRemote.Devices
 
         public static string QueryDevice(string IP, string devType, string cmd, string param)
         {
-            bool showErrors = Util.ConfigHelper.CheckRegKey("SOFTWARE\\HTPCRemote", "ShowErrors");
+            bool showErrors = ConfigHelper.CheckRegKey("SOFTWARE\\HTPCRemote", "ShowErrors");
 
             string returnQuery = "";
             string[] values = cmd.Split(':');
@@ -115,7 +117,7 @@ namespace HTPCRemote.Devices
             deviceNames.Add("win");
             deviceNames.Add("keys");
 
-            foreach (string device in File.ReadLines(Util.ConfigHelper.DeviceFile))
+            foreach (string device in File.ReadLines(ConfigHelper.DeviceFile))
             {
                 string[] values = device.Split(',');
                 deviceNames.Add(values[1]);
