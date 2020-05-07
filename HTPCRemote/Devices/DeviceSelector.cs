@@ -26,7 +26,11 @@ namespace HTPCRemote.Devices
                 else
                 {
                     string[] values = cmd.Split(':');
-                    returnQuery = (string)Type.GetType("HTPCRemote.Devices.WinControl").GetMethod(values[1]).Invoke(null, new object[] { showErrors });
+                    try
+                    {
+                        returnQuery = (string)Type.GetType("HTPCRemote.Devices.Controllers.WinControl").GetMethod(values[1]).Invoke(null, new object[] { showErrors });
+                    }
+                    catch { }
                 }
             }
             else if (devName == "keys")
@@ -99,14 +103,18 @@ namespace HTPCRemote.Devices
             string returnQuery = "";
             string[] values = cmd.Split(':');
 
-            switch (devType)
+            try
             {
-                case "dm":
-                    returnQuery = (string)Type.GetType("HTPCRemote.Devices.DMControl").GetMethod(values[1]).Invoke(null, new object[] { IP, showErrors });
-                    break;
-                default:
-                    break;
+                switch (devType)
+                {
+                    case "dm":
+                        returnQuery = (string)Type.GetType("HTPCRemote.Devices.Controllers.DMControl").GetMethod(values[1]).Invoke(null, new object[] { IP, showErrors });
+                        break;
+                    default:
+                        break;
+                }
             }
+            catch { }
 
             return returnQuery;
         }
