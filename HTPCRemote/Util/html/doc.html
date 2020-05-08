@@ -144,9 +144,10 @@
 	  <li><a href="#wemo">Wemo Smart Plug</a></li>
 	  <li><a href="#dm">Denon / Marantz AVRs</a></li>
 	  <li><a href="#yamaha">Yamaha AVRs</a></li>
+	  <li><a href="#emotiva">Emotiva AVRs</a></li>
 	  <li><a href="#jvc">JVC Projectors</a></li>
 	  <li><a href="#benq">BenQ Projectors</a></li>
-	  <li><a href="#emotiva">Emotiva AVRs</a></li>
+	  <li><a href="#oppo">Oppo Disc Player</a></li>
 	  <li><a href="#dbox">D-BOX HEMC</a></li>
 	</ul>
 	
@@ -596,6 +597,35 @@
 	<p>Or look up the IP control document for your particular Yamaha AVR</p>
 	<br/>
 	
+		<h2><a id="emotiva"></a>Emotiva AVR Control</h2>
+	
+	For Emotiva control, the device identifier is <b>emotiva</b>
+	
+	<p>This has only been tested with the XMC-1 and RMC-1, but it probably works with the other RMC variants and the XMC-2.</p>
+	
+	<h3>Some Basic Commands</h3>
+	
+	<ul>
+	  <li><code>power_on</code> (Power ON)</li>
+	  <li><code>power_off</code> (Power OFF)</li>
+	  <li><code>mute_on</code> (Mute)</li>
+	  <li><code>mute_off</code> (Unmute)</li>
+	  <li><code>set_volume</code> (Set volume level)</li>
+		  <ul>
+			<li><code>param=#</code> (Where # is from -96 to 11)</li>
+		  </ul>
+	  <li><code>subwoofer_trim_set</code> (Set subwoofer level)</li>
+		  <ul>
+			<li><code>param=#</code> (Where # is from -12 to 12)</li>
+		  </ul>
+	</ul>
+	
+	<p>For all Emotiva commands, see the full Emotiva command document here:<br/>
+	<a href="https://github.com/nicko88/HTPCRemote/blob/master/IP%20Control%20Spec%20Documents/Emotiva_XMC-1.pdf">Emotiva_XMC-1.pdf</a></p>
+	
+	<p>Or look up the IP control document for your particular Emotiva processor.</p>
+	<br/>
+	
 	<h2><a id="jvc"></a>JVC Projector Control</h2>
 	
 	For JVC control, the device identifier is <b>jvc</b>
@@ -755,33 +785,25 @@
 	<p>Or look up the IP control document for your particular BenQ Projector.</p>
 	<br/>
 	
-	<h2><a id="emotiva"></a>Emotiva AVR Control</h2>
+	<h2><a id="oppo"></a>Oppo Disc Player</h2>
 	
-	For Emotiva control, the device identifier is <b>emotiva</b>
+	For Oppo control, the device identifier is <b>oppo</b>
 	
-	<p>This has only been tested with the XMC-1 and RMC-1, but it probably works with the other RMC variants and the XMC-2.</p>
+	<p>In order for Power ON to work, the player must have the "Quick Start" mode selected under Setup Menu / Device Setup / Standby Mode.</p>
 	
 	<h3>Some Basic Commands</h3>
 	
 	<ul>
-	  <li><code>power_on</code> (Power ON)</li>
-	  <li><code>power_off</code> (Power OFF)</li>
-	  <li><code>mute_on</code> (Mute)</li>
-	  <li><code>mute_off</code> (Unmute)</li>
-	  <li><code>set_volume</code> (Set volume level)</li>
-		  <ul>
-			<li><code>param=#</code> (Where # is from -96 to 11)</li>
-		  </ul>
-	  <li><code>subwoofer_trim_set</code> (Set subwoofer level)</li>
-		  <ul>
-			<li><code>param=#</code> (Where # is from -12 to 12)</li>
-		  </ul>
+	  <li><code>PON</code> (Power ON)</li>
+	  <li><code>POF</code> (Power OFF)</li>
+	  <li><code>PLA</code> (Play)</li>
+	  <li><code>PAU</code> (Pause)</li>
+	  <li><code>FWD</code> (Skip Forward)</li>
+	  <li><code>PRE</code> (Skip Backward)</li>
 	</ul>
 	
-	<p>For all Emotiva commands, see the full Emotiva command document here:<br/>
-	<a href="https://github.com/nicko88/HTPCRemote/blob/master/IP%20Control%20Spec%20Documents/Emotiva_XMC-1.pdf">Emotiva_XMC-1.pdf</a></p>
-	
-	<p>Or look up the IP control document for your particular Emotiva processor.</p>
+	<p>For all Oppo commands, see the full Oppo command document here:<br/>
+	<a href="https://github.com/nicko88/HTPCRemote/blob/master/IP%20Control%20Spec%20Documents/Oppo_UDP-20X.pdf">Oppo_UDP-20X.pdf</a></p>
 	<br/>
 	
 	<h2><a id="dbox"></a>D-BOX HEMC Control</h2>

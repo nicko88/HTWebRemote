@@ -12,7 +12,7 @@ namespace HTPCRemote.Devices.Controllers
 
             if (YamahaSocket.Connect())
             {
-                Thread.Sleep(500);
+                Thread.Sleep(100);
                 YamahaSocket.SendData(Encoding.ASCII.GetBytes("@" + cmd + "\r\n"));
                 YamahaSocket.CloseSocket();
             }

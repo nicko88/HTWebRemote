@@ -8,7 +8,7 @@ namespace HTPCRemote.Devices
 {
     class DeviceSelector
     {
-        public static List<string> DeviceTypes = new List<string> { "mpc", "lirc", "wemo", "dm", "jvc", "yamaha", "benq", "emotiva", "dbox" };
+        public static List<string> DeviceTypes = new List<string> { "mpc", "lirc", "wemo", "dm", "yamaha", "emotiva", "jvc", "benq", "oppo", "dbox" };
 
         public static string FindDevice(string devName, string cmd, string param)
         {

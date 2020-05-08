@@ -27,7 +27,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <ApplicationVersion>1.1.0.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -81,6 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Devices\Controllers\DBOXControl.cs" />
+    <Compile Include="Devices\Controllers\OppoControl.cs" />
     <Compile Include="Devices\Controllers\YamahaControl.cs" />
     <Compile Include="Devices\DeviceSelector.cs" />
     <Compile Include="Devices\Controllers\DMControl.cs" />

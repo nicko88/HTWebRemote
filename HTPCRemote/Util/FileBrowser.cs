@@ -111,7 +111,7 @@ namespace HTPCRemote.Util
                 }
                 else
                 {
-                    page.Append("<span style=\"color: white;\">Search for files in the folders below that contain this exact phrase (single word works best)</span>");
+                    page.Append("<span style=\"color: white; font-size: 15px;\">Search for files in the folders below that contain this exact phrase (single word works best)</span>");
                     page.Append("<form method=\"GET\">");
                     page.Append("<input type=\"hidden\" value=\"" + Base64Encode(currentPath) + "\" id=\"path\" name=\"path\">");
                     page.Append("<input type=\"text\" id=\"search\" name=\"search\" class=\"form-control mb-2 mr-sm-2 form-check-inline\" style=\"width: 200px; display: inline;\"><button type=\"submit\" id=\"submit\" class=\"btn btn-primary\">Search</button>");
@@ -214,7 +214,7 @@ namespace HTPCRemote.Util
             }
             else
             {
-                page.Append("<span style=\"color: white;\">Search for files in the folders below that contain this exact phrase (single word works best)</span>");
+                page.Append("<span style=\"color: white; font-size: 15px;\">Search for files in the folders below that contain this exact phrase (single word works best)</span>");
                 page.Append("<form method=\"GET\">");
                 page.Append("<input type=\"text\" id=\"search\" name=\"search\" class=\"form-control mb-2 mr-sm-2 form-check-inline\" style=\"width: 200px; display: inline;\"><button type=\"submit\" id=\"submit\" class=\"btn btn-primary\">Search</button>");
                 page.Append("</form>");

@@ -38,10 +38,11 @@ Finally, HTPCRemote includes a sort of API which lets you send commands from oth
 * [WinLIRC](http://winlirc.sourceforge.net/) and [LIRC](https://www.lirc.org/)
 * Belkin Wemo Smart Plug
 * Denon / Marantz AVRs
+* Emotiva AVRs
 * Yamaha AVRs
 * JVC Projectors
 * BenQ Projectors
-* Emotiva AVRs
+* Oppo Disc Player
 * D-BOX HEMC
 
 Support for more devices is subject to community requests and their ability to run tests for me as I try to add the support for their device.
