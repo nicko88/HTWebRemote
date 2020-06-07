@@ -125,11 +125,15 @@ namespace HTPCRemote.Devices
             deviceNames.Add("win");
             deviceNames.Add("keys");
 
-            foreach (string device in File.ReadLines(ConfigHelper.DeviceFile))
+            try
             {
-                string[] values = device.Split(',');
-                deviceNames.Add(values[1]);
+                foreach (string device in File.ReadLines(ConfigHelper.DeviceFile))
+                {
+                    string[] values = device.Split(',');
+                    deviceNames.Add(values[1]);
+                }
             }
+            catch { }
 
             return deviceNames;
         }

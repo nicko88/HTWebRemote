@@ -13,7 +13,7 @@ namespace HTPCRemote.Devices.Controllers
             if (LIRCsocket.Connect())
             {
                 Thread.Sleep(250);
-                LIRCsocket.SendData(Encoding.ASCII.GetBytes("SEND_ONCE " + cmd + " " + param + "\n"));
+                LIRCsocket.SendData(Encoding.ASCII.GetBytes("SEND_ONCE " + cmd + " " + param + " \n"));
                 LIRCsocket.CloseSocket();
             }
         }
