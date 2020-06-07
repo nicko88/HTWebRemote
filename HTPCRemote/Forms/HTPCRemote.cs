@@ -29,7 +29,7 @@ namespace HTPCRemote
         {
             ConfigHelper.Setup();
 
-            string version = Assembly.GetExecutingAssembly().GetName().Version.ToString(2);
+            string version = Assembly.GetExecutingAssembly().GetName().Version.ToString(3).Replace(".0", "");
             IP = ConfigHelper.GetLocalIPAddress();
             Text = "HTPCRemote v" + version + "   (IP: " + IP + ":5000)";
 
