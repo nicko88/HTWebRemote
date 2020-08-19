@@ -20,7 +20,7 @@ namespace HTPCRemote.Devices.Controllers
                     command = command + " " + param;
                 }
 
-                OppoSocket.SendData(Encoding.ASCII.GetBytes("#" + command + "\r"));
+                OppoSocket.SendData(Encoding.ASCII.GetBytes($"#{command}\r"));
                 OppoSocket.CloseSocket();
             }
         }

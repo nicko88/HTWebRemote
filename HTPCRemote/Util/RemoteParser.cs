@@ -34,9 +34,9 @@ namespace HTPCRemote.Util
             {
                 string[] files = Directory.GetFiles(ConfigHelper.WorkingPath, "HTPCRemoteButtons*");
 
-                if (files.Length > 1 || files.Length > 0 && ConfigHelper.CheckRegKey("SOFTWARE\\HTPCRemote", "ShowFileBrowser"))
+                if (files.Length > 1 || files.Length > 0 && ConfigHelper.CheckRegKey(@"SOFTWARE\HTPCRemote", "ShowFileBrowser"))
                 {
-                    sb.AppendLine("<ul class=\"nav nav-tabs bg-dark sticky-top\">");
+                    sb.AppendLine(@"<ul class=""nav nav-tabs bg-dark sticky-top"">");
 
                     foreach (string file in files)
                     {
@@ -52,22 +52,22 @@ namespace HTPCRemote.Util
                                 remoteName = remoteNum;
                             }
 
-                            sb.AppendLine("<li class=\"nav-item\">");
+                            sb.AppendLine(@"<li class=""nav-item"">");
                             if (remoteNum == currentRemoteNum)
                             {
-                                sb.AppendLine("<a class=\"nav-link active bg-dark text-white\" href=\"http://" + IP + ":5000/" + remoteNum + "\">" + remoteName + "</a>");
+                                sb.AppendLine($@"<a class=""nav-link active bg-dark text-white"" href=""{remoteNum}"">{remoteName}</a>");
                             }
                             else
                             {
-                                sb.AppendLine("<a class=\"nav-link text-muted\" href=\"http://" + IP + ":5000/" + remoteNum + "\">" + remoteName + "</a>");
+                                sb.AppendLine($@"<a class=""nav-link text-muted"" href=""{remoteNum}"">{remoteName}</a>");
                             }
                             sb.AppendLine("</li>");
                         }
                     }
 
-                    if (ConfigHelper.CheckRegKey("SOFTWARE\\HTPCRemote", "ShowFileBrowser"))
+                    if (ConfigHelper.CheckRegKey(@"SOFTWARE\HTPCRemote", "ShowFileBrowser"))
                     {
-                        sb.AppendLine("<li class=\"nav-item\"><a class=\"nav-link text-muted\" href=\"http://" + IP + ":5000/FB\">FB</a></li>");
+                        sb.AppendLine($@"<li class=""nav-item""><a class=""nav-link text-muted"" href=""FB"">FB</a></li>");
                     }
 
                     sb.AppendLine("</ul>");
@@ -108,7 +108,7 @@ namespace HTPCRemote.Util
                         }
 
                         sb.AppendFormat("<h4>{0}</h4>" + Environment.NewLine, item.Label);
-                        sb.AppendLine("<div class=\"form-group ngroup\">");
+                        sb.AppendLine(@"<div class=""form-group ngroup"">");
                         groupStarted = true;
                         prevItemType = RemoteItem.RemoteItemType.Group;
                     }
@@ -116,10 +116,10 @@ namespace HTPCRemote.Util
                     {
                         if (!buttonRowStarted)
                         {
-                            sb.AppendLine("<div class=\"nrow\">");
+                            sb.AppendLine(@"<div class=""nrow"">");
                         }
 
-                        sb.AppendFormat("<div class=\"nitem\" style=\"flex-grow: {0};\"><button class=\"btn\"></button></div>" + Environment.NewLine, item.RelativeSize);
+                        sb.AppendFormat(@"<div class=""nitem"" style=""flex-grow: {0};""><button class=""btn""></button></div>" + Environment.NewLine, item.RelativeSize);
                         buttonRowStarted = true;
                         prevItemType = RemoteItem.RemoteItemType.Blank;
                     }
@@ -172,7 +172,7 @@ namespace HTPCRemote.Util
 
                         if (!buttonRowStarted)
                         {
-                            sb.AppendLine("<div class=\"nrow\">");
+                            sb.AppendLine(@"<div class=""nrow"">");
                         }
 
                         bool query = false;
@@ -184,11 +184,11 @@ namespace HTPCRemote.Util
 
                         if (!query)
                         {
-                            sb.AppendFormat("<div class=\"nitem\" style=\"flex-grow: {0};\"><button onclick=\"sendbtn('{1}', '{2}', '{3}')\" class=\"btn {4}\">{5}</button></div>" + Environment.NewLine, item.RelativeSize, remote.RemoteID, i, item.ConfirmPopup, colorClass, item.Label);
+                            sb.AppendFormat(@"<div class=""nitem"" style=""flex-grow: {0};""><button onclick=""sendbtn('{1}', '{2}', '{3}')"" class=""btn {4}"">{5}</button></div>" + Environment.NewLine, item.RelativeSize, remote.RemoteID, i, item.ConfirmPopup, colorClass, item.Label);
                         }
                         else
                         {
-                            sb.AppendFormat("<div class=\"nitem\" style=\"flex-grow: {0};\"><button onclick=\"sendquery('{1}', '{2}', '{3}', '{4}')\" class=\"btn {5}\">{6}</button></div>" + Environment.NewLine, item.RelativeSize, remote.RemoteID, item.Commands[0].DeviceName, item.Commands[0].Cmd, item.ConfirmPopup, colorClass, item.Label);
+                            sb.AppendFormat(@"<div class=""nitem"" style=""flex-grow: {0};""><button onclick=""sendquery('{1}', '{2}', '{3}', '{4}')"" class=""btn {5}"">{6}</button></div>" + Environment.NewLine, item.RelativeSize, remote.RemoteID, item.Commands[0].DeviceName, item.Commands[0].Cmd, item.ConfirmPopup, colorClass, item.Label);
                         }
 
                         buttonRowStarted = true;
@@ -198,7 +198,7 @@ namespace HTPCRemote.Util
             }
             else
             {
-                sb.AppendLine("<p style=\"color: white;\">No remote found for Remote #" + RemoteNum +"</p>");
+                sb.AppendLine($@"<p style=""color: white;"">No remote found for Remote #{RemoteNum}</p>");
             }
 
             if (groupStarted)
@@ -224,7 +224,19 @@ namespace HTPCRemote.Util
 
             if(remote.ButtonHeight > 0)
             {
-                header = header.Replace("height: 42px;", "height: " + remote.ButtonHeight + "px;");
+                header = header.Replace("height: 42px;", $"height: {remote.ButtonHeight}px;");
+            }
+
+            if(remote.RemoteBackColor != null)
+            {
+                header = header.Replace("background-color: black;", $"background-color: {remote.RemoteBackColor};");
+                header = header.Replace("border: 2px solid black;", $"border: 2px solid {remote.RemoteBackColor};");
+            }
+
+            if (remote.RemoteTextColor != null)
+            {
+                header = header.Replace("color: white;", $"color: {remote.RemoteTextColor};");
+                header = header.Replace("outline: 1px solid grey;", $"outline: 1px solid {remote.RemoteTextColor};");
             }
 
             return header;

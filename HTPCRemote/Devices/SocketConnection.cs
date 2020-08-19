@@ -34,9 +34,9 @@ namespace HTPCRemote.Devices
             }
             catch(Exception e)
             {
-                if(ConfigHelper.CheckRegKey("SOFTWARE\\HTPCRemote", "ShowErrors"))
+                if(ConfigHelper.CheckRegKey(@"SOFTWARE\HTPCRemote", "ShowErrors"))
                 {
-                    MessageBox.Show("Cannot setup connection for " + IP + ":" + port + " " + protocolType.ToString() + "\n\n" + e.Message, "Error");
+                    MessageBox.Show($"Cannot setup connection for {IP}:{port} {protocolType.ToString()}\n\n{e.Message}", "Error");
                 }
             }
         }
@@ -49,9 +49,9 @@ namespace HTPCRemote.Devices
             }
             catch(Exception e)
             {
-                if (ConfigHelper.CheckRegKey("SOFTWARE\\HTPCRemote", "ShowErrors"))
+                if (ConfigHelper.CheckRegKey(@"SOFTWARE\HTPCRemote", "ShowErrors"))
                 {
-                    MessageBox.Show("Cannot connect to device at " + remoteEndPoint.Address + ":" + remoteEndPoint.Port + " " + socket.ProtocolType.ToString() + "\n\n" + e.Message, "Error");
+                    MessageBox.Show($"Cannot connect to device at {remoteEndPoint.Address}:{remoteEndPoint.Port} {socket.ProtocolType.ToString()}\n\n{e.Message}", "Error");
                 }
             }
 
@@ -66,9 +66,9 @@ namespace HTPCRemote.Devices
             }
             catch(Exception e)
             {
-                if (ConfigHelper.CheckRegKey("SOFTWARE\\HTPCRemote", "ShowErrors"))
+                if (ConfigHelper.CheckRegKey(@"SOFTWARE\HTPCRemote", "ShowErrors"))
                 {
-                    MessageBox.Show("Cannot send Command: " + data.ToString() + " to device at " + remoteEndPoint.Address + ":" + remoteEndPoint.Port + " " + socket.ProtocolType.ToString() + "\n\n" + e.Message, "Error");
+                    MessageBox.Show($"Cannot send Command: {data.ToString()} to device at {remoteEndPoint.Address}:{remoteEndPoint.Port} {socket.ProtocolType.ToString()}\n\n{e.Message}", "Error");
                 }
             }
         }

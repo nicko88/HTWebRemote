@@ -13,7 +13,7 @@ namespace HTPCRemote.Devices.Controllers
             if (BenQsocket.Connect())
             {
                 Thread.Sleep(250);
-                BenQsocket.SendData(Encoding.ASCII.GetBytes("*" + cmd + "#"));
+                BenQsocket.SendData(Encoding.ASCII.GetBytes($"*{cmd}#"));
                 BenQsocket.CloseSocket();
             }
         }

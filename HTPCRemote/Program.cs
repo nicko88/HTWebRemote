@@ -38,7 +38,7 @@ namespace HTPCRemote
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show("Incorrect Parameters" + "\n\n" + e.Message, "Error");
+                    MessageBox.Show($"Incorrect Parameters\n\n{e.Message}", "Error");
                 }
             }
             else

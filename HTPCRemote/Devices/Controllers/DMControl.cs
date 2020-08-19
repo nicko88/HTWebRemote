@@ -57,7 +57,7 @@ namespace HTPCRemote.Devices.Controllers
             {
                 if (showErrors)
                 {
-                    MessageBox.Show("Cannot connect to Denon/Marantz at " + IP + ":" + "23" + "\n\n" + e.Message, "Error");
+                    MessageBox.Show($"Cannot connect to Denon/Marantz at {IP}:23\n\n{e.Message}", "Error");
                 }
             }
             finally

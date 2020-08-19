@@ -49,7 +49,7 @@
         }
 
         .ngroup {
-            outline: 1px solid gray;
+            outline: 1px solid grey;
             padding-top: 6px;
             padding-left: 4px;
             padding-right: 4px;
@@ -90,7 +90,7 @@
 				r = confirm("Are you sure?");
 			}
 			if (r == true) {
-				fetch('http://{IP}:5000/?remoteID=' + remoteID + '&btnIndex=' + btnIndex);
+				fetch('?remoteID=' + remoteID + '&btnIndex=' + btnIndex);
 			}
         }
         function sendquery(remoteID, devName, cmd, popup) {
@@ -99,7 +99,7 @@
                 r = confirm("Are you sure?");
             }
             if (r == true) {
-                window.location.href = 'http://{IP}:5000/?rID=' + remoteID + '&devname=' + devName + '&cmd=' + cmd;
+                window.location.href = '?rID=' + remoteID + '&devname=' + devName + '&cmd=' + cmd;
             }
         }
 	</script>

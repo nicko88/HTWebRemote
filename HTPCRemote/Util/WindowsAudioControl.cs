@@ -64,7 +64,7 @@ namespace HTPCRemote.Util
             {
                 if (showErrors)
                 {
-                    MessageBox.Show("Error getting volume: \n\n" + e.Message, "Error");
+                    MessageBox.Show($"Error getting volume: \n\n{e.Message}", "Error");
                 }
             }
 
@@ -94,7 +94,7 @@ namespace HTPCRemote.Util
             {
                 if (showErrors)
                 {
-                    MessageBox.Show("Error setting volume: \n\n" + e.Message, "Error");
+                    MessageBox.Show($"Error setting volume: \n\n{e.Message}", "Error");
                 }
             }
         }
@@ -125,7 +125,7 @@ namespace HTPCRemote.Util
             {
                 if (showErrors)
                 {
-                    MessageBox.Show("Error muting volume: \n\n" + e.Message, "Error");
+                    MessageBox.Show($"Error muting volume: \n\n{e.Message}", "Error");
                 }
             }
         }

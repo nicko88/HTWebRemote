@@ -43,15 +43,15 @@
         {
             if (WaitTimeMS > 0)
             {
-                return "wait=" + WaitTimeMS + "ms";
+                return $"wait={WaitTimeMS}ms";
             }
             else if (string.IsNullOrEmpty(Param))
             {
-                return "DevName=" + DeviceName + ",cmd=" + Cmd;
+                return $"DevName={DeviceName},cmd={Cmd}";
             }
             else
             {
-                return "DevName=" + DeviceName + ",cmd=" + Cmd + ",param=" + Param;
+                return $"DevName={DeviceName},cmd={Cmd},param={Param}";
             }
         }
     }

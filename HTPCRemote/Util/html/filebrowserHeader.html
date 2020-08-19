@@ -26,6 +26,22 @@
         {
             window.history.back();
         }
+
+        function youtube()
+        {
+            fetch('FByoutube', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/text',
+                },
+                body: document.getElementById('youtube').value
+            });
+
+            if (document.getElementById('youtube').value != '')
+            {
+                window.location.href = 'playerRemote'
+            }
+        }
     </script>
     <style>
         * {

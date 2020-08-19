@@ -28,7 +28,7 @@ namespace HTPCRemote.Devices.Controllers
                 {
                     if (showErrors)
                     {
-                        MessageBox.Show("Cannot find program: " + app + " to send keys to." + "\n\n" + e.Message, "Error");
+                        MessageBox.Show($"Cannot find program: {app} to send keys to.\n\n{e.Message}", "Error");
                     }
                 }
             }

@@ -66,16 +66,16 @@ namespace HTPCRemote.RemoteFile
             switch (ItemType)
             {
                 case RemoteItemType.Group:
-                    return "Group=" + Label;
+                    return $"Group={Label}";
                 case RemoteItemType.Button:
                     string confirm = "";
                     if(ConfirmPopup)
                     {
                         confirm = ",Popup";
                     }
-                    return "  Button=" + RelativeSize + "," + Label + "," + Color + confirm;
+                    return $"  Button={RelativeSize},{Label},{Color}{confirm}";
                 case RemoteItemType.Blank:
-                    return "  BLANK=" + RelativeSize;
+                    return $"  BLANK={RelativeSize}";
                 case RemoteItemType.NewRow:
                     return "  ----------------------------------------------------------------------";
                 default:

@@ -19,7 +19,7 @@ namespace HTPCRemote.Devices.Controllers
                 }
 
                 StringBuilder emotivaCMD = new StringBuilder();
-                emotivaCMD.AppendFormat("<?xml version=\"1.0\" encoding=\"utf-8\"?><emotivaControl><{0} value=\"{1}\" ack=\"no\" /></emotivaControl>", cmd, param);
+                emotivaCMD.AppendFormat(@"<?xml version=""1.0"" encoding=""utf-8""?><emotivaControl><{0} value=""{1}"" ack=""no"" /></emotivaControl>", cmd, param);
 
                 Emosocket.SendData(Encoding.ASCII.GetBytes(emotivaCMD.ToString()));
                 Emosocket.CloseSocket();

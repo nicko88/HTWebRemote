@@ -65,7 +65,7 @@ namespace HTPCRemote.Devices.Controllers
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show("Invalid parameter" + "\n\n" + e.Message, "Error");
+                        MessageBox.Show($"Invalid JVC parameter\n\n{e.Message}", "Error");
                     }
 
                     //end

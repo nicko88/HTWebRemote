@@ -31,14 +31,14 @@ namespace HTPCRemote
 
             string version = Assembly.GetExecutingAssembly().GetName().Version.ToString(3).Replace(".0", "");
             IP = ConfigHelper.GetLocalIPAddress();
-            Text = "HTPCRemote v" + version + "   (IP: " + IP + ":5000)";
+            Text = $"HTPCRemote v{version}   (IP: {IP}:5000)";
 
-            if(ConfigHelper.CheckRegKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", "HTPCRemote"))
+            if(ConfigHelper.CheckRegKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", "HTPCRemote"))
             {
                 cbStartAutomatically.Checked = true;
             }
 
-            if (ConfigHelper.CheckRegKey("SOFTWARE\\HTPCRemote", "StartMinimized"))
+            if (ConfigHelper.CheckRegKey(@"SOFTWARE\HTPCRemote", "StartMinimized"))
             {
                 cbStartMinimized.Checked = true;
 
@@ -47,153 +47,53 @@ namespace HTPCRemote
                 ShowInTaskbar = false;
             }
 
-            if (ConfigHelper.CheckRegKey("SOFTWARE\\HTPCRemote", "ShowErrors"))
+            if (ConfigHelper.CheckRegKey(@"SOFTWARE\HTPCRemote", "ShowErrors"))
             {
                 cbxShowErrors.Checked = true;
             }
-
         }
 
         public void StartListen()
         {
+            HttpListener listener = new HttpListener();
+            listener.Prefixes.Add("http://*:5000/");
+            try
+            {
+                listener.Start();
+            }
+            catch
+            {
+                Invoke(new Action(() => { MessageBox.Show("Cannot open Port: 5000\n\nTry running as Administrator.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information); }));
+                trayIcon.Visible = false;
+                Environment.Exit(0);
+            }
+
             while (true)
             {
-                HttpListener listener = new HttpListener();
-                listener.Prefixes.Add("http://*:5000/");
-
-                try
-                {
-                    listener.Start();
-                }
-                catch
-                {
-                    Invoke(new Action(() => { MessageBox.Show("Cannot open Port: 5000\n\nTry running as Administrator.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information); }));
-                    trayIcon.Visible = false;
-                    Environment.Exit(0);
-                }
-
-                HttpListenerContext context = listener.GetContext();
-                ProcessRequest(context);
-
-                Thread.Sleep(250);
-                listener.Stop();
+                IAsyncResult result = listener.BeginGetContext(new AsyncCallback(ProcessRequest), listener);
+                result.AsyncWaitHandle.WaitOne();
             }
         }
 
-        private void ProcessRequest(HttpListenerContext context)
+        private void ProcessRequest(IAsyncResult result)
         {
+            HttpListener listener = (HttpListener)result.AsyncState;
+            HttpListenerContext context = listener.EndGetContext(result);
             HttpListenerRequest request = context.Request;
             HttpListenerResponse response = context.Response;
 
-            byte[] buffer = System.Text.Encoding.ASCII.GetBytes("");
-            string htmlPage = "";
-            string RemoteID = "";
+            string queryData = ProcessCommand(request);
 
-            if(request.RawUrl.Contains("/FB"))
+            string htmlPage = ProcessResponse(request);
+
+            if (!string.IsNullOrEmpty(queryData))
             {
-
-                buffer = FileBrowserV2.LoadFileBrowser(context);
+                htmlPage = htmlPage.Replace("null;", "alert('" + queryData + "')");
             }
-            else
+
+            byte[] buffer = new byte[0];
+            if (htmlPage != null)
             {
-                if (request.RawUrl == "/")
-                {
-                    RemoteID = "1";
-                }
-                else
-                {
-                    RemoteID = request.RawUrl.Trim('/');
-                }
-
-                string rID = "";
-                try
-                {
-                    rID = request.QueryString["rID"];
-                }
-                catch { }
-
-                if(!string.IsNullOrEmpty(rID))
-                {
-                    RemoteID = rID;
-                }
-
-                if (File.Exists(ConfigHelper.jsonButtonFiles + RemoteID + ".html"))
-                {
-                    htmlPage = File.ReadAllText(ConfigHelper.jsonButtonFiles + RemoteID + ".html");
-                }
-                else
-                {
-                    htmlPage = RemoteParser.GetRemoteHTML(RemoteID, true);
-                }
-
-                htmlPage = htmlPage.Replace("{IP}", IP);
-   
-                string devIP = "";
-                try
-                {
-                    devIP = request.QueryString["ip"];
-                }
-                catch { }
-
-                string devName = "";
-                try
-                {
-                    devName = request.QueryString["devname"];
-                }
-                catch { }
-
-                if (!string.IsNullOrEmpty(devIP))
-                {
-                    string devType = "";
-                    string cmd = "";
-                    string param = "";
-                    try
-                    {
-                        devType = request.QueryString["dev"];
-                        cmd = request.QueryString["cmd"];
-                        param = request.QueryString["param"];
-                    }
-                    catch { }
-
-                    Devices.DeviceSelector.CommandDevice(devIP, devType, cmd, param);
-                }
-                else if(!string.IsNullOrEmpty(devName))
-                {
-                    string cmd = "";
-                    string param = "";
-                    try
-                    {
-                        cmd = request.QueryString["cmd"];
-                        param = request.QueryString["param"];
-                    }
-                    catch { }
-
-                    string queryData = Devices.DeviceSelector.FindDevice(devName, cmd, param);
-
-                    if(!string.IsNullOrEmpty(queryData))
-                    {
-                        htmlPage = htmlPage.Replace("null;", "alert('" + queryData + "')");
-                    }
-                }
-                else
-                {
-                    string remoteID = "";
-                    string btnIndex = "";
-                    try
-                    {
-                        remoteID = request.QueryString["remoteID"];
-                        btnIndex = request.QueryString["btnIndex"];
-                        if (!string.IsNullOrEmpty(remoteID) && !string.IsNullOrEmpty(btnIndex))
-                        {
-                            Remote remote = RemoteJSONLoader.LoadRemoteJSON(remoteID);
-
-                            Thread commandThread = new Thread(remote.RemoteItems[Convert.ToInt32(btnIndex)].RunButtonCommands);
-                            commandThread.Start();
-                        }
-                    }
-                    catch { }
-                }
-
                 buffer = System.Text.Encoding.ASCII.GetBytes(htmlPage);
             }
 
@@ -204,6 +104,87 @@ namespace HTPCRemote
                 output.Write(buffer, 0, buffer.Length);
             }
             catch { }
+        }
+
+        private string ProcessCommand(HttpListenerRequest request)
+        {
+            string queryData = null;
+
+            string devtype = request.QueryString["devtype"];
+            string devname = request.QueryString["devname"];
+            string btnIndex = request.QueryString["btnIndex"];
+
+            if (!string.IsNullOrEmpty(devtype))
+            {
+                string IP = request.QueryString["ip"];
+                string cmd = request.QueryString["cmd"];
+                string param = request.QueryString["param"];
+
+                Devices.DeviceSelector.CommandDevice(IP, devtype, cmd, param);
+            }
+            else if (!string.IsNullOrEmpty(devname))
+            {
+                string cmd = request.QueryString["cmd"];
+                string param = request.QueryString["param"];
+
+                queryData = Devices.DeviceSelector.FindDevice(devname, cmd, param);
+            }
+            else if (!string.IsNullOrEmpty(btnIndex))
+            {
+                string remoteID = request.QueryString["remoteID"];
+                Remote remote = RemoteJSONLoader.LoadRemoteJSON(remoteID);
+
+                Thread commandThread = new Thread(remote.RemoteItems[Convert.ToInt32(btnIndex)].RunButtonCommands);
+                commandThread.Start();
+            }
+
+            return queryData;
+        }
+
+        private string ProcessResponse(HttpListenerRequest request)
+        {
+            string htmlPage = null;
+            string RemoteID = null;
+
+            if (request.RawUrl.Contains("/FB") && !request.RawUrl.Contains("remoteID"))
+            {
+                htmlPage = FileBrowserV2.LoadFileBrowser(request);
+            }
+
+            if (request.RawUrl == "/")
+            {
+                RemoteID = "1";
+            }
+            else if(request.RawUrl.Length == 2)
+            {
+                RemoteID = request.RawUrl.Trim('/');
+            }
+
+            if(!string.IsNullOrEmpty(request.QueryString["rID"]))
+            {
+                RemoteID = request.QueryString["rID"];
+            }
+
+            if (request.RawUrl.Contains("playerRemote"))
+            {
+                string remoteNum = ConfigHelper.GetRegKey(@"SOFTWARE\HTPCRemote", "FileBrowserRemote");
+
+                if (remoteNum.Length == 1)
+                {
+                    RemoteID = remoteNum;
+                }
+                else
+                {
+                    RemoteID = "1";
+                }
+            }
+
+            if (RemoteID != null)
+            {
+                htmlPage = RemoteParser.GetRemoteHTML(RemoteID, true);
+            }
+
+            return htmlPage;
         }
 
         private void trayIcon_MouseClick(object sender, MouseEventArgs e)
@@ -228,12 +209,12 @@ namespace HTPCRemote
 
         private void LblOpenFileBrowser_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(@"http://" + IP + ":5000/FB");
+            Process.Start($"http://{IP}:5000/FB");
         }
 
         private void LblRemoteUI_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(@"http://" + IP + ":5000");
+            Process.Start($"http://{IP}:5000");
         }
 
         private void btnEditRemoteUI_Click(object sender, EventArgs e)
@@ -252,12 +233,12 @@ namespace HTPCRemote
         {
             if(cbStartAutomatically.Checked)
             {
-                Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+                Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
                 key.SetValue("HTPCRemote", Application.ExecutablePath);
             }
             else
             {
-                Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+                Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
                 key.DeleteValue("HTPCRemote", false);
             }
         }
@@ -266,12 +247,12 @@ namespace HTPCRemote
         {
             if (cbStartMinimized.Checked)
             {
-                Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("SOFTWARE\\HTPCRemote", true);
+                Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(@"SOFTWARE\HTPCRemote", true);
                 key.SetValue("StartMinimized", true);
             }
             else
             {
-                Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\\HTPCRemote", true);
+                Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\HTPCRemote", true);
                 key.DeleteValue("StartMinimized", false);
             }
         }
@@ -280,12 +261,12 @@ namespace HTPCRemote
         {
             if (cbxShowErrors.Checked)
             {
-                Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("SOFTWARE\\HTPCRemote", true);
+                Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(@"SOFTWARE\HTPCRemote", true);
                 key.SetValue("ShowErrors", true);
             }
             else
             {
-                Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\\HTPCRemote", true);
+                Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\HTPCRemote", true);
                 key.DeleteValue("ShowErrors", false);
             }
         }

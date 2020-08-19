@@ -13,9 +13,9 @@ namespace HTPCRemote.Util
     class ConfigHelper
     {
         public static string WorkingPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-        public static string DeviceFile = WorkingPath + "\\HTPCRemoteDevices.txt";
-        public static string browsePaths = WorkingPath + "\\HTPCRemoteBrowsePaths.txt";
-        public static string jsonButtonFiles = WorkingPath + "\\HTPCRemoteButtons";
+        public static string DeviceFile = $@"{WorkingPath}\HTPCRemoteDevices.txt";
+        public static string browsePaths = $@"{WorkingPath}\HTPCRemoteBrowsePaths.txt";
+        public static string jsonButtonFiles = $@"{WorkingPath}\HTPCRemoteButtons";
 
         public static void Setup()
         {
@@ -23,7 +23,7 @@ namespace HTPCRemote.Util
             string firewall = RunCmd("netsh", "advfirewall firewall show rule name=HTPCRemote", false);
             if (!firewall.Contains("HTPCRemote"))
             {
-                adminCMD = "netsh advfirewall firewall add rule name=\"HTPCRemote\" protocol=TCP dir=in localport=5000 action=allow";
+                adminCMD = @"netsh advfirewall firewall add rule name=""HTPCRemote"" protocol=TCP dir=in localport=5000 action=allow";
             }
 
             string urlacl = RunCmd("netsh", "http show urlacl url=http://*:5000/", false);
@@ -38,7 +38,7 @@ namespace HTPCRemote.Util
 
             if (adminCMD != null)
             {
-                RunCmd("cmd", "/C " + adminCMD, true);
+                RunCmd("cmd", $"/C {adminCMD}", true);
             }
         }
 
@@ -71,7 +71,7 @@ namespace HTPCRemote.Util
             }
             catch(Exception e)
             {
-                MessageBox.Show("Error setting up networking permissions.\n\n" + e.Message, "Error");
+                MessageBox.Show($"Error setting up networking permissions.\n\n{e.Message}", "Error");
             }
 
             return output;

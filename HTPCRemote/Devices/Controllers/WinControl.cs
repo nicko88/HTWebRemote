@@ -20,13 +20,13 @@ namespace HTPCRemote.Devices.Controllers
                 process.StartInfo.UseShellExecute = false;
                 try
                 {
-                    process.StartInfo.FileName = Util.ConfigHelper.WorkingPath + "\\" + fileName;
+                    process.StartInfo.FileName = $"{Util.ConfigHelper.WorkingPath}\\{fileName}";
                 }
                 catch
                 {
                     if (showErrors)
                     {
-                        MessageBox.Show("Cannot find file to open: \n\n" + Util.ConfigHelper.WorkingPath + "\\" + fileName, "Error");
+                        MessageBox.Show($"Cannot find file to open: \n\n{Util.ConfigHelper.WorkingPath}\\{fileName}", "Error");
                     }
                 }
                 try
@@ -37,7 +37,7 @@ namespace HTPCRemote.Devices.Controllers
                 {
                     if (showErrors)
                     {
-                        MessageBox.Show("Cannot run file: \n\n" + Util.ConfigHelper.WorkingPath + "\\" + fileName + "\n\n" + e.Message, "Error");
+                        MessageBox.Show($"Cannot run file: \n\n{Util.ConfigHelper.WorkingPath}\\{fileName}\n\n{e.Message}", "Error");
                     }
                 }
             }

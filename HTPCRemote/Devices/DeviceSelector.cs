@@ -12,7 +12,7 @@ namespace HTPCRemote.Devices
 
         public static string FindDevice(string devName, string cmd, string param)
         {
-            bool showErrors = ConfigHelper.CheckRegKey("SOFTWARE\\HTPCRemote", "ShowErrors");
+            bool showErrors = ConfigHelper.CheckRegKey(@"SOFTWARE\HTPCRemote", "ShowErrors");
 
             string returnQuery = "";
             bool query = cmd.StartsWith("query:");
@@ -63,7 +63,7 @@ namespace HTPCRemote.Devices
 
         public static void CommandDevice(string IP, string devType, string cmd, string param)
         {
-            bool showErrors = ConfigHelper.CheckRegKey("SOFTWARE\\HTPCRemote", "ShowErrors");
+            bool showErrors = ConfigHelper.CheckRegKey(@"SOFTWARE\HTPCRemote", "ShowErrors");
 
             switch (devType)
             {
@@ -98,7 +98,7 @@ namespace HTPCRemote.Devices
 
         public static string QueryDevice(string IP, string devType, string cmd, string param)
         {
-            bool showErrors = ConfigHelper.CheckRegKey("SOFTWARE\\HTPCRemote", "ShowErrors");
+            bool showErrors = ConfigHelper.CheckRegKey(@"SOFTWARE\HTPCRemote", "ShowErrors");
 
             string returnQuery = "";
             string[] values = cmd.Split(':');

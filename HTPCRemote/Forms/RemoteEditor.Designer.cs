@@ -32,6 +32,7 @@
             this.lbRemoteItems = new System.Windows.Forms.ListBox();
             this.webBrowser = new System.Windows.Forms.WebBrowser();
             this.panelButton = new System.Windows.Forms.Panel();
+            this.btnLabelTricks = new System.Windows.Forms.LinkLabel();
             this.btnSizeHelp = new System.Windows.Forms.LinkLabel();
             this.btnSaveButton = new System.Windows.Forms.Button();
             this.btnDeleteButton = new System.Windows.Forms.Button();
@@ -46,8 +47,6 @@
             this.cmbRemoteID = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
             this.btnDeleteRemote = new System.Windows.Forms.Button();
-            this.label14 = new System.Windows.Forms.Label();
-            this.lblRemoteURL = new System.Windows.Forms.LinkLabel();
             this.btnDown = new System.Windows.Forms.Button();
             this.btnUp = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
@@ -74,7 +73,12 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.tbRemoteName = new System.Windows.Forms.TextBox();
-            this.btnLabelTricks = new System.Windows.Forms.LinkLabel();
+            this.colorPicker = new System.Windows.Forms.ColorDialog();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.pnlBackColor = new System.Windows.Forms.Panel();
+            this.pnlTextColor = new System.Windows.Forms.Panel();
+            this.btnOpenRemote = new System.Windows.Forms.Button();
             this.panelButton.SuspendLayout();
             this.panelGroup.SuspendLayout();
             this.panelBlank.SuspendLayout();
@@ -127,6 +131,17 @@
             this.panelButton.Size = new System.Drawing.Size(741, 65);
             this.panelButton.TabIndex = 2;
             this.panelButton.Visible = false;
+            // 
+            // btnLabelTricks
+            // 
+            this.btnLabelTricks.AutoSize = true;
+            this.btnLabelTricks.Location = new System.Drawing.Point(120, 11);
+            this.btnLabelTricks.Name = "btnLabelTricks";
+            this.btnLabelTricks.Size = new System.Drawing.Size(44, 13);
+            this.btnLabelTricks.TabIndex = 55;
+            this.btnLabelTricks.TabStop = true;
+            this.btnLabelTricks.Text = "symbols";
+            this.btnLabelTricks.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.btnLabelTricks_LinkClicked);
             // 
             // btnSizeHelp
             // 
@@ -292,26 +307,6 @@
             this.btnDeleteRemote.Text = "Delete";
             this.btnDeleteRemote.UseVisualStyleBackColor = true;
             this.btnDeleteRemote.Click += new System.EventHandler(this.btnDeleteRemote_Click);
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(235, 10);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(50, 20);
-            this.label14.TabIndex = 41;
-            this.label14.Text = "URL:";
-            // 
-            // lblRemoteURL
-            // 
-            this.lblRemoteURL.AutoSize = true;
-            this.lblRemoteURL.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRemoteURL.Location = new System.Drawing.Point(284, 9);
-            this.lblRemoteURL.Name = "lblRemoteURL";
-            this.lblRemoteURL.Size = new System.Drawing.Size(0, 20);
-            this.lblRemoteURL.TabIndex = 40;
-            this.lblRemoteURL.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblRemoteURL_LinkClicked);
             // 
             // btnDown
             // 
@@ -548,20 +543,20 @@
             // 
             this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(715, -2);
+            this.label15.Location = new System.Drawing.Point(723, -2);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(69, 40);
             this.label15.TabIndex = 49;
-            this.label15.Text = "Button Height:";
+            this.label15.Text = "Button Height";
             this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // tbButtonHeight
             // 
             this.tbButtonHeight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.tbButtonHeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbButtonHeight.Location = new System.Drawing.Point(785, 7);
+            this.tbButtonHeight.Location = new System.Drawing.Point(794, 7);
             this.tbButtonHeight.Name = "tbButtonHeight";
-            this.tbButtonHeight.Size = new System.Drawing.Size(49, 26);
+            this.tbButtonHeight.Size = new System.Drawing.Size(40, 26);
             this.tbButtonHeight.TabIndex = 48;
             this.tbButtonHeight.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbButtonHeight_KeyPress);
             // 
@@ -589,38 +584,85 @@
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(514, -1);
+            this.label5.Location = new System.Drawing.Point(311, -1);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(72, 40);
             this.label5.TabIndex = 54;
-            this.label5.Text = "Remote Name:";
+            this.label5.Text = "Remote Name";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // tbRemoteName
             // 
             this.tbRemoteName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.tbRemoteName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbRemoteName.Location = new System.Drawing.Point(587, 5);
+            this.tbRemoteName.Location = new System.Drawing.Point(384, 7);
             this.tbRemoteName.Name = "tbRemoteName";
             this.tbRemoteName.Size = new System.Drawing.Size(122, 26);
             this.tbRemoteName.TabIndex = 53;
             // 
-            // btnLabelTricks
+            // label8
             // 
-            this.btnLabelTricks.AutoSize = true;
-            this.btnLabelTricks.Location = new System.Drawing.Point(120, 11);
-            this.btnLabelTricks.Name = "btnLabelTricks";
-            this.btnLabelTricks.Size = new System.Drawing.Size(44, 13);
-            this.btnLabelTricks.TabIndex = 55;
-            this.btnLabelTricks.TabStop = true;
-            this.btnLabelTricks.Text = "symbols";
-            this.btnLabelTricks.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.btnLabelTricks_LinkClicked);
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(507, -1);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(105, 40);
+            this.label8.TabIndex = 55;
+            this.label8.Text = "Background Color";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label9
+            // 
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(640, -1);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(56, 40);
+            this.label9.TabIndex = 56;
+            this.label9.Text = "Text Color";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // pnlBackColor
+            // 
+            this.pnlBackColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlBackColor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pnlBackColor.Location = new System.Drawing.Point(613, 9);
+            this.pnlBackColor.Name = "pnlBackColor";
+            this.pnlBackColor.Size = new System.Drawing.Size(24, 24);
+            this.pnlBackColor.TabIndex = 57;
+            this.pnlBackColor.Click += new System.EventHandler(this.pnlBackColor_Click);
+            // 
+            // pnlTextColor
+            // 
+            this.pnlTextColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlTextColor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pnlTextColor.Location = new System.Drawing.Point(697, 9);
+            this.pnlTextColor.Name = "pnlTextColor";
+            this.pnlTextColor.Size = new System.Drawing.Size(24, 24);
+            this.pnlTextColor.TabIndex = 58;
+            this.pnlTextColor.Click += new System.EventHandler(this.pnlTextColor_Click);
+            // 
+            // btnOpenRemote
+            // 
+            this.btnOpenRemote.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOpenRemote.Location = new System.Drawing.Point(238, 6);
+            this.btnOpenRemote.Name = "btnOpenRemote";
+            this.btnOpenRemote.Size = new System.Drawing.Size(74, 28);
+            this.btnOpenRemote.TabIndex = 59;
+            this.btnOpenRemote.Text = "Open";
+            this.btnOpenRemote.UseVisualStyleBackColor = true;
+            this.btnOpenRemote.Click += new System.EventHandler(this.btnOpenRemote_Click);
             // 
             // RemoteEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(911, 844);
+            this.Controls.Add(this.btnOpenRemote);
+            this.Controls.Add(this.pnlTextColor);
+            this.Controls.Add(this.pnlBackColor);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.tbRemoteName);
             this.Controls.Add(this.label3);
@@ -636,8 +678,6 @@
             this.Controls.Add(this.label7);
             this.Controls.Add(this.btnDown);
             this.Controls.Add(this.btnUp);
-            this.Controls.Add(this.label14);
-            this.Controls.Add(this.lblRemoteURL);
             this.Controls.Add(this.btnDeleteRemote);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.cmbRemoteID);
@@ -667,8 +707,6 @@
         private System.Windows.Forms.ComboBox cmbRemoteID;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Button btnDeleteRemote;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.LinkLabel lblRemoteURL;
         private System.Windows.Forms.Button btnDown;
         private System.Windows.Forms.Button btnUp;
         private System.Windows.Forms.Label label7;
@@ -707,5 +745,11 @@
         private System.Windows.Forms.TextBox tbRemoteName;
         private System.Windows.Forms.LinkLabel btnSizeHelp;
         private System.Windows.Forms.LinkLabel btnLabelTricks;
+        private System.Windows.Forms.ColorDialog colorPicker;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Panel pnlBackColor;
+        private System.Windows.Forms.Panel pnlTextColor;
+        private System.Windows.Forms.Button btnOpenRemote;
     }
 }

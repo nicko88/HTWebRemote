@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
@@ -21,15 +22,6 @@ namespace HTPCRemote.Forms
         private void cmbRemoteID_SelectedIndexChanged(object sender, EventArgs e)
         {
             LoadRemote();
-
-            if (cmbRemoteID.SelectedIndex == 0)
-            {
-                lblRemoteURL.Text = "http://" + IP + ":5000";
-            }
-            else
-            {
-                lblRemoteURL.Text = "http://" + IP + ":5000/" + cmbRemoteID.SelectedItem.ToString();
-            }
         }
 
         private void cmbAddItem_SelectedIndexChanged(object sender, EventArgs e)
@@ -106,6 +98,24 @@ namespace HTPCRemote.Forms
                     tbButtonHeight.Text = "";
                 }
 
+                if(currentRemote.RemoteBackColor != null)
+                {
+                    pnlBackColor.BackColor = ColorTranslator.FromHtml(currentRemote.RemoteBackColor);
+                }
+                else
+                {
+                    pnlBackColor.BackColor = Color.Black;
+                }
+
+                if (currentRemote.RemoteTextColor != null)
+                {
+                    pnlTextColor.BackColor = ColorTranslator.FromHtml(currentRemote.RemoteTextColor);
+                }
+                else
+                {
+                    pnlTextColor.BackColor = Color.White;
+                }
+
                 tbRemoteName.Text = currentRemote.RemoteName;
 
                 lbRemoteItems.DataSource = currentRemote.RemoteItems;
@@ -117,7 +127,7 @@ namespace HTPCRemote.Forms
             {
                 lbRemoteItems.DataSource = null;
                 lbRemoteItems.Items.Clear();
-                lbRemoteItems.Items.Add("No remote found for Remote #" + cmbRemoteID.SelectedItem.ToString());
+                lbRemoteItems.Items.Add($"No remote found for Remote #{cmbRemoteID.SelectedItem}");
                 lbRemoteItems.Items.Add("Please add items to create this remote.");
                 btnDeleteRemote.Visible = false;
 
@@ -333,7 +343,25 @@ namespace HTPCRemote.Forms
             }
             currentRemote.ButtonHeight = Convert.ToInt32(tbButtonHeight.Text);
 
-            if(string.IsNullOrEmpty(tbRemoteName.Text))
+            if(pnlBackColor.BackColor == Color.Black)
+            {
+                currentRemote.RemoteBackColor = null;
+            }
+            else
+            {
+                currentRemote.RemoteBackColor = ColorTranslator.ToHtml(pnlBackColor.BackColor);
+            }
+
+            if (pnlTextColor.BackColor == Color.White)
+            {
+                currentRemote.RemoteTextColor = null;
+            }
+            else
+            {
+                currentRemote.RemoteTextColor = ColorTranslator.ToHtml(pnlTextColor.BackColor);
+            }
+
+            if (string.IsNullOrEmpty(tbRemoteName.Text))
             {
                 currentRemote.RemoteName = null;
             }
@@ -400,21 +428,16 @@ namespace HTPCRemote.Forms
         {
             try
             {
-                DialogResult result = MessageBox.Show("Are you sure you want to delete remote #" + cmbRemoteID.SelectedItem.ToString() + "?", "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult result = MessageBox.Show($"Are you sure you want to delete remote #{cmbRemoteID.SelectedItem}?", "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-                    File.Delete(Util.ConfigHelper.jsonButtonFiles + cmbRemoteID.SelectedItem.ToString() + ".json");
+                    File.Delete($"{Util.ConfigHelper.jsonButtonFiles}{cmbRemoteID.SelectedItem}.json");
                 }
             }
             catch { }
 
             ResetControls();
             LoadRemote();
-        }
-
-        private void lblRemoteURL_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start(lblRemoteURL.Text);
         }
 
         private void tbButtonSize_KeyPress(object sender, KeyPressEventArgs e)
@@ -442,6 +465,40 @@ namespace HTPCRemote.Forms
         {
             LabelSymbols labelSymbols = new LabelSymbols();
             labelSymbols.Show();
+        }
+
+        private void pnlBackColor_Click(object sender, EventArgs e)
+        {
+            ColorDialog colorDialog = new ColorDialog();
+            DialogResult result = colorDialog.ShowDialog();
+
+            if(result == DialogResult.OK)
+            {
+                pnlBackColor.BackColor = colorDialog.Color;
+            }
+        }
+
+        private void pnlTextColor_Click(object sender, EventArgs e)
+        {
+            ColorDialog colorDialog = new ColorDialog();
+            DialogResult result = colorDialog.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                pnlTextColor.BackColor = colorDialog.Color;
+            }
+        }
+
+        private void btnOpenRemote_Click(object sender, EventArgs e)
+        {
+            if (cmbRemoteID.SelectedIndex == 0)
+            {
+                Process.Start($"http://{IP}:5000");
+            }
+            else
+            {
+                Process.Start($"http://{IP}:5000/{cmbRemoteID.SelectedItem}");
+            }
         }
     }
 }

@@ -15,18 +15,7 @@ namespace HTPCRemote.Forms
             InitializeComponent();
 
             LoadPaths();
-
-            if (ConfigHelper.CheckRegKey("SOFTWARE\\HTPCRemote", "ShowFileBrowser"))
-            {
-                cbShowFileBrowser.Checked = true;
-            }
-
-            cmbFileBrowserRemote.SelectedItem = ConfigHelper.GetRegKey("SOFTWARE\\HTPCRemote", "FileBrowserRemote");
-
-            if(cmbFileBrowserRemote.SelectedIndex == -1)
-            {
-                cmbFileBrowserRemote.SelectedIndex = 0;
-            }
+            LoadSettings();
         }
 
         private void LoadPaths()
@@ -41,6 +30,43 @@ namespace HTPCRemote.Forms
                 {
                     lbPaths.Items.Add(path);
                 }
+            }
+        }
+
+        private void LoadSettings()
+        {
+            if (ConfigHelper.CheckRegKey(@"SOFTWARE\HTPCRemote", "ShowFileBrowser"))
+            {
+                cbShowFileBrowser.Checked = true;
+            }
+
+            if (ConfigHelper.CheckRegKey(@"SOFTWARE\HTPCRemote", "EnableYoutube"))
+            {
+                cbEnableYoutube.Checked = true;
+            }
+
+            if (ConfigHelper.CheckRegKey(@"SOFTWARE\HTPCRemote", "YoutubeUseWebBrowser"))
+            {
+                cbYoutubeUseWebBrowser.Checked = true;
+            }
+
+            cmbFileBrowserRemote.SelectedItem = ConfigHelper.GetRegKey(@"SOFTWARE\HTPCRemote", "FileBrowserRemote");
+
+            string FBMediaPlayerPath = ConfigHelper.GetRegKey(@"SOFTWARE\HTPCRemote", "FileBrowserMediaPlayer");
+            if (!string.IsNullOrEmpty(FBMediaPlayerPath))
+            {
+                lblFBMediaPlayerPath.Text = FBMediaPlayerPath;
+            }
+
+            string YTMediaPlayerPath = ConfigHelper.GetRegKey(@"SOFTWARE\HTPCRemote", "YoutubeMediaPlayer");
+            if (!string.IsNullOrEmpty(YTMediaPlayerPath))
+            {
+                lblYTMediaPlayerPath.Text = YTMediaPlayerPath;
+            }
+
+            if (cmbFileBrowserRemote.SelectedIndex == -1)
+            {
+                cmbFileBrowserRemote.SelectedIndex = 0;
             }
         }
 
@@ -79,7 +105,7 @@ namespace HTPCRemote.Forms
 
         private void cmbFileBrowserRemote_SelectedIndexChanged(object sender, EventArgs e)
         {
-            RegistryKey key = Registry.CurrentUser.CreateSubKey("SOFTWARE\\HTPCRemote", true);
+            RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\HTPCRemote", true);
             key.SetValue("FileBrowserRemote", cmbFileBrowserRemote.SelectedItem.ToString());
         }
 
@@ -87,13 +113,79 @@ namespace HTPCRemote.Forms
         {
             if (cbShowFileBrowser.Checked)
             {
-                RegistryKey key = Registry.CurrentUser.CreateSubKey("SOFTWARE\\HTPCRemote", true);
+                RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\HTPCRemote", true);
                 key.SetValue("ShowFileBrowser", true);
             }
             else
             {
-                RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\HTPCRemote", true);
+                RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\HTPCRemote", true);
                 key.DeleteValue("ShowFileBrowser", false);
+            }
+        }
+
+        private void btnChooseFBMediaPlayer_Click(object sender, EventArgs e)
+        {
+            DialogResult result = openFileDialog.ShowDialog();
+
+            if(result == DialogResult.OK)
+            {
+                lblFBMediaPlayerPath.Text = openFileDialog.FileName;
+
+                RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\HTPCRemote", true);
+                key.SetValue("FileBrowserMediaPlayer", openFileDialog.FileName);
+            }
+            else
+            {
+                RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\HTPCRemote", true);
+                key.DeleteValue("FileBrowserMediaPlayer", false);
+                lblFBMediaPlayerPath.Text = "Default Media Player";
+            }
+        }
+
+        private void btnChooseYTMediaPlayer_Click(object sender, EventArgs e)
+        {
+            DialogResult result = openFileDialog.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                lblYTMediaPlayerPath.Text = openFileDialog.FileName;
+
+                RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\HTPCRemote", true);
+                key.SetValue("YoutubeMediaPlayer", openFileDialog.FileName);
+            }
+            else
+            {
+                RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\HTPCRemote", true);
+                key.DeleteValue("YoutubeMediaPlayer", false);
+                lblYTMediaPlayerPath.Text = "Default Web Browser";
+            }
+        }
+
+        private void cbEnableYoutube_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbEnableYoutube.Checked)
+            {
+                RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\HTPCRemote", true);
+                key.SetValue("EnableYoutube", true);
+            }
+            else
+            {
+                RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\HTPCRemote", true);
+                key.DeleteValue("EnableYoutube", false);
+            }
+        }
+
+        private void cbYoutubeUseWebBrowser_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbYoutubeUseWebBrowser.Checked)
+            {
+                RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\HTPCRemote", true);
+                key.SetValue("YoutubeUseWebBrowser", true);
+            }
+            else
+            {
+                RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\HTPCRemote", true);
+                key.DeleteValue("YoutubeUseWebBrowser", false);
             }
         }
     }

@@ -12,7 +12,7 @@ namespace HTPCRemote.Devices.Controllers
         {
             try
             {
-                WebRequest request = WebRequest.Create("http://" + IP + "/command.html");
+                WebRequest request = WebRequest.Create($"http://{IP}/command.html");
                 string postData = "wm_command=" + command_id;
 
                 if (command_id == "-2")
@@ -39,7 +39,7 @@ namespace HTPCRemote.Devices.Controllers
             {
                 if (showErrors)
                 {
-                    MessageBox.Show("Cannot connect to MPC at " + IP + "\n\n" + e.Message, "Error");
+                    MessageBox.Show($"Cannot connect to MPC at {IP}\n\n{e.Message}", "Error");
                 }
             }
         }

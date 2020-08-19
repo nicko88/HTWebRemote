@@ -26,32 +26,32 @@ namespace HTPCRemote.Devices.Controllers
 				TARGETSTATUS = "1";
 			}
 
-			HttpWebRequest req = WebRequest.Create("http://" + _IP + ":" + 49153 + "/upnp/control/basicevent1") as HttpWebRequest;
-			string reqContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
-			reqContent += "<s:Envelope xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\" s:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">";
+			HttpWebRequest req = WebRequest.Create($"http://{_IP}:{49153}/upnp/control/basicevent1") as HttpWebRequest;
+			string reqContent = @"<?xml version=""1.0"" encoding=""utf-8""?>";
+			reqContent += @"<s:Envelope xmlns:s=""http://schemas.xmlsoap.org/soap/envelope/"" s:encodingStyle=""http://schemas.xmlsoap.org/soap/encoding/"">";
 			reqContent += "<s:Body>";
 
 
 			if (action != "toggle")
 			{
-				reqContent += "<u:SetBinaryState xmlns:u=\"urn:Belkin:service:basicevent:1\">";
-				reqContent += "<BinaryState>" + TARGETSTATUS + "</BinaryState>";
+				reqContent += @"<u:SetBinaryState xmlns:u=""urn:Belkin:service:basicevent:1"">";
+				reqContent += $"<BinaryState>{TARGETSTATUS}</BinaryState>";
 				reqContent += "</u:SetBinaryState>";
-				req.Headers.Add("SOAPACTION:\"urn:Belkin:service:basicevent:1#SetBinaryState\"");
+				req.Headers.Add(@"SOAPACTION:""urn:Belkin:service:basicevent:1#SetBinaryState""");
 			}
 			else
 			{
-				reqContent += "<u:GetBinaryState xmlns:u=\"urn:Belkin:service:basicevent:1\">";
+				reqContent += @"<u:GetBinaryState xmlns:u=""urn:Belkin:service:basicevent:1"">";
 				reqContent += "<BinaryState>1</BinaryState>";
 				reqContent += "</u:GetBinaryState>";
-				req.Headers.Add("SOAPACTION:\"urn:Belkin:service:basicevent:1#GetBinaryState\"");
+				req.Headers.Add(@"SOAPACTION:""urn:Belkin:service:basicevent:1#GetBinaryState""");
 			}
 
 			reqContent += "</s:Body>";
 			reqContent += "</s:Envelope>";
 			UTF8Encoding encoding = new UTF8Encoding();
 
-			req.ContentType = "text/xml; charset=\"utf-8\"";
+			req.ContentType = @"text/xml; charset=""utf-8""";
 			req.Method = "POST";
 
 			using (Stream requestStream = req.GetRequestStream())
@@ -85,7 +85,7 @@ namespace HTPCRemote.Devices.Controllers
 			{
 				if (_showErrors)
 				{
-					MessageBox.Show("Failed to send command to Wemo plug at " + _IP + "\n\n" + e.Message, "Error");
+					MessageBox.Show($"Failed to send command to Wemo plug at {_IP}\n\n{e.Message}", "Error");
 				}
 			}
 		}

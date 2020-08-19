@@ -10,7 +10,7 @@ namespace HTPCRemote.RemoteFile
             Remote remote = new Remote();
             try
             {
-                string json = File.ReadAllText(Util.ConfigHelper.jsonButtonFiles + remoteID + ".json");
+                string json = File.ReadAllText($"{Util.ConfigHelper.jsonButtonFiles}{remoteID}.json");
                 remote = JsonConvert.DeserializeObject<Remote>(json);
             }
             catch { }
@@ -27,7 +27,7 @@ namespace HTPCRemote.RemoteFile
 
                 string json = JsonConvert.SerializeObject(remote, Formatting.Indented, settings);
 
-                File.WriteAllText(Util.ConfigHelper.jsonButtonFiles + remote.RemoteID + ".json", json);
+                File.WriteAllText($"{Util.ConfigHelper.jsonButtonFiles}{remote.RemoteID}.json", json);
             }
             catch { }
         }
