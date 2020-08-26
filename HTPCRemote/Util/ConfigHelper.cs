@@ -40,6 +40,8 @@ namespace HTPCRemote.Util
             {
                 RunCmd("cmd", $"/C {adminCMD}", true);
             }
+
+            FixMSEdge();
         }
 
         public static string RunCmd(string filename, string arguments, bool admin)
@@ -103,6 +105,25 @@ namespace HTPCRemote.Util
             }
         }
 
+        public static string GetEmbeddedResource(string filename)
+        {
+            string header = "";
+            try
+            {
+                Assembly assembly = Assembly.GetExecutingAssembly();
+                string resourceName = assembly.GetManifestResourceNames().Single(str => str.EndsWith(filename));
+
+                using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    header = reader.ReadToEnd();
+                }
+            }
+            catch { }
+
+            return header;
+        }
+
         public static string GetLocalIPAddress()
         {
             var host = Dns.GetHostEntry(Dns.GetHostName());
@@ -114,6 +135,25 @@ namespace HTPCRemote.Util
                 }
             }
             return "error";
+        }
+
+        //stops MS Edge from blocking local IPs that failed to load
+        public static void FixMSEdge()
+        {
+            try
+            {
+                RegistryKey key = Registry.CurrentUser.OpenSubKey("Software\\Classes\\Local Settings\\Software\\Microsoft\\Windows\\CurrentVersion\\AppContainer\\Storage\\microsoft.microsoftedge_8wekyb3d8bbwe\\MicrosoftEdge\\TabProcConfig", true);
+                if (key != null)
+                {
+                    string[] values = key.GetValueNames();
+
+                    foreach (string value in values)
+                    {
+                        key.DeleteValue(value, false);
+                    }
+                }
+            }
+            catch { }
         }
     }
 }

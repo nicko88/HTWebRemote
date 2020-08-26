@@ -2,8 +2,6 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.IO;
-using System.Linq;
-using System.Reflection;
 using System.Text;
 
 namespace HTPCRemote.Util
@@ -68,6 +66,11 @@ namespace HTPCRemote.Util
                     if (ConfigHelper.CheckRegKey(@"SOFTWARE\HTPCRemote", "ShowFileBrowser"))
                     {
                         sb.AppendLine($@"<li class=""nav-item""><a class=""nav-link text-muted"" href=""FB"">FB</a></li>");
+                    }
+
+                    if (!string.IsNullOrEmpty(YoutubeSearch._searchQ))
+                    {
+                        sb.AppendLine($@"<li class=""nav-item""><a class=""nav-link text-muted"" href=""FByoutube?play=0"">YT</a></li>");
                     }
 
                     sb.AppendLine("</ul>");
@@ -211,16 +214,7 @@ namespace HTPCRemote.Util
 
         private static string GetHTMLHeader(Remote remote)
         {
-            string header;
-
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            string resourceName = assembly.GetManifestResourceNames().Single(str => str.EndsWith("remoteHeader.html"));
-
-            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                header = reader.ReadToEnd();
-            }
+            string header = ConfigHelper.GetEmbeddedResource("remoteHeader.html");
 
             if(remote.ButtonHeight > 0)
             {

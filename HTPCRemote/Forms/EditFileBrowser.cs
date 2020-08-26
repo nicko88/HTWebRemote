@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using HTPCRemote.Util;
 using Microsoft.Win32;
+using System.Drawing;
 
 namespace HTPCRemote.Forms
 {
@@ -13,6 +14,7 @@ namespace HTPCRemote.Forms
         public EditFileBrowser()
         {
             InitializeComponent();
+            Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
             LoadPaths();
             LoadSettings();
@@ -63,6 +65,8 @@ namespace HTPCRemote.Forms
             {
                 lblYTMediaPlayerPath.Text = YTMediaPlayerPath;
             }
+
+            tbYoutubeAPIKey.Text = ConfigHelper.GetRegKey(@"SOFTWARE\HTPCRemote", "YoutubeAPIKey");
 
             if (cmbFileBrowserRemote.SelectedIndex == -1)
             {
@@ -187,6 +191,22 @@ namespace HTPCRemote.Forms
                 RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\HTPCRemote", true);
                 key.DeleteValue("YoutubeUseWebBrowser", false);
             }
+        }
+
+        private void lblYoutubePlayer_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://ys.3dyd.com");
+        }
+
+        private void EditFileBrowser_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\HTPCRemote", true);
+            key.SetValue("YoutubeAPIKey", tbYoutubeAPIKey.Text);
+        }
+
+        private void lblAPIHelp_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://developers.google.com/youtube/v3/getting-started");
         }
     }
 }

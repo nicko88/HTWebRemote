@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace HTPCRemote.Forms
 {
@@ -9,6 +10,7 @@ namespace HTPCRemote.Forms
         public DeviceIPManager()
         {
             InitializeComponent();
+            Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
             cmbDeviceType.SelectedIndexChanged -= cmbDeviceType_SelectedIndexChanged;
             cmbDeviceType.DataSource = Devices.DeviceSelector.DeviceTypes;

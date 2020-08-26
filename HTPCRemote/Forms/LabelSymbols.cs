@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace HTPCRemote.Forms
 {
@@ -8,6 +9,7 @@ namespace HTPCRemote.Forms
         public LabelSymbols()
         {
             InitializeComponent();
+            Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("In addition to normal letters, you can also use special \"unicode\" characters and emojis if you want to use some basic symbols for your buttons labels.");

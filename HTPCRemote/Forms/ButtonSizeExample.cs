@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace HTPCRemote.Forms
 {
@@ -8,6 +9,7 @@ namespace HTPCRemote.Forms
         public ButtonSizeExample()
         {
             InitializeComponent();
+            Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("Button size is meant to be small numbers, typically 1-5 or so.");

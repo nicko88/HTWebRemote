@@ -51,7 +51,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "DocReader";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Supported Devices / Documentation";
+            this.Text = "Documentation / Supported Devices";
             this.ResumeLayout(false);
 
         }

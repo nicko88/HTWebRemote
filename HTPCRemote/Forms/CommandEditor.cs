@@ -13,6 +13,8 @@ namespace HTPCRemote.Forms
         public CommandEditor(List<Command> commands)
         {
             InitializeComponent();
+            Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+
             Commands = commands;
 
             cmbDevices.DataSource = Devices.DeviceSelector.GetDeviceNames();

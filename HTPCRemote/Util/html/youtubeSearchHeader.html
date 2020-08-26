@@ -2,7 +2,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>File Browser</title>
+    <title>YouTube Search</title>
     <link rel="manifest" href='data:application/manifest+json,{"name": "HTPCRemote","short_name": "HTPCRemote","lang": "en-US","start_url": " / ","scope": " / ","display": "fullscreen"}' />
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -17,14 +17,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script>
-        function home(path)
+        function play(videoid)
         {
-            location.replace(path)
+            document.getElementById('youtube').value = 'https://www.youtube.com/watch?v=' + videoid;
+
+            document.getElementById('youtubeform').submit();
         }
 
-        function goBack()
+        function closetab()
         {
-            window.history.back();
+            fetch('closeyt');
+            window.location.href = 'FB';
         }
     </script>
     <style>
@@ -32,11 +35,24 @@
             touch-action: pinch-zoom pan-y;
         }
 
-        a {
-            padding-top: 4px;
-            padding-bottom: 4px;
-            padding-left: 8px;
-            padding-right: 8px;
+        body {
+            background-color: black;
+            color: white;
+        }
+
+        .video {
+            display: flex;
+            padding-bottom: 10px;
+        }
+
+        img {
+            padding-right: 5px;
+        }
+
+        .text {
+            display: flex;
+            flex-direction: column;
+            font-size: 12px;
         }
 
         ul {
@@ -54,7 +70,17 @@
             padding-left: 0;
             padding-right: 0;
         }
+
+        .btn {
+            margin-bottom: 5px;
+            margin-top: 5px;
+        }
+
     </style>
 </head>
-<body style="background-color: black;">
+<body>
 <div class="container body-content">
+
+<form method="POST" id="youtubeform" action="FByoutube">
+    <input type="hidden" id="youtube" name="youtube" value="">
+</form>

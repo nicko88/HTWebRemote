@@ -1,5 +1,4 @@
-﻿using HTPCRemote.RemoteFile;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
@@ -7,6 +6,8 @@ using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 using HTPCRemote.Util;
+using HTPCRemote.RemoteFile;
+using System.Drawing;
 
 namespace HTPCRemote
 {
@@ -18,6 +19,8 @@ namespace HTPCRemote
         public HTPCRemote()
         {
             InitializeComponent();
+            Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+            trayIcon.Icon = Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
             Setup();
 
@@ -94,7 +97,7 @@ namespace HTPCRemote
             byte[] buffer = new byte[0];
             if (htmlPage != null)
             {
-                buffer = System.Text.Encoding.ASCII.GetBytes(htmlPage);
+                buffer = System.Text.Encoding.UTF8.GetBytes(htmlPage);
             }
 
             response.ContentLength64 = buffer.Length;
@@ -151,6 +154,11 @@ namespace HTPCRemote
                 htmlPage = FileBrowserV2.LoadFileBrowser(request);
             }
 
+            if (request.RawUrl.Contains("closeyt"))
+            {
+                YoutubeSearch._searchQ = null;
+            }
+
             if (request.RawUrl == "/")
             {
                 RemoteID = "1";
@@ -163,20 +171,6 @@ namespace HTPCRemote
             if(!string.IsNullOrEmpty(request.QueryString["rID"]))
             {
                 RemoteID = request.QueryString["rID"];
-            }
-
-            if (request.RawUrl.Contains("playerRemote"))
-            {
-                string remoteNum = ConfigHelper.GetRegKey(@"SOFTWARE\HTPCRemote", "FileBrowserRemote");
-
-                if (remoteNum.Length == 1)
-                {
-                    RemoteID = remoteNum;
-                }
-                else
-                {
-                    RemoteID = "1";
-                }
             }
 
             if (RemoteID != null)

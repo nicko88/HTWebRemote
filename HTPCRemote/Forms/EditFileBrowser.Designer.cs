@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditFileBrowser));
             this.lbPaths = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnAdd = new System.Windows.Forms.Button();
@@ -42,6 +41,10 @@
             this.lblFBMediaPlayerPath = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lblAPIHelp = new System.Windows.Forms.LinkLabel();
+            this.tbYoutubeAPIKey = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lblYoutubePlayer = new System.Windows.Forms.LinkLabel();
             this.btnChooseYTMediaPlayer = new System.Windows.Forms.Button();
             this.cbYoutubeUseWebBrowser = new System.Windows.Forms.CheckBox();
             this.lblYTMediaPlayerPath = new System.Windows.Forms.Label();
@@ -189,6 +192,10 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.lblAPIHelp);
+            this.groupBox2.Controls.Add(this.tbYoutubeAPIKey);
+            this.groupBox2.Controls.Add(this.label4);
+            this.groupBox2.Controls.Add(this.lblYoutubePlayer);
             this.groupBox2.Controls.Add(this.btnChooseYTMediaPlayer);
             this.groupBox2.Controls.Add(this.cbYoutubeUseWebBrowser);
             this.groupBox2.Controls.Add(this.lblYTMediaPlayerPath);
@@ -196,10 +203,52 @@
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Location = new System.Drawing.Point(13, 356);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(696, 86);
+            this.groupBox2.Size = new System.Drawing.Size(696, 117);
             this.groupBox2.TabIndex = 11;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "YouTube Settings";
+            // 
+            // lblAPIHelp
+            // 
+            this.lblAPIHelp.AutoSize = true;
+            this.lblAPIHelp.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAPIHelp.Location = new System.Drawing.Point(641, 89);
+            this.lblAPIHelp.Name = "lblAPIHelp";
+            this.lblAPIHelp.Size = new System.Drawing.Size(49, 16);
+            this.lblAPIHelp.TabIndex = 16;
+            this.lblAPIHelp.TabStop = true;
+            this.lblAPIHelp.Text = "Help?";
+            this.lblAPIHelp.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblAPIHelp_LinkClicked);
+            // 
+            // tbYoutubeAPIKey
+            // 
+            this.tbYoutubeAPIKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbYoutubeAPIKey.Location = new System.Drawing.Point(166, 83);
+            this.tbYoutubeAPIKey.Name = "tbYoutubeAPIKey";
+            this.tbYoutubeAPIKey.Size = new System.Drawing.Size(469, 26);
+            this.tbYoutubeAPIKey.TabIndex = 15;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(6, 86);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(154, 20);
+            this.label4.TabIndex = 14;
+            this.label4.Text = "YouTube API Key:";
+            // 
+            // lblYoutubePlayer
+            // 
+            this.lblYoutubePlayer.AutoSize = true;
+            this.lblYoutubePlayer.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblYoutubePlayer.Location = new System.Drawing.Point(504, 23);
+            this.lblYoutubePlayer.Name = "lblYoutubePlayer";
+            this.lblYoutubePlayer.Size = new System.Drawing.Size(191, 16);
+            this.lblYoutubePlayer.TabIndex = 13;
+            this.lblYoutubePlayer.TabStop = true;
+            this.lblYoutubePlayer.Text = "Play YouTube in MPC/VLC";
+            this.lblYoutubePlayer.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblYoutubePlayer_LinkClicked);
             // 
             // btnChooseYTMediaPlayer
             // 
@@ -218,9 +267,9 @@
             this.cbYoutubeUseWebBrowser.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbYoutubeUseWebBrowser.Location = new System.Drawing.Point(173, 19);
             this.cbYoutubeUseWebBrowser.Name = "cbYoutubeUseWebBrowser";
-            this.cbYoutubeUseWebBrowser.Size = new System.Drawing.Size(354, 24);
+            this.cbYoutubeUseWebBrowser.Size = new System.Drawing.Size(334, 24);
             this.cbYoutubeUseWebBrowser.TabIndex = 11;
-            this.cbYoutubeUseWebBrowser.Text = "Play YouTube With Default Web Browser";
+            this.cbYoutubeUseWebBrowser.Text = "Play YouTube In Default Web Browser";
             this.cbYoutubeUseWebBrowser.UseVisualStyleBackColor = true;
             this.cbYoutubeUseWebBrowser.CheckedChanged += new System.EventHandler(this.cbYoutubeUseWebBrowser_CheckedChanged);
             // 
@@ -260,18 +309,18 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(720, 449);
+            this.ClientSize = new System.Drawing.Size(720, 481);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lbPaths);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "EditFileBrowser";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "File Browser Settings";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EditFileBrowser_FormClosing);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -301,5 +350,9 @@
         private System.Windows.Forms.Label lblYTMediaPlayerPath;
         private System.Windows.Forms.CheckBox cbEnableYoutube;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.LinkLabel lblYoutubePlayer;
+        private System.Windows.Forms.TextBox tbYoutubeAPIKey;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.LinkLabel lblAPIHelp;
     }
 }

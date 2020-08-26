@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace HTPCRemote.Forms
 {
@@ -9,6 +10,7 @@ namespace HTPCRemote.Forms
         public Donate()
         {
             InitializeComponent();
+            Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("Thank you for using HTPCRemote!");

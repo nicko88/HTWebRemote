@@ -1,8 +1,7 @@
-﻿using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Reflection;
+﻿using HTPCRemote.Util;
+using System.Diagnostics;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace HTPCRemote
 {
@@ -11,17 +10,11 @@ namespace HTPCRemote
         public DocReader(string baseIP)
         {
             InitializeComponent();
+            Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            string resourceName = assembly.GetManifestResourceNames().Single(str => str.EndsWith("doc.html"));
-
-            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                string result = reader.ReadToEnd();
-                result = result.Replace("{BASEIP}", baseIP);
-                webBrowser.DocumentText = result;
-            }
+            string docPage = ConfigHelper.GetEmbeddedResource("doc.html");
+            docPage = docPage.Replace("{BASEIP}", baseIP);
+            webBrowser.DocumentText = docPage;
         }
 
         private void WebBrowser_Navigating(object sender, WebBrowserNavigatingEventArgs e)

@@ -4,31 +4,23 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Reflection;
 using System.Text;
-using System.Threading;
+using System.Threading.Tasks;
+using System.Web;
 
 namespace HTPCRemote.Util
 {
     class FileBrowserV2
     {
-        private static string savedLocation = "";
+        private static string _savedLocation = "";
+        private static string _YTstring;
+        private static string _prevSearch;
 
         public static string LoadFileBrowser(HttpListenerRequest request)
         {
-            bool footer = true;
-
             StringBuilder page = new StringBuilder();
 
-            string header;
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            string resourceName = assembly.GetManifestResourceNames().Single(str => str.EndsWith("filebrowserHeader.html"));
-
-            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                header = reader.ReadToEnd();
-            }
+            string header = ConfigHelper.GetEmbeddedResource("filebrowserHeader.html");
             page.Append(header);
 
             page.Append(GetHTMLRemoteTabs());
@@ -44,17 +36,15 @@ namespace HTPCRemote.Util
 
             if (request.RawUrl == "/FB")
             {
-                currentPath = savedLocation;
+                currentPath = _savedLocation;
             }
             else if (request.RawUrl.Contains("FBback"))
             {
-                if (savedLocation != null && savedLocation.LastIndexOf(@"\") > 0)
+                if (_savedLocation != null && _savedLocation.LastIndexOf(@"\") > 0)
                 {
-                    currentPath = savedLocation.Remove(savedLocation.LastIndexOf(@"\"));
+                    currentPath = _savedLocation.Remove(_savedLocation.LastIndexOf(@"\"));
 
                     List<string> paths = File.ReadLines($@"{ConfigHelper.WorkingPath}\HTPCRemoteBrowsePaths.txt").ToList();
-                    List<string> fileList = new List<string>();
-
                     foreach (string path in paths)
                     {
                         if (path.Contains(currentPath))
@@ -84,43 +74,70 @@ namespace HTPCRemote.Util
                     }
                 }
 
-                if (!string.IsNullOrEmpty(postData))
+                string play = request.QueryString["play"];
+                if (play != "0")
                 {
-                    string autoplay = "";
-                    if (postData.Contains("?"))
+                    try
                     {
-                        autoplay = "&autoplay=1";
-                    }
-                    else
-                    {
-                        autoplay = "?autoplay=1";
-                    }
-
-                    if (ConfigHelper.CheckRegKey(@"SOFTWARE\HTPCRemote", "YoutubeUseWebBrowser"))
-                    {
-                        Process.Start($"{postData}{autoplay}");
-                        Thread.Sleep(5000);
-                        Devices.Controllers.KeysControl.RunCmd("f", "", false);
-                    }
-                    else
-                    {
-                        string YTMediaPlayerPath = ConfigHelper.GetRegKey(@"SOFTWARE\HTPCRemote", "YoutubeMediaPlayer");
-                        if (string.IsNullOrEmpty(YTMediaPlayerPath))
+                        if (postData != null)
                         {
-                            Process.Start($"{postData}{autoplay}");
-                            Thread.Sleep(5000);
-                            Devices.Controllers.KeysControl.RunCmd("f", "", false);
+                            _YTstring = postData.Split('=')[1];
+                        }
+                    }
+                    catch { }
+                }
+                else
+                {
+                    _YTstring = _prevSearch;
+                }
+
+                if (!string.IsNullOrEmpty(_YTstring))
+                {
+                    if(_YTstring.Contains("http"))
+                    {
+                        _YTstring = HttpUtility.UrlDecode(_YTstring);
+
+                        string autoplay = "?autoplay=1";
+                        if (_YTstring.Contains("?"))
+                        {
+                            autoplay = "&autoplay=1";
+                        }
+
+                        if (ConfigHelper.CheckRegKey(@"SOFTWARE\HTPCRemote", "YoutubeUseWebBrowser"))
+                        {
+                            Process.Start($"{_YTstring}{autoplay}");
+                            Task.Delay(5000).ContinueWith(_ => Devices.Controllers.KeysControl.RunCmd("f", "", false));
                         }
                         else
                         {
-                            postData = postData.Replace("https", "http");
-                            Process.Start(YTMediaPlayerPath, $@"""{postData}""");
+                            string YTMediaPlayerPath = ConfigHelper.GetRegKey(@"SOFTWARE\HTPCRemote", "YoutubeMediaPlayer");
+                            if (string.IsNullOrEmpty(YTMediaPlayerPath))
+                            {
+                                Process.Start($"{_YTstring}{autoplay}");
+                                Task.Delay(5000).ContinueWith(_ => Devices.Controllers.KeysControl.RunCmd("f", "", false));
+                            }
+                            else
+                            {
+                                _YTstring = _YTstring.Replace("https", "http");
+                                Process.Start(YTMediaPlayerPath, $@"""{_YTstring}""");
+                            }
                         }
+
+                        page.Clear();
+                        page.Append(GetRemotePage());
                     }
+                    else
+                    {
+                        page.Clear();
+                        _prevSearch = _YTstring;
+                        page.Append(YoutubeSearch.LoadSearchResults(_YTstring));
+                    }
+
+                    return page.ToString();
                 }
             }
 
-            savedLocation = currentPath;
+            _savedLocation = currentPath;
 
             if (!string.IsNullOrEmpty(currentPath) && string.IsNullOrEmpty(search))
             {
@@ -153,11 +170,12 @@ namespace HTPCRemote.Util
                         Process.Start(FBMediaPlayerPath, $@"""{smb}{currentPath}""");
                     }
 
-                    savedLocation = currentPath.Remove(currentPath.LastIndexOf(@"\"));
+                    _savedLocation = currentPath.Remove(currentPath.LastIndexOf(@"\"));
 
                     page.Clear();
                     page.Append(GetRemotePage());
-                    footer = false;
+
+                    return page.ToString();
                 }
                 else
                 {
@@ -266,16 +284,19 @@ namespace HTPCRemote.Util
             {
                 page.Append(@"<span style=""color: white; font-size: 15px;"">Search for files in the folders below that contain this exact phrase (single word works best)</span>");
                 page.Append(@"<form style=""margin-bottom: 0px"" method=""GET"">");
-                page.Append(@"<input type=""text"" id=""search"" name=""search"" class=""form-control mb-2 mr-sm-2 form-check-inline"" style=""width: 200px; display: inline;""><button type=""submit"" id=""submit"" class=""btn btn-primary"">Search</button>");
+                page.Append(@"<input type=""text"" id=""search"" name=""search"" class=""form-control mb-2 mr-sm-2 form-check-inline"" style=""width: 200px; display: inline;"">");
+                page.Append(@"<button type=""submit"" id=""submit"" class=""btn btn-primary"">Search</button>");
                 page.Append("</form>");
 
                 if (ConfigHelper.CheckRegKey(@"SOFTWARE\HTPCRemote", "EnableYoutube"))
                 {
                     page.Append(@"<span style=""color: white; font-size: 15px;"">YouTube:</span>");
                     page.Append("<br />");
+
+                    page.Append(@"<form method=""POST"" id=""youtubeform"" action=""FByoutube"">");
                     page.Append(@"<input type=""text"" id=""youtube"" name=""youtube"" class=""form-control mb-2 mr-sm-2 form-check-inline"" style=""width: 200px; display: inline;"">");
-                    page.Append(@"<button onclick=""youtube()"" class=""btn btn-primary"">Play</button>");
-                    page.Append("<br />");
+                    page.Append(@"<button type=""submit"" id=""submit"" class=""btn btn-primary"">Play / Search</button>");
+                    page.Append("</form>");
                 }
 
                 page.Append(@"<button onclick=""window.location.href='FBback'; "" class=""btn btn-primary"" style=""margin-right: 4px;"">Back</button>");
@@ -302,11 +323,8 @@ namespace HTPCRemote.Util
                 }
             }
 
-            if (footer)
-            {
-                page.Append("</div>");
-                page.Append("</div></body></html>");
-            }
+            page.Append("</div>");
+            page.Append("</div></body></html>");
 
             return page.ToString();
         }
@@ -334,7 +352,7 @@ namespace HTPCRemote.Util
 
             try
             {
-                string[] files = Directory.GetFiles(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "HTPCRemoteButtons*");
+                string[] files = Directory.GetFiles(ConfigHelper.WorkingPath, "HTPCRemoteButtons*");
 
                 if (files.Length > 0)
                 {
@@ -361,6 +379,11 @@ namespace HTPCRemote.Util
                     }
 
                     sb.AppendLine($@"<li class=""nav-item""><a class=""nav-link bg-dark active text-white"" href=""FB"">FB</a></li>");
+
+                    if(!string.IsNullOrEmpty(YoutubeSearch._searchQ))
+                    {
+                        sb.AppendLine($@"<li class=""nav-item""><a class=""nav-link text-muted"" href=""FByoutube?play=0"">YT</a></li>");
+                    }
 
                     sb.AppendLine("</ul>");
                 }

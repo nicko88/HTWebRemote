@@ -16,6 +16,8 @@ namespace HTPCRemote.Forms
         public RemoteEditor()
         {
             InitializeComponent();
+            Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+
             cmbRemoteID.SelectedIndex = 0;
         }
 
