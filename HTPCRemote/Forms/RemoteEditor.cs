@@ -216,6 +216,7 @@ namespace HTPCRemote.Forms
                 currentRemote.RemoteItems.Add(remoteItem);
             }
             SaveRemote();
+            cmbAddItem.SelectedItem = "Button";
         }
 
         private void btnSaveButton_Click(object sender, EventArgs e)
@@ -256,6 +257,7 @@ namespace HTPCRemote.Forms
                 currentRemote.RemoteItems.Add(remoteItem);
             }
             SaveRemote();
+            cmbAddItem.SelectedItem = "Group";
         }
 
         private void btnSaveGroup_Click(object sender, EventArgs e)
@@ -293,6 +295,7 @@ namespace HTPCRemote.Forms
                 currentRemote.RemoteItems.Add(remoteItem);
             }
             SaveRemote();
+            cmbAddItem.SelectedItem = "Blank Space";
         }
 
         private void btnSaveBlank_Click(object sender, EventArgs e)
@@ -330,6 +333,7 @@ namespace HTPCRemote.Forms
                 currentRemote.RemoteItems.Add(remoteItem);
             }
             SaveRemote();
+            cmbAddItem.SelectedItem = "New Line";
         }
 
         private void btnDeleteNewRow_Click(object sender, EventArgs e)
