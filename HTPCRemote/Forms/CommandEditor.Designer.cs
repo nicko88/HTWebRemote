@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CommandEditor));
             this.lbCommands = new System.Windows.Forms.ListBox();
             this.cmbAddCommand = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -51,6 +50,8 @@
             this.btnDown = new System.Windows.Forms.Button();
             this.btnUp = new System.Windows.Forms.Button();
             this.btnSaveClose = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.btnDoc = new System.Windows.Forms.LinkLabel();
             this.panelCommand.SuspendLayout();
             this.panelWaitTime.SuspendLayout();
             this.SuspendLayout();
@@ -85,12 +86,13 @@
             // 
             // label7
             // 
+            this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(17, -1);
+            this.label7.Location = new System.Drawing.Point(10, 17);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(99, 49);
+            this.label7.Size = new System.Drawing.Size(114, 20);
             this.label7.TabIndex = 45;
-            this.label7.Text = "Add Command:";
+            this.label7.Text = "or Wait Time:";
             this.label7.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // panelCommand
@@ -271,7 +273,7 @@
             // 
             this.btnDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDown.Location = new System.Drawing.Point(447, 189);
+            this.btnDown.Location = new System.Drawing.Point(447, 186);
             this.btnDown.Name = "btnDown";
             this.btnDown.Size = new System.Drawing.Size(30, 30);
             this.btnDown.TabIndex = 50;
@@ -283,7 +285,7 @@
             // 
             this.btnUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnUp.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUp.Location = new System.Drawing.Point(447, 153);
+            this.btnUp.Location = new System.Drawing.Point(447, 150);
             this.btnUp.Name = "btnUp";
             this.btnUp.Size = new System.Drawing.Size(30, 30);
             this.btnUp.TabIndex = 49;
@@ -294,7 +296,7 @@
             // btnSaveClose
             // 
             this.btnSaveClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSaveClose.Location = new System.Drawing.Point(10, 90);
+            this.btnSaveClose.Location = new System.Drawing.Point(10, 87);
             this.btnSaveClose.Name = "btnSaveClose";
             this.btnSaveClose.Size = new System.Drawing.Size(114, 28);
             this.btnSaveClose.TabIndex = 64;
@@ -302,11 +304,37 @@
             this.btnSaveClose.UseVisualStyleBackColor = true;
             this.btnSaveClose.Click += new System.EventHandler(this.btnSaveClose_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(16, 1);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(97, 20);
+            this.label1.TabIndex = 65;
+            this.label1.Text = "Add a Cmd";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // btnDoc
+            // 
+            this.btnDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDoc.AutoSize = true;
+            this.btnDoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDoc.Location = new System.Drawing.Point(443, 229);
+            this.btnDoc.Name = "btnDoc";
+            this.btnDoc.Size = new System.Drawing.Size(41, 20);
+            this.btnDoc.TabIndex = 67;
+            this.btnDoc.TabStop = true;
+            this.btnDoc.Text = "Doc";
+            this.btnDoc.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.btnDoc_LinkClicked);
+            // 
             // CommandEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(489, 256);
+            this.Controls.Add(this.btnDoc);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnSaveClose);
             this.Controls.Add(this.btnDown);
             this.Controls.Add(this.btnUp);
@@ -315,15 +343,16 @@
             this.Controls.Add(this.cmbAddCommand);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.lbCommands);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "CommandEditor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Command Editor";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CommandEditor_FormClosing);
             this.panelCommand.ResumeLayout(false);
             this.panelCommand.PerformLayout();
             this.panelWaitTime.ResumeLayout(false);
             this.panelWaitTime.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -351,5 +380,7 @@
         private System.Windows.Forms.Button btnDown;
         private System.Windows.Forms.Button btnUp;
         private System.Windows.Forms.Button btnSaveClose;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.LinkLabel btnDoc;
     }
 }

@@ -125,12 +125,6 @@
     <Compile Include="Forms\CommandEditor.Designer.cs">
       <DependentUpon>CommandEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\DocReader.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\DocReader.Designer.cs">
-      <DependentUpon>DocReader.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Donate.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -184,10 +178,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CommandEditor.resx">
       <DependentUpon>CommandEditor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DocReader.resx">
-      <DependentUpon>DocReader.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Donate.resx">
       <DependentUpon>Donate.cs</DependentUpon>

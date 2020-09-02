@@ -122,8 +122,8 @@ namespace HTPCRemote.Devices
         public static List<string> GetDeviceNames()
         {
             List<string> deviceNames = new List<string>();
-            deviceNames.Add("win");
             deviceNames.Add("keys");
+            deviceNames.Add("win");
 
             try
             {

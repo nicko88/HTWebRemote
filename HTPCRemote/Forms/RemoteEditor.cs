@@ -12,6 +12,7 @@ namespace HTPCRemote.Forms
     {
         Remote currentRemote;
         private string IP = Util.ConfigHelper.GetLocalIPAddress();
+        private int _lastDeviceIndex = 0;
 
         public RemoteEditor()
         {
@@ -417,8 +418,10 @@ namespace HTPCRemote.Forms
                 if (currentItem.ItemType == RemoteItem.RemoteItemType.Button)
                 {
                     int index = lbRemoteItems.SelectedIndex;
-                    CommandEditor commandEditor = new CommandEditor(currentItem.Commands);
+                    CommandEditor commandEditor = new CommandEditor(currentItem.Commands, _lastDeviceIndex);
                     commandEditor.ShowDialog();
+                    _lastDeviceIndex = commandEditor.LastDeviceIndex;
+
                     SaveRemote();
 
                     lbRemoteItems.SelectedIndex = index;

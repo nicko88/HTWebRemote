@@ -154,6 +154,12 @@ namespace HTPCRemote
                 htmlPage = FileBrowserV2.LoadFileBrowser(request);
             }
 
+            if (request.RawUrl.Contains("/doc"))
+            {
+                htmlPage = ConfigHelper.GetEmbeddedResource("doc.html");
+                htmlPage = htmlPage.Replace("{BASEIP}", IP);
+            }
+
             if (request.RawUrl.Contains("closeyt"))
             {
                 YoutubeSearch._searchQ = null;
@@ -197,8 +203,7 @@ namespace HTPCRemote
 
         private void LblDoc_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            DocReader reader = new DocReader(IP);
-            reader.Show();
+            Process.Start($"http://{IP}:5000/doc");
         }
 
         private void LblOpenFileBrowser_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

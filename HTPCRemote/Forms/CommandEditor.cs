@@ -1,6 +1,7 @@
 ﻿using HTPCRemote.RemoteFile;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -9,16 +10,25 @@ namespace HTPCRemote.Forms
     public partial class CommandEditor : Form
     {
         private List<Command> Commands;
+        public int LastDeviceIndex;
 
-        public CommandEditor(List<Command> commands)
+        public CommandEditor(List<Command> commands, int lastDeviceIndex)
         {
             InitializeComponent();
             Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
             Commands = commands;
+            LoadCommands();
 
             cmbDevices.DataSource = Devices.DeviceSelector.GetDeviceNames();
-            LoadCommands();
+            try
+            {
+                LastDeviceIndex = lastDeviceIndex;
+                cmbDevices.SelectedIndex = lastDeviceIndex;
+            }
+            catch { }
+
+            cmbAddCommand.SelectedIndex = 0;
         }
 
         private void cmbAddCommand_SelectedIndexChanged(object sender, EventArgs e)
@@ -30,10 +40,12 @@ namespace HTPCRemote.Forms
                 if(cmbAddCommand.SelectedItem.ToString() == "Command")
                 {
                     panelCommand.Visible = true;
+                    panelWaitTime.Visible = false;
                 }
                 else if(cmbAddCommand.SelectedItem.ToString() == "Wait Time")
                 {
                     panelWaitTime.Visible = true;
+                    panelCommand.Visible = false;
                 }
             }
             catch { }
@@ -41,7 +53,6 @@ namespace HTPCRemote.Forms
 
         private void lbCommands_SelectedIndexChanged(object sender, EventArgs e)
         {
-            cmbAddCommand.SelectedIndex = -1;
             ResetControls();
 
             if (lbCommands.SelectedItem is Command)
@@ -50,7 +61,9 @@ namespace HTPCRemote.Forms
 
                 if(currentCommand.WaitTimeMS > 0)
                 {
+                    cmbAddCommand.SelectedIndex = 1;
                     panelWaitTime.Visible = true;
+                    panelCommand.Visible = false;
                     tbWaitTime.Text = currentCommand.WaitTimeMS.ToString();
                     btnAddWait.Visible = false;
                     btnSaveWait.Visible = true;
@@ -58,7 +71,9 @@ namespace HTPCRemote.Forms
                 }
                 else
                 {
+                    cmbAddCommand.SelectedIndex = 0;
                     panelCommand.Visible = true;
+                    panelWaitTime.Visible = false;
                     cmbDevices.SelectedItem = currentCommand.DeviceName;
                     tbCommand.Text = currentCommand.Cmd;
                     tbParam.Text = currentCommand.Param;
@@ -67,12 +82,19 @@ namespace HTPCRemote.Forms
                     btnDeleteCmd.Visible = true;
                 }
             }
+            else
+            {
+                cmbAddCommand.SelectedIndex = 0;
+                panelCommand.Visible = true;
+                panelWaitTime.Visible = false;
+                btnAddCmd.Visible = true;
+                btnSaveCmd.Visible = true;
+                btnDeleteCmd.Visible = false;
+            }
         }
 
         private void ResetControls()
         {
-            panelCommand.Visible = false;
-            cmbDevices.SelectedIndex = -1;
             lblDevice.ForeColor = Color.Black;
             tbCommand.Text = "";
             tbParam.Text = "";
@@ -80,7 +102,6 @@ namespace HTPCRemote.Forms
             btnSaveCmd.Visible = false;
             btnDeleteCmd.Visible = false;
 
-            panelWaitTime.Visible = false;
             tbWaitTime.Text = "";
             tbWaitTime.BackColor = Color.White;
             btnAddWait.Visible = true;
@@ -91,7 +112,6 @@ namespace HTPCRemote.Forms
         private void LoadCommands()
         {
             ResetControls();
-            cmbAddCommand.SelectedIndex = -1;
 
             lbCommands.DataSource = null;
             lbCommands.Items.Clear();
@@ -107,7 +127,8 @@ namespace HTPCRemote.Forms
 
         private void btnAddCmd_Click(object sender, EventArgs e)
         {
-            if(cmbDevices.SelectedIndex == -1)
+            int devindex = cmbDevices.SelectedIndex;
+            if (devindex == -1)
             {
                 lblDevice.ForeColor = Color.Red;
                 return;
@@ -127,6 +148,7 @@ namespace HTPCRemote.Forms
             Command command = new Command(cmbDevices.SelectedItem.ToString(), tbCommand.Text, param);
             Commands.Insert(insertIndex, command);
             LoadCommands();
+            cmbDevices.SelectedIndex = devindex;
         }
 
         private void btnSaveCmd_Click(object sender, EventArgs e)
@@ -231,6 +253,16 @@ namespace HTPCRemote.Forms
         private void btnSaveClose_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void CommandEditor_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            LastDeviceIndex = cmbDevices.SelectedIndex;
+        }
+
+        private void btnDoc_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start($"http://{Util.ConfigHelper.GetLocalIPAddress()}:5000/doc");
         }
     }
 }
