@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Net;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
 
 namespace HTPCRemote
 {
@@ -43,9 +46,16 @@ namespace HTPCRemote
             }
             else
             {
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new HTPCRemote());
+                if (Process.GetProcessesByName(Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetEntryAssembly().Location)).Count() > 1)
+                {
+                    Process.GetCurrentProcess().Kill();
+                }
+                else
+                {
+                    Application.EnableVisualStyles();
+                    Application.SetCompatibleTextRenderingDefault(false);
+                    Application.Run(new HTPCRemote());
+                }
             }
         }
     }
