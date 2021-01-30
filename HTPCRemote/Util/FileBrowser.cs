@@ -40,22 +40,21 @@ namespace HTPCRemote.Util
             }
             else if (request.RawUrl.Contains("FBback"))
             {
-                if (_savedLocation != null && _savedLocation.LastIndexOf(@"\") > 0)
+                if(_savedLocation != null && _savedLocation.LastIndexOf(@"\") > 0)
                 {
                     currentPath = _savedLocation.Remove(_savedLocation.LastIndexOf(@"\"));
+
+                    if (currentPath.EndsWith(":"))
+                    {
+                        currentPath = currentPath + @"\";
+                    }
 
                     List<string> paths = File.ReadLines($@"{ConfigHelper.WorkingPath}\HTPCRemoteBrowsePaths.txt").ToList();
                     foreach (string path in paths)
                     {
-                        if (path.Contains(currentPath))
+                        if (path.Contains(_savedLocation.TrimEnd('\\')))
                         {
-                            string newPath = currentPath;
-                            currentPath = path;
-
-                            if (newPath.Length < path.Length)
-                            {
-                                currentPath = null;
-                            }
+                            currentPath = null;
                         }
                     }
                 }
@@ -180,7 +179,7 @@ namespace HTPCRemote.Util
                 else
                 {
                     page.Append(@"<span style=""color: white; font-size: 15px;"">Search for files in the folders below that contain this exact phrase (single word works best)</span>");
-                    page.Append(@"<form method=""GET"">");
+                    page.Append(@"<form style=""margin-bottom: 0px"" method=""GET"">");
                     page.Append($@"<input type=""hidden"" value=""{Base64Encode(currentPath)}"" id=""path"" name=""path"">");
                     page.Append(@"<input type=""text"" id=""search"" name=""search"" class=""form-control mb-2 mr-sm-2 form-check-inline"" style=""width: 200px; display: inline;""><button type=""submit"" id=""submit"" class=""btn btn-primary"">Search</button>");
                     page.Append("</form>");
@@ -293,7 +292,7 @@ namespace HTPCRemote.Util
                     page.Append(@"<span style=""color: white; font-size: 15px;"">YouTube:</span>");
                     page.Append("<br />");
 
-                    page.Append(@"<form method=""POST"" id=""youtubeform"" action=""FByoutube"">");
+                    page.Append(@"<form style=""margin-bottom: 0px"" method=""POST"" id=""youtubeform"" action=""FByoutube"">");
                     page.Append(@"<input type=""text"" id=""youtube"" name=""youtube"" class=""form-control mb-2 mr-sm-2 form-check-inline"" style=""width: 200px; display: inline;"">");
                     page.Append(@"<button type=""submit"" id=""submit"" class=""btn btn-primary"">Play / Search</button>");
                     page.Append("</form>");

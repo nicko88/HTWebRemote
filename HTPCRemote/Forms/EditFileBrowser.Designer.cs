@@ -50,6 +50,9 @@
             this.lblYTMediaPlayerPath = new System.Windows.Forms.Label();
             this.cbEnableYoutube = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.tbManualPath = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.btnAddManual = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -146,7 +149,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(6, 56);
+            this.label3.Location = new System.Drawing.Point(6, 87);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(220, 20);
             this.label3.TabIndex = 7;
@@ -155,7 +158,7 @@
             // btnChooseFBMediaPlayer
             // 
             this.btnChooseFBMediaPlayer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChooseFBMediaPlayer.Location = new System.Drawing.Point(227, 52);
+            this.btnChooseFBMediaPlayer.Location = new System.Drawing.Point(232, 85);
             this.btnChooseFBMediaPlayer.Name = "btnChooseFBMediaPlayer";
             this.btnChooseFBMediaPlayer.Size = new System.Drawing.Size(81, 28);
             this.btnChooseFBMediaPlayer.TabIndex = 8;
@@ -167,7 +170,7 @@
             // 
             this.lblFBMediaPlayerPath.AutoSize = true;
             this.lblFBMediaPlayerPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFBMediaPlayerPath.Location = new System.Drawing.Point(310, 56);
+            this.lblFBMediaPlayerPath.Location = new System.Drawing.Point(319, 87);
             this.lblFBMediaPlayerPath.Name = "lblFBMediaPlayerPath";
             this.lblFBMediaPlayerPath.Size = new System.Drawing.Size(155, 20);
             this.lblFBMediaPlayerPath.TabIndex = 9;
@@ -175,6 +178,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnAddManual);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.tbManualPath);
             this.groupBox1.Controls.Add(this.btnChooseFBMediaPlayer);
             this.groupBox1.Controls.Add(this.cbShowFileBrowser);
             this.groupBox1.Controls.Add(this.btnRemove);
@@ -185,7 +191,7 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Location = new System.Drawing.Point(13, 262);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(696, 88);
+            this.groupBox1.Size = new System.Drawing.Size(696, 120);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "File Browser Settings";
@@ -201,7 +207,7 @@
             this.groupBox2.Controls.Add(this.lblYTMediaPlayerPath);
             this.groupBox2.Controls.Add(this.cbEnableYoutube);
             this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Location = new System.Drawing.Point(13, 356);
+            this.groupBox2.Location = new System.Drawing.Point(13, 388);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(696, 117);
             this.groupBox2.TabIndex = 11;
@@ -305,11 +311,40 @@
             this.label5.TabIndex = 10;
             this.label5.Text = "YouTube Media Player:";
             // 
+            // tbManualPath
+            // 
+            this.tbManualPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbManualPath.Location = new System.Drawing.Point(163, 53);
+            this.tbManualPath.Name = "tbManualPath";
+            this.tbManualPath.Size = new System.Drawing.Size(397, 26);
+            this.tbManualPath.TabIndex = 17;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(6, 56);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(151, 20);
+            this.label6.TabIndex = 18;
+            this.label6.Text = "Add Manual Path:";
+            // 
+            // btnAddManual
+            // 
+            this.btnAddManual.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddManual.Location = new System.Drawing.Point(566, 53);
+            this.btnAddManual.Name = "btnAddManual";
+            this.btnAddManual.Size = new System.Drawing.Size(124, 28);
+            this.btnAddManual.TabIndex = 19;
+            this.btnAddManual.Text = "Add Manual";
+            this.btnAddManual.UseVisualStyleBackColor = true;
+            this.btnAddManual.Click += new System.EventHandler(this.btnAddManual_Click);
+            // 
             // EditFileBrowser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(720, 481);
+            this.ClientSize = new System.Drawing.Size(720, 513);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lbPaths);
@@ -354,5 +389,8 @@
         private System.Windows.Forms.TextBox tbYoutubeAPIKey;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.LinkLabel lblAPIHelp;
+        private System.Windows.Forms.Button btnAddManual;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox tbManualPath;
     }
 }

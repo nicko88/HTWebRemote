@@ -107,6 +107,21 @@ namespace HTPCRemote.Forms
             LoadPaths();
         }
 
+        private void btnAddManual_Click(object sender, EventArgs e)
+        {
+            if(Directory.Exists(tbManualPath.Text))
+            {
+                File.AppendAllText(ConfigHelper.browsePaths, tbManualPath.Text + Environment.NewLine);
+                tbManualPath.Clear();
+            }
+            else
+            {
+                MessageBox.Show("The path you entered cannot be found.","Invalid Path", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            LoadPaths();
+        }
+
         private void cmbFileBrowserRemote_SelectedIndexChanged(object sender, EventArgs e)
         {
             RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\HTPCRemote", true);

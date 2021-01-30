@@ -28,23 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Donate));
-            this.pbDonateLink = new System.Windows.Forms.PictureBox();
+            this.components = new System.ComponentModel.Container();
             this.lblMsg = new System.Windows.Forms.Label();
             this.linkEmail = new System.Windows.Forms.LinkLabel();
+            this.pbDonateQR = new System.Windows.Forms.PictureBox();
+            this.pbDonateLink = new System.Windows.Forms.PictureBox();
+            this.toolTipEmail = new System.Windows.Forms.ToolTip(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.pbDonateQR)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbDonateLink)).BeginInit();
             this.SuspendLayout();
-            // 
-            // pbDonateLink
-            // 
-            this.pbDonateLink.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pbDonateLink.Image = global::HTPCRemote.Properties.Resources.button_PayPal_donate;
-            this.pbDonateLink.Location = new System.Drawing.Point(64, 165);
-            this.pbDonateLink.Name = "pbDonateLink";
-            this.pbDonateLink.Size = new System.Drawing.Size(334, 155);
-            this.pbDonateLink.TabIndex = 0;
-            this.pbDonateLink.TabStop = false;
-            this.pbDonateLink.Click += new System.EventHandler(this.pbDonateLink_Click);
             // 
             // lblMsg
             // 
@@ -67,21 +59,42 @@
             this.linkEmail.Text = "E-mail";
             this.linkEmail.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkEmail_LinkClicked);
             // 
+            // pbDonateQR
+            // 
+            this.pbDonateQR.Image = global::HTPCRemote.Properties.Resources.QR_Code;
+            this.pbDonateQR.Location = new System.Drawing.Point(337, 177);
+            this.pbDonateQR.Name = "pbDonateQR";
+            this.pbDonateQR.Size = new System.Drawing.Size(131, 133);
+            this.pbDonateQR.TabIndex = 3;
+            this.pbDonateQR.TabStop = false;
+            // 
+            // pbDonateLink
+            // 
+            this.pbDonateLink.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbDonateLink.Image = global::HTPCRemote.Properties.Resources.button_PayPal_donate;
+            this.pbDonateLink.Location = new System.Drawing.Point(0, 165);
+            this.pbDonateLink.Name = "pbDonateLink";
+            this.pbDonateLink.Size = new System.Drawing.Size(334, 155);
+            this.pbDonateLink.TabIndex = 0;
+            this.pbDonateLink.TabStop = false;
+            this.pbDonateLink.Click += new System.EventHandler(this.pbDonateLink_Click);
+            // 
             // Donate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(469, 332);
+            this.ClientSize = new System.Drawing.Size(469, 328);
+            this.Controls.Add(this.pbDonateQR);
             this.Controls.Add(this.linkEmail);
             this.Controls.Add(this.lblMsg);
             this.Controls.Add(this.pbDonateLink);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Donate";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Donate to HTPCRemote";
+            ((System.ComponentModel.ISupportInitialize)(this.pbDonateQR)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbDonateLink)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -93,5 +106,7 @@
         private System.Windows.Forms.PictureBox pbDonateLink;
         private System.Windows.Forms.Label lblMsg;
         private System.Windows.Forms.LinkLabel linkEmail;
+        private System.Windows.Forms.PictureBox pbDonateQR;
+        private System.Windows.Forms.ToolTip toolTipEmail;
     }
 }
