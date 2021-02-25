@@ -8,7 +8,7 @@ namespace HTPCRemote.Devices
 {
     class DeviceSelector
     {
-        public static List<string> DeviceTypes = new List<string> { "mpc", "lirc", "wemo", "dm", "yamaha", "emotiva", "jvc", "benq", "oppo", "dbox" };
+        public static List<string> DeviceTypes = new List<string> { "mpc", "lirc", "wemo", "dm", "yamaha", "emotiva", "storm", "jvc", "benq", "oppo", "dbox" };
 
         public static string FindDevice(string devName, string cmd, string param)
         {
@@ -78,6 +78,9 @@ namespace HTPCRemote.Devices
                     break;
                 case "emotiva":
                     EmotivaControl.RunCmd(IP, cmd, param);
+                    break;
+                case "storm":
+                    StormControl.RunCmd(IP, cmd);
                     break;
                 case "dbox":
                     DBOXControl.RunCmd(IP, cmd, param);
