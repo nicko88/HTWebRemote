@@ -20,7 +20,7 @@ namespace HTPCRemote.Forms
             sb.AppendLine();
             sb.AppendLine("If you like the program and find it useful and would like to support me with a few bucks that would very appreciated :)");
             sb.AppendLine();
-            sb.AppendLine("If you would like to contact me, you can e-mail me here:");
+            sb.AppendLine("If you would like to contact me you can e-mail me here:");
 
             lblMsg.Text = sb.ToString();
 
