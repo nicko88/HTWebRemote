@@ -12,7 +12,7 @@ namespace HTPCRemote.Devices.Controllers
 
             if (Emosocket.Connect())
             {
-                Thread.Sleep(250);
+                Thread.Sleep(100);
                 if (string.IsNullOrEmpty(param))
                 {
                     param = "0";

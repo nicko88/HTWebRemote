@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows.Forms;
 using System.Drawing;
+using System.IO.Ports;
 
 namespace HTPCRemote.Forms
 {
@@ -34,7 +35,29 @@ namespace HTPCRemote.Forms
                 string[] values = lbDevices.SelectedItem.ToString().Split(',');
 
                 tbDevName.Text = values[1];
-                tbIP.Text = values[2];
+
+                if(values[2].Contains("COM"))
+                {
+                    cmbCOMport.DataSource = SerialPort.GetPortNames();
+                    tbIP.Visible = false;
+                    cmbCOMport.Visible = true;
+                    lblIP.Text = "COM:";
+                    cmbCOMport.SelectedItem = values[2];
+                }
+                else if (values[2].Contains("http"))
+                {
+                    tbIP.Visible = true;
+                    cmbCOMport.Visible = false;
+                    lblIP.Text = "URL:";
+                    tbIP.Text = values[2];
+                }
+                else
+                {
+                    tbIP.Visible = true;
+                    cmbCOMport.Visible = false;
+                    lblIP.Text = "IP:";
+                    tbIP.Text = values[2];
+                }
 
                 cmbDeviceType.SelectedIndexChanged -= cmbDeviceType_SelectedIndexChanged;
                 cmbDeviceType.SelectedItem = values[0];
@@ -46,6 +69,9 @@ namespace HTPCRemote.Forms
 
         private void cmbDeviceType_SelectedIndexChanged(object sender, EventArgs e)
         {
+            tbIP.Visible = true;
+            cmbCOMport.Visible = false;
+            lblIP.Text = "IP:";
             lbDevices.ClearSelected();
 
             if (cmbDeviceType.SelectedItem != null)
@@ -57,6 +83,18 @@ namespace HTPCRemote.Forms
                 else if (cmbDeviceType.SelectedItem.ToString() == "lirc")
                 {
                     tbIP.Text = "127.0.0.1:8765";
+                }
+                else if (cmbDeviceType.SelectedItem.ToString() == "rs232")
+                {
+                    tbIP.Visible = false;
+                    cmbCOMport.Visible = true;
+                    lblIP.Text = "COM:";
+                    cmbCOMport.DataSource = SerialPort.GetPortNames();
+                }
+                else if (cmbDeviceType.SelectedItem.ToString() == "httpget")
+                {
+                    lblIP.Text = "URL:";
+                    tbIP.Text = "http://";
                 }
                 else
                 {
@@ -84,7 +122,14 @@ namespace HTPCRemote.Forms
         {
             if (cmbDeviceType.SelectedIndex > -1)
             {
-                lbDevices.Items.Add(cmbDeviceType.SelectedItem.ToString() + "," + tbDevName.Text + "," + tbIP.Text);
+                if (tbIP.Visible)
+                {
+                    lbDevices.Items.Add(cmbDeviceType.SelectedItem.ToString() + "," + tbDevName.Text + "," + tbIP.Text);
+                }
+                else
+                {
+                    lbDevices.Items.Add(cmbDeviceType.SelectedItem.ToString() + "," + tbDevName.Text + "," + cmbCOMport.SelectedItem.ToString());
+                }
                 cmbDeviceType.SelectedIndex = -1;
                 tbDevName.Text = "";
                 tbIP.Text = "";
@@ -95,7 +140,14 @@ namespace HTPCRemote.Forms
         {
             if (lbDevices.SelectedIndex > -1)
             {
-                lbDevices.Items[lbDevices.SelectedIndex] = cmbDeviceType.SelectedItem.ToString() + "," + tbDevName.Text + "," + tbIP.Text;
+                if (tbIP.Visible)
+                {
+                    lbDevices.Items[lbDevices.SelectedIndex] = cmbDeviceType.SelectedItem.ToString() + "," + tbDevName.Text + "," + tbIP.Text;
+                }
+                else
+                {
+                    lbDevices.Items[lbDevices.SelectedIndex] = cmbDeviceType.SelectedItem.ToString() + "," + tbDevName.Text + "," + cmbCOMport.SelectedItem.ToString();
+                }
                 cmbDeviceType.SelectedIndex = -1;
                 tbDevName.Text = "";
                 tbIP.Text = "";

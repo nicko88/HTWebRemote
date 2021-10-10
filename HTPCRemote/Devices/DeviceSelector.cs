@@ -8,7 +8,24 @@ namespace HTPCRemote.Devices
 {
     class DeviceSelector
     {
-        public static List<string> DeviceTypes = new List<string> { "mpc", "lirc", "wemo", "dm", "yamaha", "emotiva", "storm", "jvc", "benq", "oppo", "dbox" };
+        public static List<string> DeviceTypes = new List<string> { "mpc",
+                                                                    "zappiti",
+                                                                    "lirc",
+                                                                    "wemo",
+                                                                    "dm",
+                                                                    "yamaha",
+                                                                    "emotiva",
+                                                                    "storm",
+                                                                    "htp1",
+                                                                    "anthem",
+                                                                    "jvc",
+                                                                    "benq",
+                                                                    "christie",
+                                                                    "oppo",
+                                                                    "dbox",
+                                                                    "rs232",
+                                                                    "httpget",
+                                                                    "mqtt" };
 
         public static string FindDevice(string devName, string cmd, string param)
         {
@@ -67,14 +84,23 @@ namespace HTPCRemote.Devices
 
             switch (devType)
             {
+                case "mpc":
+                    MPCControl.RunCmd(IP, cmd, param, showErrors);
+                    break;
+                case "zappiti":
+                    ZappitiControl.RunCmd(IP, cmd);
+                    break;
+                case "lirc":
+                    LIRCControl.RunCmd(IP, cmd, param);
+                    break;
+                case "wemo":
+                    WemoPlugControl.RunCmd(IP, cmd, showErrors);
+                    break;
                 case "dm":
                     DMControl.RunCmd(IP, cmd, param);
                     break;
-                case "jvc":
-                    JVCControl.RunCmd(IP, cmd, param);
-                    break;
-                case "benq":
-                    BenQControl.RunCmd(IP, cmd);
+                case "yamaha":
+                    YamahaControl.RunCmd(IP, cmd);
                     break;
                 case "emotiva":
                     EmotivaControl.RunCmd(IP, cmd, param);
@@ -82,17 +108,35 @@ namespace HTPCRemote.Devices
                 case "storm":
                     StormControl.RunCmd(IP, cmd);
                     break;
+                case "htp1":
+                    HTP1Control.RunCmd(IP, cmd, param);
+                    break;
+                case "anthem":
+                    AnthemControl.RunCmd(IP, cmd);
+                    break;
+                case "jvc":
+                    JVCControl.RunCmd(IP, cmd, param);
+                    break;
+                case "benq":
+                    BenQControl.RunCmd(IP, cmd);
+                    break;
+                case "christie":
+                    ChristieControl.RunCmd(IP, cmd);
+                    break;
+                case "oppo":
+                    OppoControl.RunCmd(IP, cmd, param);
+                    break;
                 case "dbox":
                     DBOXControl.RunCmd(IP, cmd, param);
                     break;
-                case "mpc":
-                    MPCControl.RunCmd(IP, cmd, param, showErrors);
+                case "rs232":
+                    RS232Control.RunCmd(IP, cmd, showErrors);
                     break;
-                case "lirc":
-                    LIRCControl.RunCmd(IP, cmd, param);
+                case "httpget":
+                    HttpGetControl.RunCmd(IP, cmd, param);
                     break;
-                case "wemo":
-                    WemoPlugControl.RunCmd(IP, cmd, showErrors);
+                case "mqtt":
+                    MQTTControl.RunCmd(IP, cmd, param, showErrors);
                     break;
                 default:
                     break;
@@ -112,6 +156,9 @@ namespace HTPCRemote.Devices
                 {
                     case "dm":
                         returnQuery = (string)Type.GetType("HTPCRemote.Devices.Controllers.DMControl").GetMethod(values[1]).Invoke(null, new object[] { IP, showErrors });
+                        break;
+                    case "storm":
+                        returnQuery = (string)Type.GetType("HTPCRemote.Devices.Controllers.StormControl").GetMethod(values[1]).Invoke(null, new object[] { IP, showErrors });
                         break;
                     default:
                         break;

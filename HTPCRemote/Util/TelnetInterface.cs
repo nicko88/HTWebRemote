@@ -32,7 +32,7 @@ namespace HTPCRemote.Util
         public void Write(string cmd)
         {
             // Append <CR>
-            cmd = cmd + Environment.NewLine;
+            cmd = cmd + "\r";
 
             if (!tcpSocket.Connected) return;
             var buf = Encoding.ASCII.GetBytes(cmd.Replace("\0xFF", "\0xFF\0xFF"));

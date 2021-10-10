@@ -66,7 +66,7 @@
             this.lbCommands.ItemHeight = 20;
             this.lbCommands.Location = new System.Drawing.Point(10, 124);
             this.lbCommands.Name = "lbCommands";
-            this.lbCommands.Size = new System.Drawing.Size(431, 124);
+            this.lbCommands.Size = new System.Drawing.Size(626, 144);
             this.lbCommands.TabIndex = 0;
             this.lbCommands.SelectedIndexChanged += new System.EventHandler(this.lbCommands_SelectedIndexChanged);
             // 
@@ -97,6 +97,8 @@
             // 
             // panelCommand
             // 
+            this.panelCommand.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panelCommand.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelCommand.Controls.Add(this.btnDeleteCmd);
             this.panelCommand.Controls.Add(this.btnAddCmd);
@@ -109,7 +111,7 @@
             this.panelCommand.Controls.Add(this.cmbDevices);
             this.panelCommand.Location = new System.Drawing.Point(130, 5);
             this.panelCommand.Name = "panelCommand";
-            this.panelCommand.Size = new System.Drawing.Size(347, 109);
+            this.panelCommand.Size = new System.Drawing.Size(542, 109);
             this.panelCommand.TabIndex = 47;
             this.panelCommand.Visible = false;
             // 
@@ -137,10 +139,12 @@
             // 
             // tbParam
             // 
+            this.tbParam.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbParam.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbParam.Location = new System.Drawing.Point(165, 72);
             this.tbParam.Name = "tbParam";
-            this.tbParam.Size = new System.Drawing.Size(173, 26);
+            this.tbParam.Size = new System.Drawing.Size(368, 26);
             this.tbParam.TabIndex = 54;
             // 
             // btnSaveCmd
@@ -166,10 +170,12 @@
             // 
             // tbCommand
             // 
+            this.tbCommand.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbCommand.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbCommand.Location = new System.Drawing.Point(165, 40);
             this.tbCommand.Name = "tbCommand";
-            this.tbCommand.Size = new System.Drawing.Size(173, 26);
+            this.tbCommand.Size = new System.Drawing.Size(368, 26);
             this.tbCommand.TabIndex = 52;
             // 
             // lblDevice
@@ -273,7 +279,7 @@
             // 
             this.btnDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDown.Location = new System.Drawing.Point(447, 186);
+            this.btnDown.Location = new System.Drawing.Point(642, 186);
             this.btnDown.Name = "btnDown";
             this.btnDown.Size = new System.Drawing.Size(30, 30);
             this.btnDown.TabIndex = 50;
@@ -285,7 +291,7 @@
             // 
             this.btnUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnUp.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUp.Location = new System.Drawing.Point(447, 150);
+            this.btnUp.Location = new System.Drawing.Point(642, 150);
             this.btnUp.Name = "btnUp";
             this.btnUp.Size = new System.Drawing.Size(30, 30);
             this.btnUp.TabIndex = 49;
@@ -320,7 +326,7 @@
             this.btnDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDoc.AutoSize = true;
             this.btnDoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDoc.Location = new System.Drawing.Point(443, 229);
+            this.btnDoc.Location = new System.Drawing.Point(638, 249);
             this.btnDoc.Name = "btnDoc";
             this.btnDoc.Size = new System.Drawing.Size(41, 20);
             this.btnDoc.TabIndex = 67;
@@ -332,7 +338,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(489, 256);
+            this.ClientSize = new System.Drawing.Size(684, 276);
             this.Controls.Add(this.btnDoc);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnSaveClose);

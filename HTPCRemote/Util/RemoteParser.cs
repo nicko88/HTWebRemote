@@ -8,8 +8,6 @@ namespace HTPCRemote.Util
 {
     class RemoteParser
     {
-        private static string IP = ConfigHelper.GetLocalIPAddress();
-
         public static string GetRemoteHTML(string remoteNum, bool withTabs)
         {
             Remote remote = RemoteJSONLoader.LoadRemoteJSON(remoteNum);

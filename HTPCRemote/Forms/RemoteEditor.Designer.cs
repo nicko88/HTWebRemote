@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RemoteEditor));
             this.lbRemoteItems = new System.Windows.Forms.ListBox();
             this.webBrowser = new System.Windows.Forms.WebBrowser();
             this.panelButton = new System.Windows.Forms.Panel();
@@ -280,7 +279,11 @@
             "2",
             "3",
             "4",
-            "5"});
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"});
             this.cmbRemoteID.Location = new System.Drawing.Point(110, 6);
             this.cmbRemoteID.Name = "cmbRemoteID";
             this.cmbRemoteID.Size = new System.Drawing.Size(42, 28);
@@ -683,7 +686,6 @@
             this.Controls.Add(this.cmbRemoteID);
             this.Controls.Add(this.webBrowser);
             this.Controls.Add(this.lbRemoteItems);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "RemoteEditor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Remote Editor";

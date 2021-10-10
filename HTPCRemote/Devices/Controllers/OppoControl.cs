@@ -1,6 +1,5 @@
 ﻿using System.Net.Sockets;
 using System.Text;
-using System.Threading;
 
 namespace HTPCRemote.Devices.Controllers
 {
@@ -12,8 +11,6 @@ namespace HTPCRemote.Devices.Controllers
 
             if (OppoSocket.Connect())
             {
-                Thread.Sleep(100);
-
                 string command = cmd;
                 if (!string.IsNullOrEmpty(param))
                 {

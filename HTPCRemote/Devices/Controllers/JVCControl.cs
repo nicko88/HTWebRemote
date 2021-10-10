@@ -15,9 +15,8 @@ namespace HTPCRemote.Devices.Controllers
 
             if (JVCsocket.Connect())
             {
-                Thread.Sleep(250);
                 JVCsocket.SendData(Encoding.ASCII.GetBytes("PJREQ"));
-                Thread.Sleep(250);
+                Thread.Sleep(50);
 
                 byte[] message = null;
 

@@ -1,6 +1,5 @@
 ﻿using System.Net.Sockets;
 using System.Text;
-using System.Threading;
 
 namespace HTPCRemote.Devices.Controllers
 {
@@ -12,7 +11,6 @@ namespace HTPCRemote.Devices.Controllers
 
             if (LIRCsocket.Connect())
             {
-                Thread.Sleep(250);
                 LIRCsocket.SendData(Encoding.ASCII.GetBytes($"SEND_ONCE {cmd} {param} \n"));
                 LIRCsocket.CloseSocket();
             }

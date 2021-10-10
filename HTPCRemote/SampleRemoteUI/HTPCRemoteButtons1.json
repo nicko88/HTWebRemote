@@ -5,7 +5,7 @@
   "RemoteItems": [
     {
       "ItemType": 1,
-      "Label": "MPC Remote"
+      "Label": "Sample MPC Remote (using hotkeys)"
     },
     {
       "ItemType": 2,

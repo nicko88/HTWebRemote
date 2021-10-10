@@ -28,11 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DeviceIPManager));
             this.lbDevices = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.lblDevice = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lblIP = new System.Windows.Forms.Label();
             this.tbIP = new System.Windows.Forms.TextBox();
             this.btnAdd = new System.Windows.Forms.Button();
             this.tbDevName = new System.Windows.Forms.TextBox();
@@ -40,6 +39,7 @@
             this.cmbDeviceType = new System.Windows.Forms.ComboBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
+            this.cmbCOMport = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // lbDevices
@@ -75,15 +75,15 @@
             this.lblDevice.Size = new System.Drawing.Size(0, 20);
             this.lblDevice.TabIndex = 2;
             // 
-            // label3
+            // lblIP
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(37, 75);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(31, 20);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "IP:";
+            this.lblIP.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblIP.Location = new System.Drawing.Point(12, 75);
+            this.lblIP.Name = "lblIP";
+            this.lblIP.Size = new System.Drawing.Size(56, 20);
+            this.lblIP.TabIndex = 3;
+            this.lblIP.Text = "IP:";
+            this.lblIP.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // tbIP
             // 
@@ -155,6 +155,17 @@
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
+            // cmbCOMport
+            // 
+            this.cmbCOMport.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbCOMport.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbCOMport.FormattingEnabled = true;
+            this.cmbCOMport.Location = new System.Drawing.Point(74, 72);
+            this.cmbCOMport.Name = "cmbCOMport";
+            this.cmbCOMport.Size = new System.Drawing.Size(180, 28);
+            this.cmbCOMport.TabIndex = 7;
+            this.cmbCOMport.Visible = false;
+            // 
             // DeviceIPManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -167,12 +178,12 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.tbIP);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.lblIP);
             this.Controls.Add(this.lblDevice);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lbDevices);
+            this.Controls.Add(this.cmbCOMport);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "DeviceIPManager";
@@ -189,7 +200,7 @@
         private System.Windows.Forms.ListBox lbDevices;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblDevice;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblIP;
         private System.Windows.Forms.TextBox tbIP;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.TextBox tbDevName;
@@ -197,5 +208,6 @@
         private System.Windows.Forms.ComboBox cmbDeviceType;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.ComboBox cmbCOMport;
     }
 }

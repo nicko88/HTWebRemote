@@ -15,7 +15,6 @@ namespace HTPCRemote.Devices.Controllers
 
             if (DMsocket.Connect())
             {
-                Thread.Sleep(100);
                 DMsocket.SendData(Encoding.ASCII.GetBytes((cmd + param).ToUpper() + "\r"));
                 DMsocket.CloseSocket();
             }

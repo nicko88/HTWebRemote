@@ -38,7 +38,17 @@ namespace HTPCRemote.Devices.Controllers
             keys = keys.Replace("alt", "%");
             keys = keys.Replace("{SPACE}", " ");
 
-            SendKeys.SendWait(keys);
+            try
+            {
+                SendKeys.SendWait(keys);
+            }
+            catch (Exception e)
+            {
+                if (showErrors)
+                {
+                    MessageBox.Show($"Error sending key: {keys}\n\n{e.Message}", "Error");
+                }
+            }
         }
     }
 }
