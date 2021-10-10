@@ -39,16 +39,23 @@ Finally, HTPCRemote includes a sort of API which lets you send commands from oth
 * Windows PC (open and close programs, etc)
 * Keyboard Hotkeys (Control any program that supports hotkeys like most media players)
 * [MPC-HC](https://github.com/clsid2/mpc-hc) and [MPC-BE](https://sourceforge.net/projects/mpcbe/)
+* Zappiti Media Player Box
 * [WinLIRC](http://winlirc.sourceforge.net/) and [LIRC](https://www.lirc.org/)
 * Belkin Wemo Smart Plug
 * Denon / Marantz AVRs
 * Yamaha AVRs
 * Emotiva AVRs
 * StormAudio ISP AVRs
+* Monoprice HTP-1 AVR
+* Anthem MRX AVRs
 * JVC Projectors
 * BenQ Projectors
+* Christie M-Series Projectors
 * Oppo Disc Player
 * D-BOX HEMC
+* RS232 Serial Devices
+* HTTP URL Commands (GET)
+* MQTT Messaging Protocol
 
 Support for more devices is subject to community requests and their ability to run tests for me as I try to add the support for their device.
 
