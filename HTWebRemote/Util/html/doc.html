@@ -1,0 +1,1407 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<style type="text/css">
+ .tab { margin-left: 20px; }
+</style>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<title>HTWebRemote Documentation</title>
+</head>
+<body>
+
+	<h1>HTWebRemote Documentation</h1>
+
+	<p>
+		This document explains how to use the HTWebRemote control software.<br />
+		The basic idea is that HTWebRemote runs in the background and commands can be sent to it from any device that can load a web URL.
+	</p>
+
+	<p>You must allow port 5000/TCP incoming on the PC that is running this software in order for the remote UI to function.  The software takes care of this firewall rule for you the first time you run it.</p>
+
+	<p>There are 3 main modes of operation for HTWebRemote.</p>
+
+	<h2>Operation Modes</h2>
+	<ul>
+		<li><a href="#remoteui">Remote Control Webpage Builder</a></li>
+		<li><a href="#commandline">Command Line Mode</a></li>
+		<li><a href="#urlcommandapi">URL Command API</a></li>
+	</ul>
+
+	<h2>Supported Devices</h2>
+
+	<a href="#devices">Jump to Supported Devices</a>
+
+	<h2><a id="remoteui"></a>Remote Control Webpage Builder</h2>
+
+	<p>
+		This is the main mode of operation that most people will use.<br />
+		The idea of this mode is for you to build remote control layouts with buttons (in this program's editor) and assign one or more commands to each button.<br />
+		Then you will open the remote control most likely on your phone or tablet to press the buttons.
+	</p>
+
+	<p>The URL of your remote control will be here: <a href="http://{BASEIP}:5000">http://{BASEIP}:5000</a></p>
+
+	<h3>File Browser</h3>
+
+	<p>
+		In the web page interface, there is also a file browser feature.<br />
+		The purpose of this feature is for you to add folder paths to it, and then you will be able to browse these folder paths from your phone or tablet to easily select media to play.
+	</p>
+
+	<p>The URL of your file browser will be here: <a href="http://{BASEIP}:5000/FB">http://{BASEIP}:5000/FB</a></p>
+
+	<h3>Additional Tips</h3>
+
+	<p>
+		Consider adding your remote control page to the home screen of your phone or tablet.<br />
+		This will give you more vertical space to see your remote control buttons and also give you a nice App icon to quickly access your remote control.
+	</p>
+
+	<p>If you don't know how to do this, just do a web search for how to add a web page to your home screen for either iPhone or Android.</p>
+	<br />
+
+	<h2><a id="commandline"></a>Command Line Mode</h2>
+
+	<p>This mode allows you to issue commands by running HTWebRemote.exe with command line parameters without HTWebRemote running in the background.</p>
+
+	<p>
+		To do this, run HTWebRemote.exe from the windows command line or a .bat file and pass in the <i>device, command, and parameter</i> values to send.<br />
+		This can be useful to send commands to your home theater devices from other software that can run a command line operation or .bat script such as madVR or Kodi when an event happens.
+	</p>
+
+	<h3>Command Line Format 1</h3>
+
+	<code>HTWebRemote.exe "IP" "devtype" "cmd" "param"</code>
+
+	<h3>Example Command Line Format 1 Usage:</h3>
+
+	<code>HTWebRemote.exe "192.168.1.100" "jvc" "PMLP" "1"</code>
+
+	<p>This command consists of 4 parameters:</p>
+
+	<ul>
+		<li><code>IP address</code> (The device IP address)</li>
+		<li><code>devtype</code> (The device identifier)</li>
+		<li><code>cmd</code> (The command you want to send)</li>
+		<li><code>param</code> (Optional command parameter than some devices and commands need)</li>
+	</ul>
+
+	<h3>Command Line Format 2</h3>
+
+	<code>HTWebRemote.exe "devname" "cmd" "param"</code>
+
+	<h3>Example Command Line Format 2 Usage:</h3>
+
+	<code>HTWebRemote.exe "myjvc" "PMLP" "1"</code>
+
+	<p>This command consists of 3 parameters:</p>
+
+	<ul>
+		<li><code>devname</code> (The device name you defined in the device manager screen)</li>
+		<li><code>cmd</code> (The command you want to send)</li>
+		<li><code>param</code> (Optional command parameter than some devices and commands need)</li>
+	</ul>
+	<br />
+	<br />
+
+	<h2><a id="urlcommandapi"></a>URL Command API</h2>
+
+	<p>This mode allows you to easily issue commands from other computers or devices on your network or to send commands from another software program as an API into HTWebRemote.</p>
+
+	<h3>URL Command Format 1</h3>
+
+	<p><code>http://{BASEIP}:5000?ip=<i>ip</i>&devtype=<i>devtype</i>&cmd=<i>command</i>&ampparam=<i>param</i></code></p>
+
+	<p>This URL command consists of 4 query strings:</p>
+
+	<ul>
+		<li><code>ip</code> (The device IP address)</li>
+		<li><code>devtype</code> (The device identifier)</li>
+		<li><code>cmd</code> (The command you want to send)</li>
+		<li><code>param</code> (Optional command parameter than some devices and commands need)</li>
+	</ul>
+
+	<h3>URL Command Format 2</h3>
+
+	<p><code>http://{BASEIP}:5000?devname=<i>devname</i>&cmd=<i>command</i>&ampparam=<i>param</i></code></p>
+
+	<p>This URL command consists of 3 query strings:</p>
+
+	<ul>
+		<li><code>devname</code> (The device name you defined in the device manager screen)</li>
+		<li><code>cmd</code> (The command you want to send)</li>
+		<li><code>param</code> (Optional command parameter than some devices and commands need)</li>
+	</ul>
+	<br />
+
+	<h2><a id="devices"></a>Supported Devices</h2>
+
+	<p>
+		HTWebRemote supports a few devices, but I would like to add more.<br />
+		Please leave a comment on GitHub or one of the other discussion pages for the app and let me know what device you would like to see supported.<br />
+		I will need testers with access to the device in order to add new devices.
+	</p>
+
+	<p>I also welcome others to contribute more device support via GitHub.</p>
+
+	<p>
+		Before you can start adding device commands to a remote control, you will need to add its IP address and port number (for some devices) to the device configuration file.<br />
+		On the configuration screen you will also give your devices a name so that you can specify multiple of the same device type with different IP addresses.<br />
+		There is a link from the main application screen for this.
+	</p>
+
+	<ul>
+		<li><a href="#win">Windows</a></li>
+		<li><a href="#keys">Keyboard Hotkeys</a></li>
+		<li><a href="#mpc">Media Player Classic</a></li>
+		<li><a href="#nvshield">Nvidia Shield</a></li>
+		<li><a href="#roku">Roku</a></li>
+		<li><a href="#zappiti">Zappiti Media Player Box</a></li>
+		<li><a href="#lirc">LIRC / WinLIRC</a></li>
+		<li><a href="#wemo">Belkin Wemo Smart Plug</a></li>
+		<li><a href="#dm">Denon / Marantz AVRs</a></li>
+		<li><a href="#yamaha">Yamaha AVRs</a></li>
+		<li><a href="#emotiva">Emotiva AVRs</a></li>
+		<li><a href="#storm">StormAudio ISP AVRs</a></li>
+		<li><a href="#htp1">Monoprice HTP-1 AVR</a></li>
+		<li><a href="#anthem">Anthem MRX AVRs</a></li>
+		<li><a href="#jvc">JVC Projectors</a></li>
+		<li><a href="#benq">BenQ Projectors</a></li>
+		<li><a href="#christie">Christie M-Series Projectors</a></li>
+		<li><a href="#oppo">Oppo Disc Player</a></li>
+		<li><a href="#dbox">D-BOX HEMC</a></li>
+		<li><a href="#rs232">RS232 Serial Devices</a></li>
+		<li><a href="#httpget">HTTP URL Commands (GET)</a></li>
+		<li><a href="#mqtt">MQTT Messaging Protocol</a></li>
+	</ul>
+
+	<h2><a id="win"></a>Windows Control</h2>
+
+	For Windows control, the device identifier is <b>win</b>
+
+	<p>
+		The intended use of the Windows control is mainly to run a .bat file (windows batch script) or to run a .exe.<br />
+		You will have to use your imagination for what you can all do inside a .bat script.
+	</p>
+
+	<p>
+		In order to work, the .bat or .exe files must be located inside the same folder as HTWebRemote.exe<br />
+		Please be aware that .bat files and .exe files are case sensitive when calling them from your commands.<br />
+		You can also use a subfolder inside the same folder as HTWebRemote.exe such as a folder called "scripts" and call it as "scripts/script.bat" in the cmd.
+	</p>
+
+	<p>You can also control the Windows volume with the Windows control.  See the Example section below for the list of volume commands.</p>
+
+	<h3>Some .bat File Example Ideas</h3>
+	<b><i>(Put the following code inside a .bat file):</i></b>
+
+	<p class="tab">
+		<b>Start a program (like Kodi)</b>
+		<br />
+		<code>"C:\Program Files (x86)\Kodi\kodi.exe"</code>
+	</p>
+
+	<p class="tab">
+		<b>Close a program (like Kodi)</b>
+		<br />
+		<code>taskkill /IM kodi.exe</code>
+	</p>
+
+	<p class="tab">
+		<b>Shutdown PC</b>
+		<br />
+		<code>shutdown /s /t 0</code>
+	</p>
+
+	<p class="tab">
+		<b>Loop a Command (set Denon/Marantz volume to -10dB, then increase by 0.5dB every 5 seconds 20 times)</b>
+		<br />
+		<code>
+			HTWebRemote.exe "dm" "MV70"<br />
+			FOR /L %%A IN (1,1,20) DO (<br />
+			HTWebRemote.exe "dm" "MVUP"<br />
+			timeout /t 5<br />
+			)
+		</code>
+	</p>
+
+	<p class="tab">
+		<b>Windows Volume Control Commands</b>
+		<br />
+		<ul>
+			<li><code>setvol=#</code> (Where # is a number from 0-100)</li>
+			<li><code>editvol=#</code> (Where # is a number that is added or subtracted from the current volume)</li>
+			<ul>
+				<li>Example: <code>editvol=5</code> (Increases the volume by 5)</li>
+				<li>Example: <code>editvol=-5</code> (Decreases the volume by 5)</li>
+			</ul>
+			<li><code>mutevol</code> (Mutes and unmutes the Windows sound)</li>
+		</ul>
+
+	<p class="tab">
+		<b>Windows Volume Query Command</b>
+		<br />
+		<ul>
+			<li><code>query:getvol</code> (Displays the current Windows Volume)</li>
+		</ul>
+		<br />
+
+		<h2><a id="keys"></a>Keyboard Hotkey Control</h2>
+
+		For keyboard hotkey control, the device identifier is <b>keys</b>
+
+	<p>Keyboard hotkey control is for simulating key presses to programs running on the PC that HTWebRemote is running on, with the intention to control those applications.</p>
+
+	<h3>Key Parameter Formats</h3>
+
+	<ul>
+		<li><code>cmd=#</code> (Where # is keys to press)</li>
+		<ul>
+			<li>Below you will find a description of how to define the keys you wish to press.</li>
+		</ul>
+		<li><code>param=#</code> (Where # is the program name)</li>
+		<ul>
+			<li>The param value should contain the executable name of the program you want to send the keys to.</li>
+		</ul>
+		<ul>
+			<li>To find the executable name, you can usually run the program and look in the "Name" column in the "Details" tab of the Windows Task Manager.</li>
+		</ul>
+		<ul>
+			<li>Do not include the .exe extension. (Example program name for MPC-BE x64 is mpc-be64)</li>
+		</ul>
+		<ul>
+			<li>This parameter is optional.  If you do not specify a program to send the keys to, they will be sent to the foreground program.</li>
+		</ul>
+	</ul>
+
+	<p>
+		To specify a single keyboard character, use the character itself. For example, to press the letter A, pass in the character "A" as the cmd without quotes.<br />
+		To represent more than one character, append each additional character to the one preceding it. To press the letters A, B, and C, specify the parameter as "ABC" as the cmd without the quotes.
+	</p>
+
+	<p>
+		The plus sign (+), caret (^), percent sign (%), tilde (~), and parentheses () have special meanings. To press one of these keys, enclose it within braces ({}).<br />
+		For example, to press the plus sign, use "{+}". To press brace characters, use "{{}" and "{}}". Brackets ([ ]) have no special meaning, but you must enclose them in braces too.
+	</p>
+
+	<p>To specify characters that aren't displayed when you press a key, such as ENTER or TAB, and keys that represent actions rather than characters, use the codes in the following list.</p>
+
+	<ul>
+		<li><code>{BACKSPACE}, {BS}, or {BKSP}</code> (BACKSPACE)</li>
+		<li><code>{SPACE}</code> (SPACEBAR)</li>
+		<li><code>{BREAK}</code> (BREAK)</li>
+		<li><code>{CAPSLOCK}</code> (CAPS LOCK)</li>
+		<li><code>{DELETE} or {DEL}</code> (DEL or DELETE)</li>
+		<li><code>{DOWN}</code> (DOWN ARROW)</li>
+		<li><code>{END}</code> (END)</li>
+		<li><code>{ENTER} or ~</code> (ENTER)</li>
+		<li><code>{ESC}</code> (ESC)</li>
+		<li><code>{HELP}</code> (HELP)</li>
+		<li><code>{HOME}</code> (HOME)</li>
+		<li><code>{INSERT} or {INS}</code> (INS or INSERT)</li>
+		<li><code>{LEFT}</code> (LEFT ARROW)</li>
+		<li><code>{NUMLOCK}</code> (NUM LOCK)</li>
+		<li><code>{PGDN}</code> (PAGE DOWN)</li>
+		<li><code>{PGUP}</code> (PAGE UP)</li>
+		<li><code>{PRTSC}</code> (PRINT SCREEN)</li>
+		<li><code>{RIGHT}</code> (RIGHT ARROW)</li>
+		<li><code>{SCROLLLOCK}</code> (SCROLL LOCK)</li>
+		<li><code>{TAB}</code> (TAB)</li>
+		<li><code>{UP}</code> (UP ARROW)</li>
+		<li><code>{F1}</code> (F1)</li>
+		<li><code>{F2}</code> (F2)</li>
+		<li><code>{F3}</code> (F3)</li>
+		<li><code>{F4}</code> (F4)</li>
+		<li><code>{F5}</code> (F5)</li>
+		<li><code>{F6}</code> (F6)</li>
+		<li><code>{F7}</code> (F7)</li>
+		<li><code>{F8}</code> (F8)</li>
+		<li><code>{F9}</code> (F9)</li>
+		<li><code>{F10}</code> (F10)</li>
+		<li><code>{F11}</code> (F11)</li>
+		<li><code>{F12}</code> (F12)</li>
+		<li><code>{F13}</code> (F13)</li>
+		<li><code>{F14}</code> (F14)</li>
+		<li><code>{F15}</code> (F15)</li>
+		<li><code>{F16}</code> (F16)</li>
+		<li><code>{ADD}</code> (Keypad add)</li>
+		<li><code>{SUBTRACT}</code> (Keypad subtract)</li>
+		<li><code>{MULTIPLY}</code> (Keypad multiply)</li>
+		<li><code>{DIVIDE}</code> (Keypad divide)</li>
+	</ul>
+
+	<p>To specify keys combined with any combination of the SHIFT, CTRL, and ALT keys, precede the key code with one or more of the following words.</p>
+
+	<ul>
+		<li><code>shift</code> (SHIFT Key)</li>
+		<li><code>ctrl</code> (CTRL Key)</li>
+		<li><code>alt</code> (ALT Key)</li>
+	</ul>
+
+	<p>
+		To specify that any combination of SHIFT, CTRL, and ALT should be held down while several other keys are pressed, enclose the code for those keys in parentheses.</br>
+		For example, to specify to hold down SHIFT while E and C are pressed, use "shift(EC)". To specify to hold down SHIFT while E is pressed, followed by C without SHIFT, use "shiftEC".
+	</p>
+
+	<p>To specify repeating keys, use the form {key #}. You must put a space between key and number. For example, {LEFT 42} means press the LEFT ARROW key 42 times; {h 10} means press H 10 times.</p>
+	<br />
+
+	<h2><a id="mpc"></a>Media Player Classic Control</h2>
+
+	For Media Player Classic control, the device identifier is <b>mpc</b>
+
+	<p>Media Player Classic control works with both the MPC-HC and MPC-BE variants.</p>
+
+	<p>To use, make sure to enable the Web Interface in MPC found in Options -> Web Interface -> enable "Listen on port:"</p>
+
+	<p>Then make sure to add the IP:port to the device IPs configuration in HTWebRemote.</p>
+
+	<h3>MPC Commands</h3>
+
+	<ul>
+		<li><code>-1</code> (Seek to time)</li>
+		<ul>
+			<li><code>param=##:##:##</code> (Where ##:##:## is the HH:MM:SS timecode to skip to)</li>
+		</ul>
+		<li><code>-2</code> (Set Volume)</li>
+		<ul>
+			<li><code>param=#</code> (Where # is from 0 to 100)</li>
+		</ul>
+		<li><code>800</code> (Open File/URL)</li>
+		<li><code>801</code> (Open DVD/Blu-ray)</li>
+		<li><code>802</code> (Open Device)</li>
+		<li><code>1090</code> (Open Iso image)</li>
+		<li><code>976</code> (Reopen File)</li>
+		<li><code>805</code> (Save As)</li>
+		<li><code>806</code> (Save Image)</li>
+		<li><code>807</code> (Save Image (auto))</li>
+		<li><code>996</code> (Save displayed image (auto))</li>
+		<li><code>808</code> (Save thumbnails)</li>
+		<li><code>809</code> (Load Ext Subtitle...)</li>
+		<li><code>810</code> (Save Subtitle)</li>
+		<li><code>804</code> (Close)</li>
+		<li><code>814</code> (Properties)</li>
+		<li><code>816</code> (Exit)</li>
+		<li><code>889</code> (Play/Pause)</li>
+		<li><code>887</code> (Play)</li>
+		<li><code>888</code> (Pause)</li>
+		<li><code>890</code> (Stop)</li>
+		<li><code>1001</code> (Menu Subtitle Language)</li>
+		<li><code>1000</code> (Menu Audio Language)</li>
+		<li><code>1002</code> (Menu Jump To...)</li>
+		<li><code>891</code> (Framestep)</li>
+		<li><code>892</code> (Framestep back)</li>
+		<li><code>893</code> (Go To)</li>
+		<li><code>895</code> (Increase Rate)</li>
+		<li><code>894</code> (Decrease Rate)</li>
+		<li><code>896</code> (Reset Rate)</li>
+		<li><code>905</code> (Audio Delay +10ms)</li>
+		<li><code>906</code> (Audio Delay -10ms)</li>
+		<li><code>900</code> (Jump Forward (small))</li>
+		<li><code>899</code> (Jump Backward (small))</li>
+		<li><code>902</code> (Jump Forward (medium))</li>
+		<li><code>901</code> (Jump Backward (medium))</li>
+		<li><code>904</code> (Jump Forward (large))</li>
+		<li><code>903</code> (Jump Backward (large))</li>
+		<li><code>898</code> (Jump Forward (keyframe))</li>
+		<li><code>897</code> (Jump Backward (keyframe))</li>
+		<li><code>1085</code> (Jump to Beginning)</li>
+		<li><code>922</code> (Next)</li>
+		<li><code>921</code> (Previous)</li>
+		<li><code>920</code> (Next File)</li>
+		<li><code>919</code> (Previous File)</li>
+		<li><code>967</code> (Repeat forever)</li>
+		<li><code>974</code> (Tuner scan)</li>
+		<li><code>975</code> (Quick add favorite)</li>
+		<li><code>936</code> (Favorites menu)</li>
+		<li><code>817</code> (Toggle Caption&amp;Menu)</li>
+		<li><code>818</code> (Toggle Seeker)</li>
+		<li><code>819</code> (Toggle Controls)</li>
+		<li><code>820</code> (Toggle Information)</li>
+		<li><code>821</code> (Toggle Statistics)</li>
+		<li><code>822</code> (Toggle Status)</li>
+		<li><code>823</code> (Toggle Subresync Bar)</li>
+		<li><code>824</code> (Toggle Playlist Bar)</li>
+		<li><code>825</code> (Toggle Capture Bar)</li>
+		<li><code>826</code> (Toggle Shader Editor Bar)</li>
+		<li><code>827</code> (View Minimal)</li>
+		<li><code>828</code> (View Compact)</li>
+		<li><code>829</code> (View Normal)</li>
+		<li><code>830</code> (Fullscreen)</li>
+		<li><code>831</code> (Fullscreen (w/o res.change))</li>
+		<li><code>832</code> (Zoom 50%)</li>
+		<li><code>833</code> (Zoom 100%)</li>
+		<li><code>834</code> (Zoom 200%)</li>
+		<li><code>968</code> (Zoom Auto Fit)</li>
+		<li><code>859</code> (Next AR Preset)</li>
+		<li><code>835</code> (VidFrm Half)</li>
+		<li><code>836</code> (VidFrm Normal)</li>
+		<li><code>837</code> (VidFrm Double)</li>
+		<li><code>838</code> (VidFrm Stretch)</li>
+		<li><code>839</code> (VidFrm Inside)</li>
+		<li><code>841</code> (VidFrm Zoom 1)</li>
+		<li><code>842</code> (VidFrm Zoom 2)</li>
+		<li><code>840</code> (VidFrm Outside)</li>
+		<li><code>843</code> (VidFrm Switch Zoom)</li>
+		<li><code>884</code> (Always On Top)</li>
+		<li><code>861</code> (PnS Reset)</li>
+		<li><code>862</code> (PnS Inc Size)</li>
+		<li><code>864</code> (PnS Inc Width)</li>
+		<li><code>866</code> (PnS Inc Height)</li>
+		<li><code>863</code> (PnS Dec Size)</li>
+		<li><code>865</code> (PnS Dec Width)</li>
+		<li><code>867</code> (PnS Dec Height)</li>
+		<li><code>876</code> (PnS Center)</li>
+		<li><code>868</code> (PnS Left)</li>
+		<li><code>869</code> (PnS Right)</li>
+		<li><code>870</code> (PnS Up)</li>
+		<li><code>871</code> (PnS Down)</li>
+		<li><code>872</code> (PnS Up/Left)</li>
+		<li><code>873</code> (PnS Up/Right)</li>
+		<li><code>874</code> (PnS Down/Left)</li>
+		<li><code>875</code> (PnS Down/Right)</li>
+		<li><code>881</code> (PnS Rotate Z+)</li>
+		<li><code>882</code> (PnS Rotate Z-)</li>
+		<li><code>880</code> (PnS Horizontal Flip)</li>
+		<li><code>907</code> (Volume Up)</li>
+		<li><code>908</code> (Volume Down)</li>
+		<li><code>909</code> (Volume Mute)</li>
+		<li><code>970</code> (Volume gain increase)</li>
+		<li><code>971</code> (Volume gain decrease)</li>
+		<li><code>972</code> (Volume gain Off)</li>
+		<li><code>973</code> (Volume gain Max)</li>
+		<li><code>1150</code> (Center level increase)</li>
+		<li><code>1151</code> (Center level decrease)</li>
+		<li><code>994</code> (Toggle auto volume control)</li>
+		<li><code>984</code> (Brightness increase)</li>
+		<li><code>985</code> (Brightness decrease)</li>
+		<li><code>986</code> (Contrast increase)</li>
+		<li><code>987</code> (Contrast decrease)</li>
+		<li><code>990</code> (Saturation increase)</li>
+		<li><code>991</code> (Saturation decrease)</li>
+		<li><code>992</code> (Reset color settings)</li>
+		<li><code>923</code> (DVD Title Menu)</li>
+		<li><code>924</code> (DVD Root Menu)</li>
+		<li><code>925</code> (DVD Subtitle Menu)</li>
+		<li><code>926</code> (DVD Audio Menu)</li>
+		<li><code>927</code> (DVD Angle Menu)</li>
+		<li><code>928</code> (DVD Chapter Menu)</li>
+		<li><code>929</code> (DVD Menu Left)</li>
+		<li><code>930</code> (DVD Menu Right)</li>
+		<li><code>931</code> (DVD Menu Up)</li>
+		<li><code>932</code> (DVD Menu Down)</li>
+		<li><code>933</code> (DVD Menu Activate)</li>
+		<li><code>934</code> (DVD Menu Back)</li>
+		<li><code>935</code> (DVD Menu Leave)</li>
+		<li><code>944</code> (Boss key)</li>
+		<li><code>949</code> (Player Menu (short))</li>
+		<li><code>950</code> (Player Menu (long))</li>
+		<li><code>951</code> (Filters Menu)</li>
+		<li><code>815</code> (Options)</li>
+		<li><code>952</code> (Next Audio)</li>
+		<li><code>953</code> (Prev Audio)</li>
+		<li><code>954</code> (Next Subtitle)</li>
+		<li><code>955</code> (Prev Subtitle)</li>
+		<li><code>956</code> (On/Off Subtitle)</li>
+		<li><code>1173</code> (Reload Subtitles)</li>
+		<li><code>1100</code> (Subtitle shift positions up)</li>
+		<li><code>1101</code> (Subtitle shift positions down)</li>
+		<li><code>1102</code> (Subtitle shift positions left)</li>
+		<li><code>1103</code> (Subtitle shift positions right)</li>
+		<li><code>1104</code> (Restore the position of subtitles)</li>
+		<li><code>1106</code> (Copy the displayed subtitles to the clipboard)</li>
+		<li><code>812</code> (Download subtitles)</li>
+		<li><code>961</code> (Next Video/DVD Angle)</li>
+		<li><code>962</code> (Prev Video/DVD Angle)</li>
+		<li><code>1041</code> (Tearing Test)</li>
+		<li><code>1043</code> (OSD: Remaining Time)</li>
+		<li><code>1036</code> (OSD: Local Time)</li>
+		<li><code>1037</code> (OSD: File Name)</li>
+		<li><code>1021</code> (Toggle Pixel Shaders)</li>
+		<li><code>1022</code> (Toggle Screen Space Pixel Shaders)</li>
+		<li><code>1023</code> (Toggle Exclusive Fullscreen)</li>
+		<li><code>1014</code> (Goto Prev Subtitle)</li>
+		<li><code>1015</code> (Goto Next Subtitle)</li>
+		<li><code>1012</code> (Shift Subtitle Left)</li>
+		<li><code>1013</code> (Shift Subtitle Right)</li>
+		<li><code>1042</code> (Display Stats)</li>
+		<li><code>1040</code> (EVR Sync reset stats)</li>
+		<li><code>1066</code> (VSync)</li>
+		<li><code>1067</code> (Internal VSync)</li>
+		<li><code>1070</code> (Decrease VSync Offset)</li>
+		<li><code>1071</code> (Increase VSync Offset)</li>
+		<li><code>1053</code> (Enable Frame Time Correction)</li>
+		<li><code>24000</code> (Subtitle Delay -)</li>
+		<li><code>24001</code> (Subtitle Delay +)</li>
+		<li><code>912</code> (After Playback: Exit)</li>
+		<li><code>913</code> (After Playback: Stand By)</li>
+		<li><code>914</code> (After Playback: Hibernate)</li>
+		<li><code>915</code> (After Playback: Shutdown)</li>
+		<li><code>916</code> (After Playback: Log Off)</li>
+		<li><code>917</code> (After Playback: Lock)</li>
+		<li><code>1077</code> (After Playback: Always exit)</li>
+		<li><code>948</code> (After Playback: Do Nothing)</li>
+		<li><code>947</code> (After Playback: Play next in the folder)</li>
+		<li><code>1038</code> (Move Window to PrimaryScreen)</li>
+	</ul>
+	<br />
+
+	<h2><a id="nvshield"></a>Nvidia Shield Control</h2>
+
+	For Nvidia Shield control, the device identifier is <b>nvshield</b>
+
+	<h3>Initial Setup</h3>
+
+	<p>Before you can control your Nvidia Shield, you first need to enable "Network debugging".</p>
+
+	<p>To turn on "Network debugging":</p>
+	<ul>
+		<li>Go to Settings (gear button)</li>
+		<li>Go into the "About" menu</li>
+		<li>Click on "Build" 7 times</li>
+		<li>Go back and go to the "Developer options" menu</li>
+		<li>Enable "USB debugging"</li>
+		<li>Enable "Network debugging"</li>
+		<li>You can the turn "USB debugging" back off</li>
+	</ul>
+
+	<p>Or see <a href="https://www.youtube.com/watch?v=pxJOOyBIV2k">this video.</a></p>
+
+	<p>Next, you need to install ADB (Android debug bridge) on your computer.</p>
+	<ul>
+		<li>Download the <a href="https://developer.android.com/studio/releases/platform-tools">Android SDK Platform-Tools for Windows</a></li>
+		<li>Open the .zip and open the platform-tools folder inside</li>
+		<li>Copy the 2 files "adb.exe" and "AdbWinApi.dll" to your HTWebRemote.exe folder</li>
+	</ul>
+
+	<h3>Commands</h3>
+
+	<h4>Common Remote Buttons</h4>
+
+	<ul>
+		<li><b>Directional pad:</b></li>
+		<ul>
+			<li><code>KEYCODE_DPAD_UP</code></li>
+			<li><code>KEYCODE_DPAD_LEFT</code></li>
+			<li><code>KEYCODE_DPAD_RIGHT</code></li>
+			<li><code>KEYCODE_DPAD_DOWN</code></li>
+			<li><code>KEYCODE_DPAD_OK</code></li>
+			<li><code>KEYCODE_BACK</code></li>
+		</ul>
+		<li><b>Page up/down:</b></li>
+		<ul>
+			<li><code>KEYCODE_PAGE_UP</code></li>
+			<li><code>KEYCODE_PAGE_DOWN</code></li>
+		</ul>
+		<li><b>Media Playback Controls:</b></li>
+		<ul>
+			<li><code>KEYCODE_MEDIA_PLAY_PAUSE</code></li>
+			<li><code>KEYCODE_STOP</code></li>
+			<li><code>KEYCODE_MEDIA_PREVIOUS</code></li>
+			<li><code>KEYCODE_MEDIA_NEXT</code></li>
+			<li><code>KEYCODE_REWIND</code></li>
+			<li><code>KEYCODE_FAST_FORWARD</code></li>
+		</ul>
+		<li><b>Characters:</b></li>
+		<ul>
+			<li><code>KEYCODE_0</code> to <code>KEYCODE_9</code></li>
+			<li><code>KEYCODE_A</code> to <code>KEYCODE_Z</code></li>
+		</ul>
+		<li><b>Volume:</b></li>
+		<ul>
+			<li><code>KEYCODE_VOLUME_UP</code></li>
+			<li><code>KEYCODE_VOLUME_DOWN</code></li>
+			<li><code>KEYCODE_VOLUME_MUTE</code></li>
+		</ul>
+	</ul>
+
+	<p><a href="https://developer.android.com/reference/android/view/KeyEvent.html">Complete list of potential valid keycodes</a></p>
+
+	<h4>Reboot Shield</h4>
+
+	<p class="tab"><code>cmb=reboot</code></p>
+
+	<h4>Launching Apps</h4>
+
+	<p>You can open and close apps by using the included shortcut names.</p>
+
+	<p class="tab">
+		<code>
+			cmd=start or stop
+			<br />
+			param=appname
+		</code>
+	</p>
+
+	<h5>Shortcut app names:</h5>
+	<ul>
+		<li>netflix</li>
+		<li>disney+</li>
+		<li>appletv+</li>
+		<li>hbomax</li>
+		<li>hulu</li>
+		<li>amazon_video</li>
+		<li>amazon_music</li>
+		<li>plex</li>
+		<li>kodi</li>
+		<li>vudu</li>
+		<li>youtube</li>
+		<li>vimeo</li>
+		<li>spotify</li>
+		<li>twitch</li>
+		<li>criterion</li>
+		<li>pbs</li>
+		<li>movies_anywhere</li>
+		<li>kanopy</li>
+		<li>puffin_browser</li>
+		<li>remote_locator</li>
+	</ul>
+
+	<p><b>To start and stop apps not in the included list, the process is a little more involved.</b></p>
+
+	<h5>Method 1:</h5>
+
+	<p>The first method you can try is to get the app's package name.</p>
+
+	<ul>
+		<li>Open a cmd prompt and navigate to the folder containing adb.exe <code>(cd C:/path/to/folder)</code></li>
+		<li>Connect to your shield with adb.exe <code>(adb connect shieldIP:5555)</code></li>
+		<li>Enter command to list all installed apps: <code>(adb shell pm list packages)</code></li>
+		<li>Look for the app's package name, for example the YouTube app looks like: <code>(com.google.android.youtube.tv)</code></li>
+	</ul>
+
+	<p class="tab">
+		<code>
+			cmd=start or stop
+			<br />
+			param=com.google.android.youtube.tv
+		</code>
+	</p>
+
+	<p>For some apps, this Metod 1 doesn't work.  In this case use Method 2 which should work.</p>
+
+	<h5>Method 2:</h5>
+
+	<p>For this method you will get the app's unique start activity.</p>
+
+	<ul>
+		<li>Get the app package name using Method 1 above.</li>
+		<li>Enter command to find the app's unique start activity: <code>(adb shell dumpsys package com.google.android.youtube.tv)</code></li>
+	</ul>
+
+	<p>Example output from this command looks something like this:</p>
+
+	<p>
+		<code>
+			Activity Resolver Table:
+			<br />
+			Schemes:
+			<br />
+			vnd.youtube:
+			<br />
+			4a40f75 <b>com.google.android.youtube.tv/com.google.android.apps.youtube.tv.activity.ShellActivity</b> filter afe9959
+			<br />
+			Action: "android.intent.action.VIEW"
+		</code>
+	</p>
+
+	<p>The bolded part from above is the app's unique start activity.  Simply paste that into the param box for a cmd=start to launch the app.</p>
+
+	<p class="tab">
+		<code>
+			cmd=start
+			<br />
+			param=com.google.android.youtube.tv/com.google.android.apps.youtube.tv.activity.ShellActivity
+		</code>
+	</p>
+
+	<p class="tab">
+		<code>
+			cmd=stop
+			<br />
+			parm=com.google.android.youtube.tv
+		</code>
+	</p>
+
+	<h4>Other Commands</h4>
+
+	<p>You should be able to enter in any custom adb command into the cmd box that adb.exe supports.</p>
+	<br />
+
+	<h2><a id="roku"></a>Roku Control</h2>
+
+	For Roku control, the device identifier is <b>roku</b>
+
+	<h4>Remote Commands</h4>
+
+	<p>Enter these into the <code>cmd</code> box:</p>
+
+	<ul>
+		<li><code>keypress/Home</code></li>
+		<li><code>keypress/Rev</code></li>
+		<li><code>keypress/Fwd</code></li>
+		<li><code>keypress/Play</code></li>
+		<li><code>keypress/Select</code></li>
+		<li><code>keypress/Left</code></li>
+		<li><code>keypress/Right</code></li>
+		<li><code>keypress/Down</code></li>
+		<li><code>keypress/Up</code></li>
+		<li><code>keypress/Back</code></li>
+		<li><code>keypress/InstantReplay</code></li>
+		<li><code>keypress/Info</code></li>
+		<li><code>keypress/Backspace</code></li>
+		<li><code>keypress/Search</code></li>
+		<li><code>keypress/Enter</code></li>
+		<li><code>keypress/FindRemote</code></li>
+	</ul>
+
+	<p>Some Roku's support these buttons:</p>
+
+	<ul>
+		<li><code>keypress/FindRemote</code></li>
+		<li><code>keypress/VolumeDown</code></li>
+		<li><code>keypress/VolumeUp</code></li>
+		<li><code>keypress/VolumeMute</code></li>
+		<li><code>keypress/PowerOff</code></li>
+		<li><code>keypress/ChannelUp</code></li>
+		<li><code>keypress/ChannelDown</code></li>
+		<li><code>keypress/InputTuner</code></li>
+		<li><code>keypress/InputHDMI1</code></li>
+		<li><code>keypress/InputHDMI2</code></li>
+		<li><code>keypress/InputHDMI3</code></li>
+		<li><code>keypress/InputHDMI4</code></li>
+		<li><code>keypress/InputAV1</code></li>
+	</ul>
+
+	<p>You can even write words into a text box like this to write "roku"</p>
+
+	<ul>
+		<li><code>keypress/Lit_r</code></li>
+		<li><code>keypress/Lit_o</code></li>
+		<li><code>keypress/Lit_k</code></li>
+		<li><code>keypress/Lit_u</code></li>
+	</ul>
+
+	<p>
+		There are even some keys you can send that are not available on any physical remote.<br />
+		Enter is for completing keyboard entry fields, such as search fields (it is not the same as Select).<br />
+		Search is used for pressing and holding down the microphone/magnifying glass button, which causes the Roku Voice heads-up display to listen for a voice command.
+	</p>
+
+	<h4>Launching Apps</h4>
+
+	<p>
+		To launch an app on the Roku, you will need to find the Channel ID or App ID.
+		<br />
+		You can find a list of Channel IDs by going to this URL in your browser:
+		<br /><br />
+		http://RokuIP:8060/query/apps
+	</p>
+
+	<h5>Examples (Enter into <code>cmd</code> box)</h5>
+	<ul>
+		<li><code>launch/12</code> (Netflix)</li>
+		<li><code>launch/13</code> (Amazon Prime Video)</li>
+		<li><code>launch/837</code> (YouTube)</li>
+	</ul>
+
+	<h4>Other Commands</h4>
+
+	<p>You can send other commands to a Roku, but you will have to figure those out on your own from the following documentation link.</p>
+
+	<p><a href="https://developer.roku.com/docs/developer-program/debugging/external-control-api.md">Complete Roku network control documentation.</a></p>
+	<br />
+
+	<h2><a id="zappiti"></a>Zappiti Control</h2>
+
+	For Zappiti control, the device identifier is <b>zappiti</b>
+
+	<h3>Some Basic Commands</h3>
+
+	<ul>
+		<li><b>Power:</b></li>
+		<ul>
+			<li><code>KEYCODE_POWER</code></li>
+			<li><code>KEYCODE_SLEEP</code></li>
+			<li><code>KEYCODE_WAKEUP</code></li>
+		</ul>
+		<li><b>Characters:</b></li>
+		<ul>
+			<li><code>KEYCODE_0</code> to <code>KEYCODE_9</code> (1-9 for 10-90% of the timeline during playback /  1-9 for 10-90% of file list)</li>
+			<li><code>KEYCODE_A</code> to <code>KEYCODE_Z</code></li>
+		</ul>
+		<li><b>Page up/down:</b></li>
+		<ul>
+			<li><code>KEYCODE_PAGE_UP</code></li>
+			<li><code>KEYCODE_PAGE_DOWN</code></li>
+		</ul>
+		<li><b>Previous/Next:</b></li>
+		<ul>
+			<li><code>KEYCODE_MEDIA_PREVIOUS</code> (Previous chapter)</li>
+			<li><code>KEYCODE_MEDIA_NEXT</code> (Next chapter)</li>
+		</ul>
+		<li><b>Play/Pause:</b></li>
+		<ul>
+			<li><code>KEYCODE_MEDIA_PLAY_PAUSE</code></li>
+		</ul>
+		<li><b>Volume:</b></li>
+		<ul>
+			<li><code>KEYCODE_VOLUME_UP</code></li>
+			<li><code>KEYCODE_VOLUME_DOWN</code></li>
+			<li><code>KEYCODE_VOLUME_MUTE</code></li>
+		</ul>
+		<li><b>Directional pad:</b></li>
+		<ul>
+			<li><code>KEYCODE_DPAD_UP</code> (Fast Forward)</li>
+			<li><code>KEYCODE_DPAD_LEFT</code> (-10 sec during playback / Previous page in Zappiti Video poster list)</li>
+			<li><code>KEYCODE_DPAD_RIGHT</code> (+10 sec during playback / Next page in Zappiti Video poster list)</li>
+			<li><code>KEYCODE_DPAD_DOWN</code> (Fast Backward)</li>
+			<li><code>KEYCODE_DPAD_OK</code> (Enter of validate an option / Display or Hide media info panel during playback)</li>
+			<li><code>KEYCODE_BACK</code> (Back to previous menu / Stop playback)</li>
+		</ul>
+		<li><b>Others:</b></li>
+		<ul>
+			<li><code>KEYCODE_MENU</code> (Menu)</li>
+			<li><code>KEYCODE_INFO</code> (Diplay full media property panel during playback)</li>
+			<li><code>KEYCODE_F11</code> (Aspect ratio)</li>
+			<li><code>KEYCODE_F7</code> (3D)</li>
+			<li><code>KEYCODE_TV</code> (Zoom)</li>
+			<li><code>KEYCODE_DEL</code> (Delete a character / On Homepage: swtich graphical template)</li>
+			<li><code>KEYCODE_CAPTIONS</code> (Subtitles)</li>
+			<li><code>KEYCODE_MEDIA_AUDIO_TRACK</code> (Audio track)</li>
+		</ul>
+		<li><b>Colored buttons:</b></li>
+		<ul>
+			<li><code>KEYCODE_MEDIA_REWIND</code> (Red)</li>
+			<li><code>KEYCODE_F8</code> (Green)</li>
+			<li><code>KEYCODE_F10</code> (Yellow)</li>
+			<li><code>KEYCODE_F5</code> (Blue)</li>
+		</ul>
+		<li><b>Apps shortcuts:</b></li>
+		<ul>
+			<li><code>KEYCODE_F3</code> (Zappiti)</li>
+			<li><code>KEYCODE_F4</code> (Explorer)</li>
+		</ul>
+	</ul>
+
+	<p><a href="https://developer.android.com/reference/android/view/KeyEvent.html">Complete list of potential valid keycodes</a></p>
+	<br />
+
+	<h2><a id="lirc"></a>WinLIRC / LIRC Control</h2>
+
+	For WinLIRC / LIRC control, the device identifier is <b>lirc</b>
+
+	<p>LIRC is the Linux IR Control software.  There is also a compatible Windows port called WinLIRC.</p>
+
+	<h3>Command Info</h3>
+
+	<ul>
+		<li><code>cmd=remotename</code> (This is the remote name defined in your LIRC remote config file)</li>
+		<li><code>param=buttonname</code> (This is the button name defined in your LIRC remote config file)</li>
+		<ul>
+			<li>You can also specify a number of repeats for your button by adding a space followed by a number after your button name. (ex. ON 2)</li>
+		</ul>
+	</ul>
+	<br />
+
+	<h2><a id="wemo"></a>Wemo Smart Plug</h2>
+
+	For Wemo Smart Plug control, the device identifier is <b>wemo</b>
+
+	<p>The model that was tested to work with this device plugin is the Belkin F7C063 Wemo Mini Smart Plug.</p>
+
+	<h3>Wemo Commands</h3>
+
+	<ul>
+		<li><code>on</code> (Power ON)</li>
+		<li><code>off</code> (Power OFF)</li>
+		<li><code>toggle</code> (Toggle the power to the opposite of the current state.)</li>
+	</ul>
+	<br />
+
+	<h2><a id="dm"></a>Denon / Marantz AVR Control</h2>
+
+	For Denon / Marantz control, the device identifier is <b>dm</b>
+
+	<p>Denon and Marantz AVRs and Processors all use the same commands.</p>
+
+	<h3>Some Basic Commands</h3>
+
+	<ul>
+		<li><code>ZMON</code> (Power ON)</li>
+		<li><code>ZMOFF</code> (Power OFF)</li>
+		<li><code>MUON</code> (Mute)</li>
+		<li><code>MUOFF</code> (Unmute)</li>
+		<li><code>MV80</code> (Reference Volume)</li>
+		<ul>
+			<li>Volume is 0-98, with 80 being 0dB (also known as reference)</li>
+		</ul>
+		<li><code>PSSWL 46</code> (Subwoofer 1 trim -4dB)</li>
+		<ul>
+			<li>Speaker trims are 38-62 with 50 being 0dB (default volume)</li>
+		</ul>
+	</ul>
+
+	<p class="tab">
+		<b>Denon and Marantz Query Command</b>
+		<br />
+		<ul>
+			<li><code>query:getvol</code> (Displays the current Denon / Marantz Volume)</li>
+		</ul>
+
+	<p>
+		For all Denon commands, see the full Denon command document here:<br />
+		<a href="https://github.com/nicko88/HTWebRemote/blob/master/IP%20Control%20Spec%20Documents/Denon_X8500H.pdf">Denon_X8500H.pdf</a>
+	</p>
+
+	<p>
+		For all Marantz commands, see the full Marantz command document here:<br />
+		<a href="https://github.com/nicko88/HTWebRemote/blob/master/IP%20Control%20Spec%20Documents/Marantz_AV8805.pdf">Marantz_AV8805.pdf</a>
+	</p>
+
+	<p>Or look up the IP control document for your particular Denon or Marantz AVR or processor.</p>
+	<br />
+
+	<h2><a id="yamaha"></a>Yamaha AVR Control</h2>
+
+	For Yamaha control, the device identifier is <b>yamaha</b>
+
+	<h3>Some Basic Commands</h3>
+
+	Please exclude the @ symbol before a command (as per the protocol specification) since HTWebRemote automatically includes the @ symbol for you.
+
+	<ul>
+		<li><code>SYS:PWR=On</code> (Power ON)</li>
+		<li><code>SYS:PWR=Standby</code> (Power OFF)</li>
+		<li><code>MAIN:MUTE=On</code> (Mute)</li>
+		<li><code>MAIN:MUTE=Off</code> (Unmute)</li>
+		<li><code>MAIN:VOL=0.0</code> (Reference Volume)</li>
+		<ul>
+			<li>Volume is from -80.5 to 16.5, with 0 being reference level.</li>
+			<li>You must always include 1 decimal place (Ex: 10.0, -25.0 or 0.0)</li>
+		</ul>
+	</ul>
+
+	<p>
+		For all Yamaha commands, see the full Yamaha command document here:<br />
+		<a href="https://github.com/nicko88/HTWebRemote/blob/master/IP%20Control%20Spec%20Documents/Yamaha_YNCA.pdf">Yamaha_YNCA.pdf</a>
+	</p>
+
+	<p>
+		See the full list of raw Yamaha commands here:<br />
+		<a href="https://github.com/nicko88/HTWebRemote/blob/master/IP%20Control%20Spec%20Documents/Yamaha_Commands.txt">Yamaha_Commands.txt</a>
+	</p>
+
+	<p>Or look up the IP control document for your particular Yamaha AVR</p>
+	<br />
+
+	<h2><a id="emotiva"></a>Emotiva AVR Control</h2>
+
+	For Emotiva control, the device identifier is <b>emotiva</b>
+
+	<p>This has only been tested with the XMC-1 and RMC-1, but it probably works with the other RMC variants and the XMC-2.</p>
+
+	<h3>Some Basic Commands</h3>
+
+	<ul>
+		<li><code>power_on</code> (Power ON)</li>
+		<li><code>power_off</code> (Power OFF)</li>
+		<li><code>mute_on</code> (Mute)</li>
+		<li><code>mute_off</code> (Unmute)</li>
+		<li><code>set_volume</code> (Set volume level)</li>
+		<ul>
+			<li><code>param=#</code> (Where # is from -96 to 11)</li>
+		</ul>
+		<li><code>subwoofer_trim_set</code> (Set subwoofer level)</li>
+		<ul>
+			<li><code>param=#</code> (Where # is from -12 to 12)</li>
+		</ul>
+	</ul>
+
+	<p>
+		For all Emotiva commands, see the full Emotiva command document here:<br />
+		<a href="https://github.com/nicko88/HTWebRemote/blob/master/IP%20Control%20Spec%20Documents/Emotiva_XMC-1.pdf">Emotiva_XMC-1.pdf</a>
+	</p>
+
+	<p>Or look up the IP control document for your particular Emotiva processor.</p>
+	<br />
+
+	<h2><a id="storm"></a>StormAudio ISP AVR Control</h2>
+
+	For StormAudio ISP control, the device identifier is <b>storm</b>
+
+	<h3>Some Basic Commands</h3>
+
+	<ul>
+		<li><code>ssp.power.on</code> (Power ON)</li>
+		<li><code>ssp.vol.[-10]</code> (Set volume level to -10)</li>
+	</ul>
+
+	<p class="tab">
+		<b>StormAudio ISP Query Command</b>
+		<br />
+		<ul>
+			<li><code>query:getvol</code> (Displays the current StormAudio ISP Volume)</li>
+		</ul>
+
+	<p>
+		For all StormAudio ISP commands, see the full StormAudio ISP command document here:<br />
+		<a href="https://github.com/nicko88/HTWebRemote/blob/master/IP%20Control%20Spec%20Documents/StormAudio_ISP.pdf">StormAudio_ISP.pdf</a>
+	</p>
+
+	<p>Or look up the IP control document for your particular StormAudio ISP processor.</p>
+	<br />
+
+	<h2><a id="htp1"></a>Monoprice HTP-1 AVR Control</h2>
+
+	For Monoprice HTP-1 control, the device identifier is <b>htp1</b>
+
+	<p>For now, only basic IR (NEC Code) commands are supported.  More advanced HTP-1 control support is coming in a future version.</p>
+
+	<h3>Some Basic Commands (IR NEC Code)</h3>
+
+	<ul>
+		<li><code>cmd = ir</code></li>
+	</ul>
+
+	<h4>param:</h4>
+
+	<ul>
+		<li><code>26d9</code> (Power ON)</li>
+		<li><code>26da</code> (Power OFF)</li>
+		<li><code>0bf4</code> (Volume Up)</li>
+		<li><code>09f6</code> (Volume Down)</li>
+	</ul>
+
+	You can also include multiple IR NEC Codes in one command by separating them with commas.
+
+	<p>
+		For all Monoprice HTP-1 commands, see the full Monoprice HTP-1 command document here:<br />
+		<a href="https://github.com/nicko88/HTWebRemote/blob/master/IP%20Control%20Spec%20Documents/Monoprice_HTP-1.pdf">Monoprice_HTP-1.pdf</a>
+	</p>
+	<br />
+
+	<h2><a id="anthem"></a>Anthem MRX AVR Control</h2>
+
+	For Anthem MRX control, the device identifier is <b>anthem</b>
+
+	<h3>Some Basic Commands</h3>
+
+	<ul>
+		<li><code>Z1POW1</code> (Power ON)</li>
+		<li><code>Z1POW0</code> (Power OFF)</li>
+		<li><code>Z1VOL-10</code> (Set volume level to -10)</li>
+	</ul>
+
+	<p>
+		For all Anthem MRX commands, see the full Anthem MRX command document here:<br />
+		<a href="https://github.com/nicko88/HTWebRemote/blob/master/IP%20Control%20Spec%20Documents/Anthem_MRX.pdf">Anthem_MRX.pdf</a>
+	</p>
+	<br />
+
+	<h2><a id="jvc"></a>JVC Projector Control</h2>
+
+	For JVC control, the device identifier is <b>jvc</b>
+
+	<p>
+		The main commands HTWebRemote supports for JVC projectors are 2 digit IR codes.<br />
+		There are also a many more advanced commands you can build listed below that are supported.
+	</p>
+
+	<h3>JVC NX Series IR Codes (works with older JVC too)</h3>
+
+	<p>Use these 2 digit codes for the command.</p>
+
+	<ul>
+		<li>01 UP Button</li>
+		<li>02 DOWN Button</li>
+		<li>34 RIGHT Button Moves the cursor to right/+ in adjustment gauge</li>
+		<li>36 LEFT Button Moves the cursor to left/- in adjustment gauge</li>
+		<li>2F OK Button</li>
+		<li>03 BACK Button closes message, adjustment gauge, menu</li>
+		<br />
+		<li>05 Powers on</li>
+		<li>06 Powers off / Stand By</li>
+		<br />
+		<li>08 Switches Input Port</li>
+		<li>1D Switches Hide ON/OFF</li>
+		<li>20 Displays adjustment bar of Iris setting Gauge</li>
+		<br />
+		<li>23 Switches Anamorphic A</li>
+		<li>2B Switches Anamorphic B</li>
+		<li>33 Switches Anamorphic C</li>
+		<li>45 Switches Anamorphic D</li>
+		<li>24 Switches Anamorphic off</li>
+		<li>27 Switches Aspect to Zoom</li>
+		<li>2E Shows / Hides Menu</li>
+		<li>30 Displays adjustment of Lens control/Switches setting of lens(focus/zoom/shift)</li>
+		<br />
+		<li>47 Clear Motion Drive(Off)</li>
+		<li>48 Clear Motion Drive(Low)</li>
+		<li>49 Clear Motion Drive(High)</li>
+		<li>4A Clear Motion Drive(Inverse Telecine)</li>
+		<br />
+		<li>68 Switches to "CINEMA" in Picture Mode</li>
+		<li>69 Switches to "FILM" in Picture Mode</li>
+		<li>6A Switches to "NATURAL" in Picture Mode</li>
+		<li>6C Switches to "USER1" in Picture Mode</li>
+		<li>6D Switches to "USER2" in Picture Mode</li>
+		<li>6E Switches to "USER3" in Picture Mode</li>
+		<li>CA Switches to "USER4" in Picture Mode</li>
+		<li>CB Switches to "USER5" in Picture Mode</li>
+		<li>CC Switches to "USER6" in Picture Mode</li>
+		<li>6F Switches to "THX" in Picture Mode</li>
+		<br />
+		<li>70 Switches to HDMI 1</li>
+		<li>71 Switches to HDMI 2</li>
+		<br />
+		<li>72 PIC.ADJ. Menu</li>
+		<li>73 Displays Advanced page of Menu</li>
+		<li>74 Displays information page of Menu</li>
+		<br />
+		<li>75 Switches Gamma mode</li>
+		<li>76 Switches Color Temp mode</li>
+		<li>88 Switches "Color Profile" in the OSD order (It is different depending on the Picture Mode.)</li>
+		<li>8A Change of "Clear Motion Drive" settings</li>
+		<br />
+		<li>AE Aspect(Auto)</li>
+		<li>AF Aspect(Native)</li>
+		<br />
+		<li>C5 Change of "Anamorphic mode"</li>
+		<br />
+		<li>D0 HIDE(On) – Switches Hide to On</li>
+		<li>D1 HIDE(Off) – Switches Hide to Off</li>
+		<br />
+		<li>D2 Solenoid(Normal) – Switches Solenoid to Normal (no input only on test pattern)</li>
+		<li>D3 Solenoid(Wide) – Switches Solenoid to Wide (no input only on test pattern)</li>
+		<br />
+		<li>D4 Setting Memory – Open the list of “Setting Memory”</li>
+		<li>D5 3D Setting – Open "3D Setting" OSD menu</li>
+		<li>D6 3D Format – Change of "3D format" menu</li>
+		<li>D7 User – Change of "User picture mode"</li>
+		<li>F0 MPC – Displays "MPC Level" Menu</li>
+		<li>F4 Picture Mode – Goes to "Picture Mode" Tab in User Menu</li>
+		<li>F5 Gamma Settings – Goes to "Gamma" Tab in User Menu</li>
+		<li>F7 Name Edit – – ? ? ? Goes to "Name Edit" Tab in User Menu</li>
+		<li></li>
+		<li>D8 Installation MODE1 – Change of "Installation mode" or "lens memory" to 1</li>
+		<li>D9 Installation MODE2 – Change of "Installation mode" or "lens memory" to 2</li>
+		<li>DA Installation MODE3 – Change of "Installation mode" or "lens memory" to 3</li>
+		<li>E5 Installation MODE4 – Change of "Installation mode" or "lens memory" to 4</li>
+		<li>E6 Installation MODE5 – Change of "Installation mode" or "lens memory" to 5</li>
+		<li>E7 Installation MODE6 – Change of "Installation mode" or "lens memory" to 6</li>
+		<li>E8 Installation MODE7 – Change of "Installation mode" or "lens memory" to 7</li>
+		<li>E9 Installation MODE8 – Change of "Installation mode" or "lens memory" to 8</li>
+		<li>EA Installation MODE9 – Change of "Installation mode" or "lens memory" to 9</li>
+		<li>EB Installation MODE10 – Change of "Installation mode" or "lens memory" to 10</li>
+		<br />
+		<li>DB 3D Format (Auto) – Switches 3D format to Auto</li>
+		<li>DC 3D Format (Side by Side) – Switches 3D format to Side by Side</li>
+		<li>DD 3D Format (Top and Bottom) – Switches 3D format to Top and Bottom</li>
+		<li>DE 3D Format (OFF: 2D) – Display by 2D format compulsorily</li>
+		<br />
+		<li>E1 HLG – Switches to "HLG" in Picture Mode</li>
+		<li>ED HDR10 – Switches to "HDR10" in Picture Mode</li>
+		<li>EC Frame Adapt HDR – Switches to "Frame Adapt HDR" in Picture Mode</li>
+		<br />
+		<li>F8 Low Latency – (on/off toggle) Change of "Low Latency mode"</li>
+	</ul>
+
+	<h3>JVC NX Series Extra RS232 Commands (works with older JVC too)</h3>
+
+	You can craft pretty much any RS232 command for JVC by following the External Command Communication Specification document from the JVC website.
+
+	<h4>Some Example Commands</h4>
+
+	<ul>
+		<li><code>PMLP</code> (Lamp Power)</li>
+		<ul>
+			<li><code>param=0</code> (Low)</li>
+			<li><code>param=1</code> (High)</li>
+		</ul>
+		<li><code>PMBR</code> (Brightness Control)</li>
+		<ul>
+			<li><code>param=#</code> (Where # is from -50 to +50) (must include + or - character) (Use +0 for 0)</li>
+		</ul>
+		<li><code>PMGT</code> (Gamma Mode)</li>
+		<ul>
+			<li><code>param=00</code> (2.2 gamma)</li>
+			<li><code>param=08</code> (2.4 gamma)</li>
+			<li><code>param=04</code> (Custom1 gamma slot)</li>
+		</ul>
+		<li><code>PMKW</code> (Gamma Dark Level White)</li>
+		<ul>
+			<li><code>param=#</code> (Where # is from -7 to +7) (must include + or - character) (Use +0 for 0)</li>
+		</ul>
+	</ul>
+
+	<p>
+		For all JVC commands, see the full JVC command document here:<br />
+		<a href="https://github.com/nicko88/HTWebRemote/blob/master/IP%20Control%20Spec%20Documents/JVC_NX.pdf">JVC_NX.pdf</a>
+	</p>
+
+	<p>Or look up the IP control document for your particular JVC Projector.</p>
+	<br />
+
+	<h2><a id="benq"></a>BenQ Projector Control</h2>
+
+	For BenQ control, the device identifier is <b>benq</b>
+
+	<p>So far this has only been tested with a BenQ LK970, but it probably works with other BenQ models, especially similar models such as LK990 and HT9060/9050.</p>
+
+	<h3>Some Basic Commands</h3>
+
+	<ul>
+		<li><code>pow=on</code> (Power ON)</li>
+		<li><code>pow=off</code> (Power OFF)</li>
+	</ul>
+
+	<p>
+		For all BenQ commands, see the full BenQ command document here:<br />
+		<a href="https://github.com/nicko88/HTWebRemote/blob/master/IP%20Control%20Spec%20Documents/BenQ_LK970.pdf">BenQ_LK970.pdf</a>
+	</p>
+
+	<p>Or look up the IP control document for your particular BenQ Projector.</p>
+	<br />
+
+	<h2><a id="christie"></a>Christie M-Series Projector Control</h2>
+
+	For Christie control, the device identifier is <b>christie</b>
+
+	<h3>Some Basic Commands</h3>
+
+	<ul>
+		<li><code>(PWR 1)</code> (Power ON)</li>
+		<li><code>(PWR 0)</code> (Power OFF)</li>
+	</ul>
+
+	<p>
+		For all Christie M-Series commands, see the full Christie M-Series command document here:<br />
+		<a href="https://github.com/nicko88/HTWebRemote/blob/master/IP%20Control%20Spec%20Documents/Christie_M-Series.pdf">Christie_M-Series.pdf</a>
+	</p>
+	<br />
+
+	<h2><a id="oppo"></a>Oppo Disc Player</h2>
+
+	For Oppo control, the device identifier is <b>oppo</b>
+
+	<p>In order for Power ON to work, the player must have the "Quick Start" or "Network Standby" mode selected under Setup Menu / Device Setup / Standby Mode.</p>
+
+	<h3>Some Basic Commands</h3>
+
+	<ul>
+		<li><code>PON</code> (Power ON)</li>
+		<li><code>POF</code> (Power OFF)</li>
+		<li><code>PLA</code> (Play)</li>
+		<li><code>PAU</code> (Pause)</li>
+		<li><code>FWD</code> (Skip Forward)</li>
+		<li><code>PRE</code> (Skip Backward)</li>
+	</ul>
+
+	<p>
+		For all Oppo commands, see the full Oppo command document here:<br />
+		<a href="https://github.com/nicko88/HTWebRemote/blob/master/IP%20Control%20Spec%20Documents/Oppo_UDP-20X.pdf">Oppo_UDP-20X.pdf</a>
+	</p>
+	<br />
+
+	<h2><a id="dbox"></a>D-BOX HEMC Control</h2>
+
+	For D-BOX control, the device identifier is <b>dbox</b>
+
+	<h3>Chair Commands</h3>
+
+	<b><i>(Replace # with the numerical identifier of the chair (1,2,3) that you want to control)</i></b>
+
+	<ul>
+		<li><code>#WMUTE</code> (Activates or deactivates the mute function of the targeted chair)</li>
+		<ul>
+			<li><code>param=1</code> (Mute)</li>
+			<li><code>param=0</code> (Unmute)</li>
+		</ul>
+		<li><code>#WMOTL</code> (Sets the motion intensity level of the targeted chair)</li>
+		<ul>
+			<li><code>param=#</code> (Where # is from -20 to 0)</li>
+		</ul>
+		<li><code>#WVIBL</code> (Sets the vibration intensity level of the targeted chair)</li>
+		<ul>
+			<li><code>param=#</code> (Where # is from -20 to 0)</li>
+		</ul>
+	</ul>
+
+	<h3>HEMC Commands</h3>
+
+	<ul>
+		<li><code>WSTOP</code> (Power OFF)</li>
+	</ul>
+
+	<p>
+		For all D-BOX commands, see the full D-BOX command document here:<br />
+		<a href="https://github.com/nicko88/HTWebRemote/blob/master/IP%20Control%20Spec%20Documents/D-BOX_HEMC.pdf">D-BOX_HEMC.pdf</a>
+	</p>
+	<br />
+
+	<h2><a id="rs232"></a>RS232 Serial Device Control</h2>
+
+	For RS232 Serial Device control, the device identifier is <b>rs232</b>
+
+	<p>This device controller is designed to be used with any RS232 Serial device (many Home Theater devices and some which pre-date network control).</p>
+
+	<p>
+		The simplest way to add this to your PC is with a USB to Serial (RS232) adapter (such as the USA-19HS) which will show up on your PC as a COM port.<br />
+		If you don't see it showing up in your device manager (under Ports), check to see if you need to install a driver from the manufacturer first.
+	</p>
+
+	<p>Since this controller is generic, you must be sure to include the entire command (into the cmd box) including any beginning and end special characters.</p>
+
+	<h3>Special Characters</h3>
+
+	<p>You can enter these special keywords (with their brackets) into your cmd in order to send them to the device.</p>
+
+	<ul>
+		<li><code>&lt;CR&gt;</code> (Carriage Return)</li>
+		<li><code>&lt;LF&gt;</code> (Line Feed)</li>
+		<li><code>&lt;CRLF&gt;</code> (Carriage Return & Line Feed)</li>
+	</ul>
+	<br />
+
+	<h2><a id="httpget"></a>HTTP URL Command (GET) Control</h2>
+
+	For HTTP URL Command (GET) control, the device identifier is <b>httpget</b>
+
+	<p>This device controller is meant to be used to send simple HTTP URL (GET) commands.</p>
+
+	<h3>Example HTTP URL Command</h3>
+
+	<b>http://192.168.1.100/rest/nodes/45378/cmd/DOF</b>
+
+	<p>Configure the "httpget" device URL to be: http://192.168.1.100</p>
+
+	<ul>
+		<li><code>cmd = /rest/nodes/45378/cmd/DOF</code></li>
+	</ul>
+
+	If the HTTP server needs basic authenticaltion, enter the username and password into the <code>param</code> box as follows:
+	<ul>
+		<li><code>param = username:password</code></li>
+	</ul>
+	<br />
+
+	<h2><a id="mqtt"></a>MQTT Messaging Protocol Control</h2>
+
+	For MQTT Messaging Protocol control, the device identifier is <b>mqtt</b>
+
+	<p>This device controller is meant to be used to send commands via the MQTT messaging protocol.</p>
+
+	<p>If you are using the MQTT device controller, I am going to assume you know enough about how to setup and use MQTT (you need to supply your own MQTT Broker).</p>
+
+	<p>To use the MQTT device, enter the <b>IP:port</b> of your MQTT Broker into the Device IP manager.</p>
+
+	<h3>Example MQTT Message</h3>
+
+	<ul>
+		<li><code>cmd = your/mqtt/topic</code></li>
+		<li><code>param = message_payload</code></li>
+	</ul>
+
+</body>
+</html>
