@@ -562,10 +562,10 @@
 		<li>Go back and go to the "Developer options" menu</li>
 		<li>Enable "USB debugging"</li>
 		<li>Enable "Network debugging"</li>
-		<li>You can the turn "USB debugging" back off</li>
+		<li>You can then turn "USB debugging" back off (so you can use the port normally), leaving "Network debugging" enabled</li>
 	</ul>
 
-	<p>Or see <a href="https://www.youtube.com/watch?v=pxJOOyBIV2k">this video.</a></p>
+	<p>Or see <a href="https://www.youtube.com/watch?v=pxJOOyBIV2k">this video</a> for how to enable "Network debugging"</p>
 
 	<p>Next, you need to install ADB (Android debug bridge) on your computer.</p>
 	<ul>
@@ -579,14 +579,16 @@
 	<h4>Common Remote Buttons</h4>
 
 	<ul>
-		<li><b>Directional pad:</b></li>
+		<li><b>Directional pad/navigation:</b></li>
 		<ul>
 			<li><code>KEYCODE_DPAD_UP</code></li>
 			<li><code>KEYCODE_DPAD_LEFT</code></li>
 			<li><code>KEYCODE_DPAD_RIGHT</code></li>
 			<li><code>KEYCODE_DPAD_DOWN</code></li>
-			<li><code>KEYCODE_DPAD_OK</code></li>
+			<li><code>KEYCODE_ENTER</code></li>
 			<li><code>KEYCODE_BACK</code></li>
+			<li><code>KEYCODE_HOME</code></li>
+			<li><code>KEYCODE_DPAD_OK</code></li>
 		</ul>
 		<li><b>Page up/down:</b></li>
 		<ul>
@@ -597,6 +599,8 @@
 		<ul>
 			<li><code>KEYCODE_MEDIA_PLAY_PAUSE</code></li>
 			<li><code>KEYCODE_STOP</code></li>
+			<li><code>KEYCODE_DPAD_LEFT</code></li>
+			<li><code>KEYCODE_DPAD_RIGHT</code></li>
 			<li><code>KEYCODE_MEDIA_PREVIOUS</code></li>
 			<li><code>KEYCODE_MEDIA_NEXT</code></li>
 			<li><code>KEYCODE_REWIND</code></li>
@@ -619,7 +623,13 @@
 
 	<h4>Reboot Shield</h4>
 
-	<p class="tab"><code>cmb=reboot</code></p>
+	<p class="tab"><code>cmd=reboot</code></p>
+
+	<p>
+		You may find the reboot command useful in a startup or other macro button for the following reasson.
+		<br /><br />
+		<i>*Users have reported that if the Shield has put up its screensaver before you start Amazon Prime Video, you will only get stereo audio from the Amazon Prime Video app, not any kind of surround sound.</i>
+	</p>
 
 	<h4>Launching Apps</h4>
 
@@ -657,7 +667,11 @@
 		<li>remote_locator</li>
 	</ul>
 
-	<p><b>To start and stop apps not in the included list, the process is a little more involved.</b></p>
+	<p>
+		<b>To start and stop apps not in the included list, the process is a little more involved.</b>
+		<br /><br />
+		Please make sure to launch a new app at least once before proceeding with Method 1 or Method 2.
+	</p>
 
 	<h5>Method 1:</h5>
 
@@ -665,7 +679,7 @@
 
 	<ul>
 		<li>Open a cmd prompt and navigate to the folder containing adb.exe <code>(cd C:/path/to/folder)</code></li>
-		<li>Connect to your shield with adb.exe <code>(adb connect shieldIP:5555)</code></li>
+		<li>Connect to your shield with adb.exe <code>(adb connect SHIELDIP:5555)</code></li>
 		<li>Enter command to list all installed apps: <code>(adb shell pm list packages)</code></li>
 		<li>Look for the app's package name, for example the YouTube app looks like: <code>(com.google.android.youtube.tv)</code></li>
 	</ul>
@@ -705,7 +719,7 @@
 		</code>
 	</p>
 
-	<p>The bolded part from above is the app's unique start activity.  Simply paste that into the param box for a cmd=start to launch the app.</p>
+	<p>The bolded part from above is the app's unique start activity.  Simply paste that into the param box for a <code>cmd=start</code> to launch the app.</p>
 
 	<p class="tab">
 		<code>
@@ -719,7 +733,7 @@
 		<code>
 			cmd=stop
 			<br />
-			parm=com.google.android.youtube.tv
+			param=com.google.android.youtube.tv
 		</code>
 	</p>
 
@@ -791,11 +805,11 @@
 	<h4>Launching Apps</h4>
 
 	<p>
-		To launch an app on the Roku, you will need to find the Channel ID or App ID.
+		To launch an app on the Roku, you will need to find the App ID or Channel ID.
 		<br />
-		You can find a list of Channel IDs by going to this URL in your browser:
+		You can find a list of App IDs by going to this URL in your browser:
 		<br /><br />
-		http://RokuIP:8060/query/apps
+		http://ROKUIP:8060/query/apps
 	</p>
 
 	<h5>Examples (Enter into <code>cmd</code> box)</h5>
@@ -804,6 +818,8 @@
 		<li><code>launch/13</code> (Amazon Prime Video)</li>
 		<li><code>launch/837</code> (YouTube)</li>
 	</ul>
+
+	<p>Replace the number with the cooresponding App ID of the app you want to launch.</p>
 
 	<h4>Other Commands</h4>
 

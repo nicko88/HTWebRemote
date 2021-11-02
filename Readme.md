@@ -73,4 +73,4 @@ See the [documentation](https://raw.githack.com/nicko88/HTWebRemote/master/HTWeb
 
 ### Community
 
-Visit the forum thread [here.](https://www.avsforum.com/forum/26-home-theater-computers/3141648-htpcremote-simple-remote-control-your-htpc-home-theater-any-web-browser.html)
+Visit the forum thread [here.](https://www.avsforum.com/threads/htwebremote-simple-remote-control-of-your-home-theater-devices-and-htpc-from-any-web-browser.3141648)
