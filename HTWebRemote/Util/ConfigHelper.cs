@@ -33,7 +33,7 @@ namespace HTWebRemote.Util
                 {
                     adminCMD += " && ";
                 }
-                adminCMD += "netsh http add urlacl url=http://*:5000/ user=" + Environment.UserName;
+                adminCMD += "netsh http add urlacl url=http://*:5000/ user=%computername%\\%username%";
             }
 
             if (adminCMD != null)
