@@ -9,6 +9,7 @@ namespace HTWebRemote.Devices
     class DeviceSelector
     {
         public static List<string> DeviceTypes = new List<string> { "mpc",
+                                                                    "zoom",
                                                                     "nvshield",
                                                                     "roku",
                                                                     "zappiti",
@@ -40,7 +41,7 @@ namespace HTWebRemote.Devices
             {
                 if (!query)
                 {
-                    WinControl.RunCmd(cmd, showErrors);
+                    WinControl.RunCmd(cmd, param, showErrors);
                 }
                 else
                 {
@@ -89,6 +90,9 @@ namespace HTWebRemote.Devices
             {
                 case "mpc":
                     MPCControl.RunCmd(IP, cmd, param, showErrors);
+                    break;
+                case "zoom":
+                    ZoomControl.RunCmd(IP, cmd);
                     break;
                 case "nvshield":
                     NVShieldControl.RunCmd(IP, cmd, param);

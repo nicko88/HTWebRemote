@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Windows.Forms;
 
 namespace HTWebRemote.Devices.Controllers
 {
     class WinControl
     {
-        public static void RunCmd(string fileName, bool showErrors)
+        public static void RunCmd(string path, string param, bool showErrors)
         {
-            if (fileName.StartsWith("setvol") || fileName.StartsWith("editvol") || fileName.StartsWith("mutevol"))
+            if (path.StartsWith("setvol") || path.StartsWith("editvol") || path.StartsWith("mutevol"))
             {
-                VolControl(fileName, showErrors);
+                VolControl(path, showErrors);
             }
             else
             {
@@ -18,15 +19,28 @@ namespace HTWebRemote.Devices.Controllers
                 process.StartInfo.CreateNoWindow = true;
                 process.StartInfo.RedirectStandardOutput = true;
                 process.StartInfo.UseShellExecute = false;
+
+                if(!string.IsNullOrEmpty(param))
+                {
+                    process.StartInfo.Arguments = param;
+                }
+
                 try
                 {
-                    process.StartInfo.FileName = $"{Util.ConfigHelper.WorkingPath}\\{fileName}";
+                    if (File.Exists(path))
+                    {
+                        process.StartInfo.FileName = path;
+                    }
+                    else
+                    {
+                        process.StartInfo.FileName = $"{Util.ConfigHelper.WorkingPath}\\{path}";
+                    }
                 }
                 catch
                 {
                     if (showErrors)
                     {
-                        MessageBox.Show($"Cannot find file to open: \n\n{Util.ConfigHelper.WorkingPath}\\{fileName}", "Error");
+                        MessageBox.Show($"Cannot find file to open or run: \n\n{process.StartInfo.FileName}", "Error");
                     }
                 }
                 try
@@ -37,7 +51,7 @@ namespace HTWebRemote.Devices.Controllers
                 {
                     if (showErrors)
                     {
-                        MessageBox.Show($"Cannot run file: \n\n{Util.ConfigHelper.WorkingPath}\\{fileName}\n\n{e.Message}", "Error");
+                        MessageBox.Show($"Cannot open or run file: \n\n{process.StartInfo.FileName}", "Error");
                     }
                 }
             }

@@ -34,7 +34,7 @@ namespace HTWebRemote
         {
             ConfigHelper.Setup();
 
-            string version = Assembly.GetExecutingAssembly().GetName().Version.ToString(3).Replace(".0", "");
+            string version = Assembly.GetExecutingAssembly().GetName().Version.ToString().Replace(".0", "");
             IP = ConfigHelper.GetLocalIPAddress();
             Text = $"HTWebRemote v{version}   (IP: {IP}:5000)";
 
