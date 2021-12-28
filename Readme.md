@@ -39,6 +39,7 @@ Finally, HTWebRemote includes a sort of API which lets you send commands from ot
 * Windows PC (open and close programs, etc)
 * Keyboard Hotkeys (Control any program that supports hotkeys like most media players)
 * [MPC-HC](https://github.com/clsid2/mpc-hc) and [MPC-BE](https://sourceforge.net/projects/mpcbe/)
+* Zoom Player
 * Nvidia Shield
 * Roku
 * Zappiti Media Player Box
@@ -52,7 +53,7 @@ Finally, HTWebRemote includes a sort of API which lets you send commands from ot
 * Anthem MRX AVRs
 * JVC Projectors
 * BenQ Projectors
-* Christie M-Series Projectors
+* Christie M-Series / TruLife+ Projectors
 * Oppo Disc Player
 * D-BOX HEMC
 * RS232 Serial Devices
