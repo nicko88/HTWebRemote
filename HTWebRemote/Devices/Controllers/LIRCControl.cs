@@ -7,7 +7,7 @@ namespace HTWebRemote.Devices.Controllers
     {
         public static void RunCmd(string IP, string cmd, string param)
         {
-            SocketConnection LIRCsocket = new SocketConnection(IP, "", SocketType.Stream, ProtocolType.Tcp);
+            SocketConnection LIRCsocket = new SocketConnection(IP, "8765", SocketType.Stream, ProtocolType.Tcp);
 
             if (LIRCsocket.Connect())
             {

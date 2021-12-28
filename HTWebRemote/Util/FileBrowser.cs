@@ -372,16 +372,16 @@ namespace HTWebRemote.Util
                             }
 
                             sb.AppendLine(@"<li class=""nav-item"">");
-                            sb.AppendLine($@"<a class=""nav-link text-muted"" href=""{remoteNum}"">{remoteName}</a>");
+                            sb.AppendLine($@"<a class=""nav-link"" href=""{remoteNum}"">{remoteName}</a>");
                             sb.AppendLine("</li>");
                         }
                     }
 
-                    sb.AppendLine($@"<li class=""nav-item""><a class=""nav-link bg-dark active text-white"" href=""FB"">FB</a></li>");
+                    sb.AppendLine($@"<li class=""nav-item""><a class=""nav-link bg-dark active"" href=""FB"">FB</a></li>");
 
                     if(!string.IsNullOrEmpty(YoutubeSearch._searchQ))
                     {
-                        sb.AppendLine($@"<li class=""nav-item""><a class=""nav-link text-muted"" href=""FByoutube?play=0"">YT</a></li>");
+                        sb.AppendLine($@"<li class=""nav-item""><a class=""nav-link"" href=""FByoutube?play=0"">YT</a></li>");
                     }
 
                     sb.AppendLine("</ul>");

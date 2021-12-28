@@ -154,6 +154,7 @@
 		<li><a href="#win">Windows</a></li>
 		<li><a href="#keys">Keyboard Hotkeys</a></li>
 		<li><a href="#mpc">Media Player Classic</a></li>
+		<li><a href="#zoom">Zoom Player</a></li>
 		<li><a href="#nvshield">Nvidia Shield</a></li>
 		<li><a href="#roku">Roku</a></li>
 		<li><a href="#zappiti">Zappiti Media Player Box</a></li>
@@ -345,6 +346,13 @@
 	</p>
 
 	<p>To specify repeating keys, use the form {key #}. You must put a space between key and number. For example, {LEFT 42} means press the LEFT ARROW key 42 times; {h 10} means press H 10 times.</p>
+
+	<h3>Key Combo Examples</h3>
+	<ul>
+		<li><code>ctrl(A)</code> (Ctrl+A)</li>
+		<li><code>shift({SPACE})</code> (Shift+Space)</li>
+		<li><code>ctrl(shift(D))</code> (Ctrl+Shift+D)</li>
+	</ul>
 	<br />
 
 	<h2><a id="mpc"></a>Media Player Classic Control</h2>
@@ -543,8 +551,22 @@
 		<li><code>1077</code> (After Playback: Always exit)</li>
 		<li><code>948</code> (After Playback: Do Nothing)</li>
 		<li><code>947</code> (After Playback: Play next in the folder)</li>
-		<li><code>1038</code> (Move Window to PrimaryScreen)</li>
+		<li><code>1038</code> (Move Window to Primary Screen)</li>
 	</ul>
+	<br />
+
+	<h2><a id="zoom"></a>Zoom Player Control</h2>
+
+	For Zoom Player control, the device identifier is <b>zoom</b>
+
+	<h3>Some Basic Commands</h3>
+
+	<ul>
+		<li><code>fnPlay</code> (Starts playback and toggles between Play & Pause states.)</li>
+		<li><code>exSetVolume,50</code> (Set volume to 50%)</li>
+	</ul>
+
+	<p><a href="https://inmatrix.com/zplayer/highlights/zpfunctions.shtml">Complete list of Zoom Player network control commands.</a></p>
 	<br />
 
 	<h2><a id="nvshield"></a>Nvidia Shield Control</h2>
@@ -1127,7 +1149,7 @@
 		There are also a many more advanced commands you can build listed below that are supported.
 	</p>
 
-	<h3>JVC NX Series IR Codes (works with older JVC too)</h3>
+	<h3>JVC NX Series IR Codes (should work with other JVC too)</h3>
 
 	<p>Use these 2 digit codes for the command.</p>
 
@@ -1254,9 +1276,21 @@
 		</ul>
 	</ul>
 
+	<h3>Note for JVC NZ or other 2021 or newer JVC projectors</h3>
+
+	<p>For 2021 and newer JVC projectors like the laser NZ units, you must also specify a network password.</p>
+
+	<p>To specify the network password, add {YOURPASS} to the end of the IP address when you enter it in the device configuration screen.</p>
+
+	<p>Example IP: 192.168.1.100{YOURPASS}</p>
+
 	<p>
-		For all JVC commands, see the full JVC command document here:<br />
+		For all JVC NX commands, see the full JVC NX command document here:<br />
 		<a href="https://github.com/nicko88/HTWebRemote/blob/master/IP%20Control%20Spec%20Documents/JVC_NX.pdf">JVC_NX.pdf</a>
+	</p>
+	<p>
+		For all JVC NZ commands, see the full JVC NZ command document here:<br />
+		<a href="https://github.com/nicko88/HTWebRemote/blob/master/IP%20Control%20Spec%20Documents/JVC_NZ.pdf">JVC_NZ.pdf</a>
 	</p>
 
 	<p>Or look up the IP control document for your particular JVC Projector.</p>
@@ -1283,7 +1317,7 @@
 	<p>Or look up the IP control document for your particular BenQ Projector.</p>
 	<br />
 
-	<h2><a id="christie"></a>Christie M-Series Projector Control</h2>
+	<h2><a id="christie"></a>Christie M-Series / TruLife+ Projector Control</h2>
 
 	For Christie control, the device identifier is <b>christie</b>
 
@@ -1297,6 +1331,10 @@
 	<p>
 		For all Christie M-Series commands, see the full Christie M-Series command document here:<br />
 		<a href="https://github.com/nicko88/HTWebRemote/blob/master/IP%20Control%20Spec%20Documents/Christie_M-Series.pdf">Christie_M-Series.pdf</a>
+	</p>
+	<p>
+		For all Christie TrueLife+ commands, see the full Christie TrueLife+ command document here:<br />
+		<a href="https://github.com/nicko88/HTWebRemote/blob/master/IP%20Control%20Spec%20Documents/Christie_TruLife+.pdf">Christie_TruLife+.pdf</a>
 	</p>
 	<br />
 

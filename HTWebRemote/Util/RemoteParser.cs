@@ -60,11 +60,11 @@ namespace HTWebRemote.Util
                                 sb.AppendLine(@"<li class=""nav-item"">");
                                 if (remoteNum == currentRemoteNum)
                                 {
-                                    sb.AppendLine($@"<a class=""nav-link active bg-dark text-white"" href=""{remoteNum}"">{remoteName}</a>");
+                                    sb.AppendLine($@"<a class=""nav-link active bg-dark"" href=""{remoteNum}"">{remoteName}</a>");
                                 }
                                 else
                                 {
-                                    sb.AppendLine($@"<a class=""nav-link text-muted"" href=""{remoteNum}"">{remoteName}</a>");
+                                    sb.AppendLine($@"<a class=""nav-link"" href=""{remoteNum}"">{remoteName}</a>");
                                 }
                                 sb.AppendLine("</li>");
                             }
@@ -73,12 +73,12 @@ namespace HTWebRemote.Util
 
                     if (ConfigHelper.CheckRegKey(@"SOFTWARE\HTWebRemote", "ShowFileBrowser"))
                     {
-                        sb.AppendLine($@"<li class=""nav-item""><a class=""nav-link text-muted"" href=""FB"">FB</a></li>");
+                        sb.AppendLine($@"<li class=""nav-item""><a class=""nav-link"" href=""FB"">FB</a></li>");
                     }
 
                     if (!string.IsNullOrEmpty(YoutubeSearch._searchQ))
                     {
-                        sb.AppendLine($@"<li class=""nav-item""><a class=""nav-link text-muted"" href=""FByoutube?play=0"">YT</a></li>");
+                        sb.AppendLine($@"<li class=""nav-item""><a class=""nav-link"" href=""FByoutube?play=0"">YT</a></li>");
                     }
 
                     sb.AppendLine("</ul>");

@@ -11,14 +11,30 @@ namespace HTWebRemote.Devices.Controllers
     {
         public static void RunCmd(string IP, string cmd, string param)
         {
+            byte[] PJREQ = Encoding.ASCII.GetBytes("PJREQ");
+
+            if (IP.Contains("{"))
+            {
+                (string, string) split = ParsePassword(IP);
+
+                IP = split.Item1;
+                byte[] withPass = Encoding.ASCII.GetBytes($"PJREQ_{split.Item2}");
+
+                PJREQ = new byte[16];
+                for(int i = 0; i < withPass.Length; i++)
+                {
+                    PJREQ[i] = withPass[i];
+                }
+            }
+
             SocketConnection JVCsocket = new SocketConnection(IP, "20554", SocketType.Stream, ProtocolType.Tcp);
 
             if (JVCsocket.Connect())
             {
-                JVCsocket.SendData(Encoding.ASCII.GetBytes("PJREQ"));
+                JVCsocket.SendData(PJREQ);
                 Thread.Sleep(50);
 
-                byte[] message = null;
+                byte[] message;
 
                 //remote codes
                 if (cmd.Length == 2 && string.IsNullOrEmpty(param))
@@ -76,6 +92,18 @@ namespace HTWebRemote.Devices.Controllers
                 JVCsocket.SendData(message);
                 JVCsocket.CloseSocket();
             }
+        }
+
+        private static (string, string) ParsePassword(string IPstring)
+        {
+            int startIndex = IPstring.IndexOf("{") + 1;
+            int endIndex = IPstring.IndexOf("}");
+            int length = endIndex - startIndex;
+
+            string pass = IPstring.Substring(startIndex, length);
+            string IP = IPstring.Substring(0, startIndex - 1).Trim();
+
+            return (IP, pass);
         }
     }
 }

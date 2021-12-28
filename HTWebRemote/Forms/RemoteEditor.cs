@@ -245,8 +245,13 @@ namespace HTWebRemote.Forms
 
         private void btnDeleteButton_Click(object sender, EventArgs e)
         {
-            currentRemote.RemoteItems.Remove((RemoteItem)lbRemoteItems.SelectedItem);
-            SaveRemote(-1);
+            DialogResult result = MessageBox.Show($"Are you sure you want to delete Button:\n\n{lbRemoteItems.SelectedItem}", "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                currentRemote.RemoteItems.Remove((RemoteItem)lbRemoteItems.SelectedItem);
+                SaveRemote(-1);
+            }
         }
 
         private void btnAddGroup_Click(object sender, EventArgs e)

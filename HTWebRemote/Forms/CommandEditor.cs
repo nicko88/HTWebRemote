@@ -27,13 +27,6 @@ namespace HTWebRemote.Forms
                 cmbDevices.SelectedIndex = lastDeviceIndex;
             }
             catch { }
-
-            cmbAddCommand.SelectedIndex = 0;
-
-            if (lbCommands.Items.Count > 0)
-            {
-                lbCommands.SelectedIndex = 0;
-            }
         }
 
         private void cmbAddCommand_SelectedIndexChanged(object sender, EventArgs e)
