@@ -47,7 +47,7 @@ namespace HTWebRemote.Devices.Controllers
                 {
                     process.Start();
                 }
-                catch (Exception e)
+                catch
                 {
                     if (showErrors)
                     {

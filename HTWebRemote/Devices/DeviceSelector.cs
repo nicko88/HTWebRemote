@@ -22,6 +22,7 @@ namespace HTWebRemote.Devices
                                                                     "htp1",
                                                                     "anthem",
                                                                     "jvc",
+                                                                    "epson",
                                                                     "benq",
                                                                     "christie",
                                                                     "oppo",
@@ -129,6 +130,9 @@ namespace HTWebRemote.Devices
                     break;
                 case "jvc":
                     JVCControl.RunCmd(IP, cmd, param);
+                    break;
+                case "epson":
+                    EpsonControl.RunCmd(IP, cmd);
                     break;
                 case "benq":
                     BenQControl.RunCmd(IP, cmd);

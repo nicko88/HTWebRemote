@@ -82,8 +82,8 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MQTTnet, Version=3.1.1.0, Culture=neutral, PublicKeyToken=b69712f52770c0a7, processorArchitecture=MSIL">
-      <HintPath>..\packages\MQTTnet.3.1.1\lib\net461\MQTTnet.dll</HintPath>
+    <Reference Include="MQTTnet, Version=3.1.2.0, Culture=neutral, PublicKeyToken=b69712f52770c0a7, processorArchitecture=MSIL">
+      <HintPath>..\packages\MQTTnet.3.1.2\lib\net461\MQTTnet.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -245,6 +245,7 @@
     <Compile Include="Devices\Controllers\AnthemControl.cs" />
     <Compile Include="Devices\Controllers\ChristieControl.cs" />
     <Compile Include="Devices\Controllers\DBOXControl.cs" />
+    <Compile Include="Devices\Controllers\EpsonControl.cs" />
     <Compile Include="Devices\Controllers\HTP1Control.cs" />
     <Compile Include="Devices\Controllers\HttpGetControl.cs" />
     <Compile Include="Devices\Controllers\MQTTControl.cs" />

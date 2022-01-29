@@ -52,6 +52,7 @@ Finally, HTWebRemote includes a sort of API which lets you send commands from ot
 * Monoprice HTP-1 AVR
 * Anthem MRX AVRs
 * JVC Projectors
+* Epson Projectors
 * BenQ Projectors
 * Christie M-Series / TruLife+ Projectors
 * Oppo Disc Player
