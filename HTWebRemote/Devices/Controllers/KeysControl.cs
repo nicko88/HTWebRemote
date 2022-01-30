@@ -13,7 +13,7 @@ namespace HTWebRemote.Devices.Controllers
         [DllImport("USER32.DLL")]
         public static extern bool SetForegroundWindow(IntPtr hWnd);
 
-        public static void RunCmd(string keys, string app, bool showErrors)
+        public static void RunCmd(string keys, string app)
         {
             if (!string.IsNullOrEmpty(app))
             {
@@ -26,10 +26,7 @@ namespace HTWebRemote.Devices.Controllers
                 }
                 catch (Exception e)
                 {
-                    if (showErrors)
-                    {
-                        MessageBox.Show($"Cannot find program: {app} to send keys to.\n\n{e.Message}", "Error");
-                    }
+                    Util.ErrorHandler.SendError($"Cannot find program: {app} to send keys to.\n\n{e.Message}");
                 }
             }
 
@@ -44,10 +41,7 @@ namespace HTWebRemote.Devices.Controllers
             }
             catch (Exception e)
             {
-                if (showErrors)
-                {
-                    MessageBox.Show($"Error sending key: {keys}\n\n{e.Message}", "Error");
-                }
+                Util.ErrorHandler.SendError($"Error sending key: {keys}\n\n{e.Message}");
             }
         }
     }

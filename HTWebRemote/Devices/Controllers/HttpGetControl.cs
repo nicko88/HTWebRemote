@@ -2,13 +2,12 @@
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
-using System.Windows.Forms;
 
 namespace HTWebRemote.Devices.Controllers
 {
     class HttpGetControl
     {
-        public static void RunCmd(string IP, string cmd, string param, bool showErrors)
+        public static void RunCmd(string IP, string cmd, string param)
         {
             HttpClient httpClient = new HttpClient();
             httpClient.Timeout = TimeSpan.FromSeconds(3);
@@ -30,10 +29,7 @@ namespace HTWebRemote.Devices.Controllers
             }
             catch (Exception e)
             {
-                if (showErrors)
-                {
-                    MessageBox.Show($"Error sending http GET request: {IP}{cmd}\n\n{e.Message}", "Error");
-                }
+                Util.ErrorHandler.SendError($"Error sending http GET request: {IP}{cmd}\n\n{e.Message}");
             }
         }
     }

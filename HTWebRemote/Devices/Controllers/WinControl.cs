@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Windows.Forms;
 
 namespace HTWebRemote.Devices.Controllers
 {
     class WinControl
     {
-        public static void RunCmd(string path, string param, bool showErrors)
+        public static void RunCmd(string path, string param)
         {
             if (path.StartsWith("setvol") || path.StartsWith("editvol") || path.StartsWith("mutevol"))
             {
-                VolControl(path, showErrors);
+                VolControl(path);
             }
             else
             {
@@ -38,10 +37,7 @@ namespace HTWebRemote.Devices.Controllers
                 }
                 catch
                 {
-                    if (showErrors)
-                    {
-                        MessageBox.Show($"Cannot find file to open or run: \n\n{process.StartInfo.FileName}", "Error");
-                    }
+                    Util.ErrorHandler.SendError($"Cannot find file to open or run: \n\n{process.StartInfo.FileName}");
                 }
                 try
                 {
@@ -49,19 +45,16 @@ namespace HTWebRemote.Devices.Controllers
                 }
                 catch
                 {
-                    if (showErrors)
-                    {
-                        MessageBox.Show($"Cannot open or run file: \n\n{process.StartInfo.FileName}", "Error");
-                    }
+                    Util.ErrorHandler.SendError($"Cannot open or run file: \n\n{process.StartInfo.FileName}");
                 }
             }
         }
 
-        private static void VolControl(string volCmd, bool showErrors)
+        private static void VolControl(string volCmd)
         {
             if(volCmd == "mutevol")
             {
-                Util.WindowsAudioControl.MuteVolume(showErrors);
+                Util.WindowsAudioControl.MuteVolume();
             }
             else
             {
@@ -69,18 +62,18 @@ namespace HTWebRemote.Devices.Controllers
 
                 if(volInfo[0] == "setvol")
                 {
-                    Util.WindowsAudioControl.SetVolume(Convert.ToInt32(volInfo[1]), showErrors);
+                    Util.WindowsAudioControl.SetVolume(Convert.ToInt32(volInfo[1]));
                 }
                 else if(volInfo[0] == "editvol")
                 {
-                    Util.WindowsAudioControl.AddSubtractVolume(Convert.ToInt32(volInfo[1]), showErrors);
+                    Util.WindowsAudioControl.AddSubtractVolume(Convert.ToInt32(volInfo[1]));
                 }
             }
         }
 
-        public static string getvol(bool showErrors)
+        public static string getvol()
         {
-            return Util.WindowsAudioControl.GetVolume(showErrors).ToString() + "%";
+            return Util.WindowsAudioControl.GetVolume().ToString() + "%";
         }
     }
 }

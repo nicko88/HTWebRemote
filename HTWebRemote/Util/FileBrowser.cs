@@ -105,7 +105,7 @@ namespace HTWebRemote.Util
                         if (ConfigHelper.CheckRegKey(@"SOFTWARE\HTWebRemote", "YoutubeUseWebBrowser"))
                         {
                             Process.Start($"{_YTstring}{autoplay}");
-                            Task.Delay(5000).ContinueWith(_ => Devices.Controllers.KeysControl.RunCmd("f", "", false));
+                            Task.Delay(5000).ContinueWith(_ => Devices.Controllers.KeysControl.RunCmd("f", ""));
                         }
                         else
                         {
@@ -113,7 +113,7 @@ namespace HTWebRemote.Util
                             if (string.IsNullOrEmpty(YTMediaPlayerPath))
                             {
                                 Process.Start($"{_YTstring}{autoplay}");
-                                Task.Delay(5000).ContinueWith(_ => Devices.Controllers.KeysControl.RunCmd("f", "", false));
+                                Task.Delay(5000).ContinueWith(_ => Devices.Controllers.KeysControl.RunCmd("f", ""));
                             }
                             else
                             {

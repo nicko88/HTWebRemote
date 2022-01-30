@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Net.Http;
-using System.Windows.Forms;
 
 namespace HTWebRemote.Devices.Controllers
 {
     class HTP1Control
     {
-        public static void RunCmd(string IP, string cmd, string param, bool showErrors)
+        public static void RunCmd(string IP, string cmd, string param)
         {
             if(cmd.ToLower() == "ir")
             {
@@ -25,10 +24,7 @@ namespace HTWebRemote.Devices.Controllers
                 }
                 catch (Exception e)
                 {
-                    if (showErrors)
-                    {
-                        MessageBox.Show($"Error sending command to HTP-1: http://{IP}/ircmd?code={param}\n\n{e.Message}", "Error");
-                    }
+                    Util.ErrorHandler.SendError($"Error sending command to HTP-1: http://{IP}/ircmd?code={param}\n\n{e.Message}");
                 }
             }
         }

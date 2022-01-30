@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Net.Http;
-using System.Windows.Forms;
 
 namespace HTWebRemote.Devices.Controllers
 {
     class RokuControl
     {
-        public static void RunCmd(string IP, string cmd, bool showErrors)
+        public static void RunCmd(string IP, string cmd)
         {
             HttpClient httpClient = new HttpClient();
             httpClient.Timeout = TimeSpan.FromSeconds(3);
@@ -23,10 +22,7 @@ namespace HTWebRemote.Devices.Controllers
             }
             catch(Exception e)
             {
-                if(showErrors)
-                {
-                    MessageBox.Show($"Error sending command to Roku: http://{IP}:8060{cmd}\n\n{e.Message}", "Error");
-                }
+                Util.ErrorHandler.SendError($"Error sending command to Roku: http://{IP}:8060{cmd}\n\n{e.Message}");
             }
         }
     }

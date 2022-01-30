@@ -323,6 +323,7 @@
     <Compile Include="RemoteFile\RemoteItem.cs" />
     <Compile Include="RemoteFile\RemoteJSONLoader.cs" />
     <Compile Include="Util\ConfigHelper.cs" />
+    <Compile Include="Util\ErrorHandler.cs" />
     <Compile Include="Util\FileBrowser.cs" />
     <Compile Include="Util\RemoteParser.cs" />
     <Compile Include="Util\TelnetInterface.cs" />

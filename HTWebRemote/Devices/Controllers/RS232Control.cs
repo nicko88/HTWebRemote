@@ -1,12 +1,11 @@
 ﻿using System;
 using System.IO.Ports;
-using System.Windows.Forms;
 
 namespace HTWebRemote.Devices.Controllers
 {
     class RS232Control
     {
-        public static void RunCmd(string COMport, string cmd, bool showErrors)
+        public static void RunCmd(string COMport, string cmd)
         {
             try
             {
@@ -37,10 +36,7 @@ namespace HTWebRemote.Devices.Controllers
             }
             catch(Exception e)
             {
-                if (showErrors)
-                {
-                    MessageBox.Show($"Cannot connect to {COMport}\n\n{e.Message}", "Error");
-                }
+                Util.ErrorHandler.SendError($"Cannot connect to {COMport}\n\n{e.Message}");
             }
         }
     }

@@ -18,7 +18,7 @@ namespace HTWebRemote.Devices.Controllers
                     param = "0";
                 }
 
-                byte[] message = null;
+                byte[] message;
                 if (cmd == "WSTOP")
                 {
                     message = new byte[] { 0x02, 0x57, 0x53, 0x54, 0x4F, 0x50, 0x03 };

@@ -3,7 +3,6 @@ using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Threading;
 using System.Text;
-using System.Windows.Forms;
 
 namespace HTWebRemote.Devices.Controllers
 {
@@ -20,7 +19,7 @@ namespace HTWebRemote.Devices.Controllers
             }
         }
 
-        public static string getvol(string IP, bool showErrors)
+        public static string getvol(string IP)
         {
             double vol;
             Util.TelnetConnection conn = null;
@@ -54,10 +53,7 @@ namespace HTWebRemote.Devices.Controllers
             }
             catch (Exception e)
             {
-                if (showErrors)
-                {
-                    MessageBox.Show($"Cannot connect to Denon/Marantz at {IP}:23\n\n{e.Message}", "Error");
-                }
+                Util.ErrorHandler.SendError($"Cannot connect to Denon/Marantz at {IP}:23\n\n{e.Message}");
             }
             finally
             {

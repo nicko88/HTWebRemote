@@ -41,18 +41,16 @@ namespace HTWebRemote.Util
             float GetMasterVolumeLevelScalar();
         }
 
-        public static int GetVolume(bool showErrors)
+        public static int GetVolume()
         {
             try
             {
                 IMMDeviceEnumerator deviceEnumerator = MMDeviceEnumeratorFactory.CreateInstance();
-                IMMDevice speakers;
                 const int eRender = 0;
                 const int eMultimedia = 1;
-                deviceEnumerator.GetDefaultAudioEndpoint(eRender, eMultimedia, out speakers);
+                deviceEnumerator.GetDefaultAudioEndpoint(eRender, eMultimedia, out IMMDevice speakers);
 
-                object o;
-                speakers.Activate(typeof(IAudioEndpointVolume).GUID, 0, IntPtr.Zero, out o);
+                speakers.Activate(typeof(IAudioEndpointVolume).GUID, 0, IntPtr.Zero, out object o);
                 IAudioEndpointVolume aepv = (IAudioEndpointVolume)o;
                 float volume = aepv.GetMasterVolumeLevelScalar();
                 Marshal.ReleaseComObject(aepv);
@@ -62,27 +60,22 @@ namespace HTWebRemote.Util
             }
             catch (Exception e)
             {
-                if (showErrors)
-                {
-                    MessageBox.Show($"Error getting volume: \n\n{e.Message}", "Error");
-                }
+                ErrorHandler.SendError($"Error getting volume: \n\n{e.Message}");
             }
 
             return 0;
         }
 
-        public static void SetVolume(int vol, bool showErrors)
+        public static void SetVolume(int vol)
         {
             try
             {
                 IMMDeviceEnumerator deviceEnumerator = MMDeviceEnumeratorFactory.CreateInstance();
-                IMMDevice speakers;
                 const int eRender = 0;
                 const int eMultimedia = 1;
-                deviceEnumerator.GetDefaultAudioEndpoint(eRender, eMultimedia, out speakers);
+                deviceEnumerator.GetDefaultAudioEndpoint(eRender, eMultimedia, out IMMDevice speakers);
 
-                object aepv_obj;
-                speakers.Activate(typeof(IAudioEndpointVolume).GUID, 0, IntPtr.Zero, out aepv_obj);
+                speakers.Activate(typeof(IAudioEndpointVolume).GUID, 0, IntPtr.Zero, out object aepv_obj);
                 IAudioEndpointVolume aepv = (IAudioEndpointVolume)aepv_obj;
                 Guid ZeroGuid = new Guid();
                 int res = aepv.SetMasterVolumeLevelScalar(vol / 100f, ZeroGuid);
@@ -92,16 +85,13 @@ namespace HTWebRemote.Util
             }
             catch (Exception e)
             {
-                if (showErrors)
-                {
-                    MessageBox.Show($"Error setting volume: \n\n{e.Message}", "Error");
-                }
+                ErrorHandler.SendError($"Error setting volume: \n\n{e.Message}");
             }
         }
 
-        public static void AddSubtractVolume(int amount, bool showErrors)
+        public static void AddSubtractVolume(int amount)
         {
-            int newVol = GetVolume(showErrors) + amount;
+            int newVol = GetVolume() + amount;
 
             if(newVol > 100)
             {
@@ -112,10 +102,10 @@ namespace HTWebRemote.Util
                 newVol = 0;
             }
 
-            SetVolume(newVol, showErrors);
+            SetVolume(newVol);
         }
 
-        public static void MuteVolume(bool showErrors)
+        public static void MuteVolume()
         {
             try
             {
@@ -123,10 +113,7 @@ namespace HTWebRemote.Util
             }
             catch(Exception e)
             {
-                if (showErrors)
-                {
-                    MessageBox.Show($"Error muting volume: \n\n{e.Message}", "Error");
-                }
+                ErrorHandler.SendError($"Error muting volume: \n\n{e.Message}");
             }
         }
     }

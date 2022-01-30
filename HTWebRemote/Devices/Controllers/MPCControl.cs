@@ -2,13 +2,12 @@
 using System.IO;
 using System.Net;
 using System.Text;
-using System.Windows.Forms;
 
 namespace HTWebRemote.Devices.Controllers
 {
     class MPCControl
     {
-        public static void RunCmd(string IP, string command_id, string param, bool showErrors)
+        public static void RunCmd(string IP, string command_id, string param)
         {
             try
             {
@@ -37,10 +36,7 @@ namespace HTWebRemote.Devices.Controllers
             }
             catch (Exception e)
             {
-                if (showErrors)
-                {
-                    MessageBox.Show($"Cannot connect to MPC at {IP}\n\n{e.Message}", "Error");
-                }
+                Util.ErrorHandler.SendError($"Cannot connect to MPC at {IP}\n\n{e.Message}");
             }
         }
     }

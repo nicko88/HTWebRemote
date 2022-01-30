@@ -33,8 +33,6 @@ namespace HTWebRemote.Devices
 
         public static string FindDevice(string devName, string cmd, string param)
         {
-            bool showErrors = ConfigHelper.CheckRegKey(@"SOFTWARE\HTWebRemote", "ShowErrors");
-
             string returnQuery = "";
             bool query = cmd.StartsWith("query:");
 
@@ -42,21 +40,21 @@ namespace HTWebRemote.Devices
             {
                 if (!query)
                 {
-                    WinControl.RunCmd(cmd, param, showErrors);
+                    WinControl.RunCmd(cmd, param);
                 }
                 else
                 {
                     string[] values = cmd.Split(':');
                     try
                     {
-                        returnQuery = (string)Type.GetType("HTWebRemote.Devices.Controllers.WinControl").GetMethod(values[1]).Invoke(null, new object[] { showErrors });
+                        returnQuery = (string)Type.GetType("HTWebRemote.Devices.Controllers.WinControl").GetMethod(values[1]).Invoke(null, new object[] { });
                     }
                     catch { }
                 }
             }
             else if (devName == "keys")
             {
-                KeysControl.RunCmd(cmd, param, showErrors);
+                KeysControl.RunCmd(cmd, param);
             }
             else if (devName == "Comment") { }
             else
@@ -85,12 +83,10 @@ namespace HTWebRemote.Devices
 
         public static void CommandDevice(string IP, string devType, string cmd, string param)
         {
-            bool showErrors = ConfigHelper.CheckRegKey(@"SOFTWARE\HTWebRemote", "ShowErrors");
-
             switch (devType)
             {
                 case "mpc":
-                    MPCControl.RunCmd(IP, cmd, param, showErrors);
+                    MPCControl.RunCmd(IP, cmd, param);
                     break;
                 case "zoom":
                     ZoomControl.RunCmd(IP, cmd);
@@ -99,16 +95,16 @@ namespace HTWebRemote.Devices
                     NVShieldControl.RunCmd(IP, cmd, param);
                     break;
                 case "roku":
-                    RokuControl.RunCmd(IP, cmd, showErrors);
+                    RokuControl.RunCmd(IP, cmd);
                     break;
                 case "zappiti":
-                    ZappitiControl.RunCmd(IP, cmd,showErrors);
+                    ZappitiControl.RunCmd(IP, cmd);
                     break;
                 case "lirc":
                     LIRCControl.RunCmd(IP, cmd, param);
                     break;
                 case "wemo":
-                    WemoPlugControl.RunCmd(IP, cmd, showErrors);
+                    WemoPlugControl.RunCmd(IP, cmd);
                     break;
                 case "dm":
                     DMControl.RunCmd(IP, cmd, param);
@@ -123,7 +119,7 @@ namespace HTWebRemote.Devices
                     StormControl.RunCmd(IP, cmd);
                     break;
                 case "htp1":
-                    HTP1Control.RunCmd(IP, cmd, param, showErrors);
+                    HTP1Control.RunCmd(IP, cmd, param);
                     break;
                 case "anthem":
                     AnthemControl.RunCmd(IP, cmd);
@@ -147,13 +143,13 @@ namespace HTWebRemote.Devices
                     DBOXControl.RunCmd(IP, cmd, param);
                     break;
                 case "rs232":
-                    RS232Control.RunCmd(IP, cmd, showErrors);
+                    RS232Control.RunCmd(IP, cmd);
                     break;
                 case "httpget":
-                    HttpGetControl.RunCmd(IP, cmd, param, showErrors);
+                    HttpGetControl.RunCmd(IP, cmd, param);
                     break;
                 case "mqtt":
-                    MQTTControl.RunCmd(IP, cmd, param, showErrors);
+                    MQTTControl.RunCmd(IP, cmd, param);
                     break;
                 default:
                     break;
@@ -162,8 +158,6 @@ namespace HTWebRemote.Devices
 
         public static string QueryDevice(string IP, string devType, string cmd)
         {
-            bool showErrors = ConfigHelper.CheckRegKey(@"SOFTWARE\HTWebRemote", "ShowErrors");
-
             string returnQuery = "";
             string[] values = cmd.Split(':');
 
@@ -172,10 +166,10 @@ namespace HTWebRemote.Devices
                 switch (devType)
                 {
                     case "dm":
-                        returnQuery = (string)Type.GetType("HTWebRemote.Devices.Controllers.DMControl").GetMethod(values[1]).Invoke(null, new object[] { IP, showErrors });
+                        returnQuery = (string)Type.GetType("HTWebRemote.Devices.Controllers.DMControl").GetMethod(values[1]).Invoke(null, new object[] { IP });
                         break;
                     case "storm":
-                        returnQuery = (string)Type.GetType("HTWebRemote.Devices.Controllers.StormControl").GetMethod(values[1]).Invoke(null, new object[] { IP, showErrors });
+                        returnQuery = (string)Type.GetType("HTWebRemote.Devices.Controllers.StormControl").GetMethod(values[1]).Invoke(null, new object[] { IP });
                         break;
                     default:
                         break;

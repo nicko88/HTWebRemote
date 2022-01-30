@@ -1,18 +1,15 @@
 ﻿using System.IO;
 using System.Net;
 using System.Text;
-using System.Windows.Forms;
 
 namespace HTWebRemote.Devices.Controllers
 {
     class WemoPlugControl
     {
-		private static bool _showErrors;
 		private static string _IP;
 
-		public static void RunCmd(string IP, string cmd, bool showErrors)
+		public static void RunCmd(string IP, string cmd)
         {
-			_showErrors = showErrors;
 			_IP = IP;
 
 			SendRequest(cmd);
@@ -83,10 +80,7 @@ namespace HTWebRemote.Devices.Controllers
 			}
 			catch (WebException e)
 			{
-				if (_showErrors)
-				{
-					MessageBox.Show($"Failed to send command to Wemo plug at {_IP}\n\n{e.Message}", "Error");
-				}
+				Util.ErrorHandler.SendError($"Failed to send command to Wemo plug at {_IP}\n\n{e.Message}");
 			}
 		}
 	}

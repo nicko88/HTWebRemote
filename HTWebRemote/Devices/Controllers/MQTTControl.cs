@@ -2,13 +2,12 @@
 using MQTTnet.Client;
 using MQTTnet.Client.Options;
 using System;
-using System.Windows.Forms;
 
 namespace HTWebRemote.Devices.Controllers
 {
     class MQTTControl
     {
-        public static void RunCmd(string IP, string cmd, string param, bool showErrors)
+        public static void RunCmd(string IP, string cmd, string param)
         {
             MqttFactory factory = new MqttFactory();
             IMqttClient mqttClient = factory.CreateMqttClient();
@@ -24,10 +23,7 @@ namespace HTWebRemote.Devices.Controllers
             }
             catch
             {
-                if(showErrors)
-                {
-                    MessageBox.Show($"Failed to connect to MQTT broker at: {IP}", "Error");
-                }
+                Util.ErrorHandler.SendError($"Failed to connect to MQTT broker at: {IP}");
             }
 
             if (mqttClient.IsConnected)
@@ -46,18 +42,12 @@ namespace HTWebRemote.Devices.Controllers
                 }
                 catch
                 {
-                    if (showErrors)
-                    {
-                        MessageBox.Show($@"Failed sending Topic: ""{cmd}"" and Payload: ""{param}"" to MQTT broker at: {IP}", "Error");
-                    }
+                    Util.ErrorHandler.SendError($@"Failed sending Topic: ""{cmd}"" and Payload: ""{param}"" to MQTT broker at: {IP}");
                 }
             }
             else
             {
-                if (showErrors)
-                {
-                    MessageBox.Show($"Failed to connect to MQTT broker at: {IP}", "Error");
-                }
+                Util.ErrorHandler.SendError($"Failed to connect to MQTT broker at: {IP}");
             }
         }
     }

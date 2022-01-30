@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Net.Sockets;
 using System.Net;
-using HTWebRemote.Util;
-using System.Windows.Forms;
 
 namespace HTWebRemote.Devices
 {
@@ -34,10 +32,7 @@ namespace HTWebRemote.Devices
             }
             catch(Exception e)
             {
-                if(ConfigHelper.CheckRegKey(@"SOFTWARE\HTWebRemote", "ShowErrors"))
-                {
-                    MessageBox.Show($"Cannot setup connection for {IP}:{port} {protocolType}\n\n{e.Message}", "Error");
-                }
+                Util.ErrorHandler.SendError($"Cannot setup connection for {IP}:{port} {protocolType}\n\n{e.Message}");
             }
         }
 
@@ -49,10 +44,7 @@ namespace HTWebRemote.Devices
             }
             catch(Exception e)
             {
-                if (ConfigHelper.CheckRegKey(@"SOFTWARE\HTWebRemote", "ShowErrors"))
-                {
-                    MessageBox.Show($"Cannot connect to device at {remoteEndPoint.Address}:{remoteEndPoint.Port} {socket.ProtocolType}\n\n{e.Message}", "Error");
-                }
+                Util.ErrorHandler.SendError($"Cannot connect to device at {remoteEndPoint.Address}:{remoteEndPoint.Port} {socket.ProtocolType}\n\n{e.Message}");
             }
 
             return socket.Connected;
@@ -66,10 +58,7 @@ namespace HTWebRemote.Devices
             }
             catch(Exception e)
             {
-                if (ConfigHelper.CheckRegKey(@"SOFTWARE\HTWebRemote", "ShowErrors"))
-                {
-                    MessageBox.Show($"Cannot send Command: {data} to device at {remoteEndPoint.Address}:{remoteEndPoint.Port} {socket.ProtocolType}\n\n{e.Message}", "Error");
-                }
+                Util.ErrorHandler.SendError($"Cannot send Command: {data} to device at {remoteEndPoint.Address}:{remoteEndPoint.Port} {socket.ProtocolType}\n\n{e.Message}");
             }
         }
 

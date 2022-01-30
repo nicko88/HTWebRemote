@@ -1,8 +1,6 @@
-﻿using HTWebRemote.Util;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Windows.Forms;
 
 namespace HTWebRemote.Devices.Controllers
 {
@@ -87,7 +85,7 @@ namespace HTWebRemote.Devices.Controllers
             {
                 Process process = new Process();
 
-                process.StartInfo.FileName = Path.Combine(ConfigHelper.WorkingPath, "adb.exe");
+                process.StartInfo.FileName = Path.Combine(Util.ConfigHelper.WorkingPath, "adb.exe");
                 process.StartInfo.Arguments = arguments;
 
                 process.StartInfo.UseShellExecute = false;
@@ -98,10 +96,7 @@ namespace HTWebRemote.Devices.Controllers
             }
             catch
             {
-                if(ConfigHelper.CheckRegKey(@"SOFTWARE\HTWebRemote", "ShowErrors"))
-                {
-                    MessageBox.Show($"Unable to locate: {Path.Combine(ConfigHelper.WorkingPath, "adb.exe")}", "Error");
-                }
+                Util.ErrorHandler.SendError($"Unable to locate: {Path.Combine(Util.ConfigHelper.WorkingPath, "adb.exe")}");
             }
         }
     }

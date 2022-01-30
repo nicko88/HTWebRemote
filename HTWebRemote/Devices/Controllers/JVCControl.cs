@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using System.Windows.Forms;
 
 namespace HTWebRemote.Devices.Controllers
 {
@@ -80,7 +79,7 @@ namespace HTWebRemote.Devices.Controllers
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show($"Invalid JVC parameter\n\n{e.Message}", "Error");
+                        Util.ErrorHandler.SendError($"Invalid JVC parameter\n\n{e.Message}");
                     }
 
                     //end
