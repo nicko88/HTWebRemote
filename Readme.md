@@ -71,7 +71,7 @@ No installation or prerequisites are necessary.
 
 Simply download the [latest build from the releases](https://github.com/nicko88/HTWebRemote/releases/latest) page, extract the archive, and copy the files to your preferred folder location on your HTPC.
 
-See the [documentation](https://raw.githack.com/nicko88/HTWebRemote/master/HTWebRemote/Util/html/doc.html) within the program for detailed operation instructions.
+See the [documentation](https://htmlpreview.github.io/?https://github.com/nicko88/HTWebRemote/blob/master/HTWebRemote/Util/html/doc.html) within the program for detailed operation instructions.
 
 ### Community
 
