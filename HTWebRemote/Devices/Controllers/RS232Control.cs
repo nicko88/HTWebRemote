@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO.Ports;
+using System.Threading;
 
 namespace HTWebRemote.Devices.Controllers
 {
@@ -31,6 +32,7 @@ namespace HTWebRemote.Devices.Controllers
 
                     sp.Open();
                     sp.Write(cmd + newLine);
+                    Thread.Sleep(100);
                     sp.Close();
                 }
             }

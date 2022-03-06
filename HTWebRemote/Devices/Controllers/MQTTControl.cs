@@ -7,15 +7,32 @@ namespace HTWebRemote.Devices.Controllers
 {
     class MQTTControl
     {
-        public static void RunCmd(string IP, string cmd, string param)
+        public static void RunCmd(string IP, string cmd, string param, string auth)
         {
             MqttFactory factory = new MqttFactory();
             IMqttClient mqttClient = factory.CreateMqttClient();
 
+            string strIP = IP.Split(':')[0];
+            int port = 1883;
+            try
+            {
+                port = Convert.ToInt32(IP.Split(':')[1]);
+            }
+            catch { }
+
+            string user = auth.Split(':')[0];
+            string pass = "";
+            try
+            {
+                pass = auth.Split(':')[1];
+            }
+            catch { }
+
             try
             {
                 IMqttClientOptions options = new MqttClientOptionsBuilder()
-                    .WithTcpServer(IP.Split(':')[0], Convert.ToInt32(IP.Split(':')[1]))
+                    .WithTcpServer(strIP, port)
+                    .WithCredentials(user, pass)
                     .Build();
 
                 IAsyncResult result = mqttClient.ConnectAsync(options);

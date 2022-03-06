@@ -50,7 +50,7 @@
 
 	<p>The URL of your file browser will be here: <a href="http://{BASEIP}:5000/FB">http://{BASEIP}:5000/FB</a></p>
 
-	<h3>Additional Tips</h3>
+	<h3>Mobile "WebApp" Mode</h3>
 
 	<p>
 		Consider adding your remote control page to the home screen of your phone or tablet.<br />
@@ -71,35 +71,43 @@
 
 	<h3>Command Line Format 1</h3>
 
-	<code>HTWebRemote.exe "IP" "devtype" "cmd" "param"</code>
+	<code>HTWebRemote.exe "IP" "devtype" "cmd" "param" "special(specialData)"</code>
 
 	<h3>Example Command Line Format 1 Usage:</h3>
 
-	<code>HTWebRemote.exe "192.168.1.100" "jvc" "PMLP" "1"</code>
+	<code>HTWebRemote.exe "192.168.1.100" "jvc" "PMLP" "1" "special(NZpassword)"</code>
 
-	<p>This command consists of 4 parameters:</p>
+	<p>This command consists of 5 parameters:</p>
 
 	<ul>
 		<li><code>IP address</code> (The device IP address)</li>
 		<li><code>devtype</code> (The device identifier)</li>
 		<li><code>cmd</code> (The command you want to send)</li>
 		<li><code>param</code> (Optional command parameter than some devices and commands need)</li>
+		<li><code>special</code> (Optional)(This special data value is only needed for some devices and will be noted in the documentation if needed)</li>
+		<ul>
+			<li>To specify this special data, you must enter it like so: <code>special(DataHere)</code></li>
+		</ul>
 	</ul>
 
 	<h3>Command Line Format 2</h3>
 
-	<code>HTWebRemote.exe "devname" "cmd" "param"</code>
+	<code>HTWebRemote.exe "devname" "cmd" "param" "special(specialData)"</code>
 
 	<h3>Example Command Line Format 2 Usage:</h3>
 
-	<code>HTWebRemote.exe "myjvc" "PMLP" "1"</code>
+	<code>HTWebRemote.exe "myjvc" "PMLP" "1" "special(NZpassword)"</code>
 
-	<p>This command consists of 3 parameters:</p>
+	<p>This command consists of 4 parameters:</p>
 
 	<ul>
 		<li><code>devname</code> (The device name you defined in the device manager screen)</li>
 		<li><code>cmd</code> (The command you want to send)</li>
 		<li><code>param</code> (Optional command parameter than some devices and commands need)</li>
+		<li><code>special</code> (Optional)(This special data value is only needed for some devices and will be noted in the documentation if needed)</li>
+		<ul>
+			<li>To specify this special data, you must enter it like so: <code>special(DataHere)</code></li>
+		</ul>
 	</ul>
 	<br />
 	<br />
@@ -110,27 +118,29 @@
 
 	<h3>URL Command Format 1</h3>
 
-	<p><code>http://{BASEIP}:5000?ip=<i>ip</i>&devtype=<i>devtype</i>&cmd=<i>command</i>&ampparam=<i>param</i></code></p>
+	<p><code>http://{BASEIP}:5000?ip=<i>ip</i>&devtype=<i>devtype</i>&cmd=<i>command</i>&ampparam=<i>param</i>&special=<i>specialData</i></code></p>
 
-	<p>This URL command consists of 4 query strings:</p>
+	<p>This URL command consists of 5 query strings:</p>
 
 	<ul>
 		<li><code>ip</code> (The device IP address)</li>
 		<li><code>devtype</code> (The device identifier)</li>
 		<li><code>cmd</code> (The command you want to send)</li>
 		<li><code>param</code> (Optional command parameter than some devices and commands need)</li>
+		<li><code>special</code> (Optional)(This special data value is only needed for some devices and will be noted in the documentation if needed)</li>
 	</ul>
 
 	<h3>URL Command Format 2</h3>
 
-	<p><code>http://{BASEIP}:5000?devname=<i>devname</i>&cmd=<i>command</i>&ampparam=<i>param</i></code></p>
+	<p><code>http://{BASEIP}:5000?devname=<i>devname</i>&cmd=<i>command</i>&ampparam=<i>param</i>&special=<i>specialData</i></code></p>
 
-	<p>This URL command consists of 3 query strings:</p>
+	<p>This URL command consists of 4 query strings:</p>
 
 	<ul>
 		<li><code>devname</code> (The device name you defined in the device manager screen)</li>
 		<li><code>cmd</code> (The command you want to send)</li>
 		<li><code>param</code> (Optional command parameter than some devices and commands need)</li>
+		<li><code>special</code> (Optional)(This special data value is only needed for some devices and will be noted in the documentation if needed)</li>
 	</ul>
 	<br />
 
@@ -172,6 +182,7 @@
 		<li><a href="#christie">Christie M-Series Projectors</a></li>
 		<li><a href="#oppo">Oppo Disc Player</a></li>
 		<li><a href="#dbox">D-BOX HEMC</a></li>
+		<li><a href="#hdfury">HDfury Devices</a></li>
 		<li><a href="#rs232">RS232 Serial Devices</a></li>
 		<li><a href="#httpget">HTTP URL Commands (GET)</a></li>
 		<li><a href="#mqtt">MQTT Messaging Protocol</a></li>
@@ -643,13 +654,15 @@
 			<li><code>KEYCODE_VOLUME_DOWN</code></li>
 			<li><code>KEYCODE_VOLUME_MUTE</code></li>
 		</ul>
+		<li><b>Power</b></li>
+		<ul>
+			<li><code>KEYCODE_POWER</code> (Put Shield to sleep)</li>
+			<li><code>KEYCODE_WAKEUP</code> (Wake up Shield from sleep)</li>
+			<li><code>reboot</code> (Full reboot Shield)</li>
+		</ul>
 	</ul>
 
 	<p><a href="https://developer.android.com/reference/android/view/KeyEvent.html">Complete list of potential valid keycodes</a></p>
-
-	<h4>Reboot Shield</h4>
-
-	<p class="tab"><code>cmd=reboot</code></p>
 
 	<p>
 		You may find the reboot command useful in a startup or other macro button for the following reasson.
@@ -1109,8 +1122,6 @@
 	<h4>param:</h4>
 
 	<ul>
-		<li><code>26d9</code> (Power ON)</li>
-		<li><code>26da</code> (Power OFF)</li>
 		<li><code>0bf4</code> (Volume Up)</li>
 		<li><code>09f6</code> (Volume Down)</li>
 	</ul>
@@ -1279,11 +1290,10 @@
 
 	<h3>Note for JVC NZ or other 2021 or newer JVC projectors</h3>
 
-	<p>For 2021 and newer JVC projectors like the laser NZ units, you must also specify a network password.</p>
-
-	<p>To specify the network password, add {YOURPASS} to the end of the IP address when you enter it in the device configuration screen.</p>
-
-	<p>Example IP: 192.168.1.100{YOURPASS}</p>
+	<p>
+		For 2021 and newer JVC projectors like the laser NZ units, you must also specify a network password.<br />
+		To specify the network password, simply put the password into the "special" data field.
+	</p>
 
 	<p>
 		For all JVC NX commands, see the full JVC NX command document here:<br />
@@ -1418,6 +1428,38 @@
 	</p>
 	<br />
 
+	<h2><a id="hdfury"></a>HDfury Device Control</h2>
+
+	For HDfury Device control, the device identifier is <b>hdfury</b>
+	
+	<h3>Some basic HDfury Vertex2 Commands</h3>
+
+	<ul>
+		<li><code>set insel 2 3</code> (Set tx0 to input 2 and tx1 to input 3)</li>
+		<li><code>set inseltx0 1</code> (Set tx0 to input 1 and keep tx1 as is)</li>
+	</ul>
+	
+	<p>HDfury device default port numbers:</p>
+	<ul>
+		<li>Vertex2: 2220</li>
+		<li>VRROOM: 2222</li>
+		<li>MaestroTX: 2200</li>
+		<li>MaestroRX: 2201</li>
+		<li>Diva: 2210</li>
+	</ul>
+	
+	<p>
+		For all HDfury commands, see the list of HDfury devices commands here:<br />
+		<ul>
+			<li><a href="https://github.com/nicko88/HTWebRemote/blob/master/IP%20Control%20Spec%20Documents/HDfury_Vertex2.txt">HDfury_Vertex2.txt</a></li>
+			<li><a href="https://github.com/nicko88/HTWebRemote/blob/master/IP%20Control%20Spec%20Documents/HDfury_VRROOM.txt">HDfury_VRROOM.txt</a></li>
+			<li><a href="https://github.com/nicko88/HTWebRemote/blob/master/IP%20Control%20Spec%20Documents/HDfury_MaestroRX.txt">HDfury_MaestroRX.txt</a></li>
+			<li><a href="https://github.com/nicko88/HTWebRemote/blob/master/IP%20Control%20Spec%20Documents/HDfury_MaestroTX.txt">HDfury_MaestroTX.txt</a></li>
+			<li><a href="https://github.com/nicko88/HTWebRemote/blob/master/IP%20Control%20Spec%20Documents/HDfury_Diva.txt">HDfury_Diva.txt</a></li>
+		</ul>
+	</p>
+	<br />
+
 	<h2><a id="rs232"></a>RS232 Serial Device Control</h2>
 
 	For RS232 Serial Device control, the device identifier is <b>rs232</b>
@@ -1458,9 +1500,9 @@
 		<li><code>cmd = /rest/nodes/45378/cmd/DOF</code></li>
 	</ul>
 
-	If the HTTP server needs basic authenticaltion, enter the username and password into the <code>param</code> box as follows:
+	If the HTTP server needs basic authenticaltion, enter the username and password into the <code>special</code> data field as follows:
 	<ul>
-		<li><code>param = username:password</code></li>
+		<li><code>username:password</code></li>
 	</ul>
 	<br />
 
@@ -1479,6 +1521,11 @@
 	<ul>
 		<li><code>cmd = your/mqtt/topic</code></li>
 		<li><code>param = message_payload</code></li>
+	</ul>
+	
+	If your MQTT broker needs basic authenticaltion, enter the username and password into the <code>special</code> data field as follows:
+	<ul>
+		<li><code>username:password</code></li>
 	</ul>
 
 </body>

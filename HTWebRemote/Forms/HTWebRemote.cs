@@ -14,7 +14,7 @@ namespace HTWebRemote
     public partial class HTWebRemote : Form
     {
         private string IP;
-        private Thread httpThread;
+        private readonly Thread httpThread;
 
         public HTWebRemote()
         {
@@ -88,7 +88,6 @@ namespace HTWebRemote
             HttpListenerResponse response = context.Response;
 
             string queryData = ProcessCommand(request);
-
             string htmlPage = ProcessResponse(request);
 
             if (!string.IsNullOrEmpty(queryData))
@@ -107,6 +106,7 @@ namespace HTWebRemote
             try
             {
                 output.Write(buffer, 0, buffer.Length);
+                output.Close();
             }
             catch { }
         }
@@ -124,8 +124,9 @@ namespace HTWebRemote
                 string IP = request.QueryString["ip"];
                 string cmd = request.QueryString["cmd"];
                 string param = request.QueryString["param"];
+                string specialData = request.QueryString["special"];
 
-                Devices.DeviceSelector.CommandDevice(IP, devtype, cmd, param);
+                Devices.DeviceSelector.CommandDevice(IP, devtype, cmd, param, specialData);
             }
             else if (!string.IsNullOrEmpty(devname))
             {
@@ -292,6 +293,12 @@ namespace HTWebRemote
         {
             Forms.Donate donate = new Forms.Donate();
             donate.ShowDialog();
+        }
+
+        private void btnSyncRemotes_Click(object sender, EventArgs e)
+        {
+            Forms.ManageRemoteHost sync = new Forms.ManageRemoteHost();
+            sync.ShowDialog();
         }
     }
 }

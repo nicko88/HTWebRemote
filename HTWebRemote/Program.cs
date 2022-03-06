@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
-using System.Net;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace HTWebRemote
 {
@@ -16,16 +16,26 @@ namespace HTWebRemote
             {
                 try
                 {
-                    if (IPAddress.TryParse(args[0], out _))
+                    if (Regex.IsMatch(args[0], "^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"))
                     {
                         string param = null;
+                        string specialData = null;
                         try
                         {
-                            param = args[3];
+                            if (args[3].StartsWith("special("))
+                            {
+                                specialData = args[3].Substring(8, args[3].Length - 9);
+                            }
+                            else
+                            {
+                                param = args[3];
+                            }
+
+                            specialData = args[4].Substring(8, args[4].Length - 9);
                         }
                         catch { }
 
-                        Devices.DeviceSelector.CommandDevice(args[0], args[1], args[2], param);
+                        Devices.DeviceSelector.CommandDevice(args[0], args[1], args[2], param, specialData);
                     }
                     else
                     {

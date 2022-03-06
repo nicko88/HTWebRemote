@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HTWebRemote));
             this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.lblRemoteUI = new System.Windows.Forms.LinkLabel();
             this.cbxShowErrors = new System.Windows.Forms.CheckBox();
@@ -42,6 +41,7 @@
             this.btnConfigureIPs = new System.Windows.Forms.Button();
             this.btnMinimizeToTray = new System.Windows.Forms.Button();
             this.pbDonate = new System.Windows.Forms.PictureBox();
+            this.btnSyncRemotes = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbDonate)).BeginInit();
             this.SuspendLayout();
             // 
@@ -49,7 +49,6 @@
             // 
             this.trayIcon.BalloonTipText = "Minimized";
             this.trayIcon.BalloonTipTitle = "HTWebRemote";
-            this.trayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("trayIcon.Icon")));
             this.trayIcon.Text = "HTWebRemote";
             this.trayIcon.Visible = true;
             this.trayIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.trayIcon_MouseClick);
@@ -58,7 +57,7 @@
             // 
             this.lblRemoteUI.AutoSize = true;
             this.lblRemoteUI.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRemoteUI.Location = new System.Drawing.Point(127, 55);
+            this.lblRemoteUI.Location = new System.Drawing.Point(164, 55);
             this.lblRemoteUI.Name = "lblRemoteUI";
             this.lblRemoteUI.Size = new System.Drawing.Size(111, 16);
             this.lblRemoteUI.TabIndex = 11;
@@ -70,7 +69,7 @@
             // 
             this.cbxShowErrors.AutoSize = true;
             this.cbxShowErrors.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbxShowErrors.Location = new System.Drawing.Point(452, 94);
+            this.cbxShowErrors.Location = new System.Drawing.Point(459, 92);
             this.cbxShowErrors.Name = "cbxShowErrors";
             this.cbxShowErrors.Size = new System.Drawing.Size(110, 20);
             this.cbxShowErrors.TabIndex = 12;
@@ -82,7 +81,7 @@
             // 
             this.lblOpenFileBrowser.AutoSize = true;
             this.lblOpenFileBrowser.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblOpenFileBrowser.Location = new System.Drawing.Point(153, 90);
+            this.lblOpenFileBrowser.Location = new System.Drawing.Point(164, 91);
             this.lblOpenFileBrowser.Name = "lblOpenFileBrowser";
             this.lblOpenFileBrowser.Size = new System.Drawing.Size(135, 16);
             this.lblOpenFileBrowser.TabIndex = 14;
@@ -107,7 +106,7 @@
             this.btnEditRemoteUI.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEditRemoteUI.Location = new System.Drawing.Point(12, 48);
             this.btnEditRemoteUI.Name = "btnEditRemoteUI";
-            this.btnEditRemoteUI.Size = new System.Drawing.Size(109, 30);
+            this.btnEditRemoteUI.Size = new System.Drawing.Size(146, 30);
             this.btnEditRemoteUI.TabIndex = 21;
             this.btnEditRemoteUI.Text = "Edit Remotes";
             this.btnEditRemoteUI.UseVisualStyleBackColor = true;
@@ -118,7 +117,7 @@
             this.btnEditFileBrowser.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEditFileBrowser.Location = new System.Drawing.Point(12, 84);
             this.btnEditFileBrowser.Name = "btnEditFileBrowser";
-            this.btnEditFileBrowser.Size = new System.Drawing.Size(135, 30);
+            this.btnEditFileBrowser.Size = new System.Drawing.Size(146, 30);
             this.btnEditFileBrowser.TabIndex = 22;
             this.btnEditFileBrowser.Text = "Edit File Browser";
             this.btnEditFileBrowser.UseVisualStyleBackColor = true;
@@ -128,7 +127,7 @@
             // 
             this.cbStartAutomatically.AutoSize = true;
             this.cbStartAutomatically.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbStartAutomatically.Location = new System.Drawing.Point(452, 48);
+            this.cbStartAutomatically.Location = new System.Drawing.Point(459, 48);
             this.cbStartAutomatically.Name = "cbStartAutomatically";
             this.cbStartAutomatically.Size = new System.Drawing.Size(156, 20);
             this.cbStartAutomatically.TabIndex = 24;
@@ -140,7 +139,7 @@
             // 
             this.cbStartMinimized.AutoSize = true;
             this.cbStartMinimized.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbStartMinimized.Location = new System.Drawing.Point(452, 71);
+            this.cbStartMinimized.Location = new System.Drawing.Point(459, 70);
             this.cbStartMinimized.Name = "cbStartMinimized";
             this.cbStartMinimized.Size = new System.Drawing.Size(132, 20);
             this.cbStartMinimized.TabIndex = 26;
@@ -162,7 +161,7 @@
             // btnMinimizeToTray
             // 
             this.btnMinimizeToTray.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMinimizeToTray.Location = new System.Drawing.Point(470, 12);
+            this.btnMinimizeToTray.Location = new System.Drawing.Point(477, 12);
             this.btnMinimizeToTray.Name = "btnMinimizeToTray";
             this.btnMinimizeToTray.Size = new System.Drawing.Size(138, 30);
             this.btnMinimizeToTray.TabIndex = 28;
@@ -182,12 +181,24 @@
             this.pbDonate.TabStop = false;
             this.pbDonate.Click += new System.EventHandler(this.btnDonate_Click);
             // 
+            // btnSyncRemotes
+            // 
+            this.btnSyncRemotes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSyncRemotes.Location = new System.Drawing.Point(281, 44);
+            this.btnSyncRemotes.Name = "btnSyncRemotes";
+            this.btnSyncRemotes.Size = new System.Drawing.Size(166, 30);
+            this.btnSyncRemotes.TabIndex = 30;
+            this.btnSyncRemotes.Text = "Manage Remote Host";
+            this.btnSyncRemotes.UseVisualStyleBackColor = true;
+            this.btnSyncRemotes.Click += new System.EventHandler(this.btnSyncRemotes_Click);
+            // 
             // HTWebRemote
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(620, 121);
+            this.ClientSize = new System.Drawing.Size(627, 121);
+            this.Controls.Add(this.btnSyncRemotes);
             this.Controls.Add(this.pbDonate);
             this.Controls.Add(this.btnMinimizeToTray);
             this.Controls.Add(this.btnConfigureIPs);
@@ -200,7 +211,6 @@
             this.Controls.Add(this.cbxShowErrors);
             this.Controls.Add(this.lblRemoteUI);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "HTWebRemote";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -226,6 +236,7 @@
         private System.Windows.Forms.Button btnConfigureIPs;
         private System.Windows.Forms.Button btnMinimizeToTray;
         private System.Windows.Forms.PictureBox pbDonate;
+        private System.Windows.Forms.Button btnSyncRemotes;
     }
 }
 

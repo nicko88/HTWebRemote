@@ -1,0 +1,497 @@
+VRROOM RS232 AND IP/TELNET COMMAND LIST 
+
+VRROOM RS232 jack expects the following plug signals: 
+TIP  = TX [sends data out from VRROOM]
+RING = RX [receives data to VRROOM]
+SLEEVE = GND
+
+Parameters: 19200, n, 8, 1, no handshake
+
+If using RS232, each command must start with #vrroom header and must end with a carriage return \r or a newline \n
+If using IP/TELNET each command must end with a carriage return \r or a newline \n but there is no need for the #vrroom header.
+
+Each response will have both carriage return \r and a newline \n added in the format <cr><lf>
+
+VRROOM default IP port is 2222. e.g. 192.168.1.100:2222
+
+Use only lowercase characters
+
+typical 'close connection' character either ESC (0x1b) or ETX (0x03) or -1 or use some low level internal FIN markup for TCP/IP
+
+
+A generic RS232 command to write a value:
+#vrroom set x y
+where #vrroom is the header and all commands start with this header
+set - indicates value will be written to vrroom
+x - target to be written
+y - value or values
+
+A generic RS232 command to read a value:
+#vrroom get x 
+where #vrroom is the header and all commands start with this header
+get - indicates value will be read from vrroom
+x - target to be read
+
+A generic IP command is as above without the #vrroom header
+
+The get-command generally first returns the command name and then the value.
+
+Command list [current set-values can be read with the get-command]:
+
+#vrroom set opmode x
+where x is [0-4]
+0: SPLITTER TX0/TX1 FRL5 VRR
+1: SPLITTER TX0/TX1 UPSCALE FRL5
+2: MATRIX TMDS
+3: MATRIX TMDS DOWNSCALE
+4: MATRIX RX0:FRL5 + RX1-3:TMDS
+Ex. #vrroom set opmode 3
+Set opmode to matrix mode with downscaling on tx1
+
+#vrroom set insel tx0 tx1
+where tx0 and tx1 is [0-3] input port, or [4] for follow. In splitter more tx1 default is [4]
+Ex. #vrroom set insel 2 3
+Set tx0 to input 2 and tx1 to input 3
+
+#vrroom set inseltx0 x
+where x is [0-3] input port, or [4] for follow
+Ex. #vrroom set inseltx0 1
+Set tx0 to input 1 and keep tx1 as is
+
+#vrroom set inseltx1 x
+where x is [0-3] input port, or [4] for follow
+Ex. #vrroom set inseltx1 1
+Set tx1 to input 1 and keep tx0 as is
+
+#vrroom set ipaddr xxx.xxx.xxx.xxx
+Sets the static IP address. Active when dhcp is turned off.
+Ex. #vrroom set ipaddr 192.168.1.222
+
+#vrroom set ipmask xxx.xxx.xxx.xxx
+Sets the static IP network mask. Active when dhcp is turned off.
+Ex. #vrroom set ipmask 255.255.255.0
+
+#vrroom set ipgw xxx.xxx.xxx.xxx
+Sets the static IP gateway address. Active when dhcp is turned off.
+Ex. #vrroom set ipgw 192.168.1.1
+
+#vrroom set dhcp x
+Set the dynamic or static IP address selection. Dynamic = dhcp on
+where x is [on / off]
+Ex. #vrroom set dhcp off
+
+#vrroom set ipinterrupt x
+where x is [on / off]
+Sets the "int" interrupt message sent to the current open IP connection upon stream change
+Ex. #vrroom set ipinterrupt on
+
+#vrroom set tcpport x
+Set the TCP port to be listened to for commands. Default is 2200
+Requires a reboot to be applied.
+Ex. #vrroom set port 2201
+
+#vrroom set autosw x
+where x is [on / off]
+Enables or disables the autoswitch feature
+Ex. #vrroom set autosw off
+
+#vrroom set edidmode x
+where x is [automix / custom / fixed / copytx0 / copytx1]
+Ex. #vrroom set edidmode automix
+
+#vrroom set edid audio x
+where x is [stereo / 51 / full / tx0 / tx1 / audioout / earcout / custom]
+Sets the automix EDID audio properties source
+Ex. #vrroom set edid audio audioout
+
+#vrroom set edid video x
+where x is [tx0 / tx1]
+Sets the automix EDID video properties source
+Ex. #vrroom set edid video tx0
+
+#vrroom set edidfrlflag x
+where x is [on / off]
+Sets the automix EDID FRL option
+
+#vrroom set edidfrlmode x
+where x is [0 - 5]
+Sets the automix EDID FRL rate value
+
+#vrroom set edidvrrflag x
+where x is [on / off]
+Sets the automix EDID VRR option
+
+#vrroom set edidvrrmode x
+where x is [0 / 1]
+1: enable
+0: remove all
+
+#vrroom set edidallmflag x
+where x is [on / off]
+Sets the automix EDID ALLM option
+
+#vrroom set edidallmmode x
+where x is [0 / 1]
+1: enable
+0: remove all
+
+#vrroom set edidhdrflag x
+where x is [on / off]
+Sets the automix EDID HDR option
+
+#vrroom set edidhdrmode x
+where x is [0 - 4]
+0: HDR10
+1: HDR10 / HLG
+2: HDR10+
+3: HDR10+ / HLG
+4: remove all
+
+#vrroom set ediddvflag x
+where x is [on / off]
+Sets the automix EDID Dolby Vision option
+
+#vrroom set ediddvmode x
+where x is [0 - 2]
+0: LG C1 DEFAULT
+1: CUSTOM
+2: remove all
+
+#vrroom set edidpcmflag x
+where x is [on / off]
+Sets the automix EDID PCM option
+
+#vrroom set edidpcmchmode x
+where x is [2 - 8]
+Sets the number of speakers supported in EDID PCM descriptor
+
+#vrroom set edidpcmsrmode x
+where x is [0 - 2]
+0: 48kHz
+1: 96kHz
+2: 192kHz
+Sets the sample rate supported in EDID PCM descriptor
+
+#vrroom set edidpcmbwmode x
+where x is [0 - 2]
+0: 16bit
+1: 20bit
+2: 24bit
+Sets the bit width supported in EDID PCM descriptor
+
+#vrroom set edidtruehdflag x
+where x is [on / off]
+Sets the automix EDID Dolby TrueHD option
+
+#vrroom set edidtruehdmode x
+where x is [0 - 2]
+0: MAT ATMOS
+1: NO ATMOS
+2: remove all
+Sets the features for Dolby TrueHD
+
+#vrroom set edidtruehdsrmode x
+where x is [0 - 3]
+0: 48kHz
+1: 96kHz
+2: 192kHz
+2: copy sink
+Sets the sample rate capability for Dolby TrueHD
+
+#vrroom set edidddflag x
+where x is [on / off]
+Sets the automix EDID Dolby Digital option
+
+#vrroom set edidddmode x
+where x is [0 / 1]
+1: enable
+0: remove all
+
+#vrroom set edidddplusflag x
+where x is [on / off]
+Sets the automix EDID Dolby Digital Plus option
+
+#vrroom set edidddplusmode x
+where x is [0 - 2]
+0: MAT ATMOS
+1: NO ATMOS
+2: remove all
+Sets the features for Dolby Digital Plus
+
+#vrroom set edidddplussrmode x
+where x is [0 - 3]
+0: 48kHz
+1: 96kHz
+2: 192kHz
+2: copy sink
+Sets the sample rate capability for Dolby Digital Plus
+
+#vrroom set ediddtsflag x
+where x is [on / off]
+Sets the automix EDID DTS option
+
+#vrroom set ediddtsmode x
+where x is [0 / 1]
+1: enable
+0: remove all
+
+#vrroom set ediddtshdflag x
+where x is [on / off]
+Sets the automix EDID DTS option
+
+#vrroom set ediddtshdmode x
+where x is [0 - 3]
+0: DTS:X IMAX
+1: DTS:X
+2: NO DTS:X
+3: remove all
+Sets the features for DTS HD
+
+#vrroom set ediddtshdsrmode x
+where x is [0 - 3]
+0: 48kHz
+1: 96kHz
+2: 192kHz
+2: copy sink
+Sets the sample rate capability for DTS HD
+
+#vrroom set edidonebitflag x
+where x is [on / off]
+Sets the automix EDID One-bit-audio option
+
+#vrroom set edidonebitmode x
+where x is [0 / 1]
+1: enable
+0: remove all
+
+
+
+#vrroom set hdcp x
+where x is [14 / auto]
+Sets the hdcp level 
+in auto mode, depending on sink capability uses hdcp 1.4 or 2.2
+Ex. #vrroom set hdcp auto
+
+#vrroom set edidtableinp0 x
+#vrroom set edidtableinp1 x
+#vrroom set edidtableinp2 x
+#vrroom set edidtableinp3 x
+where x is [1 - 100] for edidtableinp0 and [0 - 100] for others
+Sets the custom EDID for corresponding input port
+For ports 1-3 table number 0 indicates copy port 0 table
+Ex. #vrroom set edidtableinp0 11
+
+
+
+
+
+
+#vrroom set hdrcustom x
+where x is [on / off]
+Starts to output custom HDR metadata and ignores any input received HDR metadata.
+Overrides all other hdrcustom options
+Ex. #vrroom set hdrcustom on
+
+#vrroom set hdrcustomhdr10only x
+where x is [on / off]
+Starts to output custom HDR metadata if and only if the input is HDR10.
+This setting is used to replace the incoming HDR10 metadata.
+Ex. #vrroom set hdrcustomhdr10only on
+
+#vrroom set hdrcustomhlgonly x
+where x is [on / off]
+Starts to output custom HDR metadata if and only if the input is HLG.
+This setting is used to replace the incoming HLG metadata.
+Ex. #vrroom set hdrcustomhlgonly on
+
+#vrroom set hdrcustomhlgonlyauto x
+where x is [on / off]
+Starts to output custom HDR metadata if and only if the input is HLG 
+and the sink has no HLG support.
+This setting is used to replace the incoming HLG metadata.
+Useful when turning on/off HLG capable sink while non-HLG sink is also connected.
+Ex. #vrroom set hdrcustomhlgonlyauto on
+
+#vrroom set hdrdisable x
+where x is [on / off]
+Stops sending any HDR metadata content
+Ex. #vrroom set hdrdisable on
+
+#vrroom set hdrdisablehdr10only x
+where x is [on / off]
+Stops sending any HDR metadata content if the input is HDR10
+Ex. #vrroom set hdrdisablehdr10only on
+
+#vrroom set hdrdisablehlgonly x
+where x is [on / off]
+Stops sending any HDR metadata content if the input is HLG
+Ex. #vrroom set hdrdisablehlgonly on
+
+#vrroom set avicustom x
+where x is [on / off]
+Starts to output custom AVI infoframe and ignores any input received AVI metadata.
+Ex. #vrroom set avicustom on
+
+#vrroom set avidisable x
+where x is [on / off]
+Stops sending any AVI infoframe content
+Ex. #vrroom set avidisable on
+
+
+#vrroom set cec x
+where x is [on / off]
+Sets the CEC engine
+Ex. #vrroom set cec on
+
+#vrroom set cecla x
+where x is [video / audio]
+Sets the CEC engine logical address. For video [14] and for audio [5].
+Ex. #vrroom set cecla audio
+
+#vrroom set oled x
+where x is [on / off]
+Sets the OLED display visibility
+Ex. #vrroom set oled on
+
+#vrroom set oledpage x
+where x is [0-4]
+Sets the OLED display page
+Ex. #vrroom set oledpage 0
+
+#vrroom set oledfade x
+where x is [0-255]
+Sets the OLED display fade timer in seconds. After this time OLED goes blank
+0 = no fade
+Ex. #vrroom set oledfade 60
+
+#vrroom set mutetx0audio x
+where x is [on / off]
+Mute the tx0 hdmi audio output
+Ex. #vrroom set mutetx0audio on 
+
+#vrroom set mutetx1audio x
+where x is [on / off]
+Mute the tx1 hdmi audio output
+Ex. #vrroom set mutetx1audio on 
+
+#vrroom set analogvolume x
+where x is [-30 to +10]
+Sets the analog L/R audio jack output volume in dB.
+Ex. #vrroom set analogvolume -10 
+
+#vrroom set analogbass x
+where x is [-10 to +10]
+Sets the analog L/R audio jack output bass level in dB.
+Ex. #vrroom set analogbass 5 
+
+#vrroom set analogtreble x
+where x is [-10 to +10]
+Sets the analog L/R audio jack output treble level in dB.
+Ex. #vrroom set analogtreble -2 
+
+#vrroom set reboot
+Reboots the unit, does not clear any settings
+
+#vrroom set factoryreset x
+where x is [1, 2, 3]
+1 = Erase all settings but retain the custom EDID tables
+2 = Erase custom EDID tables but retain other settings
+3 = ERASE all settings and EDID tables
+Ex. #vrroom set factoryreset 3 
+
+#vrroom set jvcmacro x
+where x is [on / off]
+Enables / disables JVC macro sending
+Ex. #vrroom set jvcmacro on
+
+
+#vrroom set jvcmacrosync x
+where x is [on / off]
+Enables / disables JVC macro sending on every sync instead of just at start once
+Ex. #vrroom set jvcmacrosync on
+
+#vrroom set jvcmacrodelay x
+where x is [0 - 255]
+Sets the delay between a mode change and sending the macro command via RS232
+Ex. #vrroom set jvcmacrodelay 25
+
+#vrroom set jvcmacrohdr10mode x
+where x is [0 - 4]
+0 = auto
+1 = ignore metadata
+2 = semiautomatic
+3 = custom
+Sets the current JVC macro mode
+Ex. #vrroom set jvcmacrohdr10mode 0
+
+#vrroom jvcmacroalwayshex x
+where x is [on / off]
+Sets executing of custom hex macro command
+
+#vrroom jvcmacroalwayshexorder x
+where x is [before / after]
+Set the order when to send the hex command before or after picture mode
+
+#vrroom set jvcmacroalwayshexdelay x
+where x is [1/3/5/7/10/15/20/25]
+Sets the delay between custom hex and picture mode
+
+#vrroom set tx0plus5 x
+where x is [on / off]
+Controls the TX0 +5 output voltage
+Ex. #vrroom set tx0plus5 on
+
+#vrroom set tx1plus5 x
+where x is [on / off]
+Controls the TX1 +5 output voltage
+Ex. #vrroom set tx1plus5 on
+
+#vrroom set earcforce x
+where x is [auto / earc / hdmi]
+Sets the EARC mode forcing
+Ex. #vrroom set earcforce auto
+
+#vrroom set htpcmode0 x
+#vrroom set htpcmode1 x
+#vrroom set htpcmode2 x
+#vrroom set htpcmode3 x
+where x is [on / off]
+Sets the htpc mode for the corresponding input port 
+Ex. #vrroom set htpcmode0 on
+
+#vrroom get status x
+where x is [rx0, rx1, tx0, tx1, tx0sink, tx1sink, aud0, aud1, audout, spd0, spd1]
+rx0 and rx1 indicate the input stream received. Use rx0 in splitter mode and rx0 and rx1 along with 'insel' in matrix mode
+tx0 and tx1 indicate the outgoing stream
+tx0sink and tx1sink indicate EDID capabilities of the connected sink
+aud0 and aud1 and audout indicate the audio stream type going to the sink from the correspoding port
+spd0 and spd1 indicate the source name. Use spd0 for splitter mode and spd0 and spd1 along with 'insel' in matrix mode
+Ex. #vrroom get status rx0
+Gets the current incoming video format
+
+#vrroom get audiochtx0 
+#vrroom get audiochtx1
+#vrroom get audiochaudout
+Returns the audio channel count for the output. Applies only in LPCM mode
+
+#vrroom get audiomodetx0
+#vrroom get audiomodetx1
+#vrroom get audiomodeaudout
+Returns the audio mode LPCM / bitstream from the selected input
+
+#vrroom get edidtable x
+where x is [rx0, rx1, rx2, rx3, tx0, tx1] 
+Returns the current 256-byte EDID table of the corresponding port
+
+#vrroom set hotplug	Issue hotplug event to the sources
+
+
+#################################################################
+####################FOR ADVANCED USERS ONLY######################
+#################################################################
+
+#vrroom set cdsstr x
+where x is the string
+eARC CDS ediditing
+Ex. #vrroom set cdsstr 01:01:1a:35:67:7e:01:57:06:01:15:07:50:0f:7f:07:3d:1e:c0:4d:02:00:5f:7e:01:83:4f:00:00:00
+and via IP you leave out the #vrroom since IP is targeted already

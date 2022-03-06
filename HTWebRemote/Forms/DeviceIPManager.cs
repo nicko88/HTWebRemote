@@ -3,6 +3,8 @@ using System.IO;
 using System.Windows.Forms;
 using System.Drawing;
 using System.IO.Ports;
+using System.Text.RegularExpressions;
+using System.Net.Http;
 
 namespace HTWebRemote.Forms
 {
@@ -30,39 +32,60 @@ namespace HTWebRemote.Forms
 
         private void lbDevices_SelectedIndexChanged(object sender, EventArgs e)
         {
+            tbIP.Visible = true;
+            cmbCOMport.Visible = false;
+            cmbLinuxSerial.Visible = false;
+            lblIP.Text = "IP:(port optional):";
+            lblSpecial.Visible = false;
+            tbSpecial.Visible = false;
+
             try
             {
                 string[] values = lbDevices.SelectedItem.ToString().Split(',');
 
                 tbDevName.Text = values[1];
-
-                if(values[2].Contains("COM"))
-                {
-                    cmbCOMport.DataSource = SerialPort.GetPortNames();
-                    tbIP.Visible = false;
-                    cmbCOMport.Visible = true;
-                    lblIP.Text = "COM:";
-                    cmbCOMport.SelectedItem = values[2];
-                }
-                else if (values[2].Contains("http"))
-                {
-                    tbIP.Visible = true;
-                    cmbCOMport.Visible = false;
-                    lblIP.Text = "URL:";
-                    tbIP.Text = values[2];
-                }
-                else
-                {
-                    tbIP.Visible = true;
-                    cmbCOMport.Visible = false;
-                    lblIP.Text = "IP:";
-                    tbIP.Text = values[2];
-                }
+                tbIP.Text = values[2];
 
                 cmbDeviceType.SelectedIndexChanged -= cmbDeviceType_SelectedIndexChanged;
                 cmbDeviceType.SelectedItem = values[0];
                 cmbDeviceType.SelectedIndexChanged += cmbDeviceType_SelectedIndexChanged;
 
+                switch (values[0])
+                {
+                    case "rs232":
+                        cmbCOMport.DataSource = SerialPort.GetPortNames();
+                        tbIP.Visible = false;
+                        cmbCOMport.Visible = true;
+                        lblIP.Text = "Windows Port:";
+                        cmbCOMport.SelectedItem = values[2];
+                        lblSpecial.Text = "RasPi/Linux Port:";
+                        lblSpecial.Visible = true;
+                        cmbLinuxSerial.Visible = true;
+                        GetLinuxSerial();
+                        cmbLinuxSerial.SelectedItem = values[3];
+                        break;
+                    case "httpget":
+                        lblIP.Text = "URL:";
+                        lblSpecial.Text = "user:pass";
+                        lblSpecial.Visible = true;
+                        tbSpecial.Visible = true;
+                        tbSpecial.Text = values[3];
+                        break;
+                    case "mqtt":
+                        lblSpecial.Text = "user:pass";
+                        lblSpecial.Visible = true;
+                        tbSpecial.Visible = true;
+                        tbSpecial.Text = values[3];
+                        break;
+                    case "jvc":
+                        lblSpecial.Text = "Password (NZ):";
+                        lblSpecial.Visible = true;
+                        tbSpecial.Visible = true;
+                        tbSpecial.Text = values[3];
+                        break;
+                    default:
+                        break;
+                }
             }
             catch { }
         }
@@ -71,36 +94,90 @@ namespace HTWebRemote.Forms
         {
             tbIP.Visible = true;
             cmbCOMport.Visible = false;
-            lblIP.Text = "IP:";
+            cmbLinuxSerial.Visible = false;
+            lblIP.Text = "IP:(port optional):";
+            lblSpecial.Visible = false;
+            tbSpecial.Visible = false;
             lbDevices.ClearSelected();
 
             if (cmbDeviceType.SelectedItem != null)
             {
-                if (cmbDeviceType.SelectedItem.ToString() == "mpc")
+                switch (cmbDeviceType.SelectedItem.ToString())
                 {
-                    tbIP.Text = "127.0.0.1:13579";
+                    case "mpc":
+                        tbIP.Text = "127.0.0.1:13579";
+                        break;
+                    case "lirc":
+                        tbIP.Text = "127.0.0.1:8765";
+                        break;
+                    case "rs232":
+                        tbIP.Visible = false;
+                        cmbCOMport.Visible = true;
+                        lblIP.Text = "Windows Port:";
+                        cmbCOMport.DataSource = SerialPort.GetPortNames();
+                        lblSpecial.Text = "RasPi/Linux Port:";
+                        lblSpecial.Visible = true;
+                        cmbLinuxSerial.Visible = true;
+                        GetLinuxSerial();
+                        break;
+                    case "httpget":
+                        lblIP.Text = "URL:";
+                        tbIP.Text = "http://";
+                        lblSpecial.Text = "user:pass";
+                        lblSpecial.Visible = true;
+                        tbSpecial.Visible = true;
+                        break;
+                    case "mqtt":
+                        lblSpecial.Text = "user:pass";
+                        lblSpecial.Visible = true;
+                        tbSpecial.Visible = true;
+                        break;
+                    case "jvc":
+                        lblSpecial.Text = "Password (NZ):";
+                        lblSpecial.Visible = true;
+                        tbSpecial.Visible = true;
+                        break;
+                    default:
+                        tbIP.Text = "";
+                        break;
                 }
-                else if (cmbDeviceType.SelectedItem.ToString() == "lirc")
-                {
-                    tbIP.Text = "127.0.0.1:8765";
-                }
-                else if (cmbDeviceType.SelectedItem.ToString() == "rs232")
-                {
-                    tbIP.Visible = false;
-                    cmbCOMport.Visible = true;
-                    lblIP.Text = "COM:";
-                    cmbCOMport.DataSource = SerialPort.GetPortNames();
-                }
-                else if (cmbDeviceType.SelectedItem.ToString() == "httpget")
-                {
-                    lblIP.Text = "URL:";
-                    tbIP.Text = "http://";
-                }
-                else
-                {
-                    tbIP.Text = "";
-                }
+
                 tbDevName.Text = "";
+                tbSpecial.Text = "";
+            }
+        }
+
+        private async void GetLinuxSerial()
+        {
+            try
+            {
+                cmbLinuxSerial.Items.Clear();
+            }
+            catch
+            {
+                cmbLinuxSerial.DataSource = null;
+            }
+            string hostIP = Util.ConfigHelper.GetRegKey(@"SOFTWARE\HTWebRemote", "RemoteHostIP");
+
+            if (Regex.IsMatch(hostIP, "^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"))
+            {
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    try
+                    {
+                        string strPorts = await httpClient.GetStringAsync($"http://{hostIP}:5000/serial");
+
+                        cmbLinuxSerial.DataSource = strPorts.Split(',');
+                    }
+                    catch
+                    {
+                        cmbLinuxSerial.Items.Add("Error getting serial ports");
+                    }
+                }
+            }
+            else
+            {
+                cmbLinuxSerial.Items.Add("Remote Host IP not found");
             }
         }
 
@@ -124,15 +201,30 @@ namespace HTWebRemote.Forms
             {
                 if (tbIP.Visible)
                 {
-                    lbDevices.Items.Add(cmbDeviceType.SelectedItem.ToString() + "," + tbDevName.Text + "," + tbIP.Text);
+                    string dev = $"{cmbDeviceType.SelectedItem},{tbDevName.Text},{tbIP.Text}";
+                    if(tbSpecial.Visible)
+                    {
+                        dev += $",{tbSpecial.Text}";
+                    }
+                    lbDevices.Items.Add(dev);
                 }
                 else
                 {
-                    lbDevices.Items.Add(cmbDeviceType.SelectedItem.ToString() + "," + tbDevName.Text + "," + cmbCOMport.SelectedItem.ToString());
+                    string dev = $"{cmbDeviceType.SelectedItem},{tbDevName.Text},{cmbCOMport.SelectedItem}";
+                    try
+                    {
+                        if (!string.IsNullOrEmpty(cmbLinuxSerial.SelectedItem.ToString()))
+                        {
+                            dev += $",{cmbLinuxSerial.SelectedItem}";
+                        }
+                    }
+                    catch { }
+                    lbDevices.Items.Add(dev);
                 }
                 cmbDeviceType.SelectedIndex = -1;
                 tbDevName.Text = "";
                 tbIP.Text = "";
+                tbSpecial.Text = "";
             }
         }
 
@@ -142,15 +234,30 @@ namespace HTWebRemote.Forms
             {
                 if (tbIP.Visible)
                 {
-                    lbDevices.Items[lbDevices.SelectedIndex] = cmbDeviceType.SelectedItem.ToString() + "," + tbDevName.Text + "," + tbIP.Text;
+                    string dev = $"{cmbDeviceType.SelectedItem},{tbDevName.Text},{tbIP.Text}";
+                    if (tbSpecial.Visible)
+                    {
+                        dev += $",{tbSpecial.Text}";
+                    }
+                    lbDevices.Items[lbDevices.SelectedIndex] = dev;
                 }
                 else
                 {
-                    lbDevices.Items[lbDevices.SelectedIndex] = cmbDeviceType.SelectedItem.ToString() + "," + tbDevName.Text + "," + cmbCOMport.SelectedItem.ToString();
+                    string dev = $"{cmbDeviceType.SelectedItem},{tbDevName.Text},{cmbCOMport.SelectedItem}";
+                    try
+                    {
+                        if (!string.IsNullOrEmpty(cmbLinuxSerial.SelectedItem.ToString()))
+                        {
+                            dev += $",{cmbLinuxSerial.SelectedItem}";
+                        }
+                    }
+                    catch { }
+                    lbDevices.Items[lbDevices.SelectedIndex] = dev;
                 }
                 cmbDeviceType.SelectedIndex = -1;
                 tbDevName.Text = "";
                 tbIP.Text = "";
+                tbSpecial.Text = "";
             }
         }
 
@@ -162,6 +269,7 @@ namespace HTWebRemote.Forms
                 cmbDeviceType.SelectedIndex = -1;
                 tbDevName.Text = "";
                 tbIP.Text = "";
+                tbSpecial.Text = "";
             }
         }
     }

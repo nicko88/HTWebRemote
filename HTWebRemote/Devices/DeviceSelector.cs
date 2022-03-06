@@ -27,6 +27,7 @@ namespace HTWebRemote.Devices
                                                                     "christie",
                                                                     "oppo",
                                                                     "dbox",
+                                                                    "hdfury",
                                                                     "rs232",
                                                                     "httpget",
                                                                     "mqtt" };
@@ -63,11 +64,17 @@ namespace HTWebRemote.Devices
                 {
                     string[] values = device.Split(',');
 
+                    string specialData = null;
+                    if(values.Length == 4)
+                    {
+                        specialData = values[3];
+                    }
+
                     if(values[1] == devName)
                     {
                         if (!query)
                         {
-                            CommandDevice(values[2], values[0], cmd, param);
+                            CommandDevice(values[2], values[0], cmd, param, specialData);
                         }
                         else
                         {
@@ -81,7 +88,7 @@ namespace HTWebRemote.Devices
             return returnQuery;
         }
 
-        public static void CommandDevice(string IP, string devType, string cmd, string param)
+        public static void CommandDevice(string IP, string devType, string cmd, string param, string specialData)
         {
             switch (devType)
             {
@@ -125,7 +132,7 @@ namespace HTWebRemote.Devices
                     AnthemControl.RunCmd(IP, cmd);
                     break;
                 case "jvc":
-                    JVCControl.RunCmd(IP, cmd, param);
+                    JVCControl.RunCmd(IP, cmd, param, specialData);
                     break;
                 case "epson":
                     EpsonControl.RunCmd(IP, cmd);
@@ -142,14 +149,17 @@ namespace HTWebRemote.Devices
                 case "dbox":
                     DBOXControl.RunCmd(IP, cmd, param);
                     break;
+                case "hdfury":
+                    HDFuryControl.RunCmd(IP, cmd);
+                    break;
                 case "rs232":
                     RS232Control.RunCmd(IP, cmd);
                     break;
                 case "httpget":
-                    HttpGetControl.RunCmd(IP, cmd, param);
+                    HttpGetControl.RunCmd(IP, cmd, specialData);
                     break;
                 case "mqtt":
-                    MQTTControl.RunCmd(IP, cmd, param);
+                    MQTTControl.RunCmd(IP, cmd, param, specialData);
                     break;
                 default:
                     break;

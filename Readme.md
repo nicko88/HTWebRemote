@@ -1,7 +1,11 @@
 # HTWebRemote
 #### Simple remote control of your home theater devices and HTPC from any web browser
 
-HTWebRemote is an application meant to control various home theater devices and a home theater PC running Windows. Device control is mostly done via IP control and/or direct control of the Windows PC that HTWebRemote is  running on itself.
+HTWebRemote is an application meant to control various home theater devices and a home theater PC running Windows. Device control is mostly done via IP control and/or direct control of the Windows PC that HTWebRemote is running on itself.
+
+#### See here for RaspberryPi / Linux version
+
+[HTWebRemoteHost](https://github.com/nicko88/HTWebRemoteHost)
 
 #### Web Page Builder
 
@@ -15,10 +19,16 @@ Included in the web page mode of operation is a simple file browser interface wh
 
 Also included in the web page mode of operation is a YouTube browser and video launching feature.  You can copy and paste a YouTube link or browse YouTube by search phrase and easily send the YouTube video to play on your HTPC in a browser or even send the YouTube video to your media player such as MPC-HC/BE or VLC.
 
+##### Mobile "WebApp" Mode
+
+Consider adding your remote control page to the home screen of your phone or tablet.  This will give you more vertical space to see your remote control buttons and also give you a nice App icon to quickly access your remote control.
+
+If you don't know how to do this, just do a web search for how to add a web page to your home screen for either iPhone or Android.
+
 #### Screenshots and Demo
 
 ###### Main screen
-<img src="https://user-images.githubusercontent.com/1866075/139782364-1e7586e9-9490-4439-9c67-0c823dbb182b.png" width="500px" />
+<img src="https://user-images.githubusercontent.com/1866075/156895323-74305af3-eaaa-4bc0-9876-a767fae0ceda.png" width="500px" />
 
 ###### Remote Editor
 <img src="https://user-images.githubusercontent.com/1866075/139782414-25d768a2-dc89-4b72-99b6-c1d11ba1e5af.png" width="500px" />
@@ -57,6 +67,7 @@ Finally, HTWebRemote includes a sort of API which lets you send commands from ot
 * Christie M-Series / TruLife+ Projectors
 * Oppo Disc Player
 * D-BOX HEMC
+* HDFury Devices
 * RS232 Serial Devices
 * HTTP URL Commands (GET)
 * MQTT Messaging Protocol
@@ -72,6 +83,14 @@ No installation or prerequisites are necessary.
 Simply download the [latest build from the releases](https://github.com/nicko88/HTWebRemote/releases/latest) page, extract the archive, and copy the files to your preferred folder location on your HTPC.
 
 See the [documentation](https://htmlpreview.github.io/?https://github.com/nicko88/HTWebRemote/blob/master/HTWebRemote/Util/html/doc.html) within the program for detailed operation instructions.
+
+### Hosting Remotes from a RaspberryPi / Linux PC
+
+There is a companion app called [HTWebRemoteHost](https://github.com/nicko88/HTWebRemoteHost) which let's you host your remote controls on a RasPi or typical Linux PC/server.  The reason someone might want to do this is if they don't have a Windows PC that is just always powered on that they can host their remotes from.
+
+HTWebRemoteHost is a headless service, and you must use this Windows App to create and modify your remote controls, and then "Sync" them to the HTWebRemoteHost service on your RasPi / Linux PC.
+
+Keep in mind that the *"win"* device control and *"keys"* device control will **not** be operational on a RasPi / Linux Host.
 
 ### Community
 

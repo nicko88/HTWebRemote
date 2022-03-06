@@ -1,6 +1,7 @@
 ﻿using HTWebRemote.RemoteFile;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
@@ -32,9 +33,13 @@ namespace HTWebRemote.Util
 
                 if (files.Length > 1 || files.Length > 0 && ConfigHelper.CheckRegKey(@"SOFTWARE\HTWebRemote", "ShowFileBrowser"))
                 {
+                    List<string> filesList = new List<string>();
+                    filesList.AddRange(files);
+                    filesList.Sort();
+
                     sb.AppendLine(@"<ul class=""nav nav-tabs bg-dark sticky-top"">");
 
-                    foreach (string file in files)
+                    foreach (string file in filesList)
                     {
                         if (file.Contains(".json"))
                         {

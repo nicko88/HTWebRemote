@@ -246,6 +246,7 @@
     <Compile Include="Devices\Controllers\ChristieControl.cs" />
     <Compile Include="Devices\Controllers\DBOXControl.cs" />
     <Compile Include="Devices\Controllers\EpsonControl.cs" />
+    <Compile Include="Devices\Controllers\HDFuryControl.cs" />
     <Compile Include="Devices\Controllers\HTP1Control.cs" />
     <Compile Include="Devices\Controllers\HttpGetControl.cs" />
     <Compile Include="Devices\Controllers\MQTTControl.cs" />
@@ -316,6 +317,12 @@
     <Compile Include="Forms\RemoteEditor.Designer.cs">
       <DependentUpon>RemoteEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ManageRemoteHost.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ManageRemoteHost.Designer.cs">
+      <DependentUpon>ManageRemoteHost.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemoteFile\Command.cs" />
@@ -343,6 +350,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\HTWebRemote.resx">
       <DependentUpon>HTWebRemote.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DeviceIPManager.resx">
       <DependentUpon>DeviceIPManager.cs</DependentUpon>
@@ -352,6 +360,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\RemoteEditor.resx">
       <DependentUpon>RemoteEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ManageRemoteHost.resx">
+      <DependentUpon>ManageRemoteHost.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

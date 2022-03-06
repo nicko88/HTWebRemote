@@ -62,6 +62,23 @@ namespace HTWebRemote.Devices
             }
         }
 
+        public string ReceiveData()
+        {
+            string reply = "";
+            try
+            {
+                byte[] buffer = new byte[100];
+                socket.Receive(buffer);
+                reply = System.Text.Encoding.UTF8.GetString(buffer).TrimEnd('\0');
+            }
+            catch (Exception e)
+            {
+                Util.ErrorHandler.SendError($"Failed to recieve expected data from device at {remoteEndPoint.Address}:{remoteEndPoint.Port} {socket.ProtocolType}\n\n{e.Message}");
+            }
+
+            return reply;
+        }
+
         public void CloseSocket()
         {
             socket?.Close();

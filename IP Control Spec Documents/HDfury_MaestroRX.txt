@@ -1,0 +1,379 @@
+MAESTRORX IP/TELNET COMMAND LIST 
+
+Use only lowercase characters
+
+A generic command to write a value:
+set x y
+set - indicates value will be written to maestro
+x - target to be written
+y - value or values
+
+A generic command to read a value:
+get x 
+get - indicates value will be read from maestro
+x - target to be read
+
+The get-command generally first returns the command name and then the value.
+
+Command list [current set-values can be read with the get-command]:
+
+set ipaddr xxx.xxx.xxx.xxx
+Sets the static IP address. Active when dhcp is turned off.
+Ex. set ipaddr 192.168.1.222
+
+set ipmask xxx.xxx.xxx.xxx
+Sets the static IP network mask. Active when dhcp is turned off.
+Ex. set ipmask 255.255.255.0
+
+set ipgw xxx.xxx.xxx.xxx
+Sets the static IP gateway address. Active when dhcp is turned off.
+Ex. set ipgw 192.168.1.1
+
+set dhcp x
+Set the dynamic or static IP address selection. Dynamic = dhcp on
+where x is [on / off]
+Ex. set dhcp off
+
+set tcpport x
+Set the TCP port to be listened to for commands. Default is 2200
+Requires a reboot to be applied.
+Ex. set port 2201
+
+set edidmode x
+where x is [automix / custom / fixed / copytx0 / copytx1]
+Ex. set edidmode automix
+
+set edid audio x
+where x is [stereo / 51 / full / tx0 / tx1 / out]
+Sets the automix EDID audio flag
+Ex. set edid audio native
+
+set edid bt2020 x
+where x is [on / off]
+Sets the automix EDID bt2020 capability addition
+Will not remove if existing on the sink - only adds if missing
+Ex. set edid bt2020 on
+
+set edid yuvremove x
+where x is [on / off]
+Sets the automix EDID YUV/YCbCr capability force
+Controls if the source sees a YCbCr capable sink
+Ex. set edid yuvremove on
+
+set edid hdr10 x
+where x is [on / off]
+Sets the automix EDID hdr10 capability
+Will not remove if existing on the sink - only adds if missing
+Ex. set edid hdr10 on
+
+set edid hlg x
+where x is [on / off]
+Sets the automix EDID hlg capability
+Will not remove if existing on the sink - only adds if missing
+Ex. set edid hlg on
+
+set edid dv x
+where x is [on / off]
+Sets the automix EDID Dolby Vision capability
+Will not remove if existing on the sink - only adds if missing
+Ex. set edid dv on
+
+
+set edid dvremove x
+where x is [on / off]
+Sets the automix EDID to remove DV capability
+Ex. set edid dvremove on
+
+
+set edid dvlimit x
+where x is [on / off]
+Sets the automix EDID Dolby Vision frequency capability to 300Mhz max
+Ex. set edid dvlimit on
+
+set edid 3dremove x
+where x is [on / off]
+Sets the automix EDID to remove 3D capability 
+Controls if the source sees a 3D capable sink
+Ex. set edid 3dremove on
+
+set hdcp x
+where x is [14 / auto]
+Sets the hdcp level 
+in auto mode, depending on sink capability uses hdcp 1.4 or 2.2
+Ex. set hdcp auto
+
+set scale x
+where x is [auto / custom / none]
+Sets the scaling style for tx0 (tx1 is always automatic)
+In auto mode, optimizes according to the best sink capabilities
+Ex. set scale auto
+
+set autonoupscale x
+where x is [on / off]
+Sets the mode for upscaling in tx0 output. Applies in "scale auto" mode only.
+In "scale auto" mode enables/disables upscaling of 1080p content automatically to 4k.
+Ex. set autonoupscale off
+
+set edidtableinp0 x
+where x is [1 - 100] 
+Sets the custom EDID for corresponding input port
+Ex. set edidtableinp0 11
+
+set edidalgo x
+where x is [0 - 4]
+Sets the automix algorithm
+0 = Min video, min audio
+1 = Min video, max audio
+2 = Tx0 priority
+3 = Tx1 priority
+4 = Max video, max audio [default]
+Ex. set edidalgo 4
+
+set hdrcustom x
+where x is [on / off]
+Starts to output custom HDR metadata and ignores any input received HDR metadata.
+Overrides all other hdrcustom options
+Ex. set hdrcustom on
+
+set hdrcustomhdr10only x
+where x is [on / off]
+Starts to output custom HDR metadata if and only if the input is HDR10.
+This setting is used to replace the incoming HDR10 metadata.
+Ex. set hdrcustomhdr10only on
+
+set hdrcustomhlgonly x
+where x is [on / off]
+Starts to output custom HDR metadata if and only if the input is HLG.
+This setting is used to replace the incoming HLG metadata.
+Ex. set hdrcustomhlgonly on
+
+set hdrcustomhlgonlyauto x
+where x is [on / off]
+Starts to output custom HDR metadata if and only if the input is HLG 
+and the sink has no HLG support.
+This setting is used to replace the incoming HLG metadata.
+Useful when turning on/off HLG capable sink while non-HLG sink is also connected.
+Ex. set hdrcustomhlgonlyauto on
+
+set hdrdisable x
+where x is [on / off]
+Stops sending any HDR metadata content
+Ex. set hdrdisable on
+
+set hdrdisablehdr10only x
+where x is [on / off]
+Stops sending any HDR metadata content if the input is HDR10
+Ex. set hdrdisablehdr10only on
+
+set hdrdisablehlgonly x
+where x is [on / off]
+Stops sending any HDR metadata content if the input is HLG
+Ex. set hdrdisablehlgonly on
+
+set avicustom x
+where x is [on / off]
+Starts to output custom AVI infoframe and ignores any input received AVI metadata.
+Ex. set avicustom on
+
+set avidisable x
+where x is [on / off]
+Stops sending any AVI infoframe content
+Ex. set avidisable on
+
+set cec x
+where x is [on / off]
+Sets the CEC engine
+Ex. set cec on
+
+set cecla x
+where x is [video / audio]
+Sets the CEC engine logical address. For video [14] and for audio [5].
+Ex. set cecla audio
+
+set archbr x
+where x is [on / off]
+Sets the ARC capability to include DD+ / ATMOS over DD+ capability.
+Ex. set archbr on
+
+set oled x
+where x is [on / off]
+Sets the OLED display visibility
+Ex. set oled on
+
+set oledrev x
+where x is [on / off]
+Sets the OLED display reversed colors
+Ex. set oledrev on
+
+set oledrot x
+where x is [on / off]
+Sets the OLED display rotation
+Ex. set oledrot on
+
+set oledpage x
+where x is [0-4]
+Sets the OLED display page
+Ex. set oledpage 0
+
+set oledfade x
+where x is [0-255]
+Sets the OLED display fade timer in seconds. After this time OLED goes blank
+0 = no fade
+Ex. set oledfade 60
+
+
+set osd x
+where x is [on / off]
+Enables / disables osd
+Ex. set osd on
+
+set osdloc x y
+where x is [1 - 1920] and y is [1 - 1080]
+Sets the OSD information location coordinates. For 4k the values are 4x
+Ex. set osdloc 50 850
+
+
+set osdfg x
+where x is [1 - 31]
+Sets the OSD foreground color
+Ex. set osdfg 20
+
+
+set osdbg x
+where x is [1 - 31]
+Sets the OSD background color
+Ex. set osdbg 20
+
+set osdlevel x
+where x is [0 - 7]
+Sets the OSD opacity level
+Ex. set osdlevel 4
+
+set osdfade x
+where x is [0-255]
+Sets the OSD fade timer in seconds. After this time OSD info disappears
+0 = no fade
+Ex. set osdfade 20
+
+
+set osdfield x y
+where x is [source / video / videoif / hdr / hdrif / audio / rxhdrforce
+rxvideoforce / ignoremetadata] and y is [on / off]
+Sets the OSD field parameter visibility
+Ex. set osdfield videoif off
+
+
+set osdmaskloc x y x1 y1
+where x and x1 are [1 - 1920] and y and y1 are [1 - 1080]
+Sets the OSD mask information location coordinates. For 4k the values are 4x
+Ex. set osdmaskloc 50 850 1900 900
+
+
+set osdmask x
+where x is [on / off]
+Enables / disables osdmask
+Ex. set osdmask on
+
+set osdmasklevel x
+where x is [0 - 7]
+Sets the OSD opacity level
+Ex. set osdmasklevel 4
+
+set osdmaskgray x
+where x is [0 - 15]
+Sets the OSD gray level
+Ex. set osdmaskgray 4
+
+set osdtextloc x y
+where x is [1 - 1920] and y is [1 - 1080]
+Sets the OSD text location coordinates. For 4k the values are 4x
+Ex. set osdtextloc 50 20
+
+set osdtextneverfade x
+where x is [on / off]
+Osd text typically fades together with normal OSD. 
+This setting can disable fading.
+Ex. set osdtextneverfade on
+
+set osdtextstr x
+where x max 64 characters
+Defines the specific text string to be displayed. Must be in enlosed in quotation 
+Ex. set osdtextstr "HDFury 2019"
+
+set osdtext x
+where x is [on / off]
+Enables / disables osdtext
+Ex. set osdtext on
+
+set mutetx0audio x
+where x is [on / off]
+Mute the tx0 hdmi audio output
+Ex. set mutetx0audio on 
+
+set mutetx1audio x
+where x is [on / off]
+Mute the tx1 hdmi audio output
+Ex. set mutetx1audio on 
+
+set analogvolume x
+where x is [-30 to +10]
+Sets the analog L/R audio jack output volume in dB.
+Ex. set analogvolume -10 
+
+set analogbass x
+where x is [-10 to +10]
+Sets the analog L/R audio jack output bass level in dB.
+Ex. set analogbass 5 
+
+set analogtreble x
+where x is [-10 to +10]
+Sets the analog L/R audio jack output treble level in dB.
+Ex. set analogtreble -2 
+
+set reboot
+Reboots the unit, does not clear any settings
+
+set factoryreset x
+where x is [1, 2, 3]
+1 = Erase all settings but retain the custom EDID tables
+2 = Erase custom EDID tables but retain other settings
+3 = ERASE all settings and EDID tables
+Ex. set factoryreset 3 
+
+set arcforce x
+where x is [auto / arc / hdmi]
+Sets the ARC mode forcing
+Ex. set arcforce auto
+
+set htpc x
+where x is [on / off]
+Sets the htpc mode for the input port
+Ex. set htpc on
+
+set ipinterrupt x
+where x is [on / off]
+Sets the "int" interrupt message sent to the current open IP connection upon stream change
+Ex. set ipinterrupt on
+
+get status x
+where x is [rx0, tx0, tx1, tx0sink, tx1sink, aud0, aud1, spd0, spd1]
+rx0 indicate the input stream received.
+tx0 and tx1 indicate the outgoing stream
+tx0sink and tx1sink indicate EDID capabilities of the connected sink
+aud0 and aud1 indicate the audio stream type going to the sink from the correspoding port
+spd0 and spd1 indicate the source name.
+Ex. get status rx0
+Gets the current incoming video format
+
+get audiochtx0 
+get audiochtx1
+Returns the audio channel count for the output. Applies only in LPCM mode
+
+get audiomodetx0
+get audiomodetx1
+Returns the audio mode LPCM / bitstream from the selected input
+
+get edidtable x
+where x is [rx0, tx0, tx1] 
+Returns the current 256-byte EDID table of the corresponding port
+

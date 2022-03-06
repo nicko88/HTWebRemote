@@ -7,22 +7,24 @@ namespace HTWebRemote.Devices.Controllers
     {
         public static void RunCmd(string IP, string cmd)
         {
-            HttpClient httpClient = new HttpClient();
-            httpClient.Timeout = TimeSpan.FromSeconds(3);
-
-            HttpResponseMessage result;
-            try
+            using (HttpClient httpClient = new HttpClient())
             {
-                result = httpClient.PostAsync($"http://{IP}:8060/{cmd}", null).Result;
+                httpClient.Timeout = TimeSpan.FromSeconds(3);
 
-                if(!result.IsSuccessStatusCode)
+                HttpResponseMessage result;
+                try
                 {
-                    throw new Exception();
+                    result = httpClient.PostAsync($"http://{IP}:8060/{cmd}", null).Result;
+
+                    if (!result.IsSuccessStatusCode)
+                    {
+                        throw new Exception();
+                    }
                 }
-            }
-            catch(Exception e)
-            {
-                Util.ErrorHandler.SendError($"Error sending command to Roku: http://{IP}:8060{cmd}\n\n{e.Message}");
+                catch (Exception e)
+                {
+                    Util.ErrorHandler.SendError($"Error sending command to Roku: http://{IP}:8060{cmd}\n\n{e.Message}");
+                }
             }
         }
     }

@@ -12,10 +12,10 @@ namespace HTWebRemote.Util
 {
     class ConfigHelper
     {
-        public static string WorkingPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-        public static string DeviceFile = $@"{WorkingPath}\HTWebRemoteDevices.txt";
-        public static string browsePaths = $@"{WorkingPath}\HTWebRemoteBrowsePaths.txt";
-        public static string jsonButtonFiles = $@"{WorkingPath}\HTWebRemoteButtons";
+        public static string WorkingPath = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
+        public static string DeviceFile = Path.Combine(WorkingPath, "HTWebRemoteDevices.txt");
+        public static string browsePaths = Path.Combine(WorkingPath, "HTWebRemoteBrowsePaths.txt");
+        public static string jsonButtonFiles = Path.Combine(WorkingPath, "HTWebRemoteButtons");
 
         public static void Setup()
         {
@@ -129,12 +129,12 @@ namespace HTWebRemote.Util
             var host = Dns.GetHostEntry(Dns.GetHostName());
             foreach (var ip in host.AddressList)
             {
-                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                if (ip.AddressFamily == AddressFamily.InterNetwork && !ip.ToString().StartsWith("127"))
                 {
                     return ip.ToString();
                 }
             }
-            return "error";
+            return "IPerror";
         }
 
         //stops MS Edge from blocking local IPs that failed to load

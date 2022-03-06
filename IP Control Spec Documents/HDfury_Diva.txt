@@ -1,0 +1,605 @@
+DIVA RS232 AND IP/TELNET COMMAND LIST 
+
+Diva RS232 jack expects the following plug signals: 
+TIP  = TX [sends data out from Diva]
+RING = RX [receives data to Diva]
+SLEEVE = GND
+
+Parameters: 19200, n, 8, 1, no handshake
+
+If using RS232, each command must start with #diva header and must end with a carriage return \r or a newline \n
+If using IP/TELNET each command must end with a carriage return \r or a newline \n but there is no need for the #diva header.
+
+Each response will have both carriage return \r and a newline \n added in the format <cr><lf>
+
+Diva default IP port is 2210. e.g. 192.168.1.100:2210
+
+Use only lowercase characters
+
+typical 'close connection' character either ESC (0x1b) or ETX (0x03) or -1 or use some low level internal FIN markup for TCP/IP
+
+
+
+A generic RS232 command to write a value:
+#diva set x y
+where #diva is the header and all commands start with this header
+set - indicates value will be written to diva
+x - target to be written
+y - value or values
+
+A generic RS232 command to read a value:
+#diva get x 
+where #diva is the header and all commands start with this header
+get - indicates value will be read from diva
+x - target to be read
+
+A generic IP command is as above without the #diva header
+
+The get-command generally first returns the command name and then the value.
+
+Command list [current set-values can be read with the get-command]:
+
+[04-JUN-2020] : #diva set ledbbdet on/off (black bar detection on/off for ambient light)
+[04-JUN-2020] : #diva set leddelay xxx where xxx is 0-160 (delay in ms that be set to compensate TV input lag)
+
+[05-MAY-2020] : #diva jvcmacroalwayshex on/off
+[05-MAY-2020] : #diva jvcmacroalwayshexorder before/after
+[05-MAY-2020] : #diva jvcmacroalwayshexdelay 1/3/5/7/10/15/20/25
+
+[13-FEB-2020] : Added "set ceccmd poweron" or "set ceccmd poweroff" to issue TV ON/OFF CEC commands
+[13-FEB-2020] : Added "set ceccmd aa:bb..." to issue arbitrary CEC commands
+
+#diva set insel tx0 tx1
+where tx0 and tx1 is [0-3] input port, or [4] for follow
+Ex. #diva set insel 2 3
+Set tx0 to input 2 and tx1 to input 3
+Ex. #diva get insel
+Returns the current value
+
+#diva set inseltx0 x
+where x is [0-3] input port, or [4] for follow
+Ex. #diva set inseltx0 1
+Set tx0 to input 1 and keep tx1 as is
+
+#diva set inseltx1 x
+where x is [0-3] input port, or [4] for follow
+Ex. #diva set inseltx1 1
+Set tx0 to input 1 and keep tx0 as is
+
+#diva set ipaddr xxx.xxx.xxx.xxx
+Sets the static IP address. Active when dhcp is turned off.
+Ex. #diva set ipaddr 192.168.1.222
+
+#diva set ipmask xxx.xxx.xxx.xxx
+Sets the static IP network mask. Active when dhcp is turned off.
+Ex. #diva set ipmask 255.255.255.0
+
+#diva set ipgw xxx.xxx.xxx.xxx
+Sets the static IP gateway address. Active when dhcp is turned off.
+Ex. #diva set ipgw 192.168.1.1
+
+#diva set dhcp x
+Set the dynamic or static IP address selection. Dynamic = dhcp on
+where x is [on / off]
+Ex. #diva set dhcp off
+
+#diva set tcpport x
+Set the TCP port to be listened to for commands. Default is 2200
+Requires a reboot to be applied.
+Ex. #diva set port 2201
+
+#diva set autosw x
+where x is [on / off]
+Enables or disables the autoswitch feature
+Ex. #diva set autosw off
+
+#diva set autoswprio x
+where x is [on / off]
+Enables or disables the autoswitch priority feature
+Ex. #diva set autoswprio off
+
+#diva set edidmode x
+where x is [automix / custom / fixed / copytx0 / copytx1]
+Ex. #diva set edidmode automix
+
+#diva set edid audio x
+where x is [stereo / 51 / full / native / tx1]
+Sets the automix EDID audio flag
+Ex. #diva set edid audio native
+
+#diva set edid bt2020 x
+where x is [on / off]
+Sets the automix EDID bt2020 capability addition
+Will not remove if existing on the sink - only adds if missing
+Ex. #diva set edid bt2020 on
+
+#diva set edid yuvremove x
+where x is [on / off]
+Sets the automix EDID YUV/YCbCr capability force
+Controls if the source sees a YCbCr capable sink
+Ex. #diva set edid yuvremove on
+
+#diva set edid hdr10 x
+where x is [on / off]
+Sets the automix EDID hdr10 capability
+Will not remove if existing on the sink - only adds if missing
+Ex. #diva set edid hdr10 on
+
+#diva set edid hlg x
+where x is [on / off]
+Sets the automix EDID hlg capability
+Will not remove if existing on the sink - only adds if missing
+Ex. #diva set edid hlg on
+
+#diva set edid dv x
+where x is [on / off]
+Sets the automix EDID Dolby Vision capability
+Will not remove if existing on the sink - only adds if missing
+Ex. #diva set edid dv on
+
+
+#diva set edid dvremove x
+where x is [on / off]
+Sets the automix EDID to remove DV capability
+Ex. #diva set edid dvremove on
+
+
+#diva set edid dvlimit x
+where x is [on / off]
+Sets the automix EDID Dolby Vision frequency capability to 300Mhz max
+Ex. #diva set edid dvlimit on
+
+#diva set edid 3dremove x
+where x is [on / off]
+Sets the automix EDID to remove 3D capability 
+Controls if the source sees a 3D capable sink
+Ex. #diva set edid 3dremove on
+
+#diva set hdcp x
+where x is [14 / auto]
+Sets the hdcp level 
+in auto mode, depending on sink capability uses hdcp 1.4 or 2.2
+Ex. #diva set hdcp auto
+
+#diva set scale x
+where x is [auto / custom / none]
+Sets the scaling style for tx0 (tx1 is always automatic)
+In auto mode, optimizes according to the best sink capabilities
+Ex. #diva set scale auto
+
+#diva set autonoupscale x
+where x is [on / off]
+Sets the mode for upscaling in tx0 output. Applies in "scale auto" mode only.
+In "scale auto" mode enables/disables upscaling of 1080p content automatically to 4k.
+Ex. #diva set autonoupscale off
+
+#diva set edidtableinp0 x
+#diva set edidtableinp1 x
+#diva set edidtableinp2 x
+#diva set edidtableinp3 x
+where x is [1 - 100] for edidtableinp0 and [0 - 100] for others
+Sets the custom EDID for corresponding input port
+For ports 1-3 table number 0 indicates copy port 0 table
+Ex. #diva set edidtableinp0 11
+
+#diva set edidalgo x
+where x is [0 - 4]
+Sets the automix algorithm
+0 = Min video, min audio
+1 = Min video, max audio
+2 = Tx0 priority
+3 = Tx1 priority
+4 = Max video, max audio [default]
+Ex. #diva set edidalgo 4
+
+#diva set hdrcustom x
+where x is [on / off]
+Starts to output custom HDR metadata and ignores any input received HDR metadata.
+Overrides all other hdrcustom options
+Ex. #diva set hdrcustom on
+
+#diva set hdrcustomhdr10only x
+where x is [on / off]
+Starts to output custom HDR metadata if and only if the input is HDR10.
+This setting is used to replace the incoming HDR10 metadata.
+Ex. #diva set hdrcustomhdr10only on
+
+#diva set hdrcustomhlgonly x
+where x is [on / off]
+Starts to output custom HDR metadata if and only if the input is HLG.
+This setting is used to replace the incoming HLG metadata.
+Ex. #diva set hdrcustomhlgonly on
+
+#diva set hdrcustomhlgonlyauto x
+where x is [on / off]
+Starts to output custom HDR metadata if and only if the input is HLG 
+and the sink has no HLG support.
+This setting is used to replace the incoming HLG metadata.
+Useful when turning on/off HLG capable sink while non-HLG sink is also connected.
+Ex. #diva set hdrcustomhlgonlyauto on
+
+#diva set hdrdisable x
+where x is [on / off]
+Stops sending any HDR metadata content
+Ex. #diva set hdrdisable on
+
+#diva set hdrdisablehdr10only x
+where x is [on / off]
+Stops sending any HDR metadata content if the input is HDR10
+Ex. #diva set hdrdisablehdr10only on
+
+#diva set hdrdisablehlgonly x
+where x is [on / off]
+Stops sending any HDR metadata content if the input is HLG
+Ex. #diva set hdrdisablehlgonly on
+
+#diva set avicustom x
+where x is [on / off]
+Starts to output custom AVI infoframe and ignores any input received AVI metadata.
+Ex. #diva set avicustom on
+
+#diva set avidisable x
+where x is [on / off]
+Stops sending any AVI infoframe content
+Ex. #diva set avidisable on
+
+#diva set cec x
+where x is [on / off]
+Sets the CEC engine
+Ex. #diva set cec on
+
+#diva set cecla x
+where x is [video / audio]
+Sets the CEC engine logical address. For video [14] and for audio [5].
+Ex. #diva set cecla audio
+
+#diva set archbr x
+where x is [on / off]
+Sets the ARC capability to include DD+ / ATMOS over DD+ capability.
+Ex. #diva set archbr on
+
+#diva set oled x
+where x is [on / off]
+Sets the OLED display visibility
+Ex. #diva set oled on
+
+#diva set oledrev x
+where x is [on / off]
+Sets the OLED display reversed colors
+Ex. #diva set oledrev on
+
+#diva set oledrot x
+where x is [on / off]
+Sets the OLED display rotation
+Ex. #diva set oledrot on
+
+#diva set oledpage x
+where x is [0-4]
+Sets the OLED display page
+Ex. #diva set oledpage 0
+
+#diva set oledfade x
+where x is [0-255]
+Sets the OLED display fade timer in seconds. After this time OLED goes blank
+0 = no fade
+Ex. #diva set oledfade 60
+
+
+#diva set osd x
+where x is [on / off]
+Enables / disables osd
+Ex. #diva set osd on
+
+#diva set osdloc x y
+where x is [1 - 1920] and y is [1 - 1080]
+Sets the OSD information location coordinates. For 4k the values are 4x
+Ex. #diva set osdloc 50 850
+
+
+#diva set osdfg x
+where x is [1 - 31]
+Sets the OSD foreground color
+Ex. #diva set osdfg 20
+
+
+#diva set osdbg x
+where x is [1 - 31]
+Sets the OSD background color
+Ex. #diva set osdbg 20
+
+#diva set osdlevel x
+where x is [0 - 7]
+Sets the OSD opacity level
+Ex. #diva set osdlevel 4
+
+#diva set osdfade x
+where x is [0-255]
+Sets the OSD fade timer in seconds. After this time OSD info disappears
+0 = no fade
+Ex. #diva set osdfade 20
+
+
+#diva set osdfield x y
+where x is [source / video / videoif / hdr / hdrif / audio / rxhdrforce
+rxvideoforce / ignoremetadata] and y is [on / off]
+Sets the OSD field parameter visibility
+Ex. #diva set osdfield videoif off
+
+
+#diva set osdmaskloc x y x1 y1
+where x and x1 are [1 - 1920] and y and y1 are [1 - 1080]
+Sets the OSD mask information location coordinates. For 4k the values are 4x
+Ex. #diva set osdmaskloc 50 850 1900 900
+
+
+#diva set osdmask x
+where x is [on / off]
+Enables / disables osdmask
+Ex. #diva set osdmask on
+
+#diva set osdmasklevel x
+where x is [0 - 7]
+Sets the OSD opacity level
+Ex. #diva set osdmasklevel 4
+
+#diva set osdmaskgray x
+where x is [0 - 15]
+Sets the OSD gray level
+Ex. #diva set osdmaskgray 4
+
+#diva set osdtextloc x y
+where x is [1 - 1920] and y is [1 - 1080]
+Sets the OSD text location coordinates. For 4k the values are 4x
+Ex. #diva set osdtextloc 50 20
+
+#diva set osdtextneverfade x
+where x is [on / off]
+Osd text typically fades together with normal OSD. 
+This setting can disable fading.
+Ex. #diva set osdtextneverfade on
+
+#diva set osdtextstr x
+where x max 64 characters
+Defines the specific text string to be displayed. Must be in enlosed in quotation 
+Ex. #diva set osdtextstr "HDFury 2019"
+
+#diva set osdtext x
+where x is [on / off]
+Enables / disables osdtext
+Ex. #diva set osdtext on
+
+#diva set mutetx0audio x
+where x is [on / off]
+Mute the tx0 hdmi audio output
+Ex. #diva set mutetx0audio on 
+
+#diva set mutetx1audio x
+where x is [on / off]
+Mute the tx1 hdmi audio output
+Ex. #diva set mutetx1audio on 
+
+#diva set analogvolume x
+where x is [-30 to +10]
+Sets the analog L/R audio jack output volume in dB.
+Ex. #diva set analogvolume -10 
+
+#diva set analogbass x
+where x is [-10 to +10]
+Sets the analog L/R audio jack output bass level in dB.
+Ex. #diva set analogbass 5 
+
+#diva set analogtreble x
+where x is [-10 to +10]
+Sets the analog L/R audio jack output treble level in dB.
+Ex. #diva set analogtreble -2 
+
+#diva set reboot
+Reboots the unit, does not clear any settings
+
+#diva set factoryreset x
+where x is [1, 2, 3]
+1 = Erase all settings but retain the custom EDID tables
+2 = Erase custom EDID tables but retain other settings
+3 = ERASE all settings and EDID tables
+Ex. #diva set factoryreset 3 
+
+#diva set jvcmacro x
+where x is [on / off]
+Enables / disables JVC macro sending
+Ex. #diva set jvcmacro on
+
+
+#diva set jvcmacrosync x
+where x is [on / off]
+Enables / disables JVC macro sending on every sync instead of just at start once
+Ex. #diva set jvcmacrosync on
+
+#diva set jvcmacrodelay x
+where x is [0 - 255]
+Sets the delay between a mode change and sending the macro command via RS232
+Ex. #diva set jvcmacrodelay 25
+
+
+#diva set jvcmacrohdr10mode x
+where x is [0 - 4]
+0 = auto
+1 = ignore metadata
+2 = semiautomatic
+3 = custom
+Sets the current JVC macro mode
+Ex. #diva set jvcmacrohdr10mode 0
+
+
+
+#diva set hdrprofile x
+where x is [0-5]
+Sets the HDR to SDR conversion tone mapping profile. 0 = OFF. Applies to only when the input is HDR10.
+Ex. #diva set hdrprofile 2
+
+#diva set ledprofilevideo x
+where x is [0-5]
+0 = off
+1 = follow active video
+2 = custom static color
+3 = custom blinking color
+4 = custom pulsating color
+5 = rotating colors
+Sets LED profile used under active video condition
+Ex. #diva set ledprofilevideo 1
+
+
+#diva set ledprofilesync x
+where x is [0-5]
+0 = off
+1 = follow active video
+2 = custom static color
+3 = custom blinking color
+4 = custom pulsating color
+5 = rotating colors
+Sets LED profile used while signal is resyncing
+Ex. #diva set ledprofilesync 4
+
+#diva set ledspeedrotate x
+where x is [1-50]
+Sets the speed of the rotating colors effect
+Ex. #diva set ledspeedrotate 125
+
+#diva set ledspeedpulsate x
+where x is [1-50]
+Sets the speed of the blinking/pulsating led effect
+Ex. #diva set ledspeedpulsate 25
+
+#diva set ledgamma x
+where x is [0-3]
+0 = Gamma 2.2
+1 = Gamma 2.0
+2 = Gamma 1.8
+3 = Gamma 1.6
+Sets the gamma of the LED elements during active video mode
+Ex. #diva set ledgamma 0
+
+#diva set ledsynckeep x
+where x is 0, 1
+Sets the flag to keep LED effect active forever under sync condition when no displays/sources are connected
+Ex. #diva set ledsynckeep 1
+
+#diva set ledcolorred x
+where x is [0-255]
+Sets the custom RED color value
+Ex. #diva set ledcolorred 100
+
+#diva set ledcolorgreen x
+where x is [0-255]
+Sets the custom GREEN color value
+Ex. #diva set ledcolorgreen 100
+
+#diva set ledcolorblue x
+where x is [0-255]
+Sets the custom BLUE color value
+Ex. #diva set ledcolorblue 100
+
+#diva set ledredgain x
+where x is [0-31]
+Sets the global RED led calibration amplitude value
+Ex. #diva set ledredgain 31
+
+#diva set ledgreengain x
+where x is [0-31]
+Sets the global GREEN led calibration amplitude value
+Ex. #diva set ledgreengain 31
+
+#diva set ledbluegain x
+where x is [0-31]
+Sets the global BLUE led calibration amplitude value
+Ex. #diva set ledbluegain 31
+
+#diva set lagtesttarget x
+where x is [0-2]
+0 = left top corner
+1 = center 
+2 = bottom right corner
+Sets the location of the lag test measurement
+Ex. #diva set lagtesttarget 1
+
+#diva set lagtestenable x 
+where x is 0, 1
+Enables/disables the lag tester display
+Ex. #diva set lagtestenable 1
+
+#diva set lagteststart 
+Starts the lag test measurement
+Ex. #diva set lagteststart
+
+
+#diva set tx0plus5 x
+where x is [on / off]
+Controls the TX0 +5 output voltage
+Ex. #diva set tx0plus5 on
+
+#diva set tx1plus5 x
+where x is [on / off]
+Controls the TX1 +5 output voltage
+Ex. #diva set tx1plus5 on
+
+#diva set arcforce x
+where x is [auto / arc / hdmi]
+Sets the ARC mode forcing
+Ex. #diva set arcforce auto
+
+#diva set earcforce x
+where x is [auto / earc / hdmi]
+Sets the EARC mode forcing
+Ex. #diva set earcforce auto
+
+#diva set ipinterrupt x
+where x is [on / off]
+Sets the "int" interrupt message sent to the current open IP connection upon stream change
+Ex. #diva set ipinterrupt on
+
+#diva set htpcmode0 x
+#diva set htpcmode1 x
+#diva set htpcmode2 x
+#diva set htpcmode3 x
+where x is [on / off]
+Sets the htpc mode for the corresponding input port 
+Ex. #diva set htpcmode0 on
+
+#diva get status x
+where x is [rx0, rx1, tx0, tx1, tx0sink, tx1sink, aud0, aud1, audout, spd0, spd1]
+rx0 and rx1 indicate the input stream received. Use rx0 in splitter mode and rx0 and rx1 along with 'insel' in matrix mode
+tx0 and tx1 indicate the outgoing stream
+tx0sink and tx1sink indicate EDID capabilities of the connected sink
+aud0 and aud1 and audout indicate the audio stream type going to the sink from the correspoding port
+spd0 and spd1 indicate the source name. Use spd0 for splitter mode and spd0 and spd1 along with 'insel' in matrix mode
+Ex. #diva get status rx0
+Gets the current incoming video format
+
+#diva get audiochtx0 
+#diva get audiochtx1
+#diva get audiochaudout
+Returns the audio channel count for the output. Applies only in LPCM mode
+
+#diva get audiomodetx0
+#diva get audiomodetx1
+#diva get audiomodeaudout
+Returns the audio mode LPCM / bitstream from the selected input
+
+#diva get edidtable x
+where x is [rx0, rx1, rx2, rx3, tx0, tx1] 
+Returns the current 256-byte EDID table of the corresponding port
+
+#diva set hotplug	Issue hotplug event to the sources
+
+#################################################################
+####################FOR ADVANCED USERS ONLY######################
+#################################################################
+
+#diva set cdsstr x
+where x is the string
+eARC CDS ediditing
+Ex. #diva set cdsstr 01:01:1a:35:67:7e:01:57:06:01:15:07:50:0f:7f:07:3d:1e:c0:4d:02:00:5f:7e:01:83:4f:00:00:00
+and via IP you leave out the #diva since IP is targeted already
+
+
+#diva get cdsstr 
+command for printout of the cdsstring
