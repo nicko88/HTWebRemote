@@ -255,6 +255,7 @@
     <Compile Include="Devices\Controllers\RS232Control.cs" />
     <Compile Include="Devices\Controllers\NVShieldControl.cs" />
     <Compile Include="Devices\Controllers\StormControl.cs" />
+    <Compile Include="Devices\Controllers\WOLControl.cs" />
     <Compile Include="Devices\Controllers\YamahaControl.cs" />
     <Compile Include="Devices\Controllers\ZappitiControl.cs" />
     <Compile Include="Devices\Controllers\ZoomControl.cs" />

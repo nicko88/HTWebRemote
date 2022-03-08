@@ -71,6 +71,7 @@ Finally, HTWebRemote includes a sort of API which lets you send commands from ot
 * RS232 Serial Devices
 * HTTP URL Commands (GET)
 * MQTT Messaging Protocol
+* Wake-on-LAN
 
 Support for more devices is subject to community requests and their ability to run tests for me as I try to add the support for their device.
 
@@ -88,7 +89,7 @@ See the [documentation](https://htmlpreview.github.io/?https://github.com/nicko8
 
 There is a companion app called [HTWebRemoteHost](https://github.com/nicko88/HTWebRemoteHost) which let's you host your remote controls on a RasPi or typical Linux PC/server.  The reason someone might want to do this is if they don't have a Windows PC that is just always powered on that they can host their remotes from.
 
-HTWebRemoteHost is a headless service, and you must use this Windows App to create and modify your remote controls, and then "Sync" them to the HTWebRemoteHost service on your RasPi / Linux PC.
+HTWebRemoteHost is a headless service, and you must use this Windows app to create and modify your remote controls, and then "Sync" them to the HTWebRemoteHost service on your RasPi / Linux PC.
 
 Keep in mind that the *"win"* device control and *"keys"* device control will **not** be operational on a RasPi / Linux Host.
 
