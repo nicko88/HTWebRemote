@@ -34,6 +34,7 @@ namespace HTWebRemote.Devices.Controllers
                     sp.Write(cmd + newLine);
                     Thread.Sleep(100);
                     sp.Close();
+                    sp.Dispose();
                 }
             }
             catch(Exception e)

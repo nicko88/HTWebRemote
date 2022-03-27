@@ -7,13 +7,13 @@ namespace HTWebRemote.Devices.Controllers
 {
     class JVCControl
     {
-        public static void RunCmd(string IP, string cmd, string param, string specialData)
+        public static void RunCmd(string IP, string cmd, string param, string pass)
         {
             byte[] PJREQ = Encoding.ASCII.GetBytes("PJREQ");
 
-            if (!string.IsNullOrEmpty(specialData))
+            if (!string.IsNullOrEmpty(pass))
             {
-                byte[] withPass = Encoding.ASCII.GetBytes($"PJREQ_{specialData}");
+                byte[] withPass = Encoding.ASCII.GetBytes($"PJREQ_{pass}");
 
                 PJREQ = new byte[16];
                 for(int i = 0; i < withPass.Length; i++)

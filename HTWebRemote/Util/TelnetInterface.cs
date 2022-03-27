@@ -102,6 +102,7 @@ namespace HTWebRemote.Util
         public void Close()
         {
             tcpSocket.Close();
+            tcpSocket.Dispose();
         }
     }
 }

@@ -16,7 +16,10 @@
 		The basic idea is that HTWebRemote runs in the background and commands can be sent to it from any device that can load a web URL.
 	</p>
 
-	<p>You must allow port 5000/TCP incoming on the PC that is running this software in order for the remote UI to function.  The software takes care of this firewall rule for you the first time you run it.</p>
+	<p>
+	You must allow port 5000/TCP incoming on the PC that is running this software in order for the remote UI to function.<br />
+	The software takes care of this firewall rule for you the first time you run it.
+	</p>
 
 	<p>There are 3 main modes of operation for HTWebRemote.</p>
 
@@ -164,12 +167,14 @@
 		<li><a href="#win">Windows</a></li>
 		<li><a href="#keys">Keyboard Hotkeys</a></li>
 		<li><a href="#mpc">Media Player Classic</a></li>
+		<li><a href="#kodi">Kodi Media Player</a></li>
 		<li><a href="#zoom">Zoom Player</a></li>
 		<li><a href="#nvshield">Nvidia Shield</a></li>
 		<li><a href="#roku">Roku</a></li>
 		<li><a href="#zappiti">Zappiti Media Player Box</a></li>
 		<li><a href="#lirc">LIRC / WinLIRC</a></li>
 		<li><a href="#wemo">Belkin Wemo Smart Plug</a></li>
+		<li><a href="#kasa">TP-Link Kasa Smart Devices</a></li>
 		<li><a href="#dm">Denon / Marantz AVRs</a></li>
 		<li><a href="#yamaha">Yamaha AVRs</a></li>
 		<li><a href="#emotiva">Emotiva AVRs</a></li>
@@ -180,6 +185,7 @@
 		<li><a href="#epson">Epson Projectors</a></li>
 		<li><a href="#benq">BenQ Projectors</a></li>
 		<li><a href="#christie">Christie M-Series Projectors</a></li>
+		<li><a href="#panaproj">Panasonic Projectors</a></li>
 		<li><a href="#oppo">Oppo Disc Player</a></li>
 		<li><a href="#dbox">D-BOX HEMC</a></li>
 		<li><a href="#hdfury">HDfury Devices</a></li>
@@ -566,6 +572,55 @@
 		<li><code>947</code> (After Playback: Play next in the folder)</li>
 		<li><code>1038</code> (Move Window to Primary Screen)</li>
 	</ul>
+	<br />
+
+	<h2><a id="kodi"></a>Kodi Media Player Control</h2>
+
+	For Kodi Media Player control, the device identifier is <b>kodi</b>
+	
+	<p>In order to control Kodi, you need to allow remote control via HTTP.</p>
+	
+	<p>This setting can be found in Settings -> Services -> Control -> Allow remote control via HTTP</p>
+	
+	<p>If you enable "Require authentication", make sure you provide the user:pass in the Device Configuration screen in HTWebRemote.</p>
+
+	<h3>Commands</h3>
+
+	<ul>
+		<li><b>Navigation:</b></li>
+		<ul>
+			<li><code>up</code></li>
+			<li><code>down</code></li>
+			<li><code>left</code></li>
+			<li><code>right</code></li>
+			<li><code>select</code></li>
+			<li><code>back</code></li>
+			<li><code>home</code></li>
+			<li><code>contextmenu</code></li>
+		</ul>
+		<li><b>Info Screens:</b></li>
+		<ul>
+			<li><code>info</code> (Open/Close Info screen)</li>
+			<li><code>osd</code> (Open/Close OSD screen)</li>
+			<li><code>playerstats</code> (Open/Close Player Stats screen)</li>
+		</ul>
+		<li><b>Media Playback Controls:</b></li>
+		<ul>
+			<li><code>playpause</code></li>
+			<li><code>stop</code></li>
+			<li><code>next</code> (Next Chapter or Playlist item)</li>
+			<li><code>prev</code> (Previous Chapter or Playlist item)</li>
+			<li><code>smallforward</code> (Jump forward 30 seconds)</li>
+			<li><code>smallbackward</code> (Jump backwards 30 seconds)</li>
+			<li><code>bigforward</code> (Jump forward 10 minutes)</li>
+			<li><code>bigbackward</code> (Jump backwards 10 minutes)</li>
+		</ul>
+		<li><b>Application:</b></li>
+		<ul>
+			<li><code>quit</code> (Close Kodi)</li>
+		</ul>
+	</ul>
+	
 	<br />
 
 	<h2><a id="zoom"></a>Zoom Player Control</h2>
@@ -974,6 +1029,78 @@
 		<li><code>toggle</code> (Toggle the power to the opposite of the current state.)</li>
 	</ul>
 	<br />
+	
+	<h2><a id="kasa"></a>TP-Link Kasa Smart Devices</h2>
+
+	For TP-Link Kasa control, the device identifier is <b>kasa</b>
+
+	<p>Your devices may not work if the firmware is too new (so don't update them if you can avoid it).  I am not well versed in these devices but give them a try.</p>
+
+	<p>Known models to work:</p>
+	<ul>
+		<li>Plugs</li>
+		<ul>
+			<li>HS100</li>
+			<li>HS103</li>
+			<li>HS105</li>
+			<li>HS107</li>
+			<li>HS110</li>
+			<li>KP105</li>
+			<li>KP115</li>
+			<li>KP401</li>
+		</ul>
+		<li>Power Strips</li>
+		<ul>
+			<li>EP40</li>
+			<li>HS300</li>
+			<li>KP303</li>
+			<li>KP400</li>
+		</ul>
+		<li>Wall Switches</li>
+		<ul>
+			<li>HS200</li>
+			<li>HS210</li>
+			<li>HS220</li>
+		</ul>
+		<li>Bulbs</li>
+		<ul>
+			<li>EP40</li>
+			<li>LB100</li>
+			<li>LB110</li>
+			<li>LB120</li>
+			<li>LB130</li>
+			<li>LB230</li>
+			<li>KL50</li>
+			<li>KL60</li>
+			<li>KL110</li>
+			<li>KL120</li>
+			<li>KL125</li>
+			<li>KL130</li>
+			<li>KL135</li>
+		</ul>
+		<li>Light Strips</li>
+		<ul>
+			<li>KL400</li>
+			<li>KL430</li>
+		</ul>
+	</ul>
+	
+	<p>You are more or less on your own for figuring out all the various command datas for controlling your devices.</p>
+	
+	<p>
+	I recommend installing this program <a href="https://github.com/python-kasa/python-kasa">(python-kasa)</a> and using it to issue commands with the --debug parameter<br />
+	This will show you what command is being send to the device.
+	</p>
+
+	<h3>Example Commands</h3>
+
+	<ul>
+		<li><code>{"system":{"set_relay_state":{"state":1}}}</code> (Switch ON)</li>
+		<li><code>{"system":{"set_relay_state":{"state":0}}}</code> (Switch OFF)</li>
+		<li><code>{"smartlife.iot.dimmer": {"set_brightness": {"brightness": 50}}}</code> (Set brightness to 50%)</li>
+		<li><code>{"smartlife.iot.dimmer": {"set_dimmer_transition": {"brightness": 0, "duration": 10000}}}</code> (Dim to OFF over a 10 second duration)</li>
+	</ul>
+	<br />
 
 	<h2><a id="dm"></a>Denon / Marantz AVR Control</h2>
 
@@ -1368,6 +1495,33 @@
 		For all Christie TrueLife+ commands, see the full Christie TrueLife+ command document here:<br />
 		<a href="https://github.com/nicko88/HTWebRemote/blob/master/IP%20Control%20Spec%20Documents/Christie_TruLife+.pdf">Christie_TruLife+.pdf</a>
 	</p>
+	<br />
+	
+	<h2><a id="panaproj"></a>Panasonic Projector Control</h2>
+
+	For Panasonic Projector control, the device identifier is <b>panaproj</b>
+
+	<h3>Some Basic Commands</h3>
+
+	<ul>
+		<li><code>PON</code> (Power ON)</li>
+		<li><code>POF</code> (Power OFF)</li>
+		<li><code>IIS</code> (Input Select)</li>
+		<ul>
+			<li><code>param=HD1</code> (HDMI1)</li>
+		</ul>
+		<li><code>VBR</code> (Brightness)</li>
+		<ul>
+			<li><code>param=+31</code> (Set brightness to +31)</li>
+		</ul>
+	</ul>
+
+	<p>
+		For all Panasonic projector commands, see the full Panasonic command document here:<br />
+		<a href="https://github.com/nicko88/HTWebRemote/blob/master/IP%20Control%20Spec%20Documents/Panasonic_Proj_cmds.pdf">Panasonic_Proj_cmds.pdf</a>
+	</p>
+
+	<p>Or look up the IP control document for your particular Panasonic Projector.</p>
 	<br />
 
 	<h2><a id="oppo"></a>Oppo Disc Player</h2>

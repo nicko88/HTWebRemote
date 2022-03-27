@@ -9,12 +9,14 @@ namespace HTWebRemote.Devices
     class DeviceSelector
     {
         public static List<string> DeviceTypes = new List<string> { "mpc",
+                                                                    "kodi",
                                                                     "zoom",
                                                                     "nvshield",
                                                                     "roku",
                                                                     "zappiti",
                                                                     "lirc",
                                                                     "wemo",
+                                                                    "kasa",
                                                                     "dm",
                                                                     "yamaha",
                                                                     "emotiva",
@@ -25,6 +27,7 @@ namespace HTWebRemote.Devices
                                                                     "epson",
                                                                     "benq",
                                                                     "christie",
+                                                                    "panaproj",
                                                                     "oppo",
                                                                     "dbox",
                                                                     "hdfury",
@@ -99,6 +102,9 @@ namespace HTWebRemote.Devices
                 case "mpc":
                     MPCControl.RunCmd(IP, cmd, param);
                     break;
+                case "kodi":
+                    KodiControl.RunCmd(IP, cmd, specialData);
+                    break;
                 case "zoom":
                     ZoomControl.RunCmd(IP, cmd);
                     break;
@@ -116,6 +122,9 @@ namespace HTWebRemote.Devices
                     break;
                 case "wemo":
                     WemoPlugControl.RunCmd(IP, cmd);
+                    break;
+                case "kasa":
+                    KasaControl.RunCmd(IP, cmd);
                     break;
                 case "dm":
                     DMControl.RunCmd(IP, cmd, param);
@@ -146,6 +155,9 @@ namespace HTWebRemote.Devices
                     break;
                 case "christie":
                     ChristieControl.RunCmd(IP, cmd);
+                    break;
+                case "panaproj":
+                    PanaProjControl.RunCmd(IP, cmd, param);
                     break;
                 case "oppo":
                     OppoControl.RunCmd(IP, cmd, param);

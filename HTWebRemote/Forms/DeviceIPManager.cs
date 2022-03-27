@@ -71,6 +71,12 @@ namespace HTWebRemote.Forms
                         tbSpecial.Visible = true;
                         tbSpecial.Text = values[3];
                         break;
+                    case "kodi":
+                        lblSpecial.Text = "user:pass";
+                        lblSpecial.Visible = true;
+                        tbSpecial.Visible = true;
+                        tbSpecial.Text = values[3];
+                        break;
                     case "mqtt":
                         lblSpecial.Text = "user:pass";
                         lblSpecial.Visible = true;
@@ -123,6 +129,11 @@ namespace HTWebRemote.Forms
                     case "httpget":
                         lblIP.Text = "URL:";
                         tbIP.Text = "http://";
+                        lblSpecial.Text = "user:pass";
+                        lblSpecial.Visible = true;
+                        tbSpecial.Visible = true;
+                        break;
+                    case "kodi":
                         lblSpecial.Text = "user:pass";
                         lblSpecial.Visible = true;
                         tbSpecial.Visible = true;

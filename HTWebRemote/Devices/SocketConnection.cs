@@ -82,6 +82,7 @@ namespace HTWebRemote.Devices
         public void CloseSocket()
         {
             socket?.Close();
+            socket?.Dispose();
         }
     }
 }
