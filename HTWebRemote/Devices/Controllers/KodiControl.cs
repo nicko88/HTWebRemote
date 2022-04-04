@@ -65,7 +65,7 @@ namespace HTWebRemote.Devices.Controllers
                         string playerid = (string)json.SelectToken("result[0].playerid");
 
                         StringContent playerCmd = new StringContent(jsonCmd.Replace("xx", playerid), Encoding.UTF8, "application/json");
-                        string cmdResult = httpClient.PostAsync($"http://{IP}:8080/jsonrpc", playerCmd).Result.Content.ReadAsStringAsync().Result;
+                        _ = httpClient.PostAsync($"http://{IP}:8080/jsonrpc", playerCmd).Result;
                     }
                 }
                 else
@@ -75,7 +75,7 @@ namespace HTWebRemote.Devices.Controllers
             }
             catch (Exception e)
             {
-                Util.ErrorHandler.SendError($"Cannot Send command to to Kodi at {IP}\n\n{e.Message}");
+                Util.ErrorHandler.SendError($"Cannot send command to to Kodi at {IP}\n\n{e.Message}");
             }
         }
     }

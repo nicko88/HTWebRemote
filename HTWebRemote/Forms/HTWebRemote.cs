@@ -8,6 +8,9 @@ using System.Windows.Forms;
 using HTWebRemote.Util;
 using HTWebRemote.RemoteFile;
 using System.Drawing;
+using System.Net.Http;
+using Newtonsoft.Json.Linq;
+using System.Threading.Tasks;
 
 namespace HTWebRemote
 {
@@ -30,7 +33,7 @@ namespace HTWebRemote
             httpThread.Start();
         }
 
-        public void Setup()
+        public async void Setup()
         {
             ConfigHelper.Setup();
 
@@ -56,6 +59,8 @@ namespace HTWebRemote
             {
                 cbxShowErrors.Checked = true;
             }
+
+            await CheckNewVersion();
         }
 
         public void StartListen()
@@ -190,23 +195,58 @@ namespace HTWebRemote
             return htmlPage;
         }
 
-        private void trayIcon_MouseClick(object sender, MouseEventArgs e)
+        private async Task CheckNewVersion()
+        {
+            using (HttpClient httpClient = new HttpClient())
+            {
+                try
+                {
+                    httpClient.DefaultRequestHeaders.Add("User-Agent", ".netapp");
+                    string releaseJSON = await httpClient.GetStringAsync("https://api.github.com/repos/nicko88/htwebremote/releases/latest");
+                    JObject data = JObject.Parse(releaseJSON);
+                    string latest = (string)data["tag_name"];
+
+                    string version = "v" + Assembly.GetExecutingAssembly().GetName().Version.ToString().TrimEnd(new char[] { '.', '0' });
+
+                    if (version != latest)
+                    {
+                        lnkNewVersion.Text = latest;
+                        lnkNewVersion.Visible = true;
+                        lblNewVersion.Visible = true;
+                    }
+                }
+                catch { }
+            }
+        }
+
+        private async void trayIcon_MouseClick(object sender, MouseEventArgs e)
         {
             ShowInTaskbar = true;
             Show();
             WindowState = FormWindowState.Normal;
             BringToFront();
+            await CheckNewVersion();
         }
 
         private void HTWebRemote_FormClosing(object sender, FormClosingEventArgs e)
         {
-            trayIcon.Visible = false;
-            try
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to close HTWebRemote?", "Close HTWebRemote?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (dialogResult == DialogResult.Yes)
             {
-                Process.GetProcessesByName("adb")[0].Kill();
+
+                trayIcon.Visible = false;
+                try
+                {
+                    Process.GetProcessesByName("adb")[0].Kill();
+                }
+                catch { }
+                Environment.Exit(0);
             }
-            catch { }
-            Environment.Exit(0);
+            else
+            {
+                e.Cancel = true;
+            }
         }
 
         private void LblDoc_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -299,6 +339,11 @@ namespace HTWebRemote
         {
             Forms.ManageRemoteHost sync = new Forms.ManageRemoteHost();
             sync.ShowDialog();
+        }
+
+        private void lnkNewVersion_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start($"https://github.com/nicko88/HTWebRemote/releases/latest");
         }
     }
 }

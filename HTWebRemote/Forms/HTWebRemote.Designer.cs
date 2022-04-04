@@ -42,6 +42,8 @@
             this.btnMinimizeToTray = new System.Windows.Forms.Button();
             this.pbDonate = new System.Windows.Forms.PictureBox();
             this.btnSyncRemotes = new System.Windows.Forms.Button();
+            this.lblNewVersion = new System.Windows.Forms.Label();
+            this.lnkNewVersion = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pbDonate)).BeginInit();
             this.SuspendLayout();
             // 
@@ -95,10 +97,10 @@
             this.lblDoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDoc.Location = new System.Drawing.Point(164, 19);
             this.lblDoc.Name = "lblDoc";
-            this.lblDoc.Size = new System.Drawing.Size(257, 16);
+            this.lblDoc.Size = new System.Drawing.Size(111, 16);
             this.lblDoc.TabIndex = 15;
             this.lblDoc.TabStop = true;
-            this.lblDoc.Text = "Documentation / Supported Devices";
+            this.lblDoc.Text = "Documentation";
             this.lblDoc.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LblDoc_LinkClicked);
             // 
             // btnEditRemoteUI
@@ -192,12 +194,39 @@
             this.btnSyncRemotes.UseVisualStyleBackColor = true;
             this.btnSyncRemotes.Click += new System.EventHandler(this.btnSyncRemotes_Click);
             // 
+            // lblNewVersion
+            // 
+            this.lblNewVersion.AutoSize = true;
+            this.lblNewVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNewVersion.ForeColor = System.Drawing.Color.Green;
+            this.lblNewVersion.Location = new System.Drawing.Point(291, 19);
+            this.lblNewVersion.Name = "lblNewVersion";
+            this.lblNewVersion.Size = new System.Drawing.Size(99, 16);
+            this.lblNewVersion.TabIndex = 31;
+            this.lblNewVersion.Text = "New Version:";
+            this.lblNewVersion.Visible = false;
+            // 
+            // lnkNewVersion
+            // 
+            this.lnkNewVersion.AutoSize = true;
+            this.lnkNewVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lnkNewVersion.Location = new System.Drawing.Point(390, 19);
+            this.lnkNewVersion.Name = "lnkNewVersion";
+            this.lnkNewVersion.Size = new System.Drawing.Size(51, 16);
+            this.lnkNewVersion.TabIndex = 32;
+            this.lnkNewVersion.TabStop = true;
+            this.lnkNewVersion.Text = "vX.X.X";
+            this.lnkNewVersion.Visible = false;
+            this.lnkNewVersion.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkNewVersion_LinkClicked);
+            // 
             // HTWebRemote
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(627, 121);
+            this.Controls.Add(this.lnkNewVersion);
+            this.Controls.Add(this.lblNewVersion);
             this.Controls.Add(this.btnSyncRemotes);
             this.Controls.Add(this.pbDonate);
             this.Controls.Add(this.btnMinimizeToTray);
@@ -237,6 +266,8 @@
         private System.Windows.Forms.Button btnMinimizeToTray;
         private System.Windows.Forms.PictureBox pbDonate;
         private System.Windows.Forms.Button btnSyncRemotes;
+        private System.Windows.Forms.Label lblNewVersion;
+        private System.Windows.Forms.LinkLabel lnkNewVersion;
     }
 }
 

@@ -188,6 +188,7 @@
 		<li><a href="#panaproj">Panasonic Projectors</a></li>
 		<li><a href="#oppo">Oppo Disc Player</a></li>
 		<li><a href="#dbox">D-BOX HEMC</a></li>
+		<li><a href="#minidsp-rs">MiniDSP Devices</a></li>
 		<li><a href="#hdfury">HDfury Devices</a></li>
 		<li><a href="#rs232">RS232 Serial Devices</a></li>
 		<li><a href="#httpget">HTTP URL Commands (GET)</a></li>
@@ -1250,11 +1251,35 @@
 	<h4>param:</h4>
 
 	<ul>
+		<li></li>
 		<li><code>0bf4</code> (Volume Up)</li>
 		<li><code>09f6</code> (Volume Down)</li>
+		<li><code>0af5</code> (Mute Toggle)</li>
 	</ul>
+	
+	<p>You can also include multiple IR NEC Codes in one command by separating them with commas.</p>
+	
+	<h3>Go to Volume:</h3>
+	
+	<ul>
+		<li><code>cmd = vol</code></li>
+		<ul>
+			<li><code>param = XX,YYY</code></li>
+		</ul>
+	</ul>
+	
+	<p>This will "fade" your volume from it's current value to your target value 1 dB at a time.</p>
+	
+	<p>
+		Where XX is the volume you want to go to, and YYY is some number of milliseconds between each 1dB adjustment.<br />
+		Recommend numbers 300 and greater as lower seems to fast to work.
+	</p>
 
-	You can also include multiple IR NEC Codes in one command by separating them with commas.
+	<b>HTP-1 Query Command</b>
+	<br />
+	<ul>
+		<li><code>query:getvol</code> (Displays the HTP-1's current Volume)</li>
+	</ul>
 
 	<p>
 		For all Monoprice HTP-1 commands, see the full Monoprice HTP-1 command document here:<br />
@@ -1613,6 +1638,39 @@
 			<li><a href="https://github.com/nicko88/HTWebRemote/blob/master/IP%20Control%20Spec%20Documents/HDfury_Diva.txt">HDfury_Diva.txt</a></li>
 		</ul>
 	</p>
+	<br />
+	
+	<h2><a id="minidsp-rs"></a>MiniDSP-rs Control</h2>
+
+	For MiniDSP-rs control, the device identifier is <b>minidsp-rs</b>
+	
+	<p>To control a MiniDSP device, you must set up and use the <a href="https://github.com/mrene/minidsp-rs">minidsp-rs</a> service.<p>
+	
+	<p>Before using this device control in HTWebRemote, you must enable the HTTP service in the minidsp-rs config.<p>
+	
+	<p>
+		To do this, open the <code>config.toml</code> file (located in: <code>/etc/minidsp/config.toml</code> on linux) and find the line: <code>bind_address = "127.0.0.1:5380"</code><br />
+		Change this line to: <code>bind_address = "0.0.0.0:5380"</code> and restart the minidsp-rs service (<code>sudo systemctl restart minidsp</code>).
+	</p>
+	
+	<h3>Some basic MiniDSP-rs Commands</h3>
+
+	<ul>
+		<li><code>config1</code> (Select Config 1)</li>
+		<li><code>config2</code> (Select Config 2)</li>
+		<li><code>config3</code> (Select Config 3)</li>
+		<li><code>config4</code> (Select Config 4)</li>
+		<li><code>analog</code> (Select Analog input)</li>
+		<li><code>toslink</code> (Select Toslink input)</li>
+		<li><code>usb</code> (Select USB input)</li>
+		<li><code>mute</code></li>
+		<li><code>unmute</code></li>
+		<li><code>volume</code></li>
+		<ul>
+			<li><code>param=XX</code> (Where XX is your target volume)</li>
+		</ul>
+	</ul>
+	
 	<br />
 
 	<h2><a id="rs232"></a>RS232 Serial Device Control</h2>

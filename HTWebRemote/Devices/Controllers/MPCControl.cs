@@ -1,6 +1,5 @@
 ﻿using System;
-using System.IO;
-using System.Net;
+using System.Net.Http;
 using System.Text;
 
 namespace HTWebRemote.Devices.Controllers
@@ -11,9 +10,7 @@ namespace HTWebRemote.Devices.Controllers
         {
             try
             {
-                WebRequest request = WebRequest.Create($"http://{IP}/command.html");
                 string postData = "wm_command=" + command_id;
-
                 if (command_id == "-2")
                 {
                     postData += "&volume=" + param;
@@ -23,16 +20,12 @@ namespace HTWebRemote.Devices.Controllers
                     postData += "&position=" + param;
                 }
 
-                byte[] data = Encoding.ASCII.GetBytes(postData);
-
-                request.Method = "POST";
-                request.ContentType = "application/x-www-form-urlencoded";
-                request.ContentLength = data.Length;
-
-                using (Stream stream = request.GetRequestStream())
+                using (HttpClient httpClient = new HttpClient())
                 {
-                    stream.Write(data, 0, data.Length);
+                    StringContent postContent = new StringContent(postData, Encoding.UTF8, "application/x-www-form-urlencoded");
+                    _ = httpClient.PostAsync($"http://{IP}/command.html", postContent).Result;
                 }
+
             }
             catch (Exception e)
             {

@@ -28,7 +28,7 @@ If you don't know how to do this, just do a web search for how to add a web page
 #### Screenshots and Demo
 
 ###### Main screen
-<img src="https://user-images.githubusercontent.com/1866075/156895323-74305af3-eaaa-4bc0-9876-a767fae0ceda.png" width="500px" />
+<img src="https://user-images.githubusercontent.com/1866075/161457977-f2abd819-df51-4301-95ee-b990a37010ea.png" width="500px" />
 
 ###### Remote Editor
 <img src="https://user-images.githubusercontent.com/1866075/139782414-25d768a2-dc89-4b72-99b6-c1d11ba1e5af.png" width="500px" />
@@ -71,6 +71,7 @@ Finally, HTWebRemote includes a sort of API which lets you send commands from ot
 * Oppo Disc Player
 * D-BOX HEMC
 * HDFury Devices
+* MiniDSP Devices (via [minidsp-rs](https://github.com/mrene/minidsp-rs))
 * RS232 Serial Devices
 * HTTP URL Commands (GET)
 * MQTT Messaging Protocol
