@@ -73,7 +73,7 @@ namespace HTWebRemote.RemoteFile
                     {
                         confirm = ",Popup";
                     }
-                    return $"  Button={RelativeSize},{Label},{Color}{confirm}";
+                    return $"  Button={RelativeSize},{Label}{confirm}";
                 case RemoteItemType.Blank:
                     return $"  BLANK={RelativeSize}";
                 case RemoteItemType.NewRow:

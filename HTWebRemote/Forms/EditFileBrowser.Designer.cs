@@ -53,6 +53,8 @@
             this.lblYTMediaPlayerPath = new System.Windows.Forms.Label();
             this.cbEnableYoutube = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.btnAddAlias = new System.Windows.Forms.Button();
+            this.tbAlias = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -68,6 +70,7 @@
             this.lbPaths.Name = "lbPaths";
             this.lbPaths.Size = new System.Drawing.Size(695, 224);
             this.lbPaths.TabIndex = 0;
+            this.lbPaths.SelectedIndexChanged += new System.EventHandler(this.lbPaths_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -344,12 +347,33 @@
             this.label5.TabIndex = 10;
             this.label5.Text = "YouTube Media Player:";
             // 
+            // btnAddAlias
+            // 
+            this.btnAddAlias.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddAlias.Location = new System.Drawing.Point(559, 2);
+            this.btnAddAlias.Name = "btnAddAlias";
+            this.btnAddAlias.Size = new System.Drawing.Size(149, 28);
+            this.btnAddAlias.TabIndex = 22;
+            this.btnAddAlias.Text = "Set Folder Alias";
+            this.btnAddAlias.UseVisualStyleBackColor = true;
+            this.btnAddAlias.Click += new System.EventHandler(this.btnAddAlias_Click);
+            // 
+            // tbAlias
+            // 
+            this.tbAlias.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbAlias.Location = new System.Drawing.Point(245, 3);
+            this.tbAlias.Name = "tbAlias";
+            this.tbAlias.Size = new System.Drawing.Size(308, 26);
+            this.tbAlias.TabIndex = 20;
+            // 
             // EditFileBrowser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(720, 513);
+            this.Controls.Add(this.btnAddAlias);
             this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.tbAlias);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lbPaths);
             this.Controls.Add(this.label1);
@@ -396,5 +420,7 @@
         private System.Windows.Forms.Button btnAddManual;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox tbManualPath;
+        private System.Windows.Forms.Button btnAddAlias;
+        private System.Windows.Forms.TextBox tbAlias;
     }
 }

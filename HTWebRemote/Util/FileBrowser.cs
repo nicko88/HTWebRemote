@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -15,6 +16,8 @@ namespace HTWebRemote.Util
         private static string _savedLocation = "";
         private static string _YTstring;
         private static string _prevSearch;
+        private static string _sortBy;
+        private static string _sortDir;
 
         public static string LoadFileBrowser(HttpListenerRequest request)
         {
@@ -27,10 +30,22 @@ namespace HTWebRemote.Util
 
             string currentPath = "";
             string search = "";
+            _sortBy = "Name";
+            _sortDir = "ASC";
             try
             {
                 currentPath = Base64Decode(request.QueryString["path"]);
                 search = request.QueryString["search"];
+
+                if(!string.IsNullOrEmpty(request.QueryString["sortby"]))
+                {
+                    _sortBy = request.QueryString["sortby"];
+                }
+                if (!string.IsNullOrEmpty(request.QueryString["sortdir"]))
+                {
+                    _sortDir = request.QueryString["sortdir"];
+                }
+
             }
             catch { }
 
@@ -52,7 +67,8 @@ namespace HTWebRemote.Util
                     List<string> paths = File.ReadLines($@"{ConfigHelper.WorkingPath}\HTWebRemoteBrowsePaths.txt").ToList();
                     foreach (string path in paths)
                     {
-                        if (path.Contains(_savedLocation.TrimEnd('\\')))
+                        string[] vals = path.Split(',');
+                        if (vals[0].Contains(_savedLocation.TrimEnd('\\')))
                         {
                             currentPath = null;
                         }
@@ -184,41 +200,63 @@ namespace HTWebRemote.Util
                     page.Append(@"<input type=""text"" id=""search"" name=""search"" class=""form-control mb-2 mr-sm-2 form-check-inline"" style=""width: 200px; display: inline;""><button type=""submit"" id=""submit"" class=""btn btn-primary"">Search</button>");
                     page.Append("</form>");
 
-                    page.Append(@"<button onclick=""window.location.href='FBback'; "" class=""btn btn-primary"" style=""margin-right: 4px;"">Back</button>");
-                    page.Append(@"<button onclick=""window.location.href='FBhome'; "" class=""btn btn-primary"">Home</button>");
+                    page.Append(@"<div class=""nrow"">");
+                    page.Append(@"<button onclick=""window.location.href='FBback'; "" class=""nitem btn btn-primary"" style=""flex-grow: 1; margin-right: 4px;"">Back</button>");
+                    page.Append(@"<button onclick=""window.location.href='FBhome'; "" class=""nitem btn btn-primary"" style=""flex-grow: 1;"">Home</button>");
+
+                    string sortByChange;
+                    if (_sortBy == "Name")
+                    {
+                        sortByChange = "&sortby=Date&sortdir=DESC";
+                    }
+                    else
+                    {
+                        sortByChange = "&sortby=Name&sortdir=ASC";
+                    }
+
+                    string sortDirChange;
+                    if (_sortDir == "ASC")
+                    {
+                        sortDirChange = $"&sortby={_sortBy}&sortdir=DESC";
+                    }
+                    else
+                    {
+                        sortDirChange = $"&sortby={_sortBy}&sortdir=ASC";
+                    }
+
+                    page.Append(@"<span class=""nitem"" style=""flex-grow: 3; color: White; text-align: end; padding-top: 5;"">Sorted By:</span>");
+                    page.Append($@"<button onclick=""window.location.href=window.location.origin + '/FB' + '?path={Base64Encode(currentPath)}' + '{sortByChange}'; "" class=""nitem btn btn-primary"" style=""flex-grow: 1; margin-right: 4px;"">{_sortBy}</button>");
+                    page.Append($@"<button onclick=""window.location.href=window.location.origin + '/FB' + '?path={Base64Encode(currentPath)}' + '{sortDirChange}'; "" class=""nitem btn btn-primary"" style=""flex-grow: 1;"">{_sortDir}</button>");
+                    page.Append(@"</div>");
 
                     try
                     {
-                        string[] dirs = Directory.GetDirectories(currentPath);
-                        List<string> dirList = new List<string>(dirs);
-                        dirList.Sort();
+                        DirectoryInfo[] dirs = GetDirectories(currentPath);
 
                         page.Append(@"<div class=""list-group"">");
-                        if (dirList.Count > 0)
+                        if (dirs.Length > 0)
                         {
                             page.Append(@"<h4 style=""color: white;"">Folders</h4>");
                         }
-                        foreach (string path in dirList)
+                        foreach (DirectoryInfo dir in dirs)
                         {
-                            page.Append($@"<a href=""FB?path={Base64Encode(path)}"" style=""padding: 4px 8px;"" class=""list-group-item list-group-item-action list-group-item-dark"">{Path.GetFileName(path)}</a>");
+                            page.Append($@"<a href=""FB?path={Base64Encode(dir.FullName)}"" style=""padding: 4px 8px;"" class=""list-group-item list-group-item-action list-group-item-dark"">{dir.Name}</a>");
                         }
                     }
                     catch { }
 
                     try
                     {
-                        string[] files = Directory.GetFiles(currentPath);
-                        List<string> fileList = new List<string>(files);
-                        fileList.Sort();
+                        FileInfo[] files = GetFiles(currentPath);
 
                         page.Append(@"<div class=""list-group"">");
-                        if (fileList.Count > 0)
+                        if (files.Length > 0)
                         {
                             page.Append(@"<h4 style=""color: white;"">Files</h4>");
                         }
-                        foreach (string path in fileList)
+                        foreach (FileInfo file in files)
                         {
-                            page.Append($@"<a href=""FB?path={Base64Encode(path)}"" style=""padding: 4px 8px;"" class=""list-group-item list-group-item-action list-group-item-dark"">{Path.GetFileName(path)}</a>");
+                            page.Append($@"<a href=""FB?path={Base64Encode(file.FullName)}"" style=""padding: 4px 8px;"" class=""list-group-item list-group-item-action list-group-item-dark"">{file.Name}</a>");
                         }
                     }
                     catch { }
@@ -257,7 +295,8 @@ namespace HTWebRemote.Util
 
                     foreach (string path in paths)
                     {
-                        string[] files = Directory.GetFiles(path, $"*{search}*", SearchOption.AllDirectories);
+                        string[] vals = path.Split(',');
+                        string[] files = Directory.GetFiles(vals[0], $"*{search}*", SearchOption.AllDirectories);
                         fileList.AddRange(files.ToList());
                     }
 
@@ -298,8 +337,34 @@ namespace HTWebRemote.Util
                     page.Append("</form>");
                 }
 
-                page.Append(@"<button onclick=""window.location.href='FBback'; "" class=""btn btn-primary"" style=""margin-right: 4px;"">Back</button>");
-                page.Append(@"<button onclick=""window.location.href='FBhome'; "" class=""btn btn-primary"">Home</button>");
+                page.Append(@"<div class=""nrow"">");
+                page.Append(@"<button onclick=""window.location.href='FBback'; "" class=""nitem btn btn-primary"" style=""flex-grow: 1; margin-right: 4px;"">Back</button>");
+                page.Append(@"<button onclick=""window.location.href='FBhome'; "" class=""nitem btn btn-primary"" style=""flex-grow: 1;"">Home</button>");
+
+                string sortByChange;
+                if (_sortBy == "Name")
+                {
+                    sortByChange = "&sortby=Date&sortdir=DESC";
+                }
+                else
+                {
+                    sortByChange = "&sortby=Name&sortdir=ASC";
+                }
+
+                string sortDirChange;
+                if (_sortDir == "ASC")
+                {
+                    sortDirChange = $"&sortby={_sortBy}&sortdir=DESC";
+                }
+                else
+                {
+                    sortDirChange = $"&sortby={_sortBy}&sortdir=ASC";
+                }
+
+                page.Append(@"<span class=""nitem"" style=""flex-grow: 3; color: White; text-align: end; padding-top: 5;"">Sorted By:</span>");
+                page.Append($@"<button onclick=""window.location.href=window.location.origin + '/FB' + '?path={Base64Encode(currentPath)}' + '{sortByChange}'; "" class=""nitem btn btn-primary"" style=""flex-grow: 1; margin-right: 4px;"">{_sortBy}</button>");
+                page.Append($@"<button onclick=""window.location.href=window.location.origin + '/FB' + '?path={Base64Encode(currentPath)}' + '{sortDirChange}'; "" class=""nitem btn btn-primary"" style=""flex-grow: 1;"">{_sortDir}</button>");
+                page.Append(@"</div>");
 
                 try
                 {
@@ -312,7 +377,13 @@ namespace HTWebRemote.Util
                     }
                     foreach (string path in paths)
                     {
-                        page.Append($@"<a href=""FB?path={Base64Encode(path)}"" style=""padding: 4px 8px;"" class=""list-group-item list-group-item-action list-group-item-dark"">{path}</a>");
+                        string[] vals = path.Split(',');
+                        string alias = vals[0];
+                        if(vals.Length > 1)
+                        {
+                            alias = vals[1];
+                        }
+                        page.Append($@"<a href=""FB?path={Base64Encode(vals[0])}"" style=""padding: 4px 8px;"" class=""list-group-item list-group-item-action list-group-item-dark"">{alias}</a>");
                     }
                 }
                 catch
@@ -392,12 +463,74 @@ namespace HTWebRemote.Util
             return sb.ToString();
         }
 
+        private static FileInfo[] GetFiles(string path)
+        {
+            FileInfo[] files;
+            DirectoryInfo info = new DirectoryInfo(path);
+
+            if (_sortBy == "Name")
+            {
+                if (_sortDir == "ASC")
+                {
+                    files = info.GetFiles().OrderBy(x => x.Name).ToArray();
+                }
+                else
+                {
+                    files = info.GetFiles().OrderByDescending(x => x.Name).ToArray();
+                }
+            }
+            else
+            {
+                if (_sortDir == "ASC")
+                {
+                    files = info.GetFiles().OrderBy(x => x.CreationTime).ToArray();
+                }
+                else
+                {
+                    files = info.GetFiles().OrderByDescending(x => x.CreationTime).ToArray();
+                }
+            }
+
+            return files;
+        }
+
+        private static DirectoryInfo[] GetDirectories(string path)
+        {
+            DirectoryInfo[] dirs;
+            DirectoryInfo info = new DirectoryInfo(path);
+
+            if (_sortBy == "Name")
+            {
+                if (_sortDir == "ASC")
+                {
+                    dirs = info.GetDirectories().OrderBy(x => x.Name).ToArray();
+                }
+                else
+                {
+                    dirs = info.GetDirectories().OrderByDescending(x => x.Name).ToArray();
+                }
+            }
+            else
+            {
+                if (_sortDir == "ASC")
+                {
+                    dirs = info.GetDirectories().OrderBy(x => x.CreationTime).ToArray();
+                }
+                else
+                {
+                    dirs = info.GetDirectories().OrderByDescending(x => x.CreationTime).ToArray();
+                }
+            }
+
+            return dirs;
+        }
+
         public static string Base64Encode(string plainText)
         {
             if (!string.IsNullOrEmpty(plainText))
             {
                 byte[] plainTextBytes = Encoding.UTF8.GetBytes(plainText);
-                return System.Convert.ToBase64String(plainTextBytes);
+                return Convert.ToBase64String(plainTextBytes);
             }
             return "";
         }
@@ -406,7 +539,7 @@ namespace HTWebRemote.Util
         {
             if (!string.IsNullOrEmpty(base64EncodedData))
             {
-                byte[] base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
+                byte[] base64EncodedBytes = Convert.FromBase64String(base64EncodedData);
                 return Encoding.UTF8.GetString(base64EncodedBytes);
             }
             return null;

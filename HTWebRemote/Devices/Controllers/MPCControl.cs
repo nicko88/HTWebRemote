@@ -10,14 +10,14 @@ namespace HTWebRemote.Devices.Controllers
         {
             try
             {
-                string postData = "wm_command=" + command_id;
+                string postData = $"wm_command={command_id}";
                 if (command_id == "-2")
                 {
-                    postData += "&volume=" + param;
+                    postData += $"&volume={param}";
                 }
                 if (command_id == "-1")
                 {
-                    postData += "&position=" + param;
+                    postData += $"&position={param}";
                 }
 
                 using (HttpClient httpClient = new HttpClient())

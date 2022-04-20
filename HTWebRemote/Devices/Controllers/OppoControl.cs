@@ -14,7 +14,7 @@ namespace HTWebRemote.Devices.Controllers
                 string command = cmd;
                 if (!string.IsNullOrEmpty(param))
                 {
-                    command = command + " " + param;
+                    command = $"{command} {param}";
                 }
 
                 OppoSocket.SendData(Encoding.ASCII.GetBytes($"#{command}\r"));

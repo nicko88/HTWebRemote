@@ -33,6 +33,9 @@ namespace HTWebRemote.Devices
                                                                     "hdfury",
                                                                     "minidsp-rs",
                                                                     "rs232",
+                                                                    "tcp",
+                                                                    "udp",
+                                                                    "httppost",
                                                                     "httpget",
                                                                     "mqtt" };
 
@@ -173,7 +176,16 @@ namespace HTWebRemote.Devices
                     MiniDSPrsControl.RunCmd(IP, cmd, param);
                     break;
                 case "rs232":
-                    RS232Control.RunCmd(IP, cmd);
+                    RS232Control.RunCmd(IP, cmd, param);
+                    break;
+                case "tcp":
+                    TCPUDPControl.RunCmd(true, IP, cmd, param);
+                    break;
+                case "udp":
+                    TCPUDPControl.RunCmd(false, IP, cmd, param);
+                    break;
+                case "httppost":
+                    HttpPostControl.RunCmd(IP, cmd, param, specialData);
                     break;
                 case "httpget":
                     HttpGetControl.RunCmd(IP, cmd, specialData);

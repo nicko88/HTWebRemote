@@ -1,6 +1,8 @@
 ﻿using System;
-using System.Globalization;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 
 namespace HTWebRemote.Devices.Controllers
@@ -11,36 +13,16 @@ namespace HTWebRemote.Devices.Controllers
         {
             try
             {
-                using (UdpClient udpClient = new UdpClient())
+                PhysicalAddress physicalAddress = PhysicalAddress.Parse(mac.Replace(":","-"));
+
+                IEnumerable<byte> header = Enumerable.Repeat(byte.MaxValue, 6);
+                IEnumerable<byte> data = Enumerable.Repeat(physicalAddress.GetAddressBytes(), 16).SelectMany(m => m);
+
+                byte[] magicPacket = header.Concat(data).ToArray();
+
+                using (UdpClient client = new UdpClient())
                 {
-                    // enable UDP broadcasting for UdpClient
-                    udpClient.EnableBroadcast = true;
-
-                    byte[] dgram = new byte[1024];
-
-                    // 6 magic bytes
-                    for (int i = 0; i < 6; i++)
-                    {
-                        dgram[i] = 255;
-                    }
-
-                    // convert MAC-address to bytes
-                    byte[] address_bytes = new byte[6];
-                    for (int i = 0; i < 6; i++)
-                    {
-                        address_bytes[i] = byte.Parse(mac.Substring(3 * i, 2), NumberStyles.HexNumber);
-                    }
-
-                    // repeat MAC-address 16 times in the datagram
-                    Span<byte> macaddress_block = dgram.AsSpan(6, 16 * 6);
-                    for (int i = 0; i < 16; i++)
-                    {
-                        address_bytes.CopyTo(macaddress_block.Slice(6 * i));
-                    }
-
-                    // send datagram using UDP and port 0
-                    udpClient.Send(dgram, dgram.Length, new IPEndPoint(IPAddress.Broadcast, 0));
-                    udpClient.Close();
+                    client.Send(magicPacket, magicPacket.Length, new IPEndPoint(IPAddress.Broadcast, 9));
                 }
             }
             catch (Exception e)

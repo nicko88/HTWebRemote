@@ -71,6 +71,13 @@ namespace HTWebRemote.Forms
                         tbSpecial.Visible = true;
                         tbSpecial.Text = values[3];
                         break;
+                    case "httppost":
+                        lblIP.Text = "URL:";
+                        lblSpecial.Text = "user:pass";
+                        lblSpecial.Visible = true;
+                        tbSpecial.Visible = true;
+                        tbSpecial.Text = values[3];
+                        break;
                     case "kodi":
                         lblSpecial.Text = "user:pass";
                         lblSpecial.Visible = true;
@@ -82,6 +89,12 @@ namespace HTWebRemote.Forms
                         lblSpecial.Visible = true;
                         tbSpecial.Visible = true;
                         tbSpecial.Text = values[3];
+                        break;
+                    case "tcp":
+                        lblIP.Text = "IP:port";
+                        break;
+                    case "udp":
+                        lblIP.Text = "IP:port";
                         break;
                     case "jvc":
                         lblSpecial.Text = "Password (NZ):";
@@ -99,6 +112,7 @@ namespace HTWebRemote.Forms
         private void cmbDeviceType_SelectedIndexChanged(object sender, EventArgs e)
         {
             tbIP.Visible = true;
+            tbIP.Text = "";
             cmbCOMport.Visible = false;
             cmbLinuxSerial.Visible = false;
             lblIP.Text = "IP:(port optional):";
@@ -133,6 +147,13 @@ namespace HTWebRemote.Forms
                         lblSpecial.Visible = true;
                         tbSpecial.Visible = true;
                         break;
+                    case "httppost":
+                        lblIP.Text = "URL:";
+                        tbIP.Text = "http://";
+                        lblSpecial.Text = "user:pass";
+                        lblSpecial.Visible = true;
+                        tbSpecial.Visible = true;
+                        break;
                     case "kodi":
                         lblSpecial.Text = "user:pass";
                         lblSpecial.Visible = true;
@@ -143,13 +164,18 @@ namespace HTWebRemote.Forms
                         lblSpecial.Visible = true;
                         tbSpecial.Visible = true;
                         break;
+                    case "tcp":
+                        lblIP.Text = "IP:port";
+                        break;
+                    case "udp":
+                        lblIP.Text = "IP:port";
+                        break;
                     case "jvc":
                         lblSpecial.Text = "Password (NZ):";
                         lblSpecial.Visible = true;
                         tbSpecial.Visible = true;
                         break;
                     default:
-                        tbIP.Text = "";
                         break;
                 }
 

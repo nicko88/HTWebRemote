@@ -223,5 +223,47 @@ namespace HTWebRemote.Forms
         {
             System.Diagnostics.Process.Start("https://developers.google.com/youtube/v3/getting-started");
         }
+
+        private void btnAddAlias_Click(object sender, EventArgs e)
+        {
+            if(lbPaths.SelectedIndex > -1)
+            {
+                string[] vals = lbPaths.SelectedItem.ToString().Split(',');
+                if(!string.IsNullOrEmpty(tbAlias.Text))
+                {
+                    lbPaths.Items[lbPaths.SelectedIndex] = vals[0] + "," + tbAlias.Text.Replace(",", "");
+                }
+                else
+                {
+                    lbPaths.Items[lbPaths.SelectedIndex] = vals[0];
+                }
+
+                File.Delete(ConfigHelper.browsePaths);
+                foreach (string path in lbPaths.Items)
+                {
+                    File.AppendAllText(ConfigHelper.browsePaths, path + Environment.NewLine);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a folder path to add an alias to.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void lbPaths_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lbPaths.SelectedIndex > -1)
+            {
+                string[] vals = lbPaths.SelectedItem.ToString().Split(',');
+                if (vals.Length > 1)
+                {
+                    tbAlias.Text = vals[1];
+                }
+                else
+                {
+                    tbAlias.Text = "";
+                }
+            }
+        }
     }
 }

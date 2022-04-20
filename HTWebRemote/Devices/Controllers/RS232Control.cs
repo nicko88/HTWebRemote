@@ -1,37 +1,35 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO.Ports;
+using System.Text;
 using System.Threading;
 
 namespace HTWebRemote.Devices.Controllers
 {
     class RS232Control
     {
-        public static void RunCmd(string COMport, string cmd)
+        public static void RunCmd(string COMport, string cmd, string param)
         {
             try
             {
                 using (SerialPort sp = new SerialPort(COMport, 9600, Parity.None, 8, StopBits.One))
                 {
-                    string newLine = "";
+                    byte[] cmdBytes;
+                    if (param == "hex")
+                    {
+                        cmdBytes = HexStringToBytes(cmd);
+                    }
+                    else
+                    {
+                        cmd = cmd.Replace("<CR>", "\r");
+                        cmd = cmd.Replace("<LF>", "\n");
+                        cmd = cmd.Replace("<CRLF>", "\r\n");
 
-                    if(cmd.Contains("<CR>"))
-                    {
-                        newLine = "\r";
-                        cmd = cmd.Replace("<CR>", "");
-                    }
-                    if(cmd.Contains("<LF>"))
-                    {
-                        newLine = "\n";
-                        cmd = cmd.Replace("<LF>", "");
-                    }
-                    if (cmd.Contains("<CRLF>"))
-                    {
-                        newLine = "\r\n";
-                        cmd = cmd.Replace("<CRLF>", "");
+                        cmdBytes = Encoding.ASCII.GetBytes(cmd);
                     }
 
                     sp.Open();
-                    sp.Write(cmd + newLine);
+                    sp.Write(cmdBytes, 0, cmdBytes.Length);
                     Thread.Sleep(100);
                     sp.Close();
                     sp.Dispose();
@@ -41,6 +39,27 @@ namespace HTWebRemote.Devices.Controllers
             {
                 Util.ErrorHandler.SendError($"Cannot connect to {COMport}\n\n{e.Message}");
             }
+        }
+
+        private static byte[] HexStringToBytes(string hexString)
+        {
+            string[] hexVals = hexString.Replace("0x", "").Split(new char[] { ' ', ',' });
+
+            List<byte> bytes = new List<byte>();
+
+            try
+            {
+                foreach (string hex in hexVals)
+                {
+                    bytes.Add(Convert.ToByte(hex, 16));
+                }
+            }
+            catch (Exception e)
+            {
+                Util.ErrorHandler.SendError($"Error converting hex values.\n\n{e.Message}");
+            }
+
+            return bytes.ToArray();
         }
     }
 }

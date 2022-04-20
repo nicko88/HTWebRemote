@@ -31,6 +31,7 @@
             this.lbRemoteItems = new System.Windows.Forms.ListBox();
             this.webBrowser = new System.Windows.Forms.WebBrowser();
             this.panelButton = new System.Windows.Forms.Panel();
+            this.pnlButtonColor = new System.Windows.Forms.Panel();
             this.btnLabelTricks = new System.Windows.Forms.LinkLabel();
             this.btnSizeHelp = new System.Windows.Forms.LinkLabel();
             this.btnSaveButton = new System.Windows.Forms.Button();
@@ -39,7 +40,6 @@
             this.tbButtonSize = new System.Windows.Forms.TextBox();
             this.tbButtonLabel = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.cmbButtonColor = new System.Windows.Forms.ComboBox();
             this.cbButtonConfirm = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.lblButtonColor = new System.Windows.Forms.Label();
@@ -114,6 +114,7 @@
             // panelButton
             // 
             this.panelButton.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelButton.Controls.Add(this.pnlButtonColor);
             this.panelButton.Controls.Add(this.btnLabelTricks);
             this.panelButton.Controls.Add(this.btnSizeHelp);
             this.panelButton.Controls.Add(this.btnSaveButton);
@@ -122,7 +123,6 @@
             this.panelButton.Controls.Add(this.tbButtonSize);
             this.panelButton.Controls.Add(this.tbButtonLabel);
             this.panelButton.Controls.Add(this.label10);
-            this.panelButton.Controls.Add(this.cmbButtonColor);
             this.panelButton.Controls.Add(this.cbButtonConfirm);
             this.panelButton.Controls.Add(this.label4);
             this.panelButton.Controls.Add(this.lblButtonColor);
@@ -132,10 +132,20 @@
             this.panelButton.TabIndex = 2;
             this.panelButton.Visible = false;
             // 
+            // pnlButtonColor
+            // 
+            this.pnlButtonColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlButtonColor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pnlButtonColor.Location = new System.Drawing.Point(206, 28);
+            this.pnlButtonColor.Name = "pnlButtonColor";
+            this.pnlButtonColor.Size = new System.Drawing.Size(64, 27);
+            this.pnlButtonColor.TabIndex = 58;
+            this.pnlButtonColor.Click += new System.EventHandler(this.pnlButtonColor_Click);
+            // 
             // btnLabelTricks
             // 
             this.btnLabelTricks.AutoSize = true;
-            this.btnLabelTricks.Location = new System.Drawing.Point(120, 11);
+            this.btnLabelTricks.Location = new System.Drawing.Point(137, 11);
             this.btnLabelTricks.Name = "btnLabelTricks";
             this.btnLabelTricks.Size = new System.Drawing.Size(44, 13);
             this.btnLabelTricks.TabIndex = 55;
@@ -204,7 +214,7 @@
             this.tbButtonLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbButtonLabel.Location = new System.Drawing.Point(7, 28);
             this.tbButtonLabel.Name = "tbButtonLabel";
-            this.tbButtonLabel.Size = new System.Drawing.Size(167, 26);
+            this.tbButtonLabel.Size = new System.Drawing.Size(193, 26);
             this.tbButtonLabel.TabIndex = 46;
             // 
             // label10
@@ -217,32 +227,12 @@
             this.label10.TabIndex = 51;
             this.label10.Text = "Button Size";
             // 
-            // cmbButtonColor
-            // 
-            this.cmbButtonColor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbButtonColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbButtonColor.FormattingEnabled = true;
-            this.cmbButtonColor.Items.AddRange(new object[] {
-            "Blue",
-            "Green",
-            "Red",
-            "Orange",
-            "Teal",
-            "Gray",
-            "White",
-            "Black"});
-            this.cmbButtonColor.Location = new System.Drawing.Point(180, 27);
-            this.cmbButtonColor.MaxDropDownItems = 10;
-            this.cmbButtonColor.Name = "cmbButtonColor";
-            this.cmbButtonColor.Size = new System.Drawing.Size(90, 28);
-            this.cmbButtonColor.TabIndex = 45;
-            // 
             // cbButtonConfirm
             // 
             this.cbButtonConfirm.AutoSize = true;
             this.cbButtonConfirm.CheckAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.cbButtonConfirm.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbButtonConfirm.Location = new System.Drawing.Point(381, 11);
+            this.cbButtonConfirm.Location = new System.Drawing.Point(381, 4);
             this.cbButtonConfirm.Name = "cbButtonConfirm";
             this.cbButtonConfirm.Size = new System.Drawing.Size(200, 38);
             this.cbButtonConfirm.TabIndex = 48;
@@ -264,7 +254,7 @@
             // 
             this.lblButtonColor.AutoSize = true;
             this.lblButtonColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblButtonColor.Location = new System.Drawing.Point(176, 3);
+            this.lblButtonColor.Location = new System.Drawing.Point(202, 4);
             this.lblButtonColor.Name = "lblButtonColor";
             this.lblButtonColor.Size = new System.Drawing.Size(51, 20);
             this.lblButtonColor.TabIndex = 50;
@@ -733,7 +723,6 @@
         private System.Windows.Forms.CheckBox cbButtonConfirm;
         private System.Windows.Forms.Label lblButtonColor;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox cmbButtonColor;
         private System.Windows.Forms.Button btnAddButton;
         private System.Windows.Forms.Button btnSaveButton;
         private System.Windows.Forms.Button btnDeleteButton;
@@ -769,5 +758,6 @@
         private System.Windows.Forms.Panel pnlTextColor;
         private System.Windows.Forms.Button btnCopy;
         private System.Windows.Forms.CheckBox cbHideRemote;
+        private System.Windows.Forms.Panel pnlButtonColor;
     }
 }

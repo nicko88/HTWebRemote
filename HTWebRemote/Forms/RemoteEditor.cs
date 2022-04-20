@@ -1,8 +1,10 @@
 ﻿using HTWebRemote.RemoteFile;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace HTWebRemote.Forms
@@ -63,7 +65,7 @@ namespace HTWebRemote.Forms
 
             panelButton.Visible = false;
             tbButtonLabel.Text = "";
-            cmbButtonColor.SelectedIndex = 0;
+            pnlButtonColor.BackColor = ColorTranslator.FromHtml("#007BFF");
             tbButtonSize.Text = "";
             cbButtonConfirm.Checked = false;
             btnAddButton.Visible = true;
@@ -165,7 +167,7 @@ namespace HTWebRemote.Forms
                         panelButton.Visible = true;
                         tbButtonLabel.Text = currentItem.Label;
                         tbButtonSize.Text = currentItem.RelativeSize.ToString();
-                        cmbButtonColor.SelectedItem = currentItem.Color;
+                        pnlButtonColor.BackColor = ColorTranslator.FromHtml(Util.ConfigHelper.ConvertLegacyColor(currentItem.Color));
                         cbButtonConfirm.Checked = currentItem.ConfirmPopup;
                         btnAddButton.Visible = false;
                         btnSaveButton.Visible = true;
@@ -215,7 +217,7 @@ namespace HTWebRemote.Forms
             {
                 insertIndex = lbRemoteItems.SelectedIndex + 1;
             }
-            RemoteItem remoteItem = new RemoteItem(tbButtonLabel.Text, Convert.ToInt32(tbButtonSize.Text), cmbButtonColor.SelectedItem.ToString(), cbButtonConfirm.Checked);
+            RemoteItem remoteItem = new RemoteItem(tbButtonLabel.Text, Convert.ToInt32(tbButtonSize.Text), $"#{pnlButtonColor.BackColor.R:X2}{pnlButtonColor.BackColor.G:X2}{pnlButtonColor.BackColor.B:X2}", cbButtonConfirm.Checked);
             try
             {
                 currentRemote.RemoteItems.Insert(insertIndex, remoteItem);
@@ -238,7 +240,7 @@ namespace HTWebRemote.Forms
             RemoteItem selectedItem = (RemoteItem)lbRemoteItems.SelectedItem;
             selectedItem.Label = tbButtonLabel.Text;
             selectedItem.RelativeSize = Convert.ToInt32(tbButtonSize.Text);
-            selectedItem.Color = cmbButtonColor.SelectedItem.ToString();
+            selectedItem.Color = $"#{pnlButtonColor.BackColor.R:X2}{pnlButtonColor.BackColor.G:X2}{pnlButtonColor.BackColor.B:X2}";
             selectedItem.ConfirmPopup = cbButtonConfirm.Checked;
             SaveRemote(0);
         }
@@ -370,7 +372,7 @@ namespace HTWebRemote.Forms
             }
             else
             {
-                currentRemote.RemoteBackColor = ColorTranslator.ToHtml(pnlBackColor.BackColor);
+                currentRemote.RemoteBackColor = $"#{pnlBackColor.BackColor.R:X2}{pnlBackColor.BackColor.G:X2}{pnlBackColor.BackColor.B:X2}";
             }
 
             if (pnlTextColor.BackColor == Color.White)
@@ -379,7 +381,7 @@ namespace HTWebRemote.Forms
             }
             else
             {
-                currentRemote.RemoteTextColor = ColorTranslator.ToHtml(pnlTextColor.BackColor);
+                currentRemote.RemoteTextColor = $"#{pnlTextColor.BackColor.R:X2}{pnlTextColor.BackColor.G:X2}{pnlTextColor.BackColor.B:X2}";
             }
 
             if (string.IsNullOrEmpty(tbRemoteName.Text))
@@ -524,6 +526,30 @@ namespace HTWebRemote.Forms
                 SaveRemote(1);
             }
             catch { }
+        }
+
+        private void pnlButtonColor_Click(object sender, EventArgs e)
+        {
+            ColorDialog colorDialog = new ColorDialog();
+            colorDialog.FullOpen = true;
+
+            try
+            {
+                RegistryKey regKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\HTWebRemote", false);
+                colorDialog.CustomColors = (regKey.GetValue("CustomColors") as string[]).Select(int.Parse).ToArray();
+            }
+            catch
+            {
+                colorDialog.CustomColors = new int[] { 16743168, 4564776, 4535772, 508415, 13148695, 8222060, 16447992, 4209204 };
+            }
+
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                pnlButtonColor.BackColor = colorDialog.Color;
+            }
+
+            RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\HTWebRemote", true);
+            key.SetValue("CustomColors", colorDialog.CustomColors.Select(x => x.ToString()).ToArray());
         }
     }
 }

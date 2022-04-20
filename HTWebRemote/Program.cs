@@ -16,7 +16,7 @@ namespace HTWebRemote
             {
                 try
                 {
-                    if (Regex.IsMatch(args[0], "^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"))
+                    if (Regex.IsMatch(args[0].Split(':')[0], "^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"))
                     {
                         string param = null;
                         string specialData = null;
@@ -51,7 +51,8 @@ namespace HTWebRemote
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show($"Incorrect Parameters\n\n{e.Message}", "Error");
+                    Console.WriteLine($"Incorrect Parameters.");
+                    Console.WriteLine(e.Message);
                 }
             }
             else

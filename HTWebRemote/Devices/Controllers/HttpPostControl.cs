@@ -5,9 +5,9 @@ using System.Text;
 
 namespace HTWebRemote.Devices.Controllers
 {
-    class HttpGetControl
+    class HttpPostControl
     {
-        public static void RunCmd(string IP, string cmd, string auth)
+        public static void RunCmd(string IP, string cmd, string param, string auth)
         {
             using (HttpClient httpClient = new HttpClient())
             {
@@ -21,7 +21,9 @@ namespace HTWebRemote.Devices.Controllers
                 HttpResponseMessage result;
                 try
                 {
-                    result = httpClient.GetAsync($"{IP}{cmd}").Result;
+                    StringContent postData = new StringContent(param, Encoding.UTF8, "application/json");
+
+                    result = httpClient.PostAsync($"{IP}{cmd}", postData).Result;
 
                     if (!result.IsSuccessStatusCode)
                     {
@@ -30,7 +32,7 @@ namespace HTWebRemote.Devices.Controllers
                 }
                 catch (Exception e)
                 {
-                    Util.ErrorHandler.SendError($"Error sending http GET request to: {IP}{cmd}\n\n{e.Message}");
+                    Util.ErrorHandler.SendError($"Error sending http POST request to: {IP}{cmd}\n\n{e.Message}");
                 }
             }
         }

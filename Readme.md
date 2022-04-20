@@ -73,7 +73,10 @@ Finally, HTWebRemote includes a sort of API which lets you send commands from ot
 * HDFury Devices
 * MiniDSP Devices (via [minidsp-rs](https://github.com/mrene/minidsp-rs))
 * RS232 Serial Devices
-* HTTP URL Commands (GET)
+* TCP Generic Devices
+* UDP Generic Devices
+* HTTP POST Requests
+* HTTP GET Requests
 * MQTT Messaging Protocol
 * Wake-on-LAN
 

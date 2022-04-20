@@ -48,7 +48,7 @@ namespace HTWebRemote.Devices.Controllers
 
                     conn.Close();
 
-                    return vol.ToString() + "dB";
+                    return $"{vol}dB";
                 }
             }
             catch (Exception e)

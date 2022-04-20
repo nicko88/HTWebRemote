@@ -154,37 +154,7 @@ namespace HTWebRemote.Util
                     }
                     else
                     {
-                        string colorClass;
-                        switch (item.Color)
-                        {
-                            case "Blue":
-                                colorClass = "btn-primary";
-                                break;
-                            case "Green":
-                                colorClass = "btn-success";
-                                break;
-                            case "Red":
-                                colorClass = "btn-danger";
-                                break;
-                            case "Orange":
-                                colorClass = "btn-warning";
-                                break;
-                            case "Teal":
-                                colorClass = "btn-info";
-                                break;
-                            case "Gray":
-                                colorClass = "btn-secondary";
-                                break;
-                            case "White":
-                                colorClass = "btn-light";
-                                break;
-                            case "Black":
-                                colorClass = "btn-dark";
-                                break;
-                            default:
-                                colorClass = "btn-primary";
-                                break;
-                        }
+                        string colorHex = ConfigHelper.ConvertLegacyColor(item.Color);
 
                         if (!buttonRowStarted)
                         {
@@ -200,11 +170,11 @@ namespace HTWebRemote.Util
 
                         if (!query)
                         {
-                            sb.AppendFormat(@"<div class=""nitem"" style=""flex-grow: {0};""><button onclick=""sendbtn('{1}', '{2}', '{3}')"" class=""btn {4}"">{5}</button></div>" + Environment.NewLine, item.RelativeSize, remote.RemoteID, i, item.ConfirmPopup, colorClass, item.Label);
+                            sb.AppendFormat(@"<div class=""nitem"" style=""flex-grow: {0};""><button onclick=""sendbtn('{1}', '{2}', '{3}')"" class=""btn"" style=""background-color: {4}; color: White;"">{5}</button></div>" + Environment.NewLine, item.RelativeSize, remote.RemoteID, i, item.ConfirmPopup, colorHex, item.Label);
                         }
                         else
                         {
-                            sb.AppendFormat(@"<div class=""nitem"" style=""flex-grow: {0};""><button onclick=""sendquery('{1}', '{2}', '{3}', '{4}')"" class=""btn {5}"">{6}</button></div>" + Environment.NewLine, item.RelativeSize, remote.RemoteID, item.Commands[0].DeviceName, item.Commands[0].Cmd, item.ConfirmPopup, colorClass, item.Label);
+                            sb.AppendFormat(@"<div class=""nitem"" style=""flex-grow: {0};""><button onclick=""sendquery('{1}', '{2}', '{3}', '{4}')"" class=""btn"" style=""background-color: {5}; color: White;"">{6}</button></div>" + Environment.NewLine, item.RelativeSize, remote.RemoteID, item.Commands[0].DeviceName, item.Commands[0].Cmd, item.ConfirmPopup, colorHex, item.Label);
                         }
 
                         buttonRowStarted = true;
