@@ -1,34 +1,36 @@
 ﻿<html>
 <head>
-	<title>HTWebRemote</title>
-	<meta charset="utf-8"/>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-	<link rel="manifest" href='data:application/manifest+json,{"name": "HTWebRemote","short_name": "HTWebRemote","lang": "en-US","start_url": "/","scope": "/","display": "fullscreen"}' />
-	<meta name="mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="application-name" content="HTWebRemote">
-	<meta name="apple-mobile-web-app-title" content="HTWebRemote">
-	<meta name="msapplication-starturl" content="/">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="icon" type="image/png" href="https://i.ibb.co/gSSrZ2k/HTControl.png" />
-	<link rel="apple-touch-icon" type="image/png" href="https://i.ibb.co/gSSrZ2k/HTControl.png" />
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-	<style>
+    <title>HTWebRemote</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <link rel="manifest" href='data:application/manifest+json,{"name": "HTWebRemote","short_name": "HTWebRemote","lang": "en-US","start_url": "/","scope": "/","display": "fullscreen"}' />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="HTWebRemote">
+    <meta name="apple-mobile-web-app-title" content="HTWebRemote">
+    <meta name="msapplication-starturl" content="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/png" href="https://i.ibb.co/gSSrZ2k/HTControl.png" />
+    <link rel="apple-touch-icon" type="image/png" href="https://i.ibb.co/gSSrZ2k/HTControl.png" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <style>
         * {
-            touch-action: pinch-zoom pan-y;
+            touch-action: pan-y;
         }
 
-        a:hover{
-            color: white;
+        :root {
+            --navTextColor: white;
         }
 
-        h4 {
-            color: white;
-            margin-bottom: 2px;
-            text-align: center;
+        body {
+            display: flex;
+            flex-direction: column; /* change to 'column-reverse' for bottom nav */ /* change to 'column' for top nav */
+            height: 100%;
+            justify-content: flex-start; /*change to 'space-between' for bottom nav */ /*change to 'flex-start' for top nav */
+            align-items: center;
         }
 
         .btn {
@@ -37,44 +39,61 @@
             height: 42px;
             line-height: 1;
             width: 100%;
-            border: 2px solid black;
-            border-radius: 6px;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            color: white;
+        }
+
+        .container {
+            padding: 12px;
+            overflow: auto;
+            margin: 0;
+        }
+
+        a:hover {
+            color: white;
+        }
+
+        h4 {
+            color: white;
+            padding: 4px 0;
+            margin: 0px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 6px 6px 0 0;
         }
 
         .btn:focus {
             box-shadow: none;
         }
 
-        .btn-primary:hover, .btn-success:hover, .btn-danger:hover, .btn-warning:hover, .btn-info:hover, .btn-secondary:hover, .btn-light:hover, .btn-dark:hover {
-            border-color: black;
-        }
-
-        .btn-primary:hover, .btn-success:hover, .btn-danger:hover, .btn-warning:hover, .btn-info:hover, .btn-secondary:hover, .btn-light:hover, .btn-dark:hover {
-            box-shadow: none;
+        .btn:active {
+            transform: translateY(2px);
         }
 
         .ngroup {
-            outline: 1px solid grey;
-            padding-top: 6px;
-            padding-left: 4px;
-            padding-right: 4px;
-            margin-bottom: 8px;
+            padding: 2px;
+            margin-bottom: 10px;
+            border-radius: 0 0 6px 6px;
+            background-color: rgba(255, 255, 255, 0.10);
+            border: 0px solid gray;
         }
 
         .nrow {
             display: flex;
+            padding: 3px 0;
         }
 
         .nitem {
-            margin-bottom: 6px;
             flex-shrink: 1;
             flex-basis: 0;
         }
 
         ul {
             display: flex;
-            margin-left: -15px;
-            margin-right: -15px;
         }
 
         li {
@@ -82,29 +101,59 @@
             text-align: center;
         }
 
-        .nav-tabs .nav-link.active {
-            color: lightgreen;
-            font-weight: bold;
+        .nav {
+            background-color: #ffffff1a;
+            border: none;
+            overflow-x: auto;
+            overflow-y: hidden;
+            flex-direction: row;
+            display: flex;
+            align-content: center;
+        }
+
+        .nav-item {
+            flex: 1 1 auto;
+            align-items: center;
         }
 
         .nav-link {
-            padding-left: 0;
-            padding-right: 0;
-            padding-top: 10px;
-            padding-bottom: 10px;
-            color: white;
+            padding-left: 5px;
+            padding-right: 5px;
+            min-width: 44px;
+            margin: 6px 1px;
+            color: var(--navTextColor);
+            border: none !important;
         }
-	</style>
 
-	<script>
-		function sendbtn(remoteID, btnIndex, popup) {
-			var r = true;
-			if (popup == 'True') {
-				r = confirm("Are you sure?");
-			}
-			if (r == true) {
-				fetch('?remoteID=' + remoteID + '&btnIndex=' + btnIndex);
-			}
+        .nav-link:hover {
+            background-color: #ffffff26;
+            border-radius: 8px;
+            color: var(--navTextColor);
+        }
+
+        .nav-tabs .nav-link.active {
+            font-weight: bold;
+            background-color: #ffffff26;
+            border-radius: 8px;
+            color: var(--navTextColor);
+            box-shadow: 0 2px 4px rgb(0, 0, 0, 0.4);
+        }
+
+        .nav-container {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+
+    <script>
+        function sendbtn(remoteID, btnIndex, popup) {
+            var r = true;
+            if (popup == 'True') {
+                r = confirm("Are you sure?");
+            }
+            if (r == true) {
+                fetch('?remoteID=' + remoteID + '&btnIndex=' + btnIndex);
+            }
         }
         function sendquery(remoteID, devName, cmd, popup) {
             var r = true;
@@ -115,9 +164,7 @@
                 window.location.href = '?rID=' + remoteID + '&devname=' + devName + '&cmd=' + cmd;
             }
         }
-	</script>
+    </script>
 
 </head>
-<body style="background-color: black;">
-<div class="container body-content">
-
+<body style="background-color: black;" ontouchstart>

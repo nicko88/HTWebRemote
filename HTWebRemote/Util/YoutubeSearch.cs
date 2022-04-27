@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Google.Apis.Services;
@@ -19,9 +20,21 @@ namespace HTWebRemote.Util
             StringBuilder page = new StringBuilder();
 
             string header = ConfigHelper.GetEmbeddedResource("youtubeSearchHeader.html");
+
+            if (ConfigHelper.CheckRegKey(@"SOFTWARE\HTWebRemote", "BottomTabs"))
+            {
+                header = header.Replace("flex-direction: column;", "flex-direction: column-reverse;");
+                header = header.Replace("justify-content: flex-start;", "justify-content: space-between;");
+            }
+
             page.Append(header);
             page.Append(GetHTMLRemoteTabs());
-            page.Append(@"<button onclick=""closetab()"" class=""btn btn-primary"">Close YouTube Tab</button>");
+            page.AppendLine(@"<div class=""container body-content"">");
+            page.AppendLine(@"<button onclick=""closetab()"" class=""btn btn-primary"">Close YouTube Tab</button>");
+
+            page.AppendLine(@"<form method=""POST"" id=""youtubeform"" action=""FByoutube"">");
+            page.AppendLine(@"<input type=""hidden"" id=""youtube"" name=""youtube"" value="""">");
+            page.AppendLine("</form>");
 
             if (_searchQ != searchQ)
             {
@@ -104,19 +117,31 @@ namespace HTWebRemote.Util
             {
                 string[] files = Directory.GetFiles(ConfigHelper.WorkingPath, "HTWebRemoteButtons*");
 
-                if (files.Length > 0)
+                List<string> filesList = new List<string>();
+                filesList.AddRange(files);
+                filesList.Sort();
+
+                sb.AppendLine(@"<div class=""nav-container"">");
+                sb.AppendLine(@"<ul class=""nav nav-tabs sticky-top"">");
+
+                foreach (string file in filesList)
                 {
-                    sb.AppendLine(@"<ul class=""nav nav-tabs bg-dark sticky-top"">");
-
-                    foreach (string file in files)
+                    if (file.Contains(".json"))
                     {
-                        if (file.Contains(".json"))
+                        JObject oRemote = JObject.Parse(File.ReadAllText(file));
+
+                        string remoteNum = (string)oRemote.SelectToken("RemoteID");
+                        string remoteName = (string)oRemote.SelectToken("RemoteName");
+
+                        bool hideRemote = false;
+                        try
                         {
-                            JObject oRemote = JObject.Parse(File.ReadAllText(file));
+                            hideRemote = (bool)oRemote.SelectToken("HideRemote");
+                        }
+                        catch { }
 
-                            string remoteNum = (string)oRemote.SelectToken("RemoteID");
-                            string remoteName = (string)oRemote.SelectToken("RemoteName");
-
+                        if (!hideRemote)
+                        {
                             if (string.IsNullOrEmpty(remoteName))
                             {
                                 remoteName = remoteNum;
@@ -127,12 +152,14 @@ namespace HTWebRemote.Util
                             sb.AppendLine("</li>");
                         }
                     }
-
-                    sb.AppendLine($@"<li class=""nav-item""><a class=""nav-link"" href=""FB"">FB</a></li>");
-                    sb.AppendLine($@"<li class=""nav-item""><a class=""nav-link bg-dark active"" href=""FByoutube?play=0"">YT</a></li>");
-
-                    sb.AppendLine("</ul>");
                 }
+
+                sb.AppendLine($@"<li class=""nav-item""><a class=""nav-link"" href=""FB"">FB</a></li>");
+                sb.AppendLine($@"<li class=""nav-item""><a class=""nav-link active"" href=""FByoutube?play=0"">YT</a></li>");
+
+                sb.AppendLine("</ul>");
+                sb.AppendLine("</div>");
+                sb.AppendLine();
             }
             catch { }
 

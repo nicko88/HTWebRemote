@@ -24,9 +24,16 @@ namespace HTWebRemote.Util
             StringBuilder page = new StringBuilder();
 
             string header = ConfigHelper.GetEmbeddedResource("filebrowserHeader.html");
-            page.Append(header);
 
+            if (ConfigHelper.CheckRegKey(@"SOFTWARE\HTWebRemote", "BottomTabs"))
+            {
+                header = header.Replace("flex-direction: column;", "flex-direction: column-reverse;");
+                header = header.Replace("justify-content: flex-start;", "justify-content: space-between;");
+            }
+
+            page.Append(header);
             page.Append(GetHTMLRemoteTabs());
+            page.AppendLine(@"<div class=""container body-content"">");
 
             string currentPath = "";
             string search = "";
@@ -194,15 +201,17 @@ namespace HTWebRemote.Util
                 }
                 else
                 {
-                    page.Append(@"<span style=""color: white; font-size: 15px;"">Search for files in the folders below that contain this exact phrase (single word works best)</span>");
+                    page.Append(@"<span style=""color: white; font-size: 15px;"">Search: (single word works best)</span>");
                     page.Append(@"<form style=""margin-bottom: 0px"" method=""GET"">");
+                    page.Append(@"<div class=""nrow"">");
                     page.Append($@"<input type=""hidden"" value=""{Base64Encode(currentPath)}"" id=""path"" name=""path"">");
-                    page.Append(@"<input type=""text"" id=""search"" name=""search"" class=""form-control mb-2 mr-sm-2 form-check-inline"" style=""width: 200px; display: inline;""><button type=""submit"" id=""submit"" class=""btn btn-primary"">Search</button>");
+                    page.Append(@"<input type=""text"" id=""search"" name=""search"" class=""nitem form-control mb-2 mr-sm-2 form-check-inline"" style=""flex-grow: 2;""><button type=""submit"" id=""submit"" class=""nitem btn btn-primary"" style=""flex-grow: 1;"">Search</button>");
+                    page.Append(@"</div>");
                     page.Append("</form>");
 
                     page.Append(@"<div class=""nrow"">");
-                    page.Append(@"<button onclick=""window.location.href='FBback'; "" class=""nitem btn btn-primary"" style=""flex-grow: 1; margin-right: 4px;"">Back</button>");
-                    page.Append(@"<button onclick=""window.location.href='FBhome'; "" class=""nitem btn btn-primary"" style=""flex-grow: 1;"">Home</button>");
+                    page.Append(@"<button onclick=""window.location.href='FBback'; "" class=""nitem btn btn-primary"" style=""flex-grow: 2; margin-right: 4px;"">Back</button>");
+                    page.Append(@"<button onclick=""window.location.href='FBhome'; "" class=""nitem btn btn-primary"" style=""flex-grow: 2;"">Home</button>");
 
                     string sortByChange;
                     if (_sortBy == "Name")
@@ -225,8 +234,8 @@ namespace HTWebRemote.Util
                     }
 
                     page.Append(@"<span class=""nitem"" style=""flex-grow: 3; color: White; text-align: end; padding-top: 5;"">Sorted By:</span>");
-                    page.Append($@"<button onclick=""window.location.href=window.location.origin + '/FB' + '?path={Base64Encode(currentPath)}' + '{sortByChange}'; "" class=""nitem btn btn-primary"" style=""flex-grow: 1; margin-right: 4px;"">{_sortBy}</button>");
-                    page.Append($@"<button onclick=""window.location.href=window.location.origin + '/FB' + '?path={Base64Encode(currentPath)}' + '{sortDirChange}'; "" class=""nitem btn btn-primary"" style=""flex-grow: 1;"">{_sortDir}</button>");
+                    page.Append($@"<button onclick=""window.location.href=window.location.origin + '/FB' + '?path={Base64Encode(currentPath)}' + '{sortByChange}'; "" class=""nitem btn btn-primary"" style=""flex-grow: 2; margin-right: 4px;"">{_sortBy}</button>");
+                    page.Append($@"<button onclick=""window.location.href=window.location.origin + '/FB' + '?path={Base64Encode(currentPath)}' + '{sortDirChange}'; "" class=""nitem btn btn-primary"" style=""flex-grow: 2;"">{_sortDir}</button>");
                     page.Append(@"</div>");
 
                     try
@@ -320,10 +329,12 @@ namespace HTWebRemote.Util
             }
             else
             {
-                page.Append(@"<span style=""color: white; font-size: 15px;"">Search for files in the folders below that contain this exact phrase (single word works best)</span>");
+                page.Append(@"<span style=""color: white; font-size: 15px;"">Search: (single word works best)</span>");
                 page.Append(@"<form style=""margin-bottom: 0px"" method=""GET"">");
-                page.Append(@"<input type=""text"" id=""search"" name=""search"" class=""form-control mb-2 mr-sm-2 form-check-inline"" style=""width: 200px; display: inline;"">");
-                page.Append(@"<button type=""submit"" id=""submit"" class=""btn btn-primary"">Search</button>");
+                page.Append(@"<div class=""nrow"">");
+                page.Append(@"<input type=""text"" id=""search"" name=""search"" class=""nitem form-control mb-2 mr-sm-2 form-check-inline"" style=""flex-grow: 2;"">");
+                page.Append(@"<button type=""submit"" id=""submit"" class=""nitem btn btn-primary"" style=""flex-grow: 1;"">Search</button>");
+                page.Append(@"</div>");
                 page.Append("</form>");
 
                 if (ConfigHelper.CheckRegKey(@"SOFTWARE\HTWebRemote", "EnableYoutube"))
@@ -332,14 +343,16 @@ namespace HTWebRemote.Util
                     page.Append("<br />");
 
                     page.Append(@"<form style=""margin-bottom: 0px"" method=""POST"" id=""youtubeform"" action=""FByoutube"">");
-                    page.Append(@"<input type=""text"" id=""youtube"" name=""youtube"" class=""form-control mb-2 mr-sm-2 form-check-inline"" style=""width: 200px; display: inline;"">");
-                    page.Append(@"<button type=""submit"" id=""submit"" class=""btn btn-primary"">Play / Search</button>");
+                    page.Append(@"<div class=""nrow"">");
+                    page.Append(@"<input type=""text"" id=""youtube"" name=""youtube"" class=""nitem form-control mb-2 mr-sm-2 form-check-inline"" style=""flex-grow: 2;"">");
+                    page.Append(@"<button type=""submit"" id=""submit"" class=""nitem btn btn-primary"" style=""flex-grow: 1;"">Play/Search</button>");
+                    page.Append(@"</div>");
                     page.Append("</form>");
                 }
 
                 page.Append(@"<div class=""nrow"">");
-                page.Append(@"<button onclick=""window.location.href='FBback'; "" class=""nitem btn btn-primary"" style=""flex-grow: 1; margin-right: 4px;"">Back</button>");
-                page.Append(@"<button onclick=""window.location.href='FBhome'; "" class=""nitem btn btn-primary"" style=""flex-grow: 1;"">Home</button>");
+                page.Append(@"<button onclick=""window.location.href='FBback'; "" class=""nitem btn btn-primary"" style=""flex-grow: 2; margin-right: 4px;"">Back</button>");
+                page.Append(@"<button onclick=""window.location.href='FBhome'; "" class=""nitem btn btn-primary"" style=""flex-grow: 2;"">Home</button>");
 
                 string sortByChange;
                 if (_sortBy == "Name")
@@ -362,8 +375,8 @@ namespace HTWebRemote.Util
                 }
 
                 page.Append(@"<span class=""nitem"" style=""flex-grow: 3; color: White; text-align: end; padding-top: 5;"">Sorted By:</span>");
-                page.Append($@"<button onclick=""window.location.href=window.location.origin + '/FB' + '?path={Base64Encode(currentPath)}' + '{sortByChange}'; "" class=""nitem btn btn-primary"" style=""flex-grow: 1; margin-right: 4px;"">{_sortBy}</button>");
-                page.Append($@"<button onclick=""window.location.href=window.location.origin + '/FB' + '?path={Base64Encode(currentPath)}' + '{sortDirChange}'; "" class=""nitem btn btn-primary"" style=""flex-grow: 1;"">{_sortDir}</button>");
+                page.Append($@"<button onclick=""window.location.href=window.location.origin + '/FB' + '?path={Base64Encode(currentPath)}' + '{sortByChange}'; "" class=""nitem btn btn-primary"" style=""flex-grow: 2; margin-right: 4px;"">{_sortBy}</button>");
+                page.Append($@"<button onclick=""window.location.href=window.location.origin + '/FB' + '?path={Base64Encode(currentPath)}' + '{sortDirChange}'; "" class=""nitem btn btn-primary"" style=""flex-grow: 2;"">{_sortDir}</button>");
                 page.Append(@"</div>");
 
                 try
@@ -424,19 +437,31 @@ namespace HTWebRemote.Util
             {
                 string[] files = Directory.GetFiles(ConfigHelper.WorkingPath, "HTWebRemoteButtons*");
 
-                if (files.Length > 0)
+                List<string> filesList = new List<string>();
+                filesList.AddRange(files);
+                filesList.Sort();
+
+                sb.AppendLine(@"<div class=""nav-container"">");
+                sb.AppendLine(@"<ul class=""nav nav-tabs sticky-top"">");
+
+                foreach (string file in filesList)
                 {
-                    sb.AppendLine(@"<ul class=""nav nav-tabs bg-dark sticky-top"">");
-
-                    foreach (string file in files)
+                    if (file.Contains(".json"))
                     {
-                        if (file.Contains(".json"))
+                        JObject oRemote = JObject.Parse(File.ReadAllText(file));
+
+                        string remoteNum = (string)oRemote.SelectToken("RemoteID");
+                        string remoteName = (string)oRemote.SelectToken("RemoteName");
+
+                        bool hideRemote = false;
+                        try
                         {
-                            JObject oRemote = JObject.Parse(File.ReadAllText(file));
+                            hideRemote = (bool)oRemote.SelectToken("HideRemote");
+                        }
+                        catch { }
 
-                            string remoteNum = (string)oRemote.SelectToken("RemoteID");
-                            string remoteName = (string)oRemote.SelectToken("RemoteName");
-
+                        if (!hideRemote)
+                        {
                             if (string.IsNullOrEmpty(remoteName))
                             {
                                 remoteName = remoteNum;
@@ -447,17 +472,20 @@ namespace HTWebRemote.Util
                             sb.AppendLine("</li>");
                         }
                     }
-
-                    sb.AppendLine($@"<li class=""nav-item""><a class=""nav-link bg-dark active"" href=""FB"">FB</a></li>");
-
-                    if(!string.IsNullOrEmpty(YoutubeSearch._searchQ))
-                    {
-                        sb.AppendLine($@"<li class=""nav-item""><a class=""nav-link"" href=""FByoutube?play=0"">YT</a></li>");
-                    }
-
-                    sb.AppendLine("</ul>");
                 }
+
+                sb.AppendLine($@"<li class=""nav-item""><a class=""nav-link active"" href=""FB"">FB</a></li>");
+
+                if (!string.IsNullOrEmpty(YoutubeSearch._searchQ))
+                {
+                    sb.AppendLine($@"<li class=""nav-item""><a class=""nav-link"" href=""FByoutube?play=0"">YT</a></li>");
+                }
+
+                sb.AppendLine("</ul>");
+                sb.AppendLine("</div>");
+                sb.AppendLine();
             }
+
             catch { }
 
             return sb.ToString();

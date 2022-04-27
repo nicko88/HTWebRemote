@@ -3,9 +3,12 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Net.Http;
+using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using HTWebRemote.Util;
 using Newtonsoft.Json.Linq;
 
 namespace HTWebRemote.Forms
@@ -18,7 +21,7 @@ namespace HTWebRemote.Forms
             InitializeComponent();
             Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
-            tbIP.Text = Util.ConfigHelper.GetRegKey(@"SOFTWARE\HTWebRemote", "RemoteHostIP");
+            tbIP.Text = ConfigHelper.GetRegKey(@"SOFTWARE\HTWebRemote", "RemoteHostIP");
 
             CheckGitVersion();
 
@@ -33,9 +36,16 @@ namespace HTWebRemote.Forms
             errors = "";
             bool success = false;
 
-            if (File.Exists(Util.ConfigHelper.DeviceFile))
+            //delete remote files
+            using (HttpClient httpClient = new HttpClient())
             {
-                string deviceConfigFile = File.ReadAllText(Util.ConfigHelper.DeviceFile);
+                _ = httpClient.GetStringAsync($"http://{tbIP.Text}:5000/deleteremotes").Result;
+                Thread.Sleep(1000);
+            }
+
+            if (File.Exists(ConfigHelper.DeviceFile))
+            {
+                string deviceConfigFile = File.ReadAllText(ConfigHelper.DeviceFile);
                 success = SendFile("HTWebRemoteDevices.txt", deviceConfigFile);
             }
             else
@@ -45,7 +55,7 @@ namespace HTWebRemote.Forms
 
             if (success)
             {
-                string[] files = Directory.GetFiles(Util.ConfigHelper.WorkingPath, "HTWebRemoteButtons*");
+                string[] files = Directory.GetFiles(ConfigHelper.WorkingPath, "HTWebRemoteButtons*");
                 if (files.Length > 0)
                 {
                     foreach (string file in files)
@@ -58,6 +68,15 @@ namespace HTWebRemote.Forms
                 {
                     errors += "No remotes found to sync.\n\n";
                 }
+            }
+
+            if(success)
+            {
+                StringBuilder sb = new StringBuilder();
+
+                sb.AppendLine($"BottomTabs={ConfigHelper.CheckRegKey(@"SOFTWARE\HTWebRemote", "BottomTabs")}");
+
+                SendFile("HTWebRemoteSettings.txt", sb.ToString());
             }
 
             if(success)

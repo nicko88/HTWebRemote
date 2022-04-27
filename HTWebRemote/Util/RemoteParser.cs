@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Text;
 
@@ -37,7 +38,8 @@ namespace HTWebRemote.Util
                     filesList.AddRange(files);
                     filesList.Sort();
 
-                    sb.AppendLine(@"<ul class=""nav nav-tabs bg-dark sticky-top"">");
+                    sb.AppendLine(@"<div class=""nav-container"">");
+                    sb.AppendLine(@"<ul class=""nav nav-tabs sticky-top"">");
 
                     foreach (string file in filesList)
                     {
@@ -65,7 +67,7 @@ namespace HTWebRemote.Util
                                 sb.AppendLine(@"<li class=""nav-item"">");
                                 if (remoteNum == currentRemoteNum)
                                 {
-                                    sb.AppendLine($@"<a class=""nav-link active bg-dark"" href=""{remoteNum}"">{remoteName}</a>");
+                                    sb.AppendLine($@"<a class=""nav-link active"" href=""{remoteNum}"">{remoteName}</a>");
                                 }
                                 else
                                 {
@@ -87,6 +89,7 @@ namespace HTWebRemote.Util
                     }
 
                     sb.AppendLine("</ul>");
+                    sb.AppendLine("</div>");
                     sb.AppendLine();
                 }
             }
@@ -102,6 +105,8 @@ namespace HTWebRemote.Util
             RemoteItem.RemoteItemType prevItemType = RemoteItem.RemoteItemType.Group;
 
             StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine(@"<div class=""container body-content"">");
 
             if (remote.RemoteItems != null)
             {
@@ -120,10 +125,15 @@ namespace HTWebRemote.Util
                         if (groupStarted)
                         {
                             sb.AppendLine("</div>");
-                            groupStarted = false;
                         }
 
-                        sb.AppendFormat("<h4>{0}</h4>" + Environment.NewLine, item.Label);
+                        string textColor = "#FFFFFF";
+                        if(!string.IsNullOrEmpty(item.Color))
+                        {
+                            textColor = item.Color;
+                        }
+
+                        sb.AppendFormat(@"<h4 style=""color: {0};"">{1}</h4>" + Environment.NewLine, textColor, item.Label);
                         sb.AppendLine(@"<div class=""form-group ngroup"">");
                         groupStarted = true;
                         prevItemType = RemoteItem.RemoteItemType.Group;
@@ -154,7 +164,7 @@ namespace HTWebRemote.Util
                     }
                     else
                     {
-                        string colorHex = ConfigHelper.ConvertLegacyColor(item.Color);
+                        string btnColorHex = ConfigHelper.ConvertLegacyColor(item.Color);
 
                         if (!buttonRowStarted)
                         {
@@ -168,13 +178,19 @@ namespace HTWebRemote.Util
                         }
                         catch { }
 
+                        string textColor = "#FFFFFF";
+                        if(UseDarkColor(btnColorHex, 0.5))
+                        {
+                            textColor = "#000000";
+                        }
+
                         if (!query)
                         {
-                            sb.AppendFormat(@"<div class=""nitem"" style=""flex-grow: {0};""><button onclick=""sendbtn('{1}', '{2}', '{3}')"" class=""btn"" style=""background-color: {4}; color: White;"">{5}</button></div>" + Environment.NewLine, item.RelativeSize, remote.RemoteID, i, item.ConfirmPopup, colorHex, item.Label);
+                            sb.AppendFormat(@"<div class=""nitem"" style=""flex-grow: {0};""><button onclick=""sendbtn('{1}', '{2}', '{3}')"" class=""btn"" style=""background-color: {4}; color: {5};"">{6}</button></div>" + Environment.NewLine, item.RelativeSize, remote.RemoteID, i, item.ConfirmPopup, btnColorHex, textColor, item.Label);
                         }
                         else
                         {
-                            sb.AppendFormat(@"<div class=""nitem"" style=""flex-grow: {0};""><button onclick=""sendquery('{1}', '{2}', '{3}', '{4}')"" class=""btn"" style=""background-color: {5}; color: White;"">{6}</button></div>" + Environment.NewLine, item.RelativeSize, remote.RemoteID, item.Commands[0].DeviceName, item.Commands[0].Cmd, item.ConfirmPopup, colorHex, item.Label);
+                            sb.AppendFormat(@"<div class=""nitem"" style=""flex-grow: {0};""><button onclick=""sendquery('{1}', '{2}', '{3}', '{4}')"" class=""btn"" style=""background-color: {5}; color: {6};"">{7}</button></div>" + Environment.NewLine, item.RelativeSize, remote.RemoteID, item.Commands[0].DeviceName, item.Commands[0].Cmd, item.ConfirmPopup, btnColorHex, textColor, item.Label);
                         }
 
                         buttonRowStarted = true;
@@ -192,6 +208,7 @@ namespace HTWebRemote.Util
                 sb.AppendLine("</div>");
             }
 
+            sb.AppendLine("</div>");
             return sb.ToString();
         }
 
@@ -199,24 +216,101 @@ namespace HTWebRemote.Util
         {
             string header = ConfigHelper.GetEmbeddedResource("remoteHeader.html");
 
-            if(remote.ButtonHeight > 0)
+            if(string.IsNullOrEmpty(remote.RemoteBackColor))
+            {
+                remote.RemoteBackColor = "#000000";
+            }
+
+            int strength = remote.RemoteShadingStrength == null ? 1 : remote.RemoteShadingStrength.Value;
+            int navstrength = strength;
+            if (strength == 0)
+            {
+                navstrength = 1;
+            }
+            Color navColor = AddColors(ColorTranslator.FromHtml(remote.RemoteBackColor), Color.FromArgb(0.15 * 255 * navstrength > 255 ? 255 : Convert.ToInt32(0.15 * 255 * navstrength), 255, 255, 255));
+
+            header = header.Replace("background-color: black;", $"background-color: {remote.RemoteBackColor};");
+
+            if (UseDarkColor(remote.RemoteBackColor, 0.11))
+            {
+                header = header.Replace("background-color: rgba(255, 255, 255, 0.15);", $"background-color: rgba(0, 0, 0, {0.15*strength});");
+                header = header.Replace("background-color: rgba(255, 255, 255, 0.10);", $"background-color: rgba(0, 0, 0, {0.10*strength});");
+                header = header.Replace("background-color: #ffffff26;", $"background-color: rgba(0, 0, 0, {0.15 * navstrength});");
+                header = header.Replace("background-color: #ffffff1a;", $"background-color: rgba(0, 0, 0, {0.10 * navstrength});");
+
+                navColor = AddColors(ColorTranslator.FromHtml(remote.RemoteBackColor), Color.FromArgb(0.15 * 255 * navstrength > 255 ? 255 : Convert.ToInt32(0.15 * 255 * navstrength), 0, 0, 0));
+            }
+            else
+            {
+                header = header.Replace("background-color: rgba(255, 255, 255, 0.15);", $"background-color: rgba(255, 255, 255, {0.15 * strength});");
+                header = header.Replace("background-color: rgba(255, 255, 255, 0.10);", $"background-color: rgba(255, 255, 255, {0.10 * strength});");
+                header = header.Replace("background-color: #ffffff26;", $"background-color: rgba(255, 255, 255, {0.15 * navstrength});");
+                header = header.Replace("background-color: #ffffff1a;", $"background-color: rgba(255, 255, 255, {0.10 * navstrength});");
+            }
+
+            if (UseDarkColor(ColorTranslator.ToHtml(navColor), 0.4))
+            {
+                header = header.Replace("--navTextColor: white;", "--navTextColor: black;");
+            }
+
+            if (strength == 0)
+            {
+                header = header.Replace("border-radius: 0 0 6px 6px;", "border-radius: 6px;");
+                if (UseDarkColor(remote.RemoteBackColor, 0.5))
+                {
+                    header = header.Replace("border: 0px solid gray;", "border: 1px solid black;");
+                }
+                else
+                {
+                    header = header.Replace("border: 0px solid gray;", "border: 1px solid gray;");
+                }
+            }
+
+            if (remote.ButtonHeight > 0)
             {
                 header = header.Replace("height: 42px;", $"height: {remote.ButtonHeight}px;");
             }
 
-            if(remote.RemoteBackColor != null)
+            if (ConfigHelper.CheckRegKey(@"SOFTWARE\HTWebRemote", "BottomTabs"))
             {
-                header = header.Replace("background-color: black;", $"background-color: {remote.RemoteBackColor};");
-                header = header.Replace("border: 2px solid black;", $"border: 2px solid {remote.RemoteBackColor};");
-            }
-
-            if (remote.RemoteTextColor != null)
-            {
-                header = header.Replace("color: white;", $"color: {remote.RemoteTextColor};");
-                header = header.Replace("outline: 1px solid grey;", $"outline: 1px solid {remote.RemoteTextColor};");
+                header = header.Replace("flex-direction: column;", "flex-direction: column-reverse;");
+                header = header.Replace("justify-content: flex-start;", "justify-content: space-between;");
             }
 
             return header;
+        }
+
+        private static bool UseDarkColor(string hexColor, double threshold)
+        {
+            Color c = ColorTranslator.FromHtml(hexColor);
+            double luminance = (0.299 * c.R + 0.587 * c.G + 0.114 * c.B) / 255;
+
+            if (luminance > threshold)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private static Color AddColors(Color background, Color alphaMask)
+        {
+            if (alphaMask.R == 255)
+            {
+                return Color.FromArgb(255,
+                                      background.R + alphaMask.A > 255 ? 255 : background.R + alphaMask.A,
+                                      background.G + alphaMask.A > 255 ? 255 : background.G + alphaMask.A,
+                                      background.B + alphaMask.A > 255 ? 255 : background.B + alphaMask.A);
+            }
+            else
+            {
+                return Color.FromArgb(255,
+                                      background.R - alphaMask.A < 0 ? 0 : background.R - alphaMask.A,
+                                      background.G - alphaMask.A < 0 ? 0 : background.G - alphaMask.A,
+                                      background.B - alphaMask.A < 0 ? 0 : background.B - alphaMask.A);
+            }
         }
     }
 }

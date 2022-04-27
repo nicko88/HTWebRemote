@@ -1,23 +1,38 @@
 ﻿using HTWebRemote.RemoteFile;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace HTWebRemote.Forms
 {
     public partial class CommandEditor : Form
     {
+        private RemoteEditor Editor;
         private List<Command> Commands;
         public int LastDeviceIndex;
+        private int ButtonIndex;
 
-        public CommandEditor(List<Command> commands, int lastDeviceIndex)
+        public CommandEditor(RemoteEditor editor, List<Command> commands, int buttonIndex, int lastDeviceIndex)
         {
             InitializeComponent();
+            try
+            {
+                RegistryKey regKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\HTWebRemote", false);
+                int[] size = (regKey.GetValue("CommandEditorSize") as string[]).Select(int.Parse).ToArray();
+                Width = size[0];
+                Height = size[1];
+            }
+            catch { }
             Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
+            Editor = editor;
             Commands = commands;
+            ButtonIndex = buttonIndex;
             LoadCommands();
 
             cmbDevices.DataSource = Devices.DeviceSelector.GetDeviceNames();
@@ -254,11 +269,20 @@ namespace HTWebRemote.Forms
         private void CommandEditor_FormClosing(object sender, FormClosingEventArgs e)
         {
             LastDeviceIndex = cmbDevices.SelectedIndex;
+
+            RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\HTWebRemote", true);
+            key.SetValue("CommandEditorSize", new string[] { Width.ToString(), Height.ToString() });
         }
 
         private void btnDoc_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start($"http://{Util.ConfigHelper.GetLocalIPAddress()}:5000/doc");
+        }
+
+        private void btnTestCmds_Click(object sender, EventArgs e)
+        {
+            Editor.SaveRemote(0);
+            Editor.currentRemote.RemoteItems[ButtonIndex].RunButtonCommands();
         }
     }
 }

@@ -52,6 +52,7 @@
             this.btnSaveClose = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.btnDoc = new System.Windows.Forms.LinkLabel();
+            this.btnTestCmds = new System.Windows.Forms.Button();
             this.panelCommand.SuspendLayout();
             this.panelWaitTime.SuspendLayout();
             this.SuspendLayout();
@@ -66,7 +67,7 @@
             this.lbCommands.ItemHeight = 20;
             this.lbCommands.Location = new System.Drawing.Point(10, 124);
             this.lbCommands.Name = "lbCommands";
-            this.lbCommands.Size = new System.Drawing.Size(626, 144);
+            this.lbCommands.Size = new System.Drawing.Size(598, 144);
             this.lbCommands.TabIndex = 0;
             this.lbCommands.SelectedIndexChanged += new System.EventHandler(this.lbCommands_SelectedIndexChanged);
             // 
@@ -279,7 +280,7 @@
             // 
             this.btnDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDown.Location = new System.Drawing.Point(642, 186);
+            this.btnDown.Location = new System.Drawing.Point(634, 160);
             this.btnDown.Name = "btnDown";
             this.btnDown.Size = new System.Drawing.Size(30, 30);
             this.btnDown.TabIndex = 50;
@@ -291,7 +292,7 @@
             // 
             this.btnUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnUp.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUp.Location = new System.Drawing.Point(642, 150);
+            this.btnUp.Location = new System.Drawing.Point(634, 124);
             this.btnUp.Name = "btnUp";
             this.btnUp.Size = new System.Drawing.Size(30, 30);
             this.btnUp.TabIndex = 49;
@@ -326,7 +327,7 @@
             this.btnDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDoc.AutoSize = true;
             this.btnDoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDoc.Location = new System.Drawing.Point(638, 249);
+            this.btnDoc.Location = new System.Drawing.Point(626, 249);
             this.btnDoc.Name = "btnDoc";
             this.btnDoc.Size = new System.Drawing.Size(41, 20);
             this.btnDoc.TabIndex = 67;
@@ -334,11 +335,24 @@
             this.btnDoc.Text = "Doc";
             this.btnDoc.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.btnDoc_LinkClicked);
             // 
+            // btnTestCmds
+            // 
+            this.btnTestCmds.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnTestCmds.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTestCmds.Location = new System.Drawing.Point(614, 196);
+            this.btnTestCmds.Name = "btnTestCmds";
+            this.btnTestCmds.Size = new System.Drawing.Size(65, 48);
+            this.btnTestCmds.TabIndex = 68;
+            this.btnTestCmds.Text = "Test CMDs";
+            this.btnTestCmds.UseVisualStyleBackColor = true;
+            this.btnTestCmds.Click += new System.EventHandler(this.btnTestCmds_Click);
+            // 
             // CommandEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(684, 276);
+            this.Controls.Add(this.btnTestCmds);
             this.Controls.Add(this.btnDoc);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnSaveClose);
@@ -388,5 +402,6 @@
         private System.Windows.Forms.Button btnSaveClose;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.LinkLabel btnDoc;
+        private System.Windows.Forms.Button btnTestCmds;
     }
 }

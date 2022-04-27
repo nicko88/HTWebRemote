@@ -44,6 +44,7 @@
             this.btnSyncRemotes = new System.Windows.Forms.Button();
             this.lblNewVersion = new System.Windows.Forms.Label();
             this.lnkNewVersion = new System.Windows.Forms.LinkLabel();
+            this.cbxBottomTabs = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbDonate)).BeginInit();
             this.SuspendLayout();
             // 
@@ -59,7 +60,7 @@
             // 
             this.lblRemoteUI.AutoSize = true;
             this.lblRemoteUI.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRemoteUI.Location = new System.Drawing.Point(164, 55);
+            this.lblRemoteUI.Location = new System.Drawing.Point(164, 44);
             this.lblRemoteUI.Name = "lblRemoteUI";
             this.lblRemoteUI.Size = new System.Drawing.Size(111, 16);
             this.lblRemoteUI.TabIndex = 11;
@@ -71,7 +72,7 @@
             // 
             this.cbxShowErrors.AutoSize = true;
             this.cbxShowErrors.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbxShowErrors.Location = new System.Drawing.Point(459, 92);
+            this.cbxShowErrors.Location = new System.Drawing.Point(473, 92);
             this.cbxShowErrors.Name = "cbxShowErrors";
             this.cbxShowErrors.Size = new System.Drawing.Size(110, 20);
             this.cbxShowErrors.TabIndex = 12;
@@ -129,7 +130,7 @@
             // 
             this.cbStartAutomatically.AutoSize = true;
             this.cbStartAutomatically.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbStartAutomatically.Location = new System.Drawing.Point(459, 48);
+            this.cbStartAutomatically.Location = new System.Drawing.Point(473, 48);
             this.cbStartAutomatically.Name = "cbStartAutomatically";
             this.cbStartAutomatically.Size = new System.Drawing.Size(156, 20);
             this.cbStartAutomatically.TabIndex = 24;
@@ -141,7 +142,7 @@
             // 
             this.cbStartMinimized.AutoSize = true;
             this.cbStartMinimized.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbStartMinimized.Location = new System.Drawing.Point(459, 70);
+            this.cbStartMinimized.Location = new System.Drawing.Point(473, 70);
             this.cbStartMinimized.Name = "cbStartMinimized";
             this.cbStartMinimized.Size = new System.Drawing.Size(132, 20);
             this.cbStartMinimized.TabIndex = 26;
@@ -175,7 +176,7 @@
             // 
             this.pbDonate.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pbDonate.Image = global::HTWebRemote.Properties.Resources.paypal;
-            this.pbDonate.Location = new System.Drawing.Point(322, 80);
+            this.pbDonate.Location = new System.Drawing.Point(340, 80);
             this.pbDonate.Name = "pbDonate";
             this.pbDonate.Size = new System.Drawing.Size(85, 34);
             this.pbDonate.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -186,7 +187,7 @@
             // btnSyncRemotes
             // 
             this.btnSyncRemotes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSyncRemotes.Location = new System.Drawing.Point(281, 44);
+            this.btnSyncRemotes.Location = new System.Drawing.Point(298, 44);
             this.btnSyncRemotes.Name = "btnSyncRemotes";
             this.btnSyncRemotes.Size = new System.Drawing.Size(166, 30);
             this.btnSyncRemotes.TabIndex = 30;
@@ -219,12 +220,25 @@
             this.lnkNewVersion.Visible = false;
             this.lnkNewVersion.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkNewVersion_LinkClicked);
             // 
+            // cbxBottomTabs
+            // 
+            this.cbxBottomTabs.AutoSize = true;
+            this.cbxBottomTabs.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbxBottomTabs.Location = new System.Drawing.Point(167, 63);
+            this.cbxBottomTabs.Name = "cbxBottomTabs";
+            this.cbxBottomTabs.Size = new System.Drawing.Size(115, 20);
+            this.cbxBottomTabs.TabIndex = 33;
+            this.cbxBottomTabs.Text = "Bottom Tabs";
+            this.cbxBottomTabs.UseVisualStyleBackColor = true;
+            this.cbxBottomTabs.CheckedChanged += new System.EventHandler(this.cbxBottomTabs_CheckedChanged);
+            // 
             // HTWebRemote
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(627, 121);
+            this.Controls.Add(this.cbxBottomTabs);
             this.Controls.Add(this.lnkNewVersion);
             this.Controls.Add(this.lblNewVersion);
             this.Controls.Add(this.btnSyncRemotes);
@@ -268,6 +282,7 @@
         private System.Windows.Forms.Button btnSyncRemotes;
         private System.Windows.Forms.Label lblNewVersion;
         private System.Windows.Forms.LinkLabel lnkNewVersion;
+        private System.Windows.Forms.CheckBox cbxBottomTabs;
     }
 }
 

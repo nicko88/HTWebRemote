@@ -1,9 +1,9 @@
 ﻿<html>
 <head>
+    <title>File Browser</title>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>File Browser</title>
-    <link rel="manifest" href='data:application/manifest+json,{"name": "HTWebRemote","short_name": "HTWebRemote","lang": "en-US","start_url": " / ","scope": " / ","display": "fullscreen"}' />
+    <link rel="manifest" href='data:application/manifest+json,{"name": "HTWebRemote","short_name": "HTWebRemote","lang": "en-US","start_url": "/","scope": "/","display": "fullscreen"}' />
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="HTWebRemote">
@@ -17,34 +17,82 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script>
-        function home(path)
-        {
+        function home(path) {
             location.replace(path)
         }
 
-        function goBack()
-        {
+        function goBack() {
             window.history.back();
         }
     </script>
     <style>
         * {
-            touch-action: pinch-zoom pan-y;
+            touch-action: pan-y;
+        }
+
+        :root {
+            --navTextColor: white;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column; /* change to 'column-reverse' for bottom nav */ /* change to 'column' for top nav */
+            height: 100%;
+            justify-content: flex-start; /*change to 'space-between' for bottom nav */ /*change to 'flex-start' for top nav */
+            align-items: center;
+        }
+
+        .btn {
+            min-width: 0;
+            padding: 0;
+            height: 42px;
+            line-height: 1;
+            width: 100%;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+
+        .container {
+            padding: 12px;
+            overflow: auto;
+            margin: 0;
         }
 
         a:hover {
             color: white;
         }
 
-        a {
-            padding-top: 4px;
-            padding-bottom: 4px;
-            padding-left: 8px;
-            padding-right: 8px;
+        h4 {
+            color: white;
+            padding: 4px 0;
+            margin: 0px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 6px 6px 0 0;
+        }
+
+        .btn:focus {
+            box-shadow: none;
+        }
+
+        .btn:active {
+            transform: translateY(2px);
+        }
+
+        .ngroup {
+            padding: 2px;
+            margin-bottom: 10px;
+            border-radius: 0 0 6px 6px;
+            background-color: rgba(255, 255, 255, 0.10);
+            border: 0px solid gray;
         }
 
         .nrow {
             display: flex;
+            padding: 3px 0;
         }
 
         .nitem {
@@ -54,8 +102,6 @@
 
         ul {
             display: flex;
-            margin-left: -15px;
-            margin-right: -15px;
         }
 
         li {
@@ -63,19 +109,48 @@
             text-align: center;
         }
 
-        .nav-tabs .nav-link.active {
-            color: lightgreen;
-            font-weight: bold;
+        .nav {
+            background-color: #ffffff1a;
+            border: none;
+            overflow-x: auto;
+            overflow-y: hidden;
+            flex-direction: row;
+            display: flex;
+            align-content: center;
+        }
+
+        .nav-item {
+            flex: 1 1 auto;
+            align-items: center;
         }
 
         .nav-link {
-            padding-left: 0;
-            padding-right: 0;
-            padding-top: 10px;
-            padding-bottom: 10px;
-            color: white;
+            padding-left: 5px;
+            padding-right: 5px;
+            min-width: 44px;
+            margin: 6px 1px;
+            color: var(--navTextColor);
+            border: none !important;
+        }
+
+        .nav-link:hover {
+            background-color: #ffffff26;
+            border-radius: 8px;
+            color: var(--navTextColor);
+        }
+
+        .nav-tabs .nav-link.active {
+            font-weight: bold;
+            background-color: #ffffff26;
+            border-radius: 8px;
+            color: var(--navTextColor);
+            box-shadow: 0 2px 4px rgb(0, 0, 0, 0.4);
+        }
+
+        .nav-container {
+            width: 100%;
+            height: auto;
         }
     </style>
 </head>
-<body style="background-color: black;">
-<div class="container body-content">
+<body style="background-color: black;" ontouchstart>

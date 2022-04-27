@@ -60,6 +60,11 @@ namespace HTWebRemote
                 cbxShowErrors.Checked = true;
             }
 
+            if (ConfigHelper.CheckRegKey(@"SOFTWARE\HTWebRemote", "BottomTabs"))
+            {
+                cbxBottomTabs.Checked = true;
+            }
+
             await CheckNewVersion();
         }
 
@@ -145,8 +150,7 @@ namespace HTWebRemote
                 string remoteID = request.QueryString["remoteID"];
                 Remote remote = RemoteJSONLoader.LoadRemoteJSON(remoteID);
 
-                Thread commandThread = new Thread(remote.RemoteItems[Convert.ToInt32(btnIndex)].RunButtonCommands);
-                commandThread.Start();
+                remote.RemoteItems[Convert.ToInt32(btnIndex)].RunButtonCommands();
             }
 
             return queryData;
@@ -230,23 +234,13 @@ namespace HTWebRemote
 
         private void HTWebRemote_FormClosing(object sender, FormClosingEventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("Are you sure you want to close HTWebRemote?", "Close HTWebRemote?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            if (dialogResult == DialogResult.Yes)
+            trayIcon.Visible = false;
+            try
             {
-
-                trayIcon.Visible = false;
-                try
-                {
-                    Process.GetProcessesByName("adb")[0].Kill();
-                }
-                catch { }
-                Environment.Exit(0);
+                Process.GetProcessesByName("adb")[0].Kill();
             }
-            else
-            {
-                e.Cancel = true;
-            }
+            catch { }
+            Environment.Exit(0);
         }
 
         private void LblDoc_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -315,6 +309,20 @@ namespace HTWebRemote
             {
                 Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\HTWebRemote", true);
                 key.DeleteValue("ShowErrors", false);
+            }
+        }
+
+        private void cbxBottomTabs_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbxBottomTabs.Checked)
+            {
+                Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(@"SOFTWARE\HTWebRemote", true);
+                key.SetValue("BottomTabs", true);
+            }
+            else
+            {
+                Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\HTWebRemote", true);
+                key.DeleteValue("BottomTabs", false);
             }
         }
 

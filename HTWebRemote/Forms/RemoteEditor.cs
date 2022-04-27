@@ -11,13 +11,21 @@ namespace HTWebRemote.Forms
 {
     public partial class RemoteEditor : Form
     {
-        Remote currentRemote;
+        public Remote currentRemote;
         private int _lastDeviceIndex = 0;
         private int _selectedIndex = 0;
 
         public RemoteEditor()
         {
             InitializeComponent();
+            try
+            {
+                RegistryKey regKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\HTWebRemote", false);
+                int[] size = (regKey.GetValue("RemoteEditorSize") as string[]).Select(int.Parse).ToArray();
+                Width = size[0];
+                Height = size[1];
+            }
+            catch { }
             Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
             cmbRemoteID.SelectedIndex = 0;
@@ -59,6 +67,7 @@ namespace HTWebRemote.Forms
         {
             panelGroup.Visible = false;
             tbGroupLabel.Text = "";
+            pnlGroupColor.BackColor = ColorTranslator.FromHtml("#FFFFFF");
             btnAddGroup.Visible = true;
             btnSaveGroup.Visible = false;
             btnDeleteGroup.Visible = false;
@@ -111,13 +120,13 @@ namespace HTWebRemote.Forms
                     pnlBackColor.BackColor = Color.Black;
                 }
 
-                if (currentRemote.RemoteTextColor != null)
+                if(currentRemote.RemoteShadingStrength is null)
                 {
-                    pnlTextColor.BackColor = ColorTranslator.FromHtml(currentRemote.RemoteTextColor);
+                    tbShadingStrength.Text = "1";
                 }
                 else
                 {
-                    pnlTextColor.BackColor = Color.White;
+                    tbShadingStrength.Text = currentRemote.RemoteShadingStrength.ToString();
                 }
 
                 tbRemoteName.Text = currentRemote.RemoteName;
@@ -146,7 +155,6 @@ namespace HTWebRemote.Forms
 
         private void lbRemoteItems_SelectedIndexChanged(object sender, EventArgs e)
         {
-
             cmbAddItem.SelectedIndex = -1;
             ResetControls();
 
@@ -159,6 +167,7 @@ namespace HTWebRemote.Forms
                     case RemoteItem.RemoteItemType.Group:
                         panelGroup.Visible = true;
                         tbGroupLabel.Text = currentItem.Label;
+                        pnlGroupColor.BackColor = ColorTranslator.FromHtml(Util.ConfigHelper.ConvertLegacyColor(currentItem.Color));
                         btnAddGroup.Visible = false;
                         btnSaveGroup.Visible = true;
                         btnDeleteGroup.Visible = true;
@@ -191,7 +200,7 @@ namespace HTWebRemote.Forms
             }
         }
 
-        private void SaveRemote(int selectedIndexOffset)
+        public void SaveRemote(int selectedIndexOffset)
         {
             _selectedIndex = lbRemoteItems.SelectedIndex;
 
@@ -263,7 +272,7 @@ namespace HTWebRemote.Forms
             {
                 insertIndex = lbRemoteItems.SelectedIndex + 1;
             }
-            RemoteItem remoteItem = new RemoteItem(tbGroupLabel.Text);
+            RemoteItem remoteItem = new RemoteItem(tbGroupLabel.Text, $"#{pnlGroupColor.BackColor.R:X2}{pnlGroupColor.BackColor.G:X2}{pnlGroupColor.BackColor.B:X2}");
             try
             {
                 currentRemote.RemoteItems.Insert(insertIndex, remoteItem);
@@ -280,6 +289,7 @@ namespace HTWebRemote.Forms
         {
             RemoteItem selectedItem = (RemoteItem)lbRemoteItems.SelectedItem;
             selectedItem.Label = tbGroupLabel.Text;
+            selectedItem.Color = $"#{pnlGroupColor.BackColor.R:X2}{pnlGroupColor.BackColor.G:X2}{pnlGroupColor.BackColor.B:X2}";
             SaveRemote(0);
         }
 
@@ -366,23 +376,13 @@ namespace HTWebRemote.Forms
             }
             currentRemote.ButtonHeight = Convert.ToInt32(tbButtonHeight.Text);
 
-            if(pnlBackColor.BackColor == Color.Black)
-            {
-                currentRemote.RemoteBackColor = null;
-            }
-            else
-            {
-                currentRemote.RemoteBackColor = $"#{pnlBackColor.BackColor.R:X2}{pnlBackColor.BackColor.G:X2}{pnlBackColor.BackColor.B:X2}";
-            }
+            currentRemote.RemoteBackColor = $"#{pnlBackColor.BackColor.R:X2}{pnlBackColor.BackColor.G:X2}{pnlBackColor.BackColor.B:X2}";
 
-            if (pnlTextColor.BackColor == Color.White)
+            if (string.IsNullOrEmpty(tbShadingStrength.Text))
             {
-                currentRemote.RemoteTextColor = null;
+                tbShadingStrength.Text = "1";
             }
-            else
-            {
-                currentRemote.RemoteTextColor = $"#{pnlTextColor.BackColor.R:X2}{pnlTextColor.BackColor.G:X2}{pnlTextColor.BackColor.B:X2}";
-            }
+            currentRemote.RemoteShadingStrength = Convert.ToInt32(tbShadingStrength.Text);
 
             if (string.IsNullOrEmpty(tbRemoteName.Text))
             {
@@ -441,7 +441,7 @@ namespace HTWebRemote.Forms
                 if (currentItem.ItemType == RemoteItem.RemoteItemType.Button)
                 {
                     int index = lbRemoteItems.SelectedIndex;
-                    CommandEditor commandEditor = new CommandEditor(currentItem.Commands, _lastDeviceIndex);
+                    CommandEditor commandEditor = new CommandEditor(this, currentItem.Commands, index, _lastDeviceIndex);
                     commandEditor.ShowDialog();
                     _lastDeviceIndex = commandEditor.LastDeviceIndex;
 
@@ -468,6 +468,37 @@ namespace HTWebRemote.Forms
             LoadRemote();
         }
 
+        private void lbRemoteItems_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                if (lbRemoteItems.SelectedItem != null)
+                {
+                    lbRemoteItems.DoDragDrop(lbRemoteItems.SelectedItem, DragDropEffects.Move);
+                }
+            }
+        }
+
+        private void lbRemoteItems_DragOver(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Move;
+        }
+
+        private void lbRemoteItems_DragDrop(object sender, DragEventArgs e)
+        {
+            Point point = lbRemoteItems.PointToClient(new Point(e.X, e.Y));
+            int index = lbRemoteItems.IndexFromPoint(point);
+            if (index < 0) index = lbRemoteItems.Items.Count - 1;
+
+            RemoteItem item = currentRemote.RemoteItems[lbRemoteItems.SelectedIndex];
+            currentRemote.RemoteItems.RemoveAt(lbRemoteItems.SelectedIndex);
+            currentRemote.RemoteItems.Insert(index, item);
+
+            SaveRemote(0);
+
+            lbRemoteItems.SelectedIndex = index;
+        }
+
         private void tbButtonSize_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
@@ -479,6 +510,11 @@ namespace HTWebRemote.Forms
         }
 
         private void tbBlankSize_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
+        private void tbShadingStrength_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
         }
@@ -503,17 +539,6 @@ namespace HTWebRemote.Forms
             if(result == DialogResult.OK)
             {
                 pnlBackColor.BackColor = colorDialog.Color;
-            }
-        }
-
-        private void pnlTextColor_Click(object sender, EventArgs e)
-        {
-            ColorDialog colorDialog = new ColorDialog();
-            DialogResult result = colorDialog.ShowDialog();
-
-            if (result == DialogResult.OK)
-            {
-                pnlTextColor.BackColor = colorDialog.Color;
             }
         }
 
@@ -550,6 +575,40 @@ namespace HTWebRemote.Forms
 
             RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\HTWebRemote", true);
             key.SetValue("CustomColors", colorDialog.CustomColors.Select(x => x.ToString()).ToArray());
+        }
+
+        private void pnlGroupColor_Click(object sender, EventArgs e)
+        {
+            ColorDialog colorDialog = new ColorDialog();
+            DialogResult result = colorDialog.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                pnlGroupColor.BackColor = colorDialog.Color;
+            }
+        }
+
+        private void RemoteEditor_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\HTWebRemote", true);
+            key.SetValue("RemoteEditorSize", new string[] { Width.ToString(), Height.ToString() });
+        }
+
+        private void lbRemoteItems_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.PageUp:
+                    btnUp.PerformClick();
+                    break;
+                case Keys.PageDown:
+                    btnDown.PerformClick();
+                    break;
+                default:
+                    break;
+            }
+
+            e.Handled = true;
         }
     }
 }

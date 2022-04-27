@@ -158,6 +158,10 @@ namespace HTWebRemote.Util
 
         public static string ConvertLegacyColor(string color)
         {
+            if(color is null)
+            {
+                return "#FFFFFF";
+            }
             if (color.StartsWith("#"))
             {
                 return color;
