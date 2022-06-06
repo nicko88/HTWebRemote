@@ -11,5 +11,13 @@ namespace HTWebRemote.Util
                 MessageBox.Show(error, "Error");
             }
         }
+
+        public static void SendMsg(string msg)
+        {
+            if (ConfigHelper.CheckRegKey(@"SOFTWARE\HTWebRemote", "ShowErrors"))
+            {
+                MessageBox.Show(msg, "Message");
+            }
+        }
     }
 }

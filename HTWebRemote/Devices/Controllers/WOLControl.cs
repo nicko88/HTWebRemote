@@ -13,7 +13,7 @@ namespace HTWebRemote.Devices.Controllers
         {
             try
             {
-                PhysicalAddress physicalAddress = PhysicalAddress.Parse(mac.Replace(":","-"));
+                PhysicalAddress physicalAddress = PhysicalAddress.Parse(mac.Replace(":","-").ToUpper());
 
                 IEnumerable<byte> header = Enumerable.Repeat(byte.MaxValue, 6);
                 IEnumerable<byte> data = Enumerable.Repeat(physicalAddress.GetAddressBytes(), 16).SelectMany(m => m);

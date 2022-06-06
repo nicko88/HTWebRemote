@@ -1,3 +1,5 @@
+## [Download latest release](https://github.com/nicko88/HTWebRemote/releases/latest)
+
 # HTWebRemote
 #### Simple remote control of your home theater devices and HTPC from any web browser
 
@@ -34,7 +36,7 @@ If you don't know how to do this, just do a web search for how to add a web page
 <img src="https://user-images.githubusercontent.com/1866075/165430801-09922699-90c4-463d-b1c7-43bc1130641e.png" width="600px" />
 
 ###### Usage Demo
-<img src="https://user-images.githubusercontent.com/1866075/80928497-78be2b00-8d6a-11ea-919a-03c93deb7be7.gif" width="222px" />
+<img src="https://user-images.githubusercontent.com/1866075/166619678-5c4b6946-5ca6-467a-b945-47ef9aba8b15.gif" width="222px" />
 
 #### Command Line Mode
 
@@ -63,11 +65,13 @@ Finally, HTWebRemote includes a sort of API which lets you send commands from ot
 * StormAudio ISP AVRs
 * Monoprice HTP-1 AVR
 * Anthem MRX AVRs
+* Lyngdorf AVRs
 * JVC Projectors
 * Epson Projectors
 * BenQ Projectors
 * Christie M-Series / TruLife+ Projectors
 * Panasonic Projectors
+* LG webOS TVs/Projectors
 * Oppo Disc Player
 * D-BOX HEMC
 * HDFury Devices

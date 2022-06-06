@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Net.NetworkInformation;
 using System.Net.Sockets;
-using System.Threading;
 using System.Text;
+using System.Threading;
 
 namespace HTWebRemote.Devices.Controllers
 {
@@ -26,30 +25,23 @@ namespace HTWebRemote.Devices.Controllers
 
             try
             {
-                Ping ping = new Ping();
-                PingReply reply = ping.Send(IP, 100);
+                conn = new Util.TelnetConnection(IP, 23);
+                conn.Write("MV?");
+                Thread.Sleep(100);
 
-                if (reply.Status == IPStatus.Success)
+                string strVol = conn.Read();
+                if (strVol.Substring(4, 1) == "5")
                 {
-                    conn = new Util.TelnetConnection(IP, 23);
-
-                    conn.Write("MV?");
-                    Thread.Sleep(100);
-
-                    string strVol = conn.Read();
-                    if (strVol.Substring(4, 1) == "5")
-                    {
-                        vol = Convert.ToInt32(strVol.Substring(2, 2)) - 80 + 0.5;
-                    }
-                    else
-                    {
-                        vol = Convert.ToInt32(strVol.Substring(2, 2)) - 80;
-                    }
-
-                    conn.Close();
-
-                    return $"{vol}dB";
+                    vol = Convert.ToInt32(strVol.Substring(2, 2)) - 80 + 0.5;
                 }
+                else
+                {
+                    vol = Convert.ToInt32(strVol.Substring(2, 2)) - 80;
+                }
+
+                conn.Close();
+
+                return $"{vol}dB";
             }
             catch (Exception e)
             {

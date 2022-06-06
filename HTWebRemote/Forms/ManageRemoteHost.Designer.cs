@@ -75,18 +75,18 @@ namespace HTWebRemote.Forms
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(156, 43);
             this.label1.TabIndex = 2;
-            this.label1.Text = "RasPi / Linux Host IP Address";
+            this.label1.Text = "RasPi / Linux Host IP Address:";
             // 
             // btnUpdate
             // 
             this.btnUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnUpdate.Enabled = false;
             this.btnUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUpdate.Location = new System.Drawing.Point(281, 76);
+            this.btnUpdate.Location = new System.Drawing.Point(290, 76);
             this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(92, 52);
+            this.btnUpdate.Size = new System.Drawing.Size(83, 70);
             this.btnUpdate.TabIndex = 3;
-            this.btnUpdate.Text = "Update Host App";
+            this.btnUpdate.Text = "Update Remote Host";
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
@@ -163,9 +163,9 @@ namespace HTWebRemote.Forms
             // btnConnect
             // 
             this.btnConnect.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConnect.Location = new System.Drawing.Point(170, 76);
+            this.btnConnect.Location = new System.Drawing.Point(170, 75);
             this.btnConnect.Name = "btnConnect";
-            this.btnConnect.Size = new System.Drawing.Size(84, 26);
+            this.btnConnect.Size = new System.Drawing.Size(84, 30);
             this.btnConnect.TabIndex = 10;
             this.btnConnect.Text = "Connect";
             this.btnConnect.UseVisualStyleBackColor = true;
@@ -190,7 +190,7 @@ namespace HTWebRemote.Forms
             this.toolsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(385, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(385, 25);
             this.menuStrip1.TabIndex = 13;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -201,20 +201,20 @@ namespace HTWebRemote.Forms
             this.rebootRasPiToolStripMenuItem});
             this.toolsToolStripMenuItem.Enabled = false;
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(51, 21);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // transferNVShieldAuthorizationToolStripMenuItem
             // 
             this.transferNVShieldAuthorizationToolStripMenuItem.Name = "transferNVShieldAuthorizationToolStripMenuItem";
-            this.transferNVShieldAuthorizationToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.transferNVShieldAuthorizationToolStripMenuItem.Size = new System.Drawing.Size(261, 22);
             this.transferNVShieldAuthorizationToolStripMenuItem.Text = "Transfer NVShield Authorization";
             this.transferNVShieldAuthorizationToolStripMenuItem.Click += new System.EventHandler(this.transferNVShieldAuthorizationToolStripMenuItem_Click);
             // 
             // rebootRasPiToolStripMenuItem
             // 
             this.rebootRasPiToolStripMenuItem.Name = "rebootRasPiToolStripMenuItem";
-            this.rebootRasPiToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.rebootRasPiToolStripMenuItem.Size = new System.Drawing.Size(261, 22);
             this.rebootRasPiToolStripMenuItem.Text = "Reboot Remote Host PC";
             this.rebootRasPiToolStripMenuItem.Click += new System.EventHandler(this.rebootRasPiToolStripMenuItem_Click);
             // 

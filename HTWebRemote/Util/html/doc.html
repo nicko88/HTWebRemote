@@ -17,8 +17,8 @@
 	</p>
 
 	<p>
-	You must allow port 5000/TCP incoming on the PC that is running this software in order for the remote UI to function.<br />
-	The software takes care of this firewall rule for you the first time you run it.
+		You must allow port 5000/TCP incoming on the PC that is running this software in order for the remote UI to function.<br />
+		The software takes care of this firewall rule for you the first time you run it.
 	</p>
 
 	<p>There are 3 main modes of operation for HTWebRemote.</p>
@@ -181,12 +181,14 @@
 		<li><a href="#storm">StormAudio ISP AVRs</a></li>
 		<li><a href="#htp1">Monoprice HTP-1 AVR</a></li>
 		<li><a href="#anthem">Anthem MRX AVRs</a></li>
+		<li><a href="#lyngdorf">Lyngdorf AVRs</a></li>
 		<li><a href="#jvc">JVC Projectors</a></li>
 		<li><a href="#epson">Epson Projectors</a></li>
 		<li><a href="#benq">BenQ Projectors</a></li>
 		<li><a href="#christie">Christie M-Series Projectors</a></li>
 		<li><a href="#panaproj">Panasonic Projectors</a></li>
 		<li><a href="#oppo">Oppo Disc Player</a></li>
+		<li><a href="#lgwebos">LG webOS TVs/Projectors</a></li>
 		<li><a href="#dbox">D-BOX HEMC</a></li>
 		<li><a href="#minidsp-rs">MiniDSP Devices</a></li>
 		<li><a href="#hdfury">HDfury Devices</a></li>
@@ -581,11 +583,11 @@
 	<h2><a id="kodi"></a>Kodi Media Player Control</h2>
 
 	For Kodi Media Player control, the device identifier is: <b>kodi</b>
-	
+
 	<p>In order to control Kodi, you need to allow remote control via HTTP.</p>
-	
+
 	<p>This setting can be found in Settings -> Services -> Control -> Allow remote control via HTTP</p>
-	
+
 	<p>If you enable "Require authentication", make sure you provide the user:pass in the Device Configuration screen in HTWebRemote.</p>
 
 	<h3>Commands</h3>
@@ -624,7 +626,7 @@
 			<li><code>quit</code> (Close Kodi)</li>
 		</ul>
 	</ul>
-	
+
 	<br />
 
 	<h2><a id="zoom"></a>Zoom Player Control</h2>
@@ -1033,7 +1035,7 @@
 		<li><code>toggle</code> (Toggle the power to the opposite of the current state.)</li>
 	</ul>
 	<br />
-	
+
 	<h2><a id="kasa"></a>TP-Link Kasa Smart Devices</h2>
 
 	For TP-Link Kasa control, the device identifier is: <b>kasa</b>
@@ -1088,12 +1090,12 @@
 			<li>KL430</li>
 		</ul>
 	</ul>
-	
+
 	<p>You are more or less on your own for figuring out all the various command datas for controlling your devices.</p>
-	
+
 	<p>
-	I recommend installing this program <a href="https://github.com/python-kasa/python-kasa">(python-kasa)</a> and using it to issue commands with the --debug parameter<br />
-	This will show you what command is being send to the device.
+		I recommend installing this program <a href="https://github.com/python-kasa/python-kasa">(python-kasa)</a> and using it to issue commands with the --debug parameter<br />
+		This will show you what command is being send to the device.
 	</p>
 
 	<h3>Example Commands</h3>
@@ -1259,20 +1261,20 @@
 		<li><code>09f6</code> (Volume Down)</li>
 		<li><code>0af5</code> (Mute Toggle)</li>
 	</ul>
-	
+
 	<p>You can also include multiple IR NEC Codes in one command by separating them with commas.</p>
-	
+
 	<h3>Go to Volume:</h3>
-	
+
 	<ul>
 		<li><code>cmd = vol</code></li>
 		<ul>
 			<li><code>param = XX,YYY</code></li>
 		</ul>
 	</ul>
-	
+
 	<p>This will "fade" your volume from it's current value to your target value 1 dB at a time.</p>
-	
+
 	<p>
 		Where XX is the volume you want to go to, and YYY is some number of milliseconds between each 1dB adjustment.<br />
 		Recommend numbers 300 and greater as lower seems to fast to work.
@@ -1305,6 +1307,36 @@
 	<p>
 		For all Anthem MRX commands, see the full Anthem MRX command document here:<br />
 		<a href="https://github.com/nicko88/HTWebRemote/blob/master/IP%20Control%20Spec%20Documents/Anthem_MRX.pdf">Anthem_MRX.pdf</a>
+	</p>
+	<br />
+
+	<h2><a id="lyngdorf"></a>Lyngdorf AVR Control</h2>
+
+	For Lyngdorf control, the device identifier is: <b>lyngdorf</b>
+
+	<h3>Some Basic Commands</h3>
+
+	<ul>
+		<li><code>!POWERONMAIN</code> (Power ON)</li>
+		<li><code>!POWEROFFMAIN</code> (Power OFF)</li>
+		<li><code>!VOL(-100)</code> (Set Volume to -10.0dB)</li>
+		<li><code>lipsync</code> (Modify Lipsync Value)</li>
+		<ul>
+			<li><code>param = +1</code> (Add 1ms)</li>
+			<li><code>param = -10</code> (Subtract 10ms)</li>
+		</ul>
+	</ul>
+
+	<h3>Example Query Commands</h3>
+
+	<ul>
+		<li><code>query:!VOL?</code> (Get Volume Level)</li>
+		<li><code>query:!LIPSYNC?</code> (Get Lipsync Value)</li>
+	</ul>
+
+	<p>
+		For all lyngdorf commands, see the full Lyngdorf command document here:<br />
+		<a href="https://github.com/nicko88/HTWebRemote/blob/master/IP%20Control%20Spec%20Documents/Lyngdorf.pdf">Lyngdorf.pdf</a>
 	</p>
 	<br />
 
@@ -1524,7 +1556,7 @@
 		<a href="https://github.com/nicko88/HTWebRemote/blob/master/IP%20Control%20Spec%20Documents/Christie_TruLife+.pdf">Christie_TruLife+.pdf</a>
 	</p>
 	<br />
-	
+
 	<h2><a id="panaproj"></a>Panasonic Projector Control</h2>
 
 	For Panasonic Projector control, the device identifier is: <b>panaproj</b>
@@ -1550,6 +1582,100 @@
 	</p>
 
 	<p>Or look up the IP control document for your particular Panasonic Projector.</p>
+	<br />
+	
+	<h2><a id="lgwebos"></a>LG webOS Control</h2>
+
+	For LG webOS control, the device identifier is: <b>lgwebos</b>
+	
+	<br/ ><br />
+	<b>Power Control</b>
+	<p>
+		To turn ON the TV you must use <a href="#wol">Wake-on-LAN</a>.<br/>
+		To turn OFF the TV, use <code>cmd=poweroff</code>
+	</p>
+	
+	<h3>Supported Commands</h3>
+
+	<ul>
+		<li><b>Navigation:</b></li>
+		<ul>
+			<li><code>menu</code></li>
+			<li><code>home</code></li>
+			<li><code>enter</code></li>
+			<li><code>back</code></li>
+			<li><code>exit</code></li>
+			<li><code>up</code></li>
+			<li><code>down</code></li>
+			<li><code>left</code></li>
+			<li><code>right</code></li>
+		</ul>
+		<li><b>Playback:</b></li>
+		<ul>
+			<li><code>play</code></li>
+			<li><code>pause</code></li>
+			<li><code>stop</code></li>
+			<li><code>fastforward</code></li>
+			<li><code>rewind</code></li>
+			<li><code>gotonext</code></li>
+			<li><code>gotoprev</code></li>
+			<li><code>captions</code></li>
+			<li><code>chanup</code></li>
+			<li><code>chandown</code></li>
+			<li><code>mute</code></li>
+			<li><code>unmute</code></li>
+			<li><code>volup</code></li>
+			<li><code>voldown</code></li>
+			<li><code>setvol</code></li>
+			<ul>
+				<li><code>param=XX</code> (Where XX is the volume)</li>
+			</ul>
+		</ul>
+		<li><b>Other Commands:</b></li>
+		<ul>
+			<li><code>info</code></li>
+			<li><code>myapps</code></li>
+			<li><code>qmenu</code></li>
+			<li><code>favorites</code></li>
+			<li><code>recent</code></li>
+			<li><code>livezoom</code></li>
+			<li><code>aspectratio</code></li>
+			<li><code>red</code></li>
+			<li><code>green</code></li>
+			<li><code>yellow</code></li>
+			<li><code>blue</code></li>
+			<li><code>asterisk</code></li>
+			<li><code>weburl</code></li>
+			<ul>
+				<li><code>param=url</code> (Opens a URL with the browser)</li>
+			</ul>
+			<li><code>youtubevideo</code></li>
+			<ul>
+				<li><code>param=videoid</code> (Plays a YouTube video, enter the videoid like: jOUM_LLuBjE)</li>
+			</ul>
+			<li><code>openapp</code></li>
+			<ul>
+				<li><code>param=appid</code></li>
+			</ul>
+			<li><code>closeapp</code></li>
+			<ul>
+				<li><code>param=appid</code></li>
+			</ul>
+		</ul>
+	</ul>
+	
+	<h3>Opening and closing Apps</h3>
+	<p>
+		To find the <code>appid</code> to supply to the <code>param</code> for <code>openapp</code> and <code>closeapp</code> issue the command: <code>cmd=applist</code><br/>
+		This will open a screen on your PC listing all the apps that are installed on your TV and their <code>appid</code>.
+	</p>
+	
+	<h3>Switching Inputs</h3>
+	<p>
+		Inputs are treated like apps.<br/>
+		Like above, use <code>cmd=applist</code> to find the <code>appid</code> for the input you want, and then switch to it with <code>openapp</code> and <code>closeapp</code>.
+	</p>
+	
 	<br />
 
 	<h2><a id="oppo"></a>Oppo Disc Player</h2>
@@ -1614,14 +1740,14 @@
 	<h2><a id="hdfury"></a>HDfury Device Control</h2>
 
 	For HDfury Device control, the device identifier is: <b>hdfury</b>
-	
+
 	<h3>Some basic HDfury Vertex2 Commands</h3>
 
 	<ul>
 		<li><code>set insel 2 3</code> (Set tx0 to input 2 and tx1 to input 3)</li>
 		<li><code>set inseltx0 1</code> (Set tx0 to input 1 and keep tx1 as is)</li>
 	</ul>
-	
+
 	<p>HDfury device default port numbers:</p>
 	<ul>
 		<li>Vertex2: 2220</li>
@@ -1630,7 +1756,7 @@
 		<li>MaestroRX: 2201</li>
 		<li>Diva: 2210</li>
 	</ul>
-	
+
 	<p>
 		For all HDfury commands, see the list of HDfury devices commands here:<br />
 		<ul>
@@ -1642,20 +1768,20 @@
 		</ul>
 	</p>
 	<br />
-	
+
 	<h2><a id="minidsp-rs"></a>MiniDSP-rs Control</h2>
 
 	For MiniDSP-rs control, the device identifier is: <b>minidsp-rs</b>
-	
+
 	<p>To control a MiniDSP device, you must set up and use the <a href="https://github.com/mrene/minidsp-rs">minidsp-rs</a> service.<p>
-	
+
 	<p>Before using this device control in HTWebRemote, you must enable the HTTP service in the minidsp-rs config.<p>
-	
+
 	<p>
 		To do this, open the <code>config.toml</code> file (located in: <code>/etc/minidsp/config.toml</code> on linux) and find the line: <code>bind_address = "127.0.0.1:5380"</code><br />
 		Change this line to: <code>bind_address = "0.0.0.0:5380"</code> and restart the minidsp-rs service (<code>sudo systemctl restart minidsp</code>).
 	</p>
-	
+
 	<h3>Some basic MiniDSP-rs Commands</h3>
 
 	<ul>
@@ -1673,7 +1799,7 @@
 			<li><code>param=XX</code> (Where XX is your target volume)</li>
 		</ul>
 	</ul>
-	
+
 	<b>MiniDSP Query Command</b>
 	<br />
 	<ul>
@@ -1703,19 +1829,19 @@
 		<li><code>&lt;LF&gt;</code> (Line Feed)</li>
 		<li><code>&lt;CRLF&gt;</code> (Carriage Return & Line Feed)</li>
 	</ul>
-	
+
 	<p>If you need to send other special bytes to the device (which cannot be represented by normal keyboard characters), you can enter the entire command as a series of hex values.</p>
-	
+
 	<p><b>In order do to this you must also enter "hex" into the command param.</b></p>
-	
+
 	<p><code>param = hex</code></p>
-	
+
 	<p>I recommend using <a href=https://onlineasciitools.com/convert-ascii-to-bytes>this website</a> to convert your ASCII characters into bytes.</p>
-	
+
 	<p>Assume the command you want to send is as follows.</p>
 
 	<p><code>cmd = example&lt;CR&gt;</code></p>
-	
+
 	<ul>
 		<li><code>e = 65</code></li>
 		<li><code>x = 78</code></li>
@@ -1726,9 +1852,9 @@
 		<li><code>e = 65</code></li>
 		<li><code>&lt;CR&gt; = 0d</code></li>
 	</ul>
-	
+
 	<h4>The following hex list formats are allowed (enter in cmd box):</h4>
-	
+
 	<ul>
 		<li><code>65 78 61 6d 70 6c 65 0d</code></li>
 		<li><code>65,78,61,6d,70,6c,65,0d</code></li>
@@ -1736,32 +1862,32 @@
 		<li><code>0x65,0x78,0x61,0x6d,0x70,0x6c,0x65,0x0d</code></li>
 	</ul>
 	<br />
-	
+
 	<h2><a id="tcp"></a>TCP Generic Control</h2>
 
 	For TCP generic control, the device identifier is: <b>tcp</b>
 
 	<p>This device controller is designed to be used to send commands to any device that accepts a single plain command over a TCP/IP socket.</p>
-	
+
 	<p>You can use this to control devices that HTWebRemote does not specifically have support for.</p>
-	
+
 	<p>Simply enter your command to send to the device into the cmd box.</p>
-	
+
 	<p>If you need to send special chracters that you can't simply enter into the cmd box, please see the <a href="#specialchars">Special Characters</a> section under the RS232 Device Control.</p>
 	<br />
-	
+
 	<h2><a id="udp"></a>UDP Generic Control</h2>
 
 	For UDP generic control, the device identifier is: <b>udp</b>
-	
-	<p>This device controller is designed to be used to send commands to any device that accepts a single plain command over a UDP socket.</p>
-	
-	<p>Please see the <a href="#tcp">TCP Generic Control</a> section above for instructions on how to use this device controller as it works the exact same way.<p>
-	<br />
-	
-	<h2><a id="httppost"></a>HTTP POST Requests</h2>
 
-	For HTTP POST requests, the device identifier is: <b>httppost</b>
+	<p>This device controller is designed to be used to send commands to any device that accepts a single plain command over a UDP socket.</p>
+
+	<p>Please see the <a href="#tcp">TCP Generic Control</a> section above for instructions on how to use this device controller as it works the exact same way.<p>
+		<br />
+
+		<h2><a id="httppost"></a>HTTP POST Requests</h2>
+
+		For HTTP POST requests, the device identifier is: <b>httppost</b>
 
 	<p>This device controller is meant to be used to send simple HTTP POST requests to a server.</p>
 
@@ -1770,13 +1896,13 @@
 	<b>http://192.168.1.100/rest/nodes/45378/cmd/DOF</b>
 
 	<p>Configure the <b>httppost</b> device URL to be the base address: http://192.168.1.100</p>
-	
+
 	<p>Then enter the rest of the URL into the cmd box:</p>
 
 	<ul>
 		<li><code>cmd = /rest/nodes/45378/cmd/DOF</code></li>
 	</ul>
-	
+
 	<p>If needed, To POST JSON content to the HTTP server at this URL, simply enter the JSON content in the param box.</p>
 
 	If the HTTP server needs basic authenticaltion, enter the username and password into the <code>special</code> data field as follows:
@@ -1784,19 +1910,19 @@
 		<li><code>username:password</code></li>
 	</ul>
 	<br />
-	
+
 	<h2><a id="httpget"></a>HTTP GET Requests</h2>
 
 	For HTTP GET requests, the device identifier is: <b>httpget</b>
 
 	<p>This device controller is meant to be used to send simple HTTP GET requests to a server.</p>
-	
+
 	<p>Please see the <a href="#httppost">HTTP POST requests</a> section above for instructions on how to use this device controller as it works the exact same way, except for no POST data.<p>
-	<br />
+		<br />
 
-	<h2><a id="mqtt"></a>MQTT Messaging Protocol Control</h2>
+		<h2><a id="mqtt"></a>MQTT Messaging Protocol Control</h2>
 
-	For MQTT Messaging Protocol control, the device identifier is: <b>mqtt</b>
+		For MQTT Messaging Protocol control, the device identifier is: <b>mqtt</b>
 
 	<p>This device controller is meant to be used to send commands via the MQTT messaging protocol.</p>
 
@@ -1810,13 +1936,13 @@
 		<li><code>cmd = your/mqtt/topic</code></li>
 		<li><code>param = message_payload</code></li>
 	</ul>
-	
+
 	If your MQTT broker needs basic authenticaltion, enter the username and password into the <code>special</code> data field as follows:
 	<ul>
 		<li><code>username:password</code></li>
 	</ul>
-	<br/ >
-	
+	<br />
+
 	<h2><a id="wol"></a>Wake-on-LAN Control</h2>
 
 	For Wake-on-LAN control, the device identifier is: <b>wol</b>
@@ -1832,7 +1958,7 @@
 	<ul>
 		<li><code>cmd = 00:11:22:33:44:55</code></li>
 	</ul>
-	<br/ >
+	<br />
 
 </body>
 </html>
