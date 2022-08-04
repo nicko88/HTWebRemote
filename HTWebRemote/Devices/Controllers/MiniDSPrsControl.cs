@@ -24,7 +24,13 @@ namespace HTWebRemote.Devices.Controllers
                     { "usb", @"{""master_status"":{""source"": ""Usb""}}" },
                     { "mute", @"{""master_status"":{""mute"": true}}" },
                     { "unmute", @"{""master_status"":{""mute"": false}}" },
-                    { "volume", @"{""master_status"":{""volume"": xx}}" }
+                    { "volume", @"{""master_status"":{""volume"": xx}}" },
+                    { "input_mute", @"{""inputs"":[{""index"":xx,""mute"":true}]}" },
+                    { "input_unmute", @"{""inputs"":[{""index"":xx,""mute"":false}]}" },
+                    { "input_gain", @"{""inputs"":[{""index"":xx,""gain"":yy}]}" },
+                    { "output_mute", @"{""outputs"":[{""index"":xx,""mute"":true}]}" },
+                    { "output_unmute", @"{""outputs"":[{""index"":xx,""mute"":false}]}" },
+                    { "output_gain", @"{""outputs"":[{""index"":xx,""gain"":yy}]}" }
                 };
 
                 return _commands;
@@ -36,16 +42,49 @@ namespace HTWebRemote.Devices.Controllers
             {
                 bool valid = Commands.TryGetValue(cmd, out string jsonCmd);
 
-                if(cmd == "volume")
+                try
                 {
-                    jsonCmd = jsonCmd.Replace("xx", param);
+                    if (cmd == "volume")
+                    {
+                        if (param.StartsWith("+") || param.StartsWith("-"))
+                        {
+                            double newVol = Convert.ToDouble(getvol(IP)) + Convert.ToDouble(param);
+                            if(newVol > 0)
+                            {
+                                newVol = 0;
+                            }
+                            if (newVol < -127.5)
+                            {
+                                newVol = -127.5;
+                            }
+                            jsonCmd = jsonCmd.Replace("xx", newVol.ToString());
+                        }
+                        else
+                        {
+                            jsonCmd = jsonCmd.Replace("xx", param);
+                        }
+                    }
+                    else if (cmd.Contains("_"))
+                    {
+                        if(param.Contains(","))
+                        {
+                            string[] vals = param.Split(',');
+                            jsonCmd = jsonCmd.Replace("xx", (Convert.ToInt32(vals[0]) - 1).ToString());
+                            jsonCmd = jsonCmd.Replace("yy", vals[1]);
+                        }
+                        else
+                        {
+                            jsonCmd = jsonCmd.Replace("xx", (Convert.ToInt32(param) - 1).ToString());
+                        }
+                    }
                 }
+                catch { }
 
                 if (valid)
                 {
                     using (HttpClient httpClient = new HttpClient())
                     {
-                        httpClient.Timeout = TimeSpan.FromSeconds(3);
+                        httpClient.Timeout = TimeSpan.FromSeconds(5);
 
                         StringContent jsonContent = new StringContent(jsonCmd, Encoding.UTF8, "application/json");
                         _ = httpClient.PostAsync($"http://{IP}:5380/devices/0/config", jsonContent).Result;

@@ -183,6 +183,7 @@
 		<li><a href="#anthem">Anthem MRX AVRs</a></li>
 		<li><a href="#lyngdorf">Lyngdorf AVRs</a></li>
 		<li><a href="#jvc">JVC Projectors</a></li>
+		<li><a href="#sonyproj">Sony Projectors</a></li>
 		<li><a href="#epson">Epson Projectors</a></li>
 		<li><a href="#benq">BenQ Projectors</a></li>
 		<li><a href="#christie">Christie M-Series Projectors</a></li>
@@ -688,6 +689,7 @@
 			<li><code>KEYCODE_BACK</code></li>
 			<li><code>KEYCODE_HOME</code></li>
 			<li><code>KEYCODE_DPAD_OK</code></li>
+			<li><code>KEYCODE_MENU</code></li>
 		</ul>
 		<li><b>Page up/down:</b></li>
 		<ul>
@@ -1495,6 +1497,49 @@
 	<p>Or look up the IP control document for your particular JVC Projector.</p>
 	<br />
 
+	<h2><a id="sonyproj"></a>Sony Projector Control</h2>
+
+	For Sony Projector control, the device identifier is: <b>sonyproj</b>
+
+	<p>
+		To use Sony Projector control, you must enable the <b>ADCP</b> control protocol in the projector's network settings.<br />
+		An easy way to enable this is to go to the IP of your Sony projector in a web browser and enable the ADCP control mode in the settings there.
+	</p>
+	
+	<p>
+		You can normally turn off authentication in ADCP settings, but if you want it on you must use the admin password that you set for root<br />
+		when you first connected to the projector web interface.
+	</p>
+	
+	The default login for the Sony projector web interface is user=root pass=Projector
+
+	<h3>Some Basic Commands</h3>
+
+	Note, you must include the quotes " " around the param values.
+
+	<ul>
+		<li><code>power</code></li>
+		<ul>
+			<li><code>param="on"</code> (Power On)</li>
+		</ul>
+		<li><code>power</code></li>
+		<ul>
+			<li><code>param="off"</code> (Power Off)</li>
+		</ul>
+		<li><code>key</code></li>
+		<ul>
+			<li><code>param="lens_position1"</code> (Load lens position 1)</li>
+		</ul>
+	</ul>
+	
+	<p>
+		For all Sony Projector commands, see the full Sony Projector command document here:<br />
+		<a href="https://github.com/nicko88/HTWebRemote/blob/master/IP%20Control%20Spec%20Documents/Sony_Proj_cmds.pdf">Sony_Proj_cmds.pdf</a>
+	</p>
+	
+	<p>Or look up the IP control document for your particular Sony Projector.</p>
+	<br />
+
 	<h2><a id="epson"></a>Epson Projector Control</h2>
 
 	For Epson Projector control, the device identifier is: <b>epson</b>
@@ -1673,7 +1718,7 @@
 	<h3>Switching Inputs</h3>
 	<p>
 		Inputs are treated like apps.<br/>
-		Like above, use <code>cmd=applist</code> to find the <code>appid</code> for the input you want, and then switch to it with <code>openapp</code> and <code>closeapp</code>.
+		Like above, use <code>cmd=applist</code> to find the <code>appid</code> for the input you want, and then switch to it with <code>openapp</code>.
 	</p>
 	
 	<br />
@@ -1781,6 +1826,10 @@
 		To do this, open the <code>config.toml</code> file (located in: <code>/etc/minidsp/config.toml</code> on linux) and find the line: <code>bind_address = "127.0.0.1:5380"</code><br />
 		Change this line to: <code>bind_address = "0.0.0.0:5380"</code> and restart the minidsp-rs service (<code>sudo systemctl restart minidsp</code>).
 	</p>
+	
+	<p>
+		On Windows it should already be working by default.
+	</p>
 
 	<h3>Some basic MiniDSP-rs Commands</h3>
 
@@ -1792,11 +1841,36 @@
 		<li><code>analog</code> (Select Analog input)</li>
 		<li><code>toslink</code> (Select Toslink input)</li>
 		<li><code>usb</code> (Select USB input)</li>
-		<li><code>mute</code></li>
-		<li><code>unmute</code></li>
-		<li><code>volume</code></li>
+		<li><code>mute</code> (master mute)</li>
+		<li><code>unmute</code> (master unmute)</li>
+		<li><code>volume</code> (master volume)</li>
 		<ul>
-			<li><code>param=XX</code> (Where XX is your target volume)</li>
+			<li><code>param=X</code> (Where X is your target volume, e.g. -2.5)</li>
+			<li>You can also specify a positive or negative adjustment value like +3 or -3 to move the current volume.</li>
+		</ul>
+		<li><code>input_mute</code> (mute an input)</li>
+		<ul>
+			<li><code>param=X</code> (Where X is your input channel number)</li>
+		</ul>
+		<li><code>input_unmute</code> (unmute an input)</li>
+		<ul>
+			<li><code>param=X</code> (Where X is your input channel number)</li>
+		</ul>
+		<li><code>input_gain</code> (set input gain)</li>
+		<ul>
+			<li><code>param=X,Y</code> (Where X is your input channel number, and Y is your gain value)</li>
+		</ul>
+			<li><code>output_mute</code> (mute an output)</li>
+		<ul>
+			<li><code>param=X</code> (Where X is your output channel number)</li>
+		</ul>
+		<li><code>output_unmute</code> (unmute an output)</li>
+		<ul>
+			<li><code>param=X</code> (Where X is your output channel number)</li>
+		</ul>
+		<li><code>output_gain</code> (set output gain)</li>
+		<ul>
+			<li><code>param=X,Y</code> (Where X is your output channel number, and Y is your gain value)</li>
 		</ul>
 	</ul>
 

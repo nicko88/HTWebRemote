@@ -1,5 +1,7 @@
 ﻿using HTWebRemote.RemoteFile;
+using HTWebRemote.Util;
 using Microsoft.Win32;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -28,12 +30,48 @@ namespace HTWebRemote.Forms
             catch { }
             Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
+            FillRemoteNumDropDown();
             cmbRemoteID.SelectedIndex = 0;
         }
 
         private void cmbRemoteID_SelectedIndexChanged(object sender, EventArgs e)
         {
             LoadRemote();
+        }
+
+        private void FillRemoteNumDropDown()
+        {
+            int currentRemoteID = cmbRemoteID.SelectedIndex;
+            int remoteNum = 1;
+
+            cmbRemoteID.Items.Clear();
+
+            try
+            {
+                string[] remoteFiles = Directory.GetFiles(ConfigHelper.WorkingPath, "HTWebRemoteButtons*").CustomSort().ToArray();
+                JObject oRemote = JObject.Parse(File.ReadAllText(remoteFiles[remoteFiles.Length - 1]));
+                remoteNum = Convert.ToInt32(oRemote.SelectToken("RemoteID"));
+            }
+            catch { }
+
+            for(int i = 1; i < remoteNum+2; i++)
+            {
+                cmbRemoteID.Items.Add(i);
+            }
+
+            if(currentRemoteID == -1)
+            {
+                currentRemoteID = 0;
+            }
+
+            try
+            {
+                cmbRemoteID.SelectedIndex = currentRemoteID;
+            }
+            catch
+            {
+                cmbRemoteID.SelectedIndex = cmbRemoteID.Items.Count - 1;
+            }
         }
 
         private void cmbAddItem_SelectedIndexChanged(object sender, EventArgs e)
@@ -158,10 +196,8 @@ namespace HTWebRemote.Forms
             cmbAddItem.SelectedIndex = -1;
             ResetControls();
 
-            if (lbRemoteItems.SelectedItem is RemoteItem)
+            if (lbRemoteItems.SelectedItem is RemoteItem currentItem)
             {
-                RemoteItem currentItem = (RemoteItem)lbRemoteItems.SelectedItem;
-
                 switch (currentItem.ItemType)
                 {
                     case RemoteItem.RemoteItemType.Group:
@@ -212,6 +248,8 @@ namespace HTWebRemote.Forms
                 lbRemoteItems.SelectedIndex = _selectedIndex + selectedIndexOffset;
             }
             catch { }
+
+            FillRemoteNumDropDown();
         }
 
         private void btnAddButton_Click(object sender, EventArgs e)
@@ -434,10 +472,8 @@ namespace HTWebRemote.Forms
 
         private void lbRemoteItems_DoubleClick(object sender, EventArgs e)
         {
-            if (lbRemoteItems.SelectedItem is RemoteItem)
+            if (lbRemoteItems.SelectedItem is RemoteItem currentItem)
             {
-                RemoteItem currentItem = (RemoteItem)lbRemoteItems.SelectedItem;
-
                 if (currentItem.ItemType == RemoteItem.RemoteItemType.Button)
                 {
                     int index = lbRemoteItems.SelectedIndex;
@@ -466,6 +502,8 @@ namespace HTWebRemote.Forms
 
             ResetControls();
             LoadRemote();
+
+            FillRemoteNumDropDown();
         }
 
         private void lbRemoteItems_MouseDown(object sender, MouseEventArgs e)

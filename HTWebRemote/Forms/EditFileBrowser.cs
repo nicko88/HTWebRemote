@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using HTWebRemote.Util;
 using Microsoft.Win32;
 using System.Drawing;
+using Newtonsoft.Json.Linq;
 
 namespace HTWebRemote.Forms
 {
@@ -16,6 +17,7 @@ namespace HTWebRemote.Forms
             InitializeComponent();
             Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
+            FillRemoteNumDropDown();
             LoadPaths();
             LoadSettings();
         }
@@ -71,6 +73,26 @@ namespace HTWebRemote.Forms
             if (cmbFileBrowserRemote.SelectedIndex == -1)
             {
                 cmbFileBrowserRemote.SelectedIndex = 0;
+            }
+        }
+
+        private void FillRemoteNumDropDown()
+        {
+            int remoteNum = 1;
+            cmbFileBrowserRemote.Items.Clear();
+
+            try
+            {
+                string[] remoteFiles = Directory.GetFiles(ConfigHelper.WorkingPath, "HTWebRemoteButtons*").CustomSort().ToArray();
+                JObject oRemote = JObject.Parse(File.ReadAllText(remoteFiles[remoteFiles.Length - 1]));
+                remoteNum = Convert.ToInt32(oRemote.SelectToken("RemoteID"));
+            }
+            catch { }
+
+            cmbFileBrowserRemote.Items.Add("None");
+            for (int i = 1; i < remoteNum + 1; i++)
+            {
+                cmbFileBrowserRemote.Items.Add(i.ToString());
             }
         }
 

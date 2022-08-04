@@ -271,19 +271,9 @@
             this.cmbRemoteID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbRemoteID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbRemoteID.FormattingEnabled = true;
-            this.cmbRemoteID.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
             this.cmbRemoteID.Location = new System.Drawing.Point(110, 6);
             this.cmbRemoteID.Name = "cmbRemoteID";
-            this.cmbRemoteID.Size = new System.Drawing.Size(42, 28);
+            this.cmbRemoteID.Size = new System.Drawing.Size(45, 28);
             this.cmbRemoteID.TabIndex = 3;
             this.cmbRemoteID.SelectedIndexChanged += new System.EventHandler(this.cmbRemoteID_SelectedIndexChanged);
             // 
@@ -300,7 +290,7 @@
             // btnDeleteRemote
             // 
             this.btnDeleteRemote.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeleteRemote.Location = new System.Drawing.Point(158, 6);
+            this.btnDeleteRemote.Location = new System.Drawing.Point(161, 6);
             this.btnDeleteRemote.Name = "btnDeleteRemote";
             this.btnDeleteRemote.Size = new System.Drawing.Size(70, 28);
             this.btnDeleteRemote.TabIndex = 39;

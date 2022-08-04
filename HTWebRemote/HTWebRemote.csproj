@@ -74,8 +74,8 @@
     <Reference Include="Google.Apis.PlatformServices, Version=1.57.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Apis.1.57.0\lib\net45\Google.Apis.PlatformServices.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Apis.YouTube.v3, Version=1.57.0.2693, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Apis.YouTube.v3.1.57.0.2693\lib\net45\Google.Apis.YouTube.v3.dll</HintPath>
+    <Reference Include="Google.Apis.YouTube.v3, Version=1.57.0.2756, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.YouTube.v3.1.57.0.2756\lib\net45\Google.Apis.YouTube.v3.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=6.0.0.1, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.1\lib\net461\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
@@ -270,6 +270,7 @@
     <Compile Include="Devices\Controllers\RokuControl.cs" />
     <Compile Include="Devices\Controllers\RS232Control.cs" />
     <Compile Include="Devices\Controllers\NVShieldControl.cs" />
+    <Compile Include="Devices\Controllers\SonyProjControl.cs" />
     <Compile Include="Devices\Controllers\StormControl.cs" />
     <Compile Include="Devices\Controllers\TCPUDPControl.cs" />
     <Compile Include="Devices\Controllers\LGwebOSControl.cs" />
@@ -454,8 +455,8 @@
     <Error Condition="!Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets'))" />
     <Error Condition="!Exists('..\packages\Costura.Fody.5.7.0\build\Costura.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.5.7.0\build\Costura.Fody.props'))" />
     <Error Condition="!Exists('..\packages\Costura.Fody.5.7.0\build\Costura.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.5.7.0\build\Costura.Fody.targets'))" />
-    <Error Condition="!Exists('..\packages\Fody.6.6.2\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.6.6.2\build\Fody.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.1\build\Microsoft.Extensions.Logging.Abstractions.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.1\build\Microsoft.Extensions.Logging.Abstractions.targets'))" />
+    <Error Condition="!Exists('..\packages\Fody.6.6.3\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.6.6.3\build\Fody.targets'))" />
   </Target>
   <PropertyGroup>
     <PostBuildEvent>
@@ -463,6 +464,6 @@
   </PropertyGroup>
   <Import Project="..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />
   <Import Project="..\packages\Costura.Fody.5.7.0\build\Costura.Fody.targets" Condition="Exists('..\packages\Costura.Fody.5.7.0\build\Costura.Fody.targets')" />
-  <Import Project="..\packages\Fody.6.6.2\build\Fody.targets" Condition="Exists('..\packages\Fody.6.6.2\build\Fody.targets')" />
   <Import Project="..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.1\build\Microsoft.Extensions.Logging.Abstractions.targets" Condition="Exists('..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.1\build\Microsoft.Extensions.Logging.Abstractions.targets')" />
+  <Import Project="..\packages\Fody.6.6.3\build\Fody.targets" Condition="Exists('..\packages\Fody.6.6.3\build\Fody.targets')" />
 </Project>

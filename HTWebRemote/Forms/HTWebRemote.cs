@@ -163,7 +163,7 @@ namespace HTWebRemote
 
             if (request.RawUrl.Contains("/FB") && !request.RawUrl.Contains("remoteID"))
             {
-                htmlPage = FileBrowserV2.LoadFileBrowser(request);
+                htmlPage = FileBrowser.LoadFileBrowser(request);
             }
 
             if (request.RawUrl.Contains("/doc"))
@@ -181,7 +181,7 @@ namespace HTWebRemote
             {
                 RemoteID = "1";
             }
-            else if(request.RawUrl.Length == 2)
+            else if(request.RawUrl.Length == 2 || request.RawUrl.Length == 3 && !request.RawUrl.Contains("/FB"))
             {
                 RemoteID = request.RawUrl.Trim('/');
             }

@@ -36,7 +36,7 @@ If you don't know how to do this, just do a web search for how to add a web page
 <img src="https://user-images.githubusercontent.com/1866075/165430801-09922699-90c4-463d-b1c7-43bc1130641e.png" width="600px" />
 
 ###### Usage Demo
-<img src="https://user-images.githubusercontent.com/1866075/166619678-5c4b6946-5ca6-467a-b945-47ef9aba8b15.gif" width="222px" />
+<img src="https://user-images.githubusercontent.com/1866075/182762525-38084139-6bc9-4414-a932-5d5febcc1baa.gif" width="222px" />
 
 #### Command Line Mode
 
@@ -67,6 +67,7 @@ Finally, HTWebRemote includes a sort of API which lets you send commands from ot
 * Anthem MRX AVRs
 * Lyngdorf AVRs
 * JVC Projectors
+* Sony Projectors
 * Epson Projectors
 * BenQ Projectors
 * Christie M-Series / TruLife+ Projectors

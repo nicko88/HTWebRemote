@@ -102,6 +102,12 @@ namespace HTWebRemote.Forms
                         tbSpecial.Visible = true;
                         tbSpecial.Text = values[3];
                         break;
+                    case "sonyproj":
+                        lblSpecial.Text = "Pass (optional):";
+                        lblSpecial.Visible = true;
+                        tbSpecial.Visible = true;
+                        tbSpecial.Text = values[3];
+                        break;
                     default:
                         break;
                 }
@@ -175,6 +181,11 @@ namespace HTWebRemote.Forms
                         lblSpecial.Visible = true;
                         tbSpecial.Visible = true;
                         break;
+                    case "sonyproj":
+                        lblSpecial.Text = "Pass (optional):";
+                        lblSpecial.Visible = true;
+                        tbSpecial.Visible = true;
+                        break;
                     default:
                         break;
                 }
@@ -200,6 +211,7 @@ namespace HTWebRemote.Forms
             {
                 using (HttpClient httpClient = new HttpClient())
                 {
+                    httpClient.Timeout = TimeSpan.FromSeconds(3);
                     try
                     {
                         string strPorts = await httpClient.GetStringAsync($"http://{hostIP}:5000/serial");

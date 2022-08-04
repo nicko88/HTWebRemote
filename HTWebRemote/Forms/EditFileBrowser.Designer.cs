@@ -41,7 +41,6 @@
             this.lblFBMediaPlayerPath = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnAddManual = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
             this.tbManualPath = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.lblAPIHelp = new System.Windows.Forms.LinkLabel();
@@ -68,7 +67,7 @@
             this.lbPaths.ItemHeight = 20;
             this.lbPaths.Location = new System.Drawing.Point(13, 32);
             this.lbPaths.Name = "lbPaths";
-            this.lbPaths.Size = new System.Drawing.Size(695, 224);
+            this.lbPaths.Size = new System.Drawing.Size(696, 224);
             this.lbPaths.TabIndex = 0;
             this.lbPaths.SelectedIndexChanged += new System.EventHandler(this.lbPaths_SelectedIndexChanged);
             // 
@@ -78,29 +77,31 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(9, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(149, 20);
+            this.label1.Size = new System.Drawing.Size(163, 20);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Paths To Browse:";
+            this.label1.Text = "Folders To Browse:";
             // 
             // btnAdd
             // 
+            this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAdd.Location = new System.Drawing.Point(466, 19);
+            this.btnAdd.Location = new System.Drawing.Point(604, 2);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(94, 28);
+            this.btnAdd.Size = new System.Drawing.Size(105, 28);
             this.btnAdd.TabIndex = 2;
-            this.btnAdd.Text = "Add Path";
+            this.btnAdd.Text = "Add Folder";
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.BtnAdd_Click);
             // 
             // btnRemove
             // 
+            this.btnRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemove.Location = new System.Drawing.Point(566, 19);
+            this.btnRemove.Location = new System.Drawing.Point(604, 262);
             this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(124, 28);
+            this.btnRemove.Size = new System.Drawing.Size(105, 48);
             this.btnRemove.TabIndex = 3;
-            this.btnRemove.Text = "Remove Path";
+            this.btnRemove.Text = "Remove Folder";
             this.btnRemove.UseVisualStyleBackColor = true;
             this.btnRemove.Click += new System.EventHandler(this.BtnRemove_Click);
             // 
@@ -109,19 +110,9 @@
             this.cmbFileBrowserRemote.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbFileBrowserRemote.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbFileBrowserRemote.FormattingEnabled = true;
-            this.cmbFileBrowserRemote.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9"});
-            this.cmbFileBrowserRemote.Location = new System.Drawing.Point(408, 19);
+            this.cmbFileBrowserRemote.Location = new System.Drawing.Point(623, 24);
             this.cmbFileBrowserRemote.Name = "cmbFileBrowserRemote";
-            this.cmbFileBrowserRemote.Size = new System.Drawing.Size(52, 28);
+            this.cmbFileBrowserRemote.Size = new System.Drawing.Size(66, 28);
             this.cmbFileBrowserRemote.TabIndex = 4;
             this.cmbFileBrowserRemote.SelectedIndexChanged += new System.EventHandler(this.cmbFileBrowserRemote_SelectedIndexChanged);
             // 
@@ -129,17 +120,17 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(223, 23);
+            this.label2.Location = new System.Drawing.Point(421, 27);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(181, 20);
+            this.label2.Size = new System.Drawing.Size(196, 20);
             this.label2.TabIndex = 5;
-            this.label2.Text = "File Browser Remote:";
+            this.label2.Text = "File Browser Remote #:";
             // 
             // cbShowFileBrowser
             // 
             this.cbShowFileBrowser.AutoSize = true;
             this.cbShowFileBrowser.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbShowFileBrowser.Location = new System.Drawing.Point(6, 22);
+            this.cbShowFileBrowser.Location = new System.Drawing.Point(6, 26);
             this.cbShowFileBrowser.Name = "cbShowFileBrowser";
             this.cbShowFileBrowser.Size = new System.Drawing.Size(211, 24);
             this.cbShowFileBrowser.TabIndex = 6;
@@ -156,7 +147,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(6, 87);
+            this.label3.Location = new System.Drawing.Point(2, 64);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(220, 20);
             this.label3.TabIndex = 7;
@@ -165,7 +156,7 @@
             // btnChooseFBMediaPlayer
             // 
             this.btnChooseFBMediaPlayer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChooseFBMediaPlayer.Location = new System.Drawing.Point(232, 85);
+            this.btnChooseFBMediaPlayer.Location = new System.Drawing.Point(228, 60);
             this.btnChooseFBMediaPlayer.Name = "btnChooseFBMediaPlayer";
             this.btnChooseFBMediaPlayer.Size = new System.Drawing.Size(81, 28);
             this.btnChooseFBMediaPlayer.TabIndex = 8;
@@ -177,7 +168,7 @@
             // 
             this.lblFBMediaPlayerPath.AutoSize = true;
             this.lblFBMediaPlayerPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFBMediaPlayerPath.Location = new System.Drawing.Point(319, 87);
+            this.lblFBMediaPlayerPath.Location = new System.Drawing.Point(315, 64);
             this.lblFBMediaPlayerPath.Name = "lblFBMediaPlayerPath";
             this.lblFBMediaPlayerPath.Size = new System.Drawing.Size(155, 20);
             this.lblFBMediaPlayerPath.TabIndex = 9;
@@ -185,20 +176,16 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.btnAddManual);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.tbManualPath);
             this.groupBox1.Controls.Add(this.btnChooseFBMediaPlayer);
             this.groupBox1.Controls.Add(this.cbShowFileBrowser);
-            this.groupBox1.Controls.Add(this.btnRemove);
             this.groupBox1.Controls.Add(this.lblFBMediaPlayerPath);
-            this.groupBox1.Controls.Add(this.btnAdd);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.cmbFileBrowserRemote);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(13, 262);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new System.Drawing.Point(13, 339);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(696, 120);
+            this.groupBox1.Size = new System.Drawing.Size(696, 98);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "File Browser Settings";
@@ -206,30 +193,22 @@
             // btnAddManual
             // 
             this.btnAddManual.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddManual.Location = new System.Drawing.Point(566, 53);
+            this.btnAddManual.Location = new System.Drawing.Point(13, 262);
             this.btnAddManual.Name = "btnAddManual";
-            this.btnAddManual.Size = new System.Drawing.Size(124, 28);
+            this.btnAddManual.Size = new System.Drawing.Size(172, 28);
             this.btnAddManual.TabIndex = 19;
-            this.btnAddManual.Text = "Add Manual";
+            this.btnAddManual.Text = "Add Manual Folder";
             this.btnAddManual.UseVisualStyleBackColor = true;
             this.btnAddManual.Click += new System.EventHandler(this.btnAddManual_Click);
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(6, 56);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(151, 20);
-            this.label6.TabIndex = 18;
-            this.label6.Text = "Add Manual Path:";
-            // 
             // tbManualPath
             // 
+            this.tbManualPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbManualPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbManualPath.Location = new System.Drawing.Point(163, 53);
+            this.tbManualPath.Location = new System.Drawing.Point(191, 263);
             this.tbManualPath.Name = "tbManualPath";
-            this.tbManualPath.Size = new System.Drawing.Size(397, 26);
+            this.tbManualPath.Size = new System.Drawing.Size(407, 26);
             this.tbManualPath.TabIndex = 17;
             // 
             // groupBox2
@@ -243,7 +222,8 @@
             this.groupBox2.Controls.Add(this.lblYTMediaPlayerPath);
             this.groupBox2.Controls.Add(this.cbEnableYoutube);
             this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Location = new System.Drawing.Point(13, 388);
+            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.Location = new System.Drawing.Point(12, 454);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(696, 117);
             this.groupBox2.TabIndex = 11;
@@ -350,9 +330,9 @@
             // btnAddAlias
             // 
             this.btnAddAlias.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddAlias.Location = new System.Drawing.Point(559, 2);
+            this.btnAddAlias.Location = new System.Drawing.Point(13, 296);
             this.btnAddAlias.Name = "btnAddAlias";
-            this.btnAddAlias.Size = new System.Drawing.Size(149, 28);
+            this.btnAddAlias.Size = new System.Drawing.Size(172, 28);
             this.btnAddAlias.TabIndex = 22;
             this.btnAddAlias.Text = "Set Folder Alias";
             this.btnAddAlias.UseVisualStyleBackColor = true;
@@ -360,22 +340,28 @@
             // 
             // tbAlias
             // 
+            this.tbAlias.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbAlias.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbAlias.Location = new System.Drawing.Point(245, 3);
+            this.tbAlias.Location = new System.Drawing.Point(191, 298);
             this.tbAlias.Name = "tbAlias";
-            this.tbAlias.Size = new System.Drawing.Size(308, 26);
+            this.tbAlias.Size = new System.Drawing.Size(407, 26);
             this.tbAlias.TabIndex = 20;
             // 
             // EditFileBrowser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(720, 513);
+            this.ClientSize = new System.Drawing.Size(721, 580);
+            this.Controls.Add(this.btnAddManual);
             this.Controls.Add(this.btnAddAlias);
+            this.Controls.Add(this.tbManualPath);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.tbAlias);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lbPaths);
+            this.Controls.Add(this.btnRemove);
+            this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -418,7 +404,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.LinkLabel lblAPIHelp;
         private System.Windows.Forms.Button btnAddManual;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox tbManualPath;
         private System.Windows.Forms.Button btnAddAlias;
         private System.Windows.Forms.TextBox tbAlias;

@@ -9,7 +9,7 @@
     <meta name="application-name" content="HTWebRemote">
     <meta name="apple-mobile-web-app-title" content="HTWebRemote">
     <meta name="msapplication-starturl" content="/">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
     <link rel="icon" type="image/png" href="https://i.ibb.co/gSSrZ2k/HTControl.png" />
     <link rel="apple-touch-icon" type="image/png" href="https://i.ibb.co/gSSrZ2k/HTControl.png" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
@@ -24,13 +24,36 @@
         function goBack() {
             window.history.back();
         }
+
+        function sort(path) {
+
+            var ddl = document.getElementById("inputGroupSelect01");
+
+            var sort;
+            switch (ddl.options[ddl.selectedIndex].value) {
+                case "1":
+                    sort = "&sortby=Name&sortdir=ASC";
+                    break;
+                case "2":
+                    sort = "&sortby=Name&sortdir=DESC";
+                    break;
+                case "3":
+                    sort = "&sortby=Date&sortdir=ASC";
+                    break;
+                case "4":
+                    sort = "&sortby=Date&sortdir=DESC";
+                    break;
+                default:
+            }
+
+            window.location.href = window.location.origin + '/FB' + '?path=' + path + sort;
+        }
     </script>
     <style>
         * {
             touch-action: pan-y;
             user-select: none;
-            -webkit-user-select: none;
-            -webkit-touch-callout: none; 
+            -webkit-touch-callout: none;
             -khtml-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
@@ -53,10 +76,11 @@
             padding: 0;
             height: 42px;
             line-height: 1;
-            width: 100%;
+
             border-radius: 8px;
             border: 2px solid transparent;
             background-clip: padding-box;
+            color: white;
         }
 
         .container {
@@ -156,6 +180,57 @@
         .nav-container {
             width: 100%;
             height: auto;
+        }
+
+        .sort-field {
+            height: fit-content;
+            flex-basis: 11rem;
+            margin-left: auto;
+            margin-top: 2px;
+        }
+
+        .fb-toolbar {
+            flex-direction: row;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+
+        .fb-toolbar button {
+            fill: white;
+            max-width: 5rem;
+            margin-left: -2px;
+        }
+
+        .search-row {
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 4px;
+        }
+
+        .search-row .input-group {
+            margin: 2px 0;
+            height: 100%;
+        }
+
+        .search-row .btn {
+            flex-basis: 6rem;
+            margin-left: 4px;
+            margin-right: -2px;
+        }
+
+        hr {
+            border-color: rgb(255, 255, 255, 0.4);
+        }
+
+        .mb-3 {
+            margin-top: 8px;
+            margin-bottom: 8px!important;
+        }
+
+        .input-group-text {
+            min-width:  5rem;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
         }
     </style>
 </head>
