@@ -99,20 +99,17 @@
 
 	<h3>Example Command Line Format 2 Usage:</h3>
 
-	<code>HTWebRemote.exe "myjvc" "PMLP" "1" "special(NZpassword)"</code>
+	<p>To use this format, first you need to configure your device in the "Configure Devices" screen.</p>
 
-	<p>This command consists of 4 parameters:</p>
+	<code>HTWebRemote.exe "myjvc" "PMLP" "1"</code>
+
+	<p>This command consists of 3 parameters:</p>
 
 	<ul>
 		<li><code>devname</code> (The device name you defined in the device manager screen)</li>
 		<li><code>cmd</code> (The command you want to send)</li>
 		<li><code>param</code> (Optional command parameter than some devices and commands need)</li>
-		<li><code>special</code> (Optional)(This special data value is only needed for some devices and will be noted in the documentation if needed)</li>
-		<ul>
-			<li>To specify this special data, you must enter it like so: <code>special(DataHere)</code></li>
-		</ul>
 	</ul>
-	<br />
 	<br />
 
 	<h2><a id="urlcommandapi"></a>URL Command API</h2>
@@ -135,15 +132,16 @@
 
 	<h3>URL Command Format 2</h3>
 
-	<p><code>http://{BASEIP}:5000?devname=<i>devname</i>&cmd=<i>command</i>&ampparam=<i>param</i>&special=<i>specialData</i></code></p>
+	<p><code>http://{BASEIP}:5000?devname=<i>devname</i>&cmd=<i>command</i>&ampparam=<i>param</i></code></p>
 
-	<p>This URL command consists of 4 query strings:</p>
+	<p>To use this format, first you need to configure your device in the "Configure Devices" screen.</p>
+
+	<p>This URL command consists of 3 query strings:</p>
 
 	<ul>
 		<li><code>devname</code> (The device name you defined in the device manager screen)</li>
 		<li><code>cmd</code> (The command you want to send)</li>
 		<li><code>param</code> (Optional command parameter than some devices and commands need)</li>
-		<li><code>special</code> (Optional)(This special data value is only needed for some devices and will be noted in the documentation if needed)</li>
 	</ul>
 	<br />
 
@@ -190,6 +188,7 @@
 		<li><a href="#panaproj">Panasonic Projectors</a></li>
 		<li><a href="#oppo">Oppo Disc Player</a></li>
 		<li><a href="#lgwebos">LG webOS TVs/Projectors</a></li>
+		<li><a href="#samsungtizen">Samsung TizenOS TVs/Projectors</a></li>
 		<li><a href="#dbox">D-BOX HEMC</a></li>
 		<li><a href="#minidsp-rs">MiniDSP Devices</a></li>
 		<li><a href="#hdfury">HDfury Devices</a></li>
@@ -621,10 +620,20 @@
 			<li><code>smallbackward</code> (Jump backwards 30 seconds)</li>
 			<li><code>bigforward</code> (Jump forward 10 minutes)</li>
 			<li><code>bigbackward</code> (Jump backwards 10 minutes)</li>
+			<li><code>subon</code> (Turn on Subtitles)</li>
+			<li><code>suboff</code> (Turn off Subtitles)</li>
+			<li><code>nextsub</code> (Go to next Subtitle, and turn on)</li>
+			<li><code>prevsub</code> (Go to previous Subtitle, and turn on)</li>
+			<li><code>nextaudio</code> (Go to next Audio Track)</li>
+			<li><code>prevaudio</code> (Go to previous Audio Track)</li>
 		</ul>
 		<li><b>Application:</b></li>
 		<ul>
 			<li><code>quit</code> (Close Kodi)</li>
+		</ul>
+		<li><b>Query Commands:</b></li>
+		<ul>
+			<li><code>query:getinfo</code> (Prints out playback info for currently playing item)</li>
 		</ul>
 	</ul>
 
@@ -795,7 +804,7 @@
 		</code>
 	</p>
 
-	<p>For some apps, this Metod 1 doesn't work.  In this case use Method 2 which should work.</p>
+	<p>For some apps, this Method 1 doesn't work.  In this case use Method 2 which should work.</p>
 
 	<h5>Method 2:</h5>
 
@@ -1107,6 +1116,8 @@
 		<li><code>{"system":{"set_relay_state":{"state":0}}}</code> (Switch OFF)</li>
 		<li><code>{"smartlife.iot.dimmer": {"set_brightness": {"brightness": 50}}}</code> (Set brightness to 50%)</li>
 		<li><code>{"smartlife.iot.dimmer": {"set_dimmer_transition": {"brightness": 0, "duration": 10000}}}</code> (Dim to OFF over a 10 second duration)</li>
+		<li><code>{"smartlife.iot.smartbulb.lightingservice": {"transition_light_state": {"on_off": 1}}}</code> (Bulb ON)</li>
+		<li><code>{"smartlife.iot.smartbulb.lightingservice": {"transition_light_state": {"on_off": 0}}}</code> (Bulb OFF)</li>
 	</ul>
 	<br />
 
@@ -1720,8 +1731,1815 @@
 		Inputs are treated like apps.<br/>
 		Like above, use <code>cmd=applist</code> to find the <code>appid</code> for the input you want, and then switch to it with <code>openapp</code>.
 	</p>
-	
 	<br />
+	
+	<h2><a id="samsungtizen"></a>Samsung Tizen Control</h2>
+
+	For Samsung Tizen control, the device identifier is: <b>samsungtizen</b>
+	
+	<p>You can send key codes or open and close applications.</p>
+	
+	<p>Please note that every key and every App ID will not work on every TV model.<br>
+	I included as many possible key codes and application IDs as I could find below.</p>
+	
+	<h3>Example Commands</h3>
+
+	<ul>
+		<li><code>KEY_HDMI</code> (Switch to HDMI 1 input)</li>
+		<li><code>openapp</code> (Open YouTube app)</li>
+		<ul>
+			<li><code>param=111299001912</code></li>
+		</ul>
+		<li><code>closeapp</code> (Close YouTube app)</li>
+		<ul>
+			<li><code>param=111299001912</code></li>
+		</ul>
+	</ul>
+	
+	<h3>Key codes</h3>
+	<h4>Power Keys</h4>
+	<p>For some TVs you must power them ON with <a href="#wol">Wake-on-LAN</a> instead.</p>
+	</p>
+	<table border="1">
+	<thead>
+	<tr>
+	<th>Key</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>KEY_POWEROFF</td>
+	<td>PowerOFF</td>
+	</tr>
+	<tr>
+	<td>KEY_POWERON</td>
+	<td>PowerOn</td>
+	</tr>
+	<tr>
+	<td>KEY_POWER</td>
+	<td>PowerToggle</td>
+	</tr>
+	</tbody>
+	</table>
+	
+	<h4>Input Keys</h4>
+	<table border="1">
+	<thead>
+	<tr>
+	<th>Key</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>KEY_SOURCE</td>
+	<td>Source</td>
+	</tr>
+	<tr>
+	<td>KEY_COMPONENT1</td>
+	<td>Component1</td>
+	</tr>
+	<tr>
+	<td>KEY_COMPONENT2</td>
+	<td>Component2</td>
+	</tr>
+	<tr>
+	<td>KEY_AV1</td>
+	<td>AV1</td>
+	</tr>
+	<tr>
+	<td>KEY_AV2</td>
+	<td>AV2</td>
+	</tr>
+	<tr>
+	<td>KEY_AV3</td>
+	<td>AV3</td>
+	</tr>
+	<tr>
+	<td>KEY_SVIDEO1</td>
+	<td>SVideo1</td>
+	</tr>
+	<tr>
+	<td>KEY_SVIDEO2</td>
+	<td>SVideo2</td>
+	</tr>
+	<tr>
+	<td>KEY_SVIDEO3</td>
+	<td>SVideo3</td>
+	</tr>
+	<tr>
+	<td>KEY_HDMI</td>
+	<td>HDMI</td>
+	</tr>
+	<tr>
+	<td>KEY_HDMI1</td>
+	<td>HDMI1</td>
+	</tr>
+	<tr>
+	<td>KEY_HDMI2</td>
+	<td>HDMI2</td>
+	</tr>
+	<tr>
+	<td>KEY_HDMI3</td>
+	<td>HDMI3</td>
+	</tr>
+	<tr>
+	<td>KEY_HDMI4</td>
+	<td>HDMI4</td>
+	</tr>
+	<tr>
+	<td>KEY_FM_RADIO</td>
+	<td>FMRadio</td>
+	</tr>
+	<tr>
+	<td>KEY_DVI</td>
+	<td>DVI</td>
+	</tr>
+	<tr>
+	<td>KEY_DVR</td>
+	<td>DVR</td>
+	</tr>
+	<tr>
+	<td>KEY_TV</td>
+	<td>TV</td>
+	</tr>
+	<tr>
+	<td>KEY_ANTENA</td>
+	<td>AnalogTV</td>
+	</tr>
+	<tr>
+	<td>KEY_DTV</td>
+	<td>DigitalTV</td>
+	</tr>
+	</tbody>
+	</table>
+	
+	<h4>Number Keys</h4>
+	<table border="1">
+	<thead>
+	<tr>
+	<th>Key</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>KEY_1</td>
+	<td>Key1</td>
+	</tr>
+	<tr>
+	<td>KEY_2</td>
+	<td>Key2</td>
+	</tr>
+	<tr>
+	<td>KEY_3</td>
+	<td>Key3</td>
+	</tr>
+	<tr>
+	<td>KEY_4</td>
+	<td>Key4</td>
+	</tr>
+	<tr>
+	<td>KEY_5</td>
+	<td>Key5</td>
+	</tr>
+	<tr>
+	<td>KEY_6</td>
+	<td>Key6</td>
+	</tr>
+	<tr>
+	<td>KEY_7</td>
+	<td>Key7</td>
+	</tr>
+	<tr>
+	<td>KEY_8</td>
+	<td>Key8</td>
+	</tr>
+	<tr>
+	<td>KEY_9</td>
+	<td>Key9</td>
+	</tr>
+	<tr>
+	<td>KEY_0</td>
+	<td>Key0</td>
+	</tr>
+	</tbody>
+	</table>
+	
+	<h4>Misc Keys</h4>
+	<table border="1">
+	<thead>
+	<tr>
+	<th>Key</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>KEY_PANNEL_CHDOWN</td>
+	<td>3D</td>
+	</tr>
+	<tr>
+	<td>KEY_ANYNET</td>
+	<td>AnyNet+</td>
+	</tr>
+	<tr>
+	<td>KEY_ESAVING</td>
+	<td>EnergySaving</td>
+	</tr>
+	<tr>
+	<td>KEY_SLEEP</td>
+	<td>SleepTimer</td>
+	</tr>
+	<tr>
+	<td>KEY_DTV_SIGNAL</td>
+	<td>DTVSignal</td>
+	</tr>
+	</tbody>
+	</table>
+	
+	<h4>Channel Keys</h4>
+	<table border="1">
+	<thead>
+	<tr>
+	<th>Key</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>KEY_CHUP</td>
+	<td>ChannelUp</td>
+	</tr>
+	<tr>
+	<td>KEY_CHDOWN</td>
+	<td>ChannelDown</td>
+	</tr>
+	<tr>
+	<td>KEY_PRECH</td>
+	<td>PreviousChannel</td>
+	</tr>
+	<tr>
+	<td>KEY_FAVCH</td>
+	<td>FavoriteChannels</td>
+	</tr>
+	<tr>
+	<td>KEY_CH_LIST</td>
+	<td>ChannelList</td>
+	</tr>
+	<tr>
+	<td>KEY_AUTO_PROGRAM</td>
+	<td>AutoProgram</td>
+	</tr>
+	<tr>
+	<td>KEY_MAGIC_CHANNEL</td>
+	<td>MagicChannel</td>
+	</tr>
+	</tbody>
+	</table>
+	
+	<h4>Volume Keys</h4>
+	<table border="1">
+	<thead>
+	<tr>
+	<th>Key</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>KEY_VOLUP</td>
+	<td>VolumeUp</td>
+	</tr>
+	<tr>
+	<td>KEY_VOLDOWN</td>
+	<td>VolumeDown</td>
+	</tr>
+	<tr>
+	<td>KEY_MUTE</td>
+	<td>Mute</td>
+	</tr>
+	</tbody>
+	</table>
+	
+	<h4>Direction Keys</h4>
+	<table border="1">
+	<thead>
+	<tr>
+	<th>Key</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>KEY_UP</td>
+	<td>NavigationUp</td>
+	</tr>
+	<tr>
+	<td>KEY_DOWN</td>
+	<td>NavigationDown</td>
+	</tr>
+	<tr>
+	<td>KEY_LEFT</td>
+	<td>NavigationLeft</td>
+	</tr>
+	<tr>
+	<td>KEY_RIGHT</td>
+	<td>NavigationRight</td>
+	</tr>
+	<tr>
+	<td>KEY_RETURN</td>
+	<td>NavigationReturn/Back</td>
+	</tr>
+	<tr>
+	<td>KEY_ENTER</td>
+	<td>NavigationEnter</td>
+	</tr>
+	</tbody>
+	</table>
+	
+	<h4>Media Keys</h4>
+	<table border="1">
+	<thead>
+	<tr>
+	<th>Key</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>KEY_REWIND</td>
+	<td>Rewind</td>
+	</tr>
+	<tr>
+	<td>KEY_STOP</td>
+	<td>Stop</td>
+	</tr>
+	<tr>
+	<td>KEY_PLAY</td>
+	<td>Play</td>
+	</tr>
+	<tr>
+	<td>KEY_FF</td>
+	<td>FastForward</td>
+	</tr>
+	<tr>
+	<td>KEY_REC</td>
+	<td>Record</td>
+	</tr>
+	<tr>
+	<td>KEY_PAUSE</td>
+	<td>Pause</td>
+	</tr>
+	<tr>
+	<td>KEY_LIVE</td>
+	<td>Live</td>
+	</tr>
+	<tr>
+	<td>KEY_QUICK_REPLAY</td>
+	<td>fnKEY_QUICK_REPLAY</td>
+	</tr>
+	<tr>
+	<td>KEY_STILL_PICTURE</td>
+	<td>fnKEY_STILL_PICTURE</td>
+	</tr>
+	<tr>
+	<td>KEY_INSTANT_REPLAY</td>
+	<td>fnKEY_INSTANT_REPLAY</td>
+	</tr>
+	</tbody>
+	</table>
+	
+	<h4>Picture-in-Picture Keys</h4>
+	<table border="1">
+	<thead>
+	<tr>
+	<th>Key</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>KEY_PIP_ONOFF</td>
+	<td>PIPOn/Off</td>
+	</tr>
+	<tr>
+	<td>KEY_PIP_SWAP</td>
+	<td>PIPSwap</td>
+	</tr>
+	<tr>
+	<td>KEY_PIP_SIZE</td>
+	<td>PIPSize</td>
+	</tr>
+	<tr>
+	<td>KEY_PIP_CHUP</td>
+	<td>PIPChannelUp</td>
+	</tr>
+	<tr>
+	<td>KEY_PIP_CHDOWN</td>
+	<td>PIPChannelDown</td>
+	</tr>
+	<tr>
+	<td>KEY_AUTO_ARC_PIP_SMALL</td>
+	<td>PIPSmall</td>
+	</tr>
+	<tr>
+	<td>KEY_AUTO_ARC_PIP_WIDE</td>
+	<td>PIPWide</td>
+	</tr>
+	<tr>
+	<td>KEY_AUTO_ARC_PIP_RIGHT_BOTTOM</td>
+	<td>PIPBottomRight</td>
+	</tr>
+	<tr>
+	<td>KEY_AUTO_ARC_PIP_SOURCE_CHANGE</td>
+	<td>PIPSourceChange</td>
+	</tr>
+	<tr>
+	<td>KEY_PIP_SCAN</td>
+	<td>PIPScan</td>
+	</tr>
+	</tbody>
+	</table>
+	
+	<h4>Mode Keys</h4>
+	<table border="1">
+	<thead>
+	<tr>
+	<th>Key</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>KEY_VCR_MODE</td>
+	<td>VCRMode</td>
+	</tr>
+	<tr>
+	<td>KEY_CATV_MODE</td>
+	<td>CATVMode</td>
+	</tr>
+	<tr>
+	<td>KEY_DSS_MODE</td>
+	<td>DSSMode</td>
+	</tr>
+	<tr>
+	<td>KEY_TV_MODE</td>
+	<td>TVMode</td>
+	</tr>
+	<tr>
+	<td>KEY_DVD_MODE</td>
+	<td>DVDMode</td>
+	</tr>
+	<tr>
+	<td>KEY_STB_MODE</td>
+	<td>STBMode</td>
+	</tr>
+	<tr>
+	<td>KEY_PCMODE</td>
+	<td>PCMode</td>
+	</tr>
+	</tbody>
+	</table>
+	
+	<h4>Color Keys</h4>
+	<table border="1">
+	<thead>
+	<tr>
+	<th>Key</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>KEY_GREEN</td>
+	<td>Green</td>
+	</tr>
+	<tr>
+	<td>KEY_YELLOW</td>
+	<td>Yellow</td>
+	</tr>
+	<tr>
+	<td>KEY_CYAN</td>
+	<td>Cyan</td>
+	</tr>
+	<tr>
+	<td>KEY_RED</td>
+	<td>Red</td>
+	</tr>
+	</tbody>
+	</table>
+	
+	<h4>Teletext Keys</h4>
+	<table border="1">
+	<thead>
+	<tr>
+	<th>Key</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>KEY_TTX_MIX</td>
+	<td>TeletextMix</td>
+	</tr>
+	<tr>
+	<td>KEY_TTX_SUBFACE</td>
+	<td>TeletextSubface</td>
+	</tr>
+	</tbody>
+	</table>
+	
+	<h4>Aspect Ratio Keys</h4>
+	<table border="1">
+	<thead>
+	<tr>
+	<th>Key</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>KEY_ASPECT</td>
+	<td>AspectRatio</td>
+	</tr>
+	<tr>
+	<td>KEY_PICTURE_SIZE</td>
+	<td>PictureSize</td>
+	</tr>
+	<tr>
+	<td>KEY_4_3</td>
+	<td>AspectRatio4:3</td>
+	</tr>
+	<tr>
+	<td>KEY_16_9</td>
+	<td>AspectRatio16:9</td>
+	</tr>
+	<tr>
+	<td>KEY_EXT14</td>
+	<td>AspectRatio3:4(Alt)</td>
+	</tr>
+	<tr>
+	<td>KEY_EXT15</td>
+	<td>AspectRatio16:9(Alt)</td>
+	</tr>
+	</tbody>
+	</table>
+	
+	<h4>Picture Mode Keys</h4>
+	<table border="1">
+	<thead>
+	<tr>
+	<th>Key</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>KEY_PMODE</td>
+	<td>PictureMode</td>
+	</tr>
+	<tr>
+	<td>KEY_PANORAMA</td>
+	<td>PictureModePanorama</td>
+	</tr>
+	<tr>
+	<td>KEY_DYNAMIC</td>
+	<td>PictureModeDynamic</td>
+	</tr>
+	<tr>
+	<td>KEY_STANDARD</td>
+	<td>PictureModeStandard</td>
+	</tr>
+	<tr>
+	<td>KEY_MOVIE1</td>
+	<td>PictureModeMovie</td>
+	</tr>
+	<tr>
+	<td>KEY_GAME</td>
+	<td>PictureModeGame</td>
+	</tr>
+	<tr>
+	<td>KEY_CUSTOM</td>
+	<td>PictureModeCustom</td>
+	</tr>
+	<tr>
+	<td>KEY_EXT9</td>
+	<td>PictureModeMovie(Alt)</td>
+	</tr>
+	<tr>
+	<td>KEY_EXT10</td>
+	<td>PictureModeStandard(Alt)</td>
+	</tr>
+	</tbody>
+	</table>
+	
+	<h4>Menu Keys</h4>
+	<table border="1">
+	<thead>
+	<tr>
+	<th>Key</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>KEY_MENU</td>
+	<td>Menu</td>
+	</tr>
+	<tr>
+	<td>KEY_TOPMENU</td>
+	<td>TopMenu</td>
+	</tr>
+	<tr>
+	<td>KEY_TOOLS</td>
+	<td>Tools</td>
+	</tr>
+	<tr>
+	<td>KEY_HOME</td>
+	<td>Home</td>
+	</tr>
+	<tr>
+	<td>KEY_CONTENTS</td>
+	<td>Contents</td>
+	</tr>
+	<tr>
+	<td>KEY_GUIDE</td>
+	<td>Guide</td>
+	</tr>
+	<tr>
+	<td>KEY_DISC_MENU</td>
+	<td>DiscMenu</td>
+	</tr>
+	<tr>
+	<td>KEY_DVR_MENU</td>
+	<td>DVRMenu</td>
+	</tr>
+	<tr>
+	<td>KEY_HELP</td>
+	<td>Help</td>
+	</tr>
+	</tbody>
+	</table>
+	
+	<h4>OSD Keys</h4>
+	<table border="1">
+	<thead>
+	<tr>
+	<th>Key</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>KEY_INFO</td>
+	<td>Info</td>
+	</tr>
+	<tr>
+	<td>KEY_CAPTION</td>
+	<td>Caption</td>
+	</tr>
+	<tr>
+	<td>KEY_CLOCK_DISPLAY</td>
+	<td>ClockDisplay</td>
+	</tr>
+	<tr>
+	<td>KEY_SETUP_CLOCK_TIMER</td>
+	<td>SetupClock</td>
+	</tr>
+	<tr>
+	<td>KEY_SUB_TITLE</td>
+	<td>Subtitle</td>
+	</tr>
+	</tbody>
+	</table>
+	
+	<h4>Zoom Keys</h4>
+	<table border="1">
+	<thead>
+	<tr>
+	<th>Key</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>KEY_ZOOM_MOVE</td>
+	<td>ZoomMove</td>
+	</tr>
+	<tr>
+	<td>KEY_ZOOM_IN</td>
+	<td>ZoomIn</td>
+	</tr>
+	<tr>
+	<td>KEY_ZOOM_OUT</td>
+	<td>ZoomOut</td>
+	</tr>
+	<tr>
+	<td>KEY_ZOOM1</td>
+	<td>Zoom1</td>
+	</tr>
+	<tr>
+	<td>KEY_ZOOM2</td>
+	<td>Zoom2</td>
+	</tr>
+	</tbody>
+	</table>
+	
+	<h4>Other Keys</h4>
+	<table border="1">
+	<thead>
+	<tr>
+	<th>Key</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>KEY_WHEEL_LEFT</td>
+	<td>WheelLeft</td>
+	</tr>
+	<tr>
+	<td>KEY_WHEEL_RIGHT</td>
+	<td>WheelRight</td>
+	</tr>
+	<tr>
+	<td>KEY_ADDDEL</td>
+	<td>Add/Del</td>
+	</tr>
+	<tr>
+	<td>KEY_PLUS100</td>
+	<td>Plus100</td>
+	</tr>
+	<tr>
+	<td>KEY_AD</td>
+	<td>AD</td>
+	</tr>
+	<tr>
+	<td>KEY_LINK</td>
+	<td>Link</td>
+	</tr>
+	<tr>
+	<td>KEY_TURBO</td>
+	<td>Turbo</td>
+	</tr>
+	<tr>
+	<td>KEY_CONVERGENCE</td>
+	<td>Convergence</td>
+	</tr>
+	<tr>
+	<td>KEY_DEVICE_CONNECT</td>
+	<td>DeviceConnect</td>
+	</tr>
+	<tr>
+	<td>KEY_11</td>
+	<td>Key11</td>
+	</tr>
+	<tr>
+	<td>KEY_12</td>
+	<td>Key12</td>
+	</tr>
+	<tr>
+	<td>KEY_FACTORY</td>
+	<td>KeyFactory</td>
+	</tr>
+	<tr>
+	<td>KEY_3SPEED</td>
+	<td>Key3SPEED</td>
+	</tr>
+	<tr>
+	<td>KEY_RSURF</td>
+	<td>KeyRSURF</td>
+	</tr>
+	<tr>
+	<td>KEY_FF_</td>
+	<td>FF_</td>
+	</tr>
+	<tr>
+	<td>KEY_REWIND_</td>
+	<td>REWIND_</td>
+	</tr>
+	<tr>
+	<td>KEY_ANGLE</td>
+	<td>Angle</td>
+	</tr>
+	<tr>
+	<td>KEY_RESERVED1</td>
+	<td>Reserved1</td>
+	</tr>
+	<tr>
+	<td>KEY_PROGRAM</td>
+	<td>Program</td>
+	</tr>
+	<tr>
+	<td>KEY_BOOKMARK</td>
+	<td>Bookmark</td>
+	</tr>
+	<tr>
+	<td>KEY_PRINT</td>
+	<td>Print</td>
+	</tr>
+	<tr>
+	<td>KEY_CLEAR</td>
+	<td>Clear</td>
+	</tr>
+	<tr>
+	<td>KEY_VCHIP</td>
+	<td>VChip</td>
+	</tr>
+	<tr>
+	<td>KEY_REPEAT</td>
+	<td>Repeat</td>
+	</tr>
+	<tr>
+	<td>KEY_DOOR</td>
+	<td>Door</td>
+	</tr>
+	<tr>
+	<td>KEY_OPEN</td>
+	<td>Open</td>
+	</tr>
+	<tr>
+	<td>KEY_DMA</td>
+	<td>DMA</td>
+	</tr>
+	<tr>
+	<td>KEY_MTS</td>
+	<td>MTS</td>
+	</tr>
+	<tr>
+	<td>KEY_DNIe</td>
+	<td>DNIe</td>
+	</tr>
+	<tr>
+	<td>KEY_SRS</td>
+	<td>SRS</td>
+	</tr>
+	<tr>
+	<td>KEY_CONVERT_AUDIO_MAINSUB</td>
+	<td>ConvertAudioMain/Sub</td>
+	</tr>
+	<tr>
+	<td>KEY_MDC</td>
+	<td>MDC</td>
+	</tr>
+	<tr>
+	<td>KEY_SEFFECT</td>
+	<td>SoundEffect</td>
+	</tr>
+	<tr>
+	<td>KEY_PERPECT_FOCUS</td>
+	<td>PERPECTFocus</td>
+	</tr>
+	<tr>
+	<td>KEY_CALLER_ID</td>
+	<td>CallerID</td>
+	</tr>
+	<tr>
+	<td>KEY_SCALE</td>
+	<td>Scale</td>
+	</tr>
+	<tr>
+	<td>KEY_MAGIC_BRIGHT</td>
+	<td>MagicBright</td>
+	</tr>
+	<tr>
+	<td>KEY_W_LINK</td>
+	<td>WLink</td>
+	</tr>
+	<tr>
+	<td>KEY_DTV_LINK</td>
+	<td>DTVLink</td>
+	</tr>
+	<tr>
+	<td>KEY_APP_LIST</td>
+	<td>ApplicationList</td>
+	</tr>
+	<tr>
+	<td>KEY_BACK_MHP</td>
+	<td>BackMHP</td>
+	</tr>
+	<tr>
+	<td>KEY_ALT_MHP</td>
+	<td>AlternateMHP</td>
+	</tr>
+	<tr>
+	<td>KEY_DNSe</td>
+	<td>DNSe</td>
+	</tr>
+	<tr>
+	<td>KEY_RSS</td>
+	<td>RSS</td>
+	</tr>
+	<tr>
+	<td>KEY_ENTERTAINMENT</td>
+	<td>Entertainment</td>
+	</tr>
+	<tr>
+	<td>KEY_ID_INPUT</td>
+	<td>IDInput</td>
+	</tr>
+	<tr>
+	<td>KEY_ID_SETUP</td>
+	<td>IDSetup</td>
+	</tr>
+	<tr>
+	<td>KEY_ANYVIEW</td>
+	<td>AnyView</td>
+	</tr>
+	<tr>
+	<td>KEY_MS</td>
+	<td>MS</td>
+	</tr>
+	<tr>
+	<td>KEY_MORE</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_MIC</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_NINE_SEPERATE</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_AUTO_FORMAT</td>
+	<td>AutoFormat</td>
+	</tr>
+	<tr>
+	<td>KEY_DNET</td>
+	<td>DNET</td>
+	</tr>
+	</tbody>
+	</table>
+	
+	<h4>Auto ARC Keys</h4>
+	<table border="1">
+	<thead>
+	<tr>
+	<th>Key</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>KEY_AUTO_ARC_C_FORCE_AGING</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_AUTO_ARC_CAPTION_ENG</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_AUTO_ARC_USBJACK_INSPECT</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_AUTO_ARC_RESET</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_AUTO_ARC_LNA_ON</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_AUTO_ARC_LNA_OFF</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_AUTO_ARC_ANYNET_MODE_OK</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_AUTO_ARC_ANYNET_AUTO_START</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_AUTO_ARC_CAPTION_ON</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_AUTO_ARC_CAPTION_OFF</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_AUTO_ARC_PIP_DOUBLE</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_AUTO_ARC_PIP_LARGE</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_AUTO_ARC_PIP_LEFT_TOP</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_AUTO_ARC_PIP_RIGHT_TOP</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_AUTO_ARC_PIP_LEFT_BOTTOM</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_AUTO_ARC_PIP_CH_CHANGE</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_AUTO_ARC_AUTOCOLOR_SUCCESS</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_AUTO_ARC_AUTOCOLOR_FAIL</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_AUTO_ARC_JACK_IDENT</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_AUTO_ARC_CAPTION_KOR</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_AUTO_ARC_ANTENNA_AIR</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_AUTO_ARC_ANTENNA_CABLE</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_AUTO_ARC_ANTENNA_SATELLITE</td>
+	<td></td>
+	</tr>
+	</tbody>
+	</table>
+	
+	<h4>Panel Keys</h4>
+	<table border="1">
+	<thead>
+	<tr>
+	<th>Key</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>KEY_PANNEL_POWER</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_PANNEL_CHUP</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_PANNEL_VOLUP</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_PANNEL_VOLDOW</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_PANNEL_ENTER</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_PANNEL_MENU</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_PANNEL_SOURCE</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_PANNEL_ENTER</td>
+	<td></td>
+	</tr>
+	</tbody>
+	</table>
+	
+	<h4>Extended Keys</h4>
+	<table border="1">
+	<thead>
+	<tr>
+	<th>Key</th>
+	<th>Description</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>KEY_EXT1</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_EXT2</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_EXT3</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_EXT4</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_EXT5</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_EXT6</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_EXT7</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_EXT8</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_EXT11</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_EXT12</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_EXT13</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_EXT16</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_EXT17</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_EXT18</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_EXT19</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_EXT20</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_EXT21</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_EXT22</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_EXT23</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_EXT24</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_EXT25</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_EXT26</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_EXT27</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_EXT28</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_EXT29</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_EXT30</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_EXT31</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_EXT32</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_EXT33</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_EXT34</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_EXT35</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_EXT36</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_EXT37</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_EXT38</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_EXT39</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_EXT40</td>
+	<td></td>
+	</tr>
+	<tr>
+	<td>KEY_EXT41</td>
+	<td></td>
+	</tr>
+	</tbody>
+	</table>
+	
+	<h3>Application IDs</h3>
+	<table border="1">
+	<thead>
+	<tr>
+	<th align="left">Application</th>
+	<th align="left">Older TVs (&lt; 2020)</th>
+	<th align="left">Newer TVs (&gt;= 2020)</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td align="left">Netflix</td>
+	<td align="left">11101200001</td>
+	<td align="left">3201907018807</td>
+	</tr>
+	<tr>
+	<td align="left">YouTube</td>
+	<td align="left">111299001912</td>
+	<td align="left">111299001912</td>
+	</tr>
+	<tr>
+	<td align="left">YouTube TV</td>
+	<td align="left">-</td>
+	<td align="left">3201707014489</td>
+	</tr>
+	<tr>
+	<td align="left">YouTube Kids</td>
+	<td align="left">3201611010983</td>
+	<td align="left">3201611010983</td>
+	</tr>
+	<tr>
+	<td align="left">HBO GO</td>
+	<td align="left">3201706012478</td>
+	<td align="left">-</td>
+	</tr>
+	<tr>
+	<td align="left">HBO Max</td>
+	<td align="left">-</td>
+	<td align="left">3201601007230</td>
+	</tr>
+	<tr>
+	<td align="left">Hulu</td>
+	<td align="left">-</td>
+	<td align="left">3201601007625</td>
+	</tr>
+	<tr>
+	<td align="left">Plex</td>
+	<td align="left">3201512006963</td>
+	<td align="left">3201512006963</td>
+	</tr>
+	<tr>
+	<td align="left">Prime Video</td>
+	<td align="left">3201512006785</td>
+	<td align="left">3201910019365</td>
+	</tr>
+	<tr>
+	<td align="left">Rakuten TV</td>
+	<td align="left">3201511006428</td>
+	<td align="left">3201511006428</td>
+	</tr>
+	<tr>
+	<td align="left">Disney+</td>
+	<td align="left">3201901017640</td>
+	<td align="left">3201901017640</td>
+	</tr>
+	<tr>
+	<td align="left">NOW TV</td>
+	<td align="left">3201603008746</td>
+	<td align="left">3201603008746</td>
+	</tr>
+	<tr>
+	<td align="left">NOW PlayTV</td>
+	<td align="left">3202011022131</td>
+	<td align="left">-</td>
+	</tr>
+	<tr>
+	<td align="left">VOYO.RO</td>
+	<td align="left">111299000769</td>
+	<td align="left">-</td>
+	</tr>
+	<tr>
+	<td align="left">Pluto TV</td>
+	<td align="left">3201808016802</td>
+	<td align="left">3201808016802</td>
+	</tr>
+	<tr>
+	<td align="left">Discovery+</td>
+	<td align="left">-</td>
+	<td align="left">3201803015944</td>
+	</tr>
+	<tr>
+	<td align="left">IPTV Smarters</td>
+	<td align="left">-</td>
+	<td align="left">3201812017585</td>
+	</tr>
+	<tr>
+	<td align="left">IPTV Smarters Pro</td>
+	<td align="left">-</td>
+	<td align="left">3202009021808</td>
+	</tr>
+	<tr>
+	<td align="left">Apple TV</td>
+	<td align="left">-</td>
+	<td align="left">3201807016597</td>
+	</tr>
+	<tr>
+	<td align="left">Apple Music</td>
+	<td align="left">-</td>
+	<td align="left">3201908019041</td>
+	</tr>
+	<tr>
+	<td align="left">Amazon Music</td>
+	<td align="left">3201710014874</td>
+	<td align="left">-</td>
+	</tr>
+	<tr>
+	<td align="left">Spotify</td>
+	<td align="left">3201606009684</td>
+	<td align="left">3201606009684</td>
+	</tr>
+	<tr>
+	<td align="left">TIDAL</td>
+	<td align="left">3201805016367</td>
+	<td align="left">-</td>
+	</tr>
+	<tr>
+	<td align="left">TuneIn</td>
+	<td align="left">121299000101</td>
+	<td align="left">-</td>
+	</tr>
+	<tr>
+	<td align="left">Deezer</td>
+	<td align="left">3201608010191</td>
+	<td align="left">-</td>
+	</tr>
+	<tr>
+	<td align="left">Radio UK</td>
+	<td align="left">3201711015226</td>
+	<td align="left">-</td>
+	</tr>
+	<tr>
+	<td align="left">Radio WOW</td>
+	<td align="left">3202012022468</td>
+	<td align="left">-</td>
+	</tr>
+	<tr>
+	<td align="left">Steam Link</td>
+	<td align="left">3201702011851</td>
+	<td align="left">-</td>
+	</tr>
+	<tr>
+	<td align="left">Gallery</td>
+	<td align="left">3201710015037</td>
+	<td align="left">3201710015037</td>
+	</tr>
+	<tr>
+	<td align="left">Internet</td>
+	<td align="left">org.tizen.browser</td>
+	<td align="left">3201907018784</td>
+	</tr>
+	<tr>
+	<td align="left">Focus Sat</td>
+	<td align="left">3201906018693</td>
+	<td align="left">-</td>
+	</tr>
+	<tr>
+	<td align="left">PrivacyChoices</td>
+	<td align="left">3201909019271</td>
+	<td align="left">-</td>
+	</tr>
+	<tr>
+	<td align="left">AntenaPlay.ro</td>
+	<td align="left">3201611011005</td>
+	<td align="left">-</td>
+	</tr>
+	<tr>
+	<td align="left">Eurosport Player</td>
+	<td align="left">3201703012079</td>
+	<td align="left">3201703012079</td>
+	</tr>
+	<tr>
+	<td align="left">EduPedia</td>
+	<td align="left">3201608010385</td>
+	<td align="left">-</td>
+	</tr>
+	<tr>
+	<td align="left">BBC News</td>
+	<td align="left">3201602007865</td>
+	<td align="left">3201602007865</td>
+	</tr>
+	<tr>
+	<td align="left">BBC Sounds</td>
+	<td align="left">-</td>
+	<td align="left">3202003020365</td>
+	</tr>
+	<tr>
+	<td align="left">BBC iPlayer</td>
+	<td align="left">-</td>
+	<td align="left">3201601007670</td>
+	</tr>
+	<tr>
+	<td align="left">The Weather Network</td>
+	<td align="left">111399000741</td>
+	<td align="left">-</td>
+	</tr>
+	<tr>
+	<td align="left">Orange TV Go</td>
+	<td align="left">3201710014866</td>
+	<td align="left">-</td>
+	</tr>
+	<tr>
+	<td align="left">Facebook Watch</td>
+	<td align="left">11091000000</td>
+	<td align="left">11091000000</td>
+	</tr>
+	<tr>
+	<td align="left">ITV Hub</td>
+	<td align="left">121299000089</td>
+	<td align="left">121299000089</td>
+	</tr>
+	<tr>
+	<td align="left">UKTV Play</td>
+	<td align="left">-</td>
+	<td align="left">3201806016432</td>
+	</tr>
+	<tr>
+	<td align="left">All 4</td>
+	<td align="left">-</td>
+	<td align="left">111299002148</td>
+	</tr>
+	<tr>
+	<td align="left">VUDU</td>
+	<td align="left">-</td>
+	<td align="left">111012010001</td>
+	</tr>
+	<tr>
+	<td align="left">Explore Google Assistant</td>
+	<td align="left">-</td>
+	<td align="left">3202004020674</td>
+	</tr>
+	<tr>
+	<td align="left">Amazon Alexa</td>
+	<td align="left">-</td>
+	<td align="left">3202004020626</td>
+	</tr>
+	<tr>
+	<td align="left">My5</td>
+	<td align="left">121299000612</td>
+	<td align="left">121299000612</td>
+	</tr>
+	<tr>
+	<td align="left">SmartThings</td>
+	<td align="left">3201710015016</td>
+	<td align="left">3201910019378</td>
+	</tr>
+	<tr>
+	<td align="left">BritBox</td>
+	<td align="left">-</td>
+	<td align="left">3201909019175</td>
+	</tr>
+	<tr>
+	<td align="left">TikTok</td>
+	<td align="left">-</td>
+	<td align="left">3202008021577</td>
+	</tr>
+	<tr>
+	<td align="left">RaiPlay</td>
+	<td align="left">-</td>
+	<td align="left">111399002034</td>
+	</tr>
+	<tr>
+	<td align="left">DAZN</td>
+	<td align="left">-</td>
+	<td align="left">3201806016390</td>
+	</tr>
+	<tr>
+	<td align="left">McAfee Security</td>
+	<td align="left">3201612011418</td>
+	<td align="left">-</td>
+	</tr>
+	<tr>
+	<td align="left">hayu</td>
+	<td align="left">3201806016381</td>
+	<td align="left">-</td>
+	</tr>
+	<tr>
+	<td align="left">Tubi Free Movies ＆ TV</td>
+	<td align="left">-</td>
+	<td align="left">3201504001965</td>
+	</tr>
+	<tr>
+	<td align="left">CTV</td>
+	<td align="left">-</td>
+	<td align="left">3201506003486</td>
+	</tr>
+	<tr>
+	<td align="left">Crave</td>
+	<td align="left">3201506003488</td>
+	<td align="left">3201506003488</td>
+	</tr>
+	<tr>
+	<td align="left">MLB</td>
+	<td align="left">3201603008210</td>
+	<td align="left">-</td>
+	</tr>
+	<tr>
+	<td align="left">Love Nature 4K</td>
+	<td align="left">3201703012065</td>
+	<td align="left">-</td>
+	</tr>
+	<tr>
+	<td align="left">SiriusXM</td>
+	<td align="left">111399002220</td>
+	<td align="left">-</td>
+	</tr>
+	<tr>
+	<td align="left">7plus</td>
+	<td align="left">3201803015934</td>
+	<td align="left">3201803015934</td>
+	</tr>
+	<tr>
+	<td align="left">9Now</td>
+	<td align="left">3201607010031</td>
+	<td align="left">-</td>
+	</tr>
+	<tr>
+	<td align="left">Kayo Sports</td>
+	<td align="left">3201910019354</td>
+	<td align="left">-</td>
+	</tr>
+	<tr>
+	<td align="left">ABC iview</td>
+	<td align="left">3201812017479</td>
+	<td align="left">-</td>
+	</tr>
+	<tr>
+	<td align="left">10 play</td>
+	<td align="left">3201812017479</td>
+	<td align="left">3201704012147</td>
+	</tr>
+	<tr>
+	<td align="left">Telstra TV Box Office</td>
+	<td align="left">11101000407</td>
+	<td align="left">-</td>
+	</tr>
+	<tr>
+	<td align="left">Telecine</td>
+	<td align="left">3201604009182</td>
+	<td align="left">-</td>
+	</tr>
+	<tr>
+	<td align="left">globoplay</td>
+	<td align="left">3201908019022</td>
+	<td align="left">-</td>
+	</tr>
+	<tr>
+	<td align="left">DIRECTV GO</td>
+	<td align="left">3201907018786</td>
+	<td align="left">-</td>
+	</tr>
+	<tr>
+	<td align="left">Stan</td>
+	<td align="left">-</td>
+	<td align="left">3201606009798</td>
+	</tr>
+	<tr>
+	<td align="left">BINGE</td>
+	<td align="left">-</td>
+	<td align="left">3202010022098</td>
+	</tr>
+	<tr>
+	<td align="left">Foxtel</td>
+	<td align="left">-</td>
+	<td align="left">3201910019449</td>
+	</tr>
+	<tr>
+	<td align="left">SBS On Demand</td>
+	<td align="left">-</td>
+	<td align="left">3201510005981</td>
+	</tr>
+	<tr>
+	<td align="left">Security Center</td>
+	<td align="left">-</td>
+	<td align="left">3202009021877</td>
+	</tr>
+	<tr>
+	<td align="left">Google Duo</td>
+	<td align="left">-</td>
+	<td align="left">3202008021439</td>
+	</tr>
+	<tr>
+	<td align="left">Kidoodle.TV FREE, KidSafe Videos</td>
+	<td align="left">-</td>
+	<td align="left">3201910019457</td>
+	</tr>
+	<tr>
+	<td align="left">Emby</td>
+	<td align="left">-</td>
+	<td align="left">vYmY3ACVaa.emby</td>
+	</tr>
+	<tr>
+	<td align="left">Pathe Thuis</td>
+	<td align="left">-</td>
+	<td align="left">3201506003175</td>
+	</tr>
+	<tr>
+	<td align="left">Canaal Digitaal</td>
+	<td align="left">-</td>
+	<td align="left">3201803015869</td>
+	</tr>
+	<tr>
+	<td align="left">NL Ziet</td>
+	<td align="left">-</td>
+	<td align="left">3202012022421</td>
+	</tr>
+	<tr>
+	<td align="left">NPO</td>
+	<td align="left">-</td>
+	<td align="left">3201706014250</td>
+	</tr>
+	<tr>
+	<td align="left">Kijk</td>
+	<td align="left">-</td>
+	<td align="left">3201901017768</td>
+	</tr>
+	<tr>
+	<td align="left">Videoland</td>
+	<td align="left">-</td>
+	<td align="left">3201810017074</td>
+	</tr>
+	<tr>
+	<td align="left">Universal Guide</td>
+	<td align="left">3201710015067</td>
+	<td align="left">-</td>
+	</tr>
+	<tr>
+	<td align="left">CANAL+</td>
+	<td align="left">-</td>
+	<td align="left">3201606009910</td>
+	</tr>
+	<tr>
+	<td align="left">Molotov</td>
+	<td align="left">-</td>
+	<td align="left">3201611011210</td>
+	</tr>
+	<tr>
+	<td align="left">OQEE by Free</td>
+	<td align="left">-</td>
+	<td align="left">3202103023185</td>
+	</tr>
+	<tr>
+	<td align="left">B.tv</td>
+	<td align="left">-</td>
+	<td align="left">3201910019420</td>
+	</tr>
+	<tr>
+	<td align="left">RMC Sport</td>
+	<td align="left">-</td>
+	<td align="left">3201704012212</td>
+	</tr>
+	<tr>
+	<td align="left">Telefoot</td>
+	<td align="left">-</td>
+	<td align="left">3202008021462</td>
+	</tr>
+	<tr>
+	<td align="left">Playzer</td>
+	<td align="left">-</td>
+	<td align="left">3201810017091</td>
+	</tr>
+	<tr>
+	<td align="left">OCS</td>
+	<td align="left">-</td>
+	<td align="left">3201703012029</td>
+	</tr>
+	<tr>
+	<td align="left">ARTE</td>
+	<td align="left">-</td>
+	<td align="left">3202011022316</td>
+	</tr>
+	<tr>
+	<td align="left">Benshi</td>
+	<td align="left">-</td>
+	<td align="left">3202007021336</td>
+	</tr>
+	<tr>
+	<td align="left">france.tv</td>
+	<td align="left">-</td>
+	<td align="left">3202103023232</td>
+	</tr>
+	<tr>
+	<td align="left">Mako</td>
+	<td align="left">-</td>
+	<td align="left">3201506003716</td>
+	</tr>
+	<tr>
+	<td align="left">Reshet13</td>
+	<td align="left">-</td>
+	<td align="left">3201812017600</td>
+	</tr>
+	<tr>
+	<td align="left">Kan11</td>
+	<td align="left">-</td>
+	<td align="left">3201803015997</td>
+	</tr>
+	<tr>
+	<td align="left">Movistar TV Chile</td>
+	<td align="left">111299001957</td>
+	<td align="left">-</td>
+	</tr>
+	<tr>
+	<td align="left">Estadio TNT Sports</td>
+	<td align="left">3201712015454</td>
+	<td align="left">-</td>
+	</tr>
+	<tr>
+	<td align="left">13 Now</td>
+	<td align="left">3201905018499</td>
+	<td align="left">-</td>
+	</tr>
+	<tr>
+	<td align="left">Mi Perro Chocolo</td>
+	<td align="left">3201706014259</td>
+	<td align="left">-</td>
+	</tr>
+	<tr>
+	<td align="left">Blackdove Video Art</td>
+	<td align="left">-</td>
+	<td align="left">3201705012375</td>
+	</tr>
+	<tr>
+	<td align="left">Paramount+</td>
+	<td align="left">-</td>
+	<td align="left">3201710014981</td>
+	</tr>
+	<tr>
+	<td align="left">ESPN</td>
+	<td align="left">-</td>
+	<td align="left">3201708014618</td>
+	</tr>
+	<tr>
+	<td align="left">Peacock TV</td>
+	<td align="left">-</td>
+	<td align="left">3202006020991</td>
+	</tr>
+	<tr>
+	<td align="left">AMC</td>
+	<td align="left">-</td>
+	<td align="left">3201811017337</td>
+	</tr>
+	<tr>
+	<td align="left">Showmax</td>
+	<td align="left">-</td>
+	<td align="left">3201506002963</td>
+	</tr>
+	</tbody>
+	</table>
 
 	<h2><a id="oppo"></a>Oppo Disc Player</h2>
 

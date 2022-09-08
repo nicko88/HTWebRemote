@@ -249,6 +249,9 @@
     <Reference Include="websocket-sharp, Version=1.0.1.0, Culture=neutral, PublicKeyToken=5660b08a1845a91e, processorArchitecture=MSIL">
       <HintPath>..\packages\WebSocketSharp-netstandard.1.0.1\lib\net45\websocket-sharp.dll</HintPath>
     </Reference>
+    <Reference Include="WemoNet, Version=1.4.5.0, Culture=neutral, PublicKeyToken=e11ce56a6f5763f6, processorArchitecture=MSIL">
+      <HintPath>..\packages\WemoNet.1.4.5\lib\netstandard2.0\WemoNet.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
@@ -270,6 +273,7 @@
     <Compile Include="Devices\Controllers\RokuControl.cs" />
     <Compile Include="Devices\Controllers\RS232Control.cs" />
     <Compile Include="Devices\Controllers\NVShieldControl.cs" />
+    <Compile Include="Devices\Controllers\SamsungTizenControl.cs" />
     <Compile Include="Devices\Controllers\SonyProjControl.cs" />
     <Compile Include="Devices\Controllers\StormControl.cs" />
     <Compile Include="Devices\Controllers\TCPUDPControl.cs" />

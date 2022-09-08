@@ -70,17 +70,23 @@ namespace HTWebRemote
 
         public void StartListen()
         {
+            bool started = false;
+
             HttpListener listener = new HttpListener();
             listener.Prefixes.Add("http://*:5000/");
-            try
+
+            while (!started)
             {
-                listener.Start();
-            }
-            catch
-            {
-                Invoke(new Action(() => { MessageBox.Show("Cannot open Port: 5000\n\nTry running as Administrator.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information); }));
-                trayIcon.Visible = false;
-                Environment.Exit(0);
+                try
+                {
+                    listener.Start();
+                    started = true;
+                }
+                catch (Exception e)
+                {
+                    Invoke(new Action(() => { MessageBox.Show("Cannot open Port: 5000\n\nTry running as Administrator.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }));
+                    Thread.Sleep(5000);
+                }
             }
 
             while (true)

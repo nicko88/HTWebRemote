@@ -40,6 +40,8 @@
             this.btnChooseFBMediaPlayer = new System.Windows.Forms.Button();
             this.lblFBMediaPlayerPath = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tbItemRowHeight = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.btnAddManual = new System.Windows.Forms.Button();
             this.tbManualPath = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -118,13 +120,13 @@
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(421, 27);
+            this.label2.Location = new System.Drawing.Point(489, 18);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(196, 20);
+            this.label2.Size = new System.Drawing.Size(128, 40);
             this.label2.TabIndex = 5;
             this.label2.Text = "File Browser Remote #:";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // cbShowFileBrowser
             // 
@@ -141,7 +143,7 @@
             // openFileDialog
             // 
             this.openFileDialog.DefaultExt = "exe";
-            this.openFileDialog.Filter = "Media Player|*.exe";
+            this.openFileDialog.Filter = "Media Player or Script|*.exe;*.bat";
             // 
             // label3
             // 
@@ -176,6 +178,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.tbItemRowHeight);
+            this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.btnChooseFBMediaPlayer);
             this.groupBox1.Controls.Add(this.cbShowFileBrowser);
             this.groupBox1.Controls.Add(this.lblFBMediaPlayerPath);
@@ -189,6 +193,26 @@
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "File Browser Settings";
+            // 
+            // tbItemRowHeight
+            // 
+            this.tbItemRowHeight.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbItemRowHeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbItemRowHeight.Location = new System.Drawing.Point(403, 24);
+            this.tbItemRowHeight.Name = "tbItemRowHeight";
+            this.tbItemRowHeight.Size = new System.Drawing.Size(67, 26);
+            this.tbItemRowHeight.TabIndex = 23;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(249, 27);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(148, 20);
+            this.label6.TabIndex = 10;
+            this.label6.Text = "Item Row Height:";
             // 
             // btnAddManual
             // 
@@ -407,5 +431,7 @@
         private System.Windows.Forms.TextBox tbManualPath;
         private System.Windows.Forms.Button btnAddAlias;
         private System.Windows.Forms.TextBox tbAlias;
+        private System.Windows.Forms.TextBox tbItemRowHeight;
+        private System.Windows.Forms.Label label6;
     }
 }

@@ -73,6 +73,7 @@ Finally, HTWebRemote includes a sort of API which lets you send commands from ot
 * Christie M-Series / TruLife+ Projectors
 * Panasonic Projectors
 * LG webOS TVs/Projectors
+* Samsung TizenOS TVs/Projectors
 * Oppo Disc Player
 * D-BOX HEMC
 * HDFury Devices

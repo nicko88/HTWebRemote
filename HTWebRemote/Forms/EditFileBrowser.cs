@@ -69,6 +69,7 @@ namespace HTWebRemote.Forms
             }
 
             tbYoutubeAPIKey.Text = ConfigHelper.GetRegKey(@"SOFTWARE\HTWebRemote", "YoutubeAPIKey");
+            tbItemRowHeight.Text = ConfigHelper.GetRegKey(@"SOFTWARE\HTWebRemote", "ItemRowHeight");
 
             if (cmbFileBrowserRemote.SelectedIndex == -1)
             {
@@ -239,6 +240,7 @@ namespace HTWebRemote.Forms
         {
             RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\HTWebRemote", true);
             key.SetValue("YoutubeAPIKey", tbYoutubeAPIKey.Text);
+            key.SetValue("ItemRowHeight", tbItemRowHeight.Text);
         }
 
         private void lblAPIHelp_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

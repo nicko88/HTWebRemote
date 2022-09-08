@@ -36,6 +36,12 @@ namespace HTWebRemote.Util
                 header = header.Replace("justify-content: flex-start;", "justify-content: space-between;");
             }
 
+            string itemRowHeight = ConfigHelper.GetRegKey(@"SOFTWARE\HTWebRemote", "ItemRowHeight");
+            if (!string.IsNullOrEmpty(itemRowHeight))
+            {
+                header = header.Replace("height: 34px;", $"height: {itemRowHeight}px;");
+            }
+
             page.AppendLine(header);
             page.AppendLine(GetHTMLRemoteTabs());
             page.AppendLine(@"<div class=""container body-content"">");
@@ -245,7 +251,7 @@ namespace HTWebRemote.Util
                         }
                         foreach (DirectoryInfo dir in dirs)
                         {
-                            page.AppendLine($@"<a href=""FB?path={Base64Encode(dir.FullName)}"" style=""padding: 4px 8px;"" class=""list-group-item list-group-item-action list-group-item-dark"">{dir.Name}</a>");
+                            page.AppendLine($@"<a href=""FB?path={Base64Encode(dir.FullName)}"" class=""row-item list-group-item list-group-item-action list-group-item-dark"">{dir.Name}</a>");
                         }
                     }
                     catch { }
@@ -261,7 +267,7 @@ namespace HTWebRemote.Util
                         }
                         foreach (FileInfo file in files)
                         {
-                            page.AppendLine($@"<a href=""FB?path={Base64Encode(file.FullName)}"" style=""padding: 4px 8px;"" class=""list-group-item list-group-item-action list-group-item-dark"">{file.Name}</a>");
+                            page.AppendLine($@"<a href=""FB?path={Base64Encode(file.FullName)}"" class=""row-item list-group-item list-group-item-action list-group-item-dark"">{file.Name}</a>");
                         }
                     }
                     catch { }
@@ -284,7 +290,7 @@ namespace HTWebRemote.Util
                     }
                     foreach (string path in fileList)
                     {
-                        page.AppendLine($@"<a href=""FB?path={Base64Encode(path)}"" style=""padding: 4px 8px;"" class=""list-group-item list-group-item-action list-group-item-dark"">{Path.GetFileName(path)}</a>");
+                        page.AppendLine($@"<a href=""FB?path={Base64Encode(path)}"" class=""row-item list-group-item list-group-item-action list-group-item-dark"">{Path.GetFileName(path)}</a>");
                     }
                     if (fileList.Count == 0)
                     {
@@ -318,7 +324,7 @@ namespace HTWebRemote.Util
                     }
                     foreach (string path in fileList)
                     {
-                        page.AppendLine($@"<a href=""FB?path={Base64Encode(path)}"" style=""padding: 4px 8px;"" class=""list-group-item list-group-item-action list-group-item-dark"">{Path.GetFileName(path)}</a>");
+                        page.AppendLine($@"<a href=""FB?path={Base64Encode(path)}"" class=""row-item list-group-item list-group-item-action list-group-item-dark"">{Path.GetFileName(path)}</a>");
                     }
                     if (fileList.Count == 0)
                     {
@@ -348,7 +354,7 @@ namespace HTWebRemote.Util
                         {
                             alias = vals[1];
                         }
-                        page.AppendLine($@"<a href=""FB?path={Base64Encode(vals[0])}"" style=""padding: 4px 8px;"" class=""list-group-item list-group-item-action list-group-item-dark"">{alias}</a>");
+                        page.AppendLine($@"<a href=""FB?path={Base64Encode(vals[0])}"" class=""row-item list-group-item list-group-item-action list-group-item-dark"">{alias}</a>");
                     }
                 }
                 catch

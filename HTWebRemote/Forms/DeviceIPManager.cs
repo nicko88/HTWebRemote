@@ -232,16 +232,20 @@ namespace HTWebRemote.Forms
 
         private void IPManager_FormClosing(object sender, FormClosingEventArgs e)
         {
-            File.Delete(Util.ConfigHelper.DeviceFile);
-
-            foreach (string line in lbDevices.Items)
+            try
             {
-                string[] values = line.Split(',');
-                if (!string.IsNullOrEmpty(values[1]) && !string.IsNullOrEmpty(values[2]))
+                File.Delete(Util.ConfigHelper.DeviceFile);
+
+                foreach (string line in lbDevices.Items)
                 {
-                    File.AppendAllText(Util.ConfigHelper.DeviceFile, line + Environment.NewLine);
+                    string[] values = line.Split(',');
+                    if (!string.IsNullOrEmpty(values[1]) && !string.IsNullOrEmpty(values[2]))
+                    {
+                        File.AppendAllText(Util.ConfigHelper.DeviceFile, line + Environment.NewLine);
+                    }
                 }
             }
+            catch { }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)

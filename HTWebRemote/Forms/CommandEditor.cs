@@ -281,7 +281,6 @@ namespace HTWebRemote.Forms
 
         private void btnTestCmds_Click(object sender, EventArgs e)
         {
-            Editor.SaveRemote(0);
             Editor.currentRemote.RemoteItems[ButtonIndex].RunButtonCommands();
         }
     }

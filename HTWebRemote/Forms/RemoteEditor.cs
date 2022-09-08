@@ -188,7 +188,7 @@ namespace HTWebRemote.Forms
                 currentRemote.RemoteItems = items;
             }
 
-            webBrowser.DocumentText = Util.RemoteParser.GetRemoteHTML(cmbRemoteID.SelectedItem.ToString(), false);
+            webBrowser.DocumentText = RemoteParser.GetRemoteHTML(cmbRemoteID.SelectedItem.ToString(), false);
         }
 
         private void lbRemoteItems_SelectedIndexChanged(object sender, EventArgs e)

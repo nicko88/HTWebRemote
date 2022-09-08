@@ -31,6 +31,7 @@ namespace HTWebRemote.Devices
                                                                     "christie",
                                                                     "panaproj",
                                                                     "lgwebos",
+                                                                    "samsungtizen",
                                                                     "oppo",
                                                                     "dbox",
                                                                     "hdfury",
@@ -92,7 +93,7 @@ namespace HTWebRemote.Devices
                         }
                         else
                         {
-                            returnQuery = QueryDevice(values[2], values[0], cmd);
+                            returnQuery = QueryDevice(values[2], values[0], cmd, param, specialData);
                         }
                         break;
                     }
@@ -175,6 +176,9 @@ namespace HTWebRemote.Devices
                 case "lgwebos":
                     LGwebOSControl.RunCmd(IP, cmd, param);
                     break;
+                case "samsungtizen":
+                    SamsungTizenControl.RunCmd(IP, cmd, param);
+                    break;
                 case "oppo":
                     OppoControl.RunCmd(IP, cmd, param);
                     break;
@@ -210,7 +214,7 @@ namespace HTWebRemote.Devices
             }
         }
 
-        public static string QueryDevice(string IP, string devType, string cmd)
+        public static string QueryDevice(string IP, string devType, string cmd, string param, string specialData)
         {
             string returnQuery = "";
             string[] values = cmd.Split(':');
@@ -233,6 +237,9 @@ namespace HTWebRemote.Devices
                         break;
                     case "lyngdorf":
                         returnQuery = (string)Type.GetType("HTWebRemote.Devices.Controllers.LyngdorfControl").GetMethod(values[0]).Invoke(null, new object[] { IP, values[1] });
+                        break;
+                    case "kodi":
+                        returnQuery = (string)Type.GetType("HTWebRemote.Devices.Controllers.KodiControl").GetMethod(values[1]).Invoke(null, new object[] { IP, specialData });
                         break;
                     default:
                         break;

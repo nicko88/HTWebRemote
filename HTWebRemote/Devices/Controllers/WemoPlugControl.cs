@@ -1,86 +1,40 @@
-﻿using System.IO;
-using System.Net;
-using System.Text;
+﻿using System;
+using WemoNet;
 
 namespace HTWebRemote.Devices.Controllers
 {
     class WemoPlugControl
     {
-		private static string _IP;
-
 		public static void RunCmd(string IP, string cmd)
         {
-			_IP = IP;
+			Wemo wemo = new Wemo();
 
-			SendRequest(cmd);
-		}
-
-		private static void SendRequest(string action)
-		{
+			bool success = false;
 			try
 			{
-				string TARGETSTATUS = "0";
-				if (action == "on")
+				switch (cmd)
 				{
-					TARGETSTATUS = "1";
-				}
-
-				HttpWebRequest req = WebRequest.Create($"http://{_IP}:{49153}/upnp/control/basicevent1") as HttpWebRequest;
-				string reqContent = @"<?xml version=""1.0"" encoding=""utf-8""?>";
-				reqContent += @"<s:Envelope xmlns:s=""http://schemas.xmlsoap.org/soap/envelope/"" s:encodingStyle=""http://schemas.xmlsoap.org/soap/encoding/"">";
-				reqContent += "<s:Body>";
-
-
-				if (action != "toggle")
-				{
-					reqContent += @"<u:SetBinaryState xmlns:u=""urn:Belkin:service:basicevent:1"">";
-					reqContent += $"<BinaryState>{TARGETSTATUS}</BinaryState>";
-					reqContent += "</u:SetBinaryState>";
-					req.Headers.Add(@"SOAPACTION:""urn:Belkin:service:basicevent:1#SetBinaryState""");
-				}
-				else
-				{
-					reqContent += @"<u:GetBinaryState xmlns:u=""urn:Belkin:service:basicevent:1"">";
-					reqContent += "<BinaryState>1</BinaryState>";
-					reqContent += "</u:GetBinaryState>";
-					req.Headers.Add(@"SOAPACTION:""urn:Belkin:service:basicevent:1#GetBinaryState""");
-				}
-
-				reqContent += "</s:Body>";
-				reqContent += "</s:Envelope>";
-				UTF8Encoding encoding = new UTF8Encoding();
-
-				req.ContentType = @"text/xml; charset=""utf-8""";
-				req.Method = "POST";
-
-				using (Stream requestStream = req.GetRequestStream())
-				{
-					requestStream.Write(encoding.GetBytes(reqContent), 0, encoding.GetByteCount(reqContent));
-				}
-			
-				HttpWebResponse response = req.GetResponse() as HttpWebResponse;
-				using (Stream rspStm = response.GetResponseStream())
-				{
-					using (StreamReader reader = new StreamReader(rspStm))
-					{
-						string body = reader.ReadToEnd();
-						if (action == "toggle")
-						{
-							if (body.Contains(">1<"))
-							{
-								SendRequest("off");
-							}
-							else
-							{
-								SendRequest("on");
-							}
-						}
-					}
+					case "on":
+						success = wemo.TurnOnWemoPlugAsync($"http://{IP}").Result;
+						break;
+					case "off":
+						success = wemo.TurnOffWemoPlugAsync($"http://{IP}").Result;
+						break;
+					case "toggle":
+						success = wemo.ToggleWemoPlugAsync($"http://{IP}").Result;
+						break;
+					default:
+						break;
 				}
 			}
-			catch (WebException e)
-			{
-				Util.ErrorHandler.SendError($"Failed to send command to Wemo plug at {_IP}\n\n{e.Message}");
+			catch(Exception e)
+            {
+				Util.ErrorHandler.SendError($"Failed to send command to Wemo plug at {IP}\n\n{e.Message}");
+			}
+
+			if(!success)
+            {
+				Util.ErrorHandler.SendError($"Failed to send command to Wemo plug at {IP}");
 			}
 		}
 	}
