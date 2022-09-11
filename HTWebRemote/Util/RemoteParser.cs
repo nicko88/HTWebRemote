@@ -186,13 +186,19 @@ namespace HTWebRemote.Util
                             textColor = "#000000";
                         }
 
+                        string btnHeight = "";
+                        if(item.Height > 0)
+                        {
+                            btnHeight = $" height: {item.Height}px;";
+                        }
+
                         if (!query)
                         {
-                            sb.AppendFormat(@"<div class=""nitem"" style=""flex-grow: {0};""><button onclick=""sendbtn('{1}', '{2}', '{3}')"" class=""btn"" style=""background-color: {4}; color: {5};"">{6}</button></div>" + Environment.NewLine, item.RelativeSize, remote.RemoteID, i, item.ConfirmPopup, btnColorHex, textColor, item.Label);
+                            sb.AppendFormat(@"<div class=""nitem"" style=""flex-grow: {0};""><button onclick=""sendbtn('{1}', '{2}', '{3}')"" class=""btn"" style=""background-color: {4}; color: {5};{6}"">{7}</button></div>" + Environment.NewLine, item.RelativeSize, remote.RemoteID, i, item.ConfirmPopup, btnColorHex, textColor, btnHeight, item.Label);
                         }
                         else
                         {
-                            sb.AppendFormat(@"<div class=""nitem"" style=""flex-grow: {0};""><button onclick=""sendquery('{1}', '{2}', '{3}', '{4}')"" class=""btn"" style=""background-color: {5}; color: {6};"">{7}</button></div>" + Environment.NewLine, item.RelativeSize, remote.RemoteID, item.Commands[0].DeviceName, item.Commands[0].Cmd, item.ConfirmPopup, btnColorHex, textColor, item.Label);
+                            sb.AppendFormat(@"<div class=""nitem"" style=""flex-grow: {0};""><button onclick=""sendquery('{1}', '{2}', '{3}', '{4}')"" class=""btn"" style=""background-color: {5}; color: {6};{7}"">{8}</button></div>" + Environment.NewLine, item.RelativeSize, remote.RemoteID, item.Commands[0].DeviceName, item.Commands[0].Cmd, item.ConfirmPopup, btnColorHex, textColor, btnHeight, item.Label);
                         }
 
                         buttonRowStarted = true;

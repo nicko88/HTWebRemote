@@ -16,6 +16,7 @@ namespace HTWebRemote.RemoteFile
         public RemoteItemType ItemType { get; set; }
         public string Label { get; set; }
         public int RelativeSize { get; set; }
+        public int Height { get; set; }
         public string Color { get; set; }
         public bool ConfirmPopup { get; set; }
         public List<Command> Commands { get; set; }
@@ -29,11 +30,15 @@ namespace HTWebRemote.RemoteFile
         }
 
         //create new button
-        public RemoteItem(string buttonLabel, int buttonRelativeSize, string buttonColor, bool buttonConfirmPopup)
+        public RemoteItem(string buttonLabel, int buttonRelativeSize, int? buttonHeight, string buttonColor, bool buttonConfirmPopup)
         {
             ItemType = RemoteItemType.Button;
             Label = buttonLabel;
             RelativeSize = buttonRelativeSize;
+            if (buttonHeight != null)
+            {
+                Height = buttonHeight.Value;
+            }
             Color = buttonColor;
             ConfirmPopup = buttonConfirmPopup;
             Commands = new List<Command>();

@@ -69,7 +69,7 @@
             this.btnAddNewRow = new System.Windows.Forms.Button();
             this.btnRemoteSave = new System.Windows.Forms.Button();
             this.label15 = new System.Windows.Forms.Label();
-            this.tbButtonHeight = new System.Windows.Forms.TextBox();
+            this.tbGlobalButtonHeight = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -81,6 +81,8 @@
             this.cbHideRemote = new System.Windows.Forms.CheckBox();
             this.tbShadingStrength = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.tbButtonHeight = new System.Windows.Forms.TextBox();
             this.panelButton.SuspendLayout();
             this.panelGroup.SuspendLayout();
             this.panelBlank.SuspendLayout();
@@ -121,6 +123,8 @@
             // panelButton
             // 
             this.panelButton.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelButton.Controls.Add(this.tbButtonHeight);
+            this.panelButton.Controls.Add(this.label14);
             this.panelButton.Controls.Add(this.pnlButtonColor);
             this.panelButton.Controls.Add(this.btnLabelTricks);
             this.panelButton.Controls.Add(this.btnSizeHelp);
@@ -162,7 +166,7 @@
             // btnSizeHelp
             // 
             this.btnSizeHelp.AutoSize = true;
-            this.btnSizeHelp.Location = new System.Drawing.Point(375, 41);
+            this.btnSizeHelp.Location = new System.Drawing.Point(328, 10);
             this.btnSizeHelp.Name = "btnSizeHelp";
             this.btnSizeHelp.Size = new System.Drawing.Size(33, 13);
             this.btnSizeHelp.TabIndex = 54;
@@ -211,9 +215,9 @@
             this.tbButtonSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbButtonSize.Location = new System.Drawing.Point(276, 28);
             this.tbButtonSize.Name = "tbButtonSize";
-            this.tbButtonSize.Size = new System.Drawing.Size(99, 26);
+            this.tbButtonSize.Size = new System.Drawing.Size(79, 26);
             this.tbButtonSize.TabIndex = 47;
-            this.tbButtonSize.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbButtonSize_KeyPress);
+            this.tbButtonSize.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbNumOnly_KeyPress);
             // 
             // tbButtonLabel
             // 
@@ -229,20 +233,20 @@
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.Location = new System.Drawing.Point(272, 5);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(103, 20);
+            this.label10.Size = new System.Drawing.Size(55, 20);
             this.label10.TabIndex = 51;
-            this.label10.Text = "Button Size";
+            this.label10.Text = "Width";
             // 
             // cbButtonConfirm
             // 
             this.cbButtonConfirm.AutoSize = true;
             this.cbButtonConfirm.CheckAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.cbButtonConfirm.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbButtonConfirm.Location = new System.Drawing.Point(381, 4);
+            this.cbButtonConfirm.Location = new System.Drawing.Point(440, 5);
             this.cbButtonConfirm.Name = "cbButtonConfirm";
-            this.cbButtonConfirm.Size = new System.Drawing.Size(200, 38);
+            this.cbButtonConfirm.Size = new System.Drawing.Size(141, 38);
             this.cbButtonConfirm.TabIndex = 48;
-            this.cbButtonConfirm.Text = "Button Confirm Popup?";
+            this.cbButtonConfirm.Text = "Confirm Popup?";
             this.cbButtonConfirm.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.cbButtonConfirm.UseVisualStyleBackColor = true;
             // 
@@ -503,7 +507,7 @@
             this.tbBlankSize.Name = "tbBlankSize";
             this.tbBlankSize.Size = new System.Drawing.Size(200, 26);
             this.tbBlankSize.TabIndex = 57;
-            this.tbBlankSize.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbBlankSize_KeyPress);
+            this.tbBlankSize.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbNumOnly_KeyPress);
             // 
             // panelNewRow
             // 
@@ -561,15 +565,15 @@
             this.label15.Text = "Button Height";
             this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // tbButtonHeight
+            // tbGlobalButtonHeight
             // 
-            this.tbButtonHeight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbButtonHeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbButtonHeight.Location = new System.Drawing.Point(794, 7);
-            this.tbButtonHeight.Name = "tbButtonHeight";
-            this.tbButtonHeight.Size = new System.Drawing.Size(40, 26);
-            this.tbButtonHeight.TabIndex = 48;
-            this.tbButtonHeight.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbButtonHeight_KeyPress);
+            this.tbGlobalButtonHeight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbGlobalButtonHeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbGlobalButtonHeight.Location = new System.Drawing.Point(794, 7);
+            this.tbGlobalButtonHeight.Name = "tbGlobalButtonHeight";
+            this.tbGlobalButtonHeight.Size = new System.Drawing.Size(40, 26);
+            this.tbGlobalButtonHeight.TabIndex = 48;
+            this.tbGlobalButtonHeight.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbNumOnly_KeyPress);
             // 
             // label2
             // 
@@ -675,7 +679,7 @@
             this.tbShadingStrength.Name = "tbShadingStrength";
             this.tbShadingStrength.Size = new System.Drawing.Size(40, 26);
             this.tbShadingStrength.TabIndex = 61;
-            this.tbShadingStrength.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbShadingStrength_KeyPress);
+            this.tbShadingStrength.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbNumOnly_KeyPress);
             // 
             // label12
             // 
@@ -687,6 +691,25 @@
             this.label12.Size = new System.Drawing.Size(419, 16);
             this.label12.TabIndex = 62;
             this.label12.Text = "Right-click and drag or press PgUp / PgDn to move an item.";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(370, 5);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(62, 20);
+            this.label14.TabIndex = 59;
+            this.label14.Text = "Height";
+            // 
+            // tbButtonHeight
+            // 
+            this.tbButtonHeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbButtonHeight.Location = new System.Drawing.Point(374, 28);
+            this.tbButtonHeight.Name = "tbButtonHeight";
+            this.tbButtonHeight.Size = new System.Drawing.Size(60, 26);
+            this.tbButtonHeight.TabIndex = 60;
+            this.tbButtonHeight.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbNumOnly_KeyPress);
             // 
             // RemoteEditor
             // 
@@ -707,7 +730,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnRemoteSave);
             this.Controls.Add(this.label15);
-            this.Controls.Add(this.tbButtonHeight);
+            this.Controls.Add(this.tbGlobalButtonHeight);
             this.Controls.Add(this.panelNewRow);
             this.Controls.Add(this.panelBlank);
             this.Controls.Add(this.panelGroup);
@@ -774,7 +797,7 @@
         private System.Windows.Forms.Button btnDeleteNewRow;
         private System.Windows.Forms.Button btnRemoteSave;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.TextBox tbButtonHeight;
+        private System.Windows.Forms.TextBox tbGlobalButtonHeight;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label5;
@@ -791,5 +814,7 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox tbShadingStrength;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox tbButtonHeight;
+        private System.Windows.Forms.Label label14;
     }
 }

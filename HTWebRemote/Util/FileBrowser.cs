@@ -39,7 +39,10 @@ namespace HTWebRemote.Util
             string itemRowHeight = ConfigHelper.GetRegKey(@"SOFTWARE\HTWebRemote", "ItemRowHeight");
             if (!string.IsNullOrEmpty(itemRowHeight))
             {
-                header = header.Replace("height: 34px;", $"height: {itemRowHeight}px;");
+                int paddingAdjust = 4 + Convert.ToInt32(itemRowHeight);
+
+                header = header.Replace("padding-top: 4px;", $"padding-top: {paddingAdjust}px;");
+                header = header.Replace("padding-bottom: 4px;", $"padding-bottom: {paddingAdjust}px;");
             }
 
             page.AppendLine(header);

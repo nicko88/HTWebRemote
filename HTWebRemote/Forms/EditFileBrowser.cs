@@ -236,6 +236,11 @@ namespace HTWebRemote.Forms
             System.Diagnostics.Process.Start("https://ys.3dyd.com");
         }
 
+        private void tbNumOnly_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
         private void EditFileBrowser_FormClosing(object sender, FormClosingEventArgs e)
         {
             RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\HTWebRemote", true);

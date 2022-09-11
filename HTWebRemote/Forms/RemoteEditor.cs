@@ -114,6 +114,7 @@ namespace HTWebRemote.Forms
             tbButtonLabel.Text = "";
             pnlButtonColor.BackColor = ColorTranslator.FromHtml("#007BFF");
             tbButtonSize.Text = "";
+            tbButtonHeight.Text = "";
             cbButtonConfirm.Checked = false;
             btnAddButton.Visible = true;
             btnSaveButton.Visible = false;
@@ -142,11 +143,11 @@ namespace HTWebRemote.Forms
 
                 if (currentRemote.ButtonHeight > 0)
                 {
-                    tbButtonHeight.Text = currentRemote.ButtonHeight.ToString();
+                    tbGlobalButtonHeight.Text = currentRemote.ButtonHeight.ToString();
                 }
                 else
                 {
-                    tbButtonHeight.Text = "";
+                    tbGlobalButtonHeight.Text = "";
                 }
 
                 if(currentRemote.RemoteBackColor != null)
@@ -203,7 +204,7 @@ namespace HTWebRemote.Forms
                     case RemoteItem.RemoteItemType.Group:
                         panelGroup.Visible = true;
                         tbGroupLabel.Text = currentItem.Label;
-                        pnlGroupColor.BackColor = ColorTranslator.FromHtml(Util.ConfigHelper.ConvertLegacyColor(currentItem.Color));
+                        pnlGroupColor.BackColor = ColorTranslator.FromHtml(ConfigHelper.ConvertLegacyColor(currentItem.Color));
                         btnAddGroup.Visible = false;
                         btnSaveGroup.Visible = true;
                         btnDeleteGroup.Visible = true;
@@ -212,7 +213,11 @@ namespace HTWebRemote.Forms
                         panelButton.Visible = true;
                         tbButtonLabel.Text = currentItem.Label;
                         tbButtonSize.Text = currentItem.RelativeSize.ToString();
-                        pnlButtonColor.BackColor = ColorTranslator.FromHtml(Util.ConfigHelper.ConvertLegacyColor(currentItem.Color));
+                        if (currentItem.Height > 0)
+                        {
+                            tbButtonHeight.Text = currentItem.Height.ToString();
+                        }
+                        pnlButtonColor.BackColor = ColorTranslator.FromHtml(ConfigHelper.ConvertLegacyColor(currentItem.Color));
                         cbButtonConfirm.Checked = currentItem.ConfirmPopup;
                         btnAddButton.Visible = false;
                         btnSaveButton.Visible = true;
@@ -259,12 +264,18 @@ namespace HTWebRemote.Forms
                 tbButtonSize.Text = "1";
             }
 
+            int? btnHeight = null;
+            if (!string.IsNullOrEmpty(tbButtonHeight.Text))
+            {
+                btnHeight = Convert.ToInt32(tbButtonHeight.Text);
+            }
+
             int insertIndex = lbRemoteItems.Items.Count;
             if(lbRemoteItems.SelectedIndex > -1)
             {
                 insertIndex = lbRemoteItems.SelectedIndex + 1;
             }
-            RemoteItem remoteItem = new RemoteItem(tbButtonLabel.Text, Convert.ToInt32(tbButtonSize.Text), $"#{pnlButtonColor.BackColor.R:X2}{pnlButtonColor.BackColor.G:X2}{pnlButtonColor.BackColor.B:X2}", cbButtonConfirm.Checked);
+            RemoteItem remoteItem = new RemoteItem(tbButtonLabel.Text, Convert.ToInt32(tbButtonSize.Text), btnHeight, $"#{pnlButtonColor.BackColor.R:X2}{pnlButtonColor.BackColor.G:X2}{pnlButtonColor.BackColor.B:X2}", cbButtonConfirm.Checked);
             try
             {
                 currentRemote.RemoteItems.Insert(insertIndex, remoteItem);
@@ -287,6 +298,14 @@ namespace HTWebRemote.Forms
             RemoteItem selectedItem = (RemoteItem)lbRemoteItems.SelectedItem;
             selectedItem.Label = tbButtonLabel.Text;
             selectedItem.RelativeSize = Convert.ToInt32(tbButtonSize.Text);
+            if (string.IsNullOrEmpty(tbButtonHeight.Text))
+            {
+                selectedItem.Height = 0;
+            }
+            else
+            {
+                selectedItem.Height = Convert.ToInt32(tbButtonHeight.Text);
+            }
             selectedItem.Color = $"#{pnlButtonColor.BackColor.R:X2}{pnlButtonColor.BackColor.G:X2}{pnlButtonColor.BackColor.B:X2}";
             selectedItem.ConfirmPopup = cbButtonConfirm.Checked;
             SaveRemote(0);
@@ -408,11 +427,11 @@ namespace HTWebRemote.Forms
 
         private void btnRemoteSave_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(tbButtonHeight.Text))
+            if (string.IsNullOrEmpty(tbGlobalButtonHeight.Text))
             {
-                tbButtonHeight.Text = "0";
+                tbGlobalButtonHeight.Text = "0";
             }
-            currentRemote.ButtonHeight = Convert.ToInt32(tbButtonHeight.Text);
+            currentRemote.ButtonHeight = Convert.ToInt32(tbGlobalButtonHeight.Text);
 
             currentRemote.RemoteBackColor = $"#{pnlBackColor.BackColor.R:X2}{pnlBackColor.BackColor.G:X2}{pnlBackColor.BackColor.B:X2}";
 
@@ -495,7 +514,7 @@ namespace HTWebRemote.Forms
                 DialogResult result = MessageBox.Show($"Are you sure you want to delete remote #{cmbRemoteID.SelectedItem}?", "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-                    File.Delete($"{Util.ConfigHelper.jsonButtonFiles}{cmbRemoteID.SelectedItem}.json");
+                    File.Delete($"{ConfigHelper.jsonButtonFiles}{cmbRemoteID.SelectedItem}.json");
                 }
             }
             catch { }
@@ -537,22 +556,7 @@ namespace HTWebRemote.Forms
             lbRemoteItems.SelectedIndex = index;
         }
 
-        private void tbButtonSize_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
-        }
-
-        private void tbButtonHeight_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
-        }
-
-        private void tbBlankSize_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
-        }
-
-        private void tbShadingStrength_KeyPress(object sender, KeyPressEventArgs e)
+        private void tbNumOnly_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
         }

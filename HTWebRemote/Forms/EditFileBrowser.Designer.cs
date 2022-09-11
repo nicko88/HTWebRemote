@@ -199,20 +199,21 @@
             this.tbItemRowHeight.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbItemRowHeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbItemRowHeight.Location = new System.Drawing.Point(403, 24);
+            this.tbItemRowHeight.Location = new System.Drawing.Point(428, 24);
             this.tbItemRowHeight.Name = "tbItemRowHeight";
-            this.tbItemRowHeight.Size = new System.Drawing.Size(67, 26);
+            this.tbItemRowHeight.Size = new System.Drawing.Size(52, 26);
             this.tbItemRowHeight.TabIndex = 23;
+            this.tbItemRowHeight.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbNumOnly_KeyPress);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(249, 27);
+            this.label6.Location = new System.Drawing.Point(240, 26);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(148, 20);
+            this.label6.Size = new System.Drawing.Size(182, 20);
             this.label6.TabIndex = 10;
-            this.label6.Text = "Item Row Height:";
+            this.label6.Text = "Increase Row Height:";
             // 
             // btnAddManual
             // 
