@@ -31,6 +31,8 @@
             this.lbRemoteItems = new System.Windows.Forms.ListBox();
             this.webBrowser = new System.Windows.Forms.WebBrowser();
             this.panelButton = new System.Windows.Forms.Panel();
+            this.tbButtonHeight = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.pnlButtonColor = new System.Windows.Forms.Panel();
             this.btnLabelTricks = new System.Windows.Forms.LinkLabel();
             this.btnSizeHelp = new System.Windows.Forms.LinkLabel();
@@ -81,8 +83,6 @@
             this.cbHideRemote = new System.Windows.Forms.CheckBox();
             this.tbShadingStrength = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.tbButtonHeight = new System.Windows.Forms.TextBox();
             this.panelButton.SuspendLayout();
             this.panelGroup.SuspendLayout();
             this.panelBlank.SuspendLayout();
@@ -142,6 +142,25 @@
             this.panelButton.Size = new System.Drawing.Size(741, 65);
             this.panelButton.TabIndex = 2;
             this.panelButton.Visible = false;
+            // 
+            // tbButtonHeight
+            // 
+            this.tbButtonHeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbButtonHeight.Location = new System.Drawing.Point(374, 28);
+            this.tbButtonHeight.Name = "tbButtonHeight";
+            this.tbButtonHeight.Size = new System.Drawing.Size(60, 26);
+            this.tbButtonHeight.TabIndex = 60;
+            this.tbButtonHeight.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbNumOnly_KeyPress);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(370, 5);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(62, 20);
+            this.label14.TabIndex = 59;
+            this.label14.Text = "Height";
             // 
             // pnlButtonColor
             // 
@@ -692,25 +711,6 @@
             this.label12.TabIndex = 62;
             this.label12.Text = "Right-click and drag or press PgUp / PgDn to move an item.";
             // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(370, 5);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(62, 20);
-            this.label14.TabIndex = 59;
-            this.label14.Text = "Height";
-            // 
-            // tbButtonHeight
-            // 
-            this.tbButtonHeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbButtonHeight.Location = new System.Drawing.Point(374, 28);
-            this.tbButtonHeight.Name = "tbButtonHeight";
-            this.tbButtonHeight.Size = new System.Drawing.Size(60, 26);
-            this.tbButtonHeight.TabIndex = 60;
-            this.tbButtonHeight.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbNumOnly_KeyPress);
-            // 
             // RemoteEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -743,10 +743,12 @@
             this.Controls.Add(this.cmbRemoteID);
             this.Controls.Add(this.webBrowser);
             this.Controls.Add(this.lbRemoteItems);
+            this.KeyPreview = true;
             this.Name = "RemoteEditor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Remote Editor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RemoteEditor_FormClosing);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RemoteEditor_KeyDown);
             this.panelButton.ResumeLayout(false);
             this.panelButton.PerformLayout();
             this.panelGroup.ResumeLayout(false);

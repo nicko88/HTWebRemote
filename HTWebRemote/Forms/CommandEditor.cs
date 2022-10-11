@@ -86,6 +86,10 @@ namespace HTWebRemote.Forms
                     panelCommand.Visible = true;
                     panelWaitTime.Visible = false;
                     cmbDevices.SelectedItem = currentCommand.DeviceName;
+                    if (currentCommand.DeviceName == "win")
+                    {
+                        cmbDevices.SelectedItem = "pc";
+                    }
                     tbCommand.Text = currentCommand.Cmd;
                     tbParam.Text = currentCommand.Param;
                     btnAddCmd.Visible = false;
@@ -282,6 +286,14 @@ namespace HTWebRemote.Forms
         private void btnTestCmds_Click(object sender, EventArgs e)
         {
             Editor.currentRemote.RemoteItems[ButtonIndex].RunButtonCommands();
+        }
+
+        private void CommandEditor_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Escape)
+            {
+                Close();
+            }
         }
     }
 }

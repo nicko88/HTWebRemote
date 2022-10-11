@@ -4,7 +4,7 @@ using System.IO;
 
 namespace HTWebRemote.Devices.Controllers
 {
-    class WinControl
+    class PCControl
     {
         public static void RunCmd(string path, string param)
         {

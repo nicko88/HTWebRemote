@@ -48,7 +48,7 @@ Finally, HTWebRemote includes a sort of API which lets you send commands from ot
 
 ### Supported Devices
 
-* Windows PC (open and close programs, etc)
+* Windows / Linux (open and close programs, run scripts, etc)
 * Keyboard Hotkeys (Control any program that supports hotkeys like most media players)
 * [MPC-HC](https://github.com/clsid2/mpc-hc) and [MPC-BE](https://sourceforge.net/projects/mpcbe/)
 * Kodi Media Player
@@ -100,11 +100,11 @@ See the [documentation](https://htmlpreview.github.io/?https://github.com/nicko8
 
 ### Hosting Remotes from a RaspberryPi / Linux PC
 
-There is a companion app called [HTWebRemoteHost](https://github.com/nicko88/HTWebRemoteHost) which let's you host your remote controls on a RasPi or typical Linux PC/server.  The reason someone might want to do this is if they don't have a Windows PC that is just always powered on that they can host their remotes from.
+There is a companion app called [HTWebRemoteHost](https://github.com/nicko88/HTWebRemoteHost) which lets you host your remote controls on a RasPi or typical Linux PC/server.  The reason someone might want to do this is if they don't have a Windows PC that is just always powered on that they can host their remotes from.
 
 HTWebRemoteHost is a headless service, and you must use this Windows app to create and modify your remote controls, and then "Sync" them to the HTWebRemoteHost service on your RasPi / Linux PC.
 
-Keep in mind that the *"win"* device control and *"keys"* device control will **not** be operational on a RasPi / Linux Host.
+Keep in mind that the *"keys"* device control will **not** be operational on a RasPi / Linux Host.
 
 ### Community
 

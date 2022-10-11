@@ -48,18 +48,18 @@ namespace HTWebRemote.Devices
             string returnQuery = "";
             bool query = cmd.StartsWith("query:");
 
-            if (devName == "win")
+            if (devName == "pc" || devName == "win")
             {
                 if (!query)
                 {
-                    WinControl.RunCmd(cmd, param);
+                    PCControl.RunCmd(cmd, param);
                 }
                 else
                 {
                     string[] values = cmd.Split(':');
                     try
                     {
-                        returnQuery = (string)Type.GetType("HTWebRemote.Devices.Controllers.WinControl").GetMethod(values[1]).Invoke(null, new object[] { });
+                        returnQuery = (string)Type.GetType("HTWebRemote.Devices.Controllers.PCControl").GetMethod(values[1]).Invoke(null, new object[] { });
                     }
                     catch { }
                 }
@@ -255,7 +255,7 @@ namespace HTWebRemote.Devices
             List<string> deviceNames = new List<string>();
             deviceNames.Add("Comment");
             deviceNames.Add("keys");
-            deviceNames.Add("win");
+            deviceNames.Add("pc");
             deviceNames.Add("wol");
 
             try

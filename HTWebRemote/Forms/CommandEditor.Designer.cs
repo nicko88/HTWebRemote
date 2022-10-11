@@ -363,10 +363,12 @@
             this.Controls.Add(this.cmbAddCommand);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.lbCommands);
+            this.KeyPreview = true;
             this.Name = "CommandEditor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Command Editor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CommandEditor_FormClosing);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CommandEditor_KeyDown);
             this.panelCommand.ResumeLayout(false);
             this.panelCommand.PerformLayout();
             this.panelWaitTime.ResumeLayout(false);

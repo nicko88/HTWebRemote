@@ -162,7 +162,7 @@
 	</p>
 
 	<ul>
-		<li><a href="#win">Windows</a></li>
+		<li><a href="#pc">Windows / Linux</a></li>
 		<li><a href="#keys">Keyboard Hotkeys</a></li>
 		<li><a href="#mpc">Media Player Classic</a></li>
 		<li><a href="#kodi">Kodi Media Player</a></li>
@@ -201,25 +201,27 @@
 		<li><a href="#wol">Wake-on-LAN</a></li>
 	</ul>
 
-	<h2><a id="win"></a>Windows Control</h2>
+	<h2><a id="pc"></a>Windows / Linux Control</h2>
 
-	For Windows control, the device identifier is: <b>win</b>
+	For Windows / Linux control, the device identifier is: <b>pc</b>
 
 	<p>
-		The intended use of the Windows control is mainly to run a .bat file (windows batch script) or to run a .exe.<br />
-		You will have to use your imagination for what you can all do inside a .bat script.
+		The intended use of the PC control is to run scripts or applications.<br />
+		You will have to use your imagination for what you can all do with a script or external application.
 	</p>
 
+	<h3>Windows Control</h3>
+
 	<p>
-		The path to .bat or .exe files can be specified by absolute path or by a relative path to HTWebRemote.exe<br />
+		For Windows, the path to a .bat script or .exe can be specified by absolute path or by a relative path to HTWebRemote.exe<br />
 		Please be aware that .bat files and .exe files are case sensitive when calling them from your commands.<br />
 		You can also use a subfolder inside the same folder as HTWebRemote.exe such as a folder called "scripts" and call it as "scripts/script.bat" in the cmd.
 		Finally, you can also specify other file types in the cmd, and HTWebRemote will open that file with the default program you have assigned to that file type in Windows.
 	</p>
 
-	<p>You can also control the Windows volume with the Windows control.  See the Example section below for the list of volume commands.</p>
+	<p>You can also control the Windows volume with the PC control.  See the Example section below for the list of volume commands.</p>
 
-	<h3>Some .bat File Example Ideas</h3>
+	<h3>Some .bat Script Example Ideas</h3>
 	<b><i>(Put the following code inside a .bat file):</i></b>
 
 	<p class="tab">
@@ -252,30 +254,36 @@
 		</code>
 	</p>
 
-	<p class="tab">
-		<b>Windows Volume Control Commands</b>
-		<br />
+	<b>Windows Volume Control Commands</b>
+	<br />
+	<ul>
+		<li><code>setvol=#</code> (Where # is a number from 0-100)</li>
+		<li><code>editvol=#</code> (Where # is a number that is added or subtracted from the current volume)</li>
 		<ul>
-			<li><code>setvol=#</code> (Where # is a number from 0-100)</li>
-			<li><code>editvol=#</code> (Where # is a number that is added or subtracted from the current volume)</li>
-			<ul>
-				<li>Example: <code>editvol=5</code> (Increases the volume by 5)</li>
-				<li>Example: <code>editvol=-5</code> (Decreases the volume by 5)</li>
-			</ul>
-			<li><code>mutevol</code> (Mutes and unmutes the Windows sound)</li>
+			<li>Example: <code>editvol=5</code> (Increases the volume by 5)</li>
+			<li>Example: <code>editvol=-5</code> (Decreases the volume by 5)</li>
 		</ul>
+		<li><code>mutevol</code> (Mutes and unmutes the Windows sound)</li>
+	</ul>
 
-	<p class="tab">
-		<b>Windows Volume Query Command</b>
-		<br />
-		<ul>
-			<li><code>query:getvol</code> (Displays the current Windows Volume)</li>
-		</ul>
-		<br />
+	<b>Windows Volume Query Command</b>
+	<br />
+	<ul>
+		<li><code>query:getvol</code> (Displays the current Windows Volume)</li>
+	</ul>
+	
+	<h3>Linux Control</h3>
+	
+	<p>
+		For Linux, simply enter the full linux command line command into the cmd box.<br />
+		You must use the full path to the script or program.<br />
+		The command can include parameters and everything and any command "should" work.
+	</p>
+	<br />
 
-		<h2><a id="keys"></a>Keyboard Hotkey Control</h2>
+	<h2><a id="keys"></a>Keyboard Hotkey Control</h2>
 
-		For keyboard hotkey control, the device identifier is: <b>keys</b>
+	For keyboard hotkey control, the device identifier is: <b>keys</b>
 
 	<p>Keyboard hotkey control is for simulating key presses to programs running on the PC that HTWebRemote is running on, with the intention to control those applications.</p>
 
@@ -3801,6 +3809,11 @@
 	<ul>
 		<li><code>username:password</code></li>
 	</ul>
+	
+	If the HTTP server needs Bearer token authenticaltion, enter the bearer token into the <code>special</code> data field as follows:
+	<ul>
+		<li><code>bearer:TokenValueHere</code></li>
+	</ul>
 	<br />
 
 	<h2><a id="httpget"></a>HTTP GET Requests</h2>
@@ -3810,11 +3823,11 @@
 	<p>This device controller is meant to be used to send simple HTTP GET requests to a server.</p>
 
 	<p>Please see the <a href="#httppost">HTTP POST requests</a> section above for instructions on how to use this device controller as it works the exact same way, except for no POST data.<p>
-		<br />
+	<br />
 
-		<h2><a id="mqtt"></a>MQTT Messaging Protocol Control</h2>
+	<h2><a id="mqtt"></a>MQTT Messaging Protocol Control</h2>
 
-		For MQTT Messaging Protocol control, the device identifier is: <b>mqtt</b>
+	For MQTT Messaging Protocol control, the device identifier is: <b>mqtt</b>
 
 	<p>This device controller is meant to be used to send commands via the MQTT messaging protocol.</p>
 

@@ -15,7 +15,14 @@ namespace HTWebRemote.Devices.Controllers
 
                 if (!string.IsNullOrEmpty(auth))
                 {
-                    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(auth)));
+                    if (auth.Contains("bearer"))
+                    {
+                        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", auth.Substring(7));
+                    }
+                    else
+                    {
+                        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(auth)));
+                    }
                 }
 
                 HttpResponseMessage result;

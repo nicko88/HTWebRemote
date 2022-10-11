@@ -66,14 +66,14 @@ namespace HTWebRemote.Forms
                         break;
                     case "httpget":
                         lblIP.Text = "URL:";
-                        lblSpecial.Text = "user:pass";
+                        lblSpecial.Text = "auth (optional):";
                         lblSpecial.Visible = true;
                         tbSpecial.Visible = true;
                         tbSpecial.Text = values[3];
                         break;
                     case "httppost":
                         lblIP.Text = "URL:";
-                        lblSpecial.Text = "user:pass";
+                        lblSpecial.Text = "auth (optional):";
                         lblSpecial.Visible = true;
                         tbSpecial.Visible = true;
                         tbSpecial.Text = values[3];
@@ -149,14 +149,14 @@ namespace HTWebRemote.Forms
                     case "httpget":
                         lblIP.Text = "URL:";
                         tbIP.Text = "http://";
-                        lblSpecial.Text = "user:pass";
+                        lblSpecial.Text = "auth (optional):";
                         lblSpecial.Visible = true;
                         tbSpecial.Visible = true;
                         break;
                     case "httppost":
                         lblIP.Text = "URL:";
                         tbIP.Text = "http://";
-                        lblSpecial.Text = "user:pass";
+                        lblSpecial.Text = "auth (optional):";
                         lblSpecial.Visible = true;
                         tbSpecial.Visible = true;
                         break;
