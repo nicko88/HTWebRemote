@@ -9,12 +9,17 @@ namespace HTWebRemote.Devices.Controllers
 {
     class LGwebOSControl
     {
-        public static async void RunCmd(string IP, string cmd, string param)
+        public static async void RunCmd(string IP, string cmd, string param, string ssl)
         {
+            if(string.IsNullOrEmpty(ssl))
+            {
+                ssl = "False";
+            }
+
             try
             {
                 Service service = new Service();
-                await service.ConnectAsync(IP);
+                await service.ConnectAsync(IP, Convert.ToBoolean(ssl));
 
                 SendCmd(service, cmd, param);
                 service.Close();
@@ -117,6 +122,24 @@ namespace HTWebRemote.Devices.Controllers
                         break;
                     case "recent":
                         await service.Control.SendIntentAsync(ControlService.ControlIntent.Recent);
+                        break;
+                    case "ezpic":
+                        await service.Control.SendIntentAsync(ControlService.ControlIntent.EzPic);
+                        break;
+                    case "ezadjust":
+                        await service.Control.SendIntentAsync(ControlService.ControlIntent.EzAdjust);
+                        break;
+                    case "instart":
+                        await service.Control.SendIntentAsync(ControlService.ControlIntent.InStart);
+                        break;
+                    case "inputhub":
+                        await service.Control.SendIntentAsync(ControlService.ControlIntent.InputHub);
+                        break;
+                    case "screenremote":
+                        await service.Control.SendIntentAsync(ControlService.ControlIntent.ScreenRemote);
+                        break;
+                    case "search":
+                        await service.Control.SendIntentAsync(ControlService.ControlIntent.Search);
                         break;
                     case "mute":
                         await service.Audio.MuteAsync();

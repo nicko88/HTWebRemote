@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace HTWebRemote.Forms
@@ -17,7 +16,7 @@ namespace HTWebRemote.Forms
         public int LastDeviceIndex;
         private int ButtonIndex;
 
-        public CommandEditor(RemoteEditor editor, List<Command> commands, int buttonIndex, int lastDeviceIndex)
+        public CommandEditor(RemoteEditor editor, List<Command> commands, string buttonLabel, int buttonIndex, int lastDeviceIndex)
         {
             InitializeComponent();
             try
@@ -33,6 +32,7 @@ namespace HTWebRemote.Forms
             Editor = editor;
             Commands = commands;
             ButtonIndex = buttonIndex;
+            this.Text = this.Text + $" - [{buttonLabel}]";
             LoadCommands();
 
             cmbDevices.DataSource = Devices.DeviceSelector.GetDeviceNames();

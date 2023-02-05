@@ -19,6 +19,7 @@ namespace HTWebRemote.RemoteFile
         public int Height { get; set; }
         public string Color { get; set; }
         public bool ConfirmPopup { get; set; }
+        public bool Holdable { get; set; }
         public List<Command> Commands { get; set; }
 
         //create new group
@@ -30,7 +31,7 @@ namespace HTWebRemote.RemoteFile
         }
 
         //create new button
-        public RemoteItem(string buttonLabel, int buttonRelativeSize, int? buttonHeight, string buttonColor, bool buttonConfirmPopup)
+        public RemoteItem(string buttonLabel, int buttonRelativeSize, int? buttonHeight, string buttonColor, bool buttonConfirmPopup, bool buttonHoldable)
         {
             ItemType = RemoteItemType.Button;
             Label = buttonLabel;
@@ -41,6 +42,7 @@ namespace HTWebRemote.RemoteFile
             }
             Color = buttonColor;
             ConfirmPopup = buttonConfirmPopup;
+            Holdable = buttonHoldable;
             Commands = new List<Command>();
         }
 
@@ -83,7 +85,12 @@ namespace HTWebRemote.RemoteFile
                     {
                         confirm = ",Popup";
                     }
-                    return $"  Button={RelativeSize},{Label}{confirm}";
+                    string holdable = "";
+                    if (Holdable)
+                    {
+                        holdable = ",Holdable";
+                    }
+                    return $"  Button={RelativeSize},{Label}{confirm}{holdable}";
                 case RemoteItemType.Blank:
                     return $"  BLANK={RelativeSize}";
                 case RemoteItemType.NewRow:

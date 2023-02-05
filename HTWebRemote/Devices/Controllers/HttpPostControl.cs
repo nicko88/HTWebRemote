@@ -28,7 +28,12 @@ namespace HTWebRemote.Devices.Controllers
                 HttpResponseMessage result;
                 try
                 {
-                    StringContent postData = new StringContent(param, Encoding.UTF8, "application/json");
+                    StringContent postData = null;
+
+                    if (!string.IsNullOrEmpty(param))
+                    {
+                        postData = new StringContent(param, Encoding.UTF8, "application/json");
+                    }
 
                     result = httpClient.PostAsync($"{IP}{cmd}", postData).Result;
 

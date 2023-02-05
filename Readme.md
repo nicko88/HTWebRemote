@@ -30,10 +30,10 @@ If you don't know how to do this, just do a web search for how to add a web page
 #### Screenshots and Demo
 
 ###### Main screen
-<img src="https://user-images.githubusercontent.com/1866075/165431343-b743209c-2ce0-40de-9cd6-1d504ff81c01.png" width="600px" />
+<img src="https://user-images.githubusercontent.com/1866075/216807486-3056bcf7-a40d-4a41-9a9d-18c10a3f6f4c.png" width="600px" />
 
 ###### Remote Editor
-<img src="https://user-images.githubusercontent.com/1866075/165430801-09922699-90c4-463d-b1c7-43bc1130641e.png" width="600px" />
+<img src="https://user-images.githubusercontent.com/1866075/216807485-4fbe9984-c93c-41f7-b12a-c53854bb1dd6.png" width="600px" />
 
 ###### Usage Demo
 <img src="https://user-images.githubusercontent.com/1866075/182762525-38084139-6bc9-4414-a932-5d5febcc1baa.gif" width="222px" />

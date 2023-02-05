@@ -31,6 +31,7 @@
             this.lbRemoteItems = new System.Windows.Forms.ListBox();
             this.webBrowser = new System.Windows.Forms.WebBrowser();
             this.panelButton = new System.Windows.Forms.Panel();
+            this.cbHoldable = new System.Windows.Forms.CheckBox();
             this.tbButtonHeight = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.pnlButtonColor = new System.Windows.Forms.Panel();
@@ -69,7 +70,7 @@
             this.panelNewRow = new System.Windows.Forms.Panel();
             this.btnDeleteNewRow = new System.Windows.Forms.Button();
             this.btnAddNewRow = new System.Windows.Forms.Button();
-            this.btnRemoteSave = new System.Windows.Forms.Button();
+            this.btnSaveRemote = new System.Windows.Forms.Button();
             this.label15 = new System.Windows.Forms.Label();
             this.tbGlobalButtonHeight = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -83,6 +84,12 @@
             this.cbHideRemote = new System.Windows.Forms.CheckBox();
             this.tbShadingStrength = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
+            this.lblClearCopy = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.btnReorderRemotes = new System.Windows.Forms.Button();
+            this.btnDeleteItems = new System.Windows.Forms.Button();
+            this.label16 = new System.Windows.Forms.Label();
             this.panelButton.SuspendLayout();
             this.panelGroup.SuspendLayout();
             this.panelBlank.SuspendLayout();
@@ -97,9 +104,10 @@
             this.lbRemoteItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbRemoteItems.FormattingEnabled = true;
             this.lbRemoteItems.ItemHeight = 20;
-            this.lbRemoteItems.Location = new System.Drawing.Point(12, 151);
+            this.lbRemoteItems.Location = new System.Drawing.Point(12, 171);
             this.lbRemoteItems.Name = "lbRemoteItems";
-            this.lbRemoteItems.Size = new System.Drawing.Size(446, 664);
+            this.lbRemoteItems.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.lbRemoteItems.Size = new System.Drawing.Size(446, 644);
             this.lbRemoteItems.TabIndex = 0;
             this.lbRemoteItems.SelectedIndexChanged += new System.EventHandler(this.lbRemoteItems_SelectedIndexChanged);
             this.lbRemoteItems.DragDrop += new System.Windows.Forms.DragEventHandler(this.lbRemoteItems_DragDrop);
@@ -117,12 +125,13 @@
             this.webBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser.Name = "webBrowser";
             this.webBrowser.ScriptErrorsSuppressed = true;
-            this.webBrowser.Size = new System.Drawing.Size(400, 704);
+            this.webBrowser.Size = new System.Drawing.Size(417, 704);
             this.webBrowser.TabIndex = 1;
             // 
             // panelButton
             // 
             this.panelButton.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelButton.Controls.Add(this.cbHoldable);
             this.panelButton.Controls.Add(this.tbButtonHeight);
             this.panelButton.Controls.Add(this.label14);
             this.panelButton.Controls.Add(this.pnlButtonColor);
@@ -137,11 +146,23 @@
             this.panelButton.Controls.Add(this.cbButtonConfirm);
             this.panelButton.Controls.Add(this.label4);
             this.panelButton.Controls.Add(this.lblButtonColor);
-            this.panelButton.Location = new System.Drawing.Point(159, 40);
+            this.panelButton.Location = new System.Drawing.Point(175, 40);
             this.panelButton.Name = "panelButton";
             this.panelButton.Size = new System.Drawing.Size(741, 65);
             this.panelButton.TabIndex = 2;
             this.panelButton.Visible = false;
+            // 
+            // cbHoldable
+            // 
+            this.cbHoldable.CheckAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.cbHoldable.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbHoldable.Location = new System.Drawing.Point(527, 1);
+            this.cbHoldable.Name = "cbHoldable";
+            this.cbHoldable.Size = new System.Drawing.Size(50, 58);
+            this.cbHoldable.TabIndex = 61;
+            this.cbHoldable.Text = "Can Hold";
+            this.cbHoldable.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.cbHoldable.UseVisualStyleBackColor = true;
             // 
             // tbButtonHeight
             // 
@@ -258,15 +279,14 @@
             // 
             // cbButtonConfirm
             // 
-            this.cbButtonConfirm.AutoSize = true;
             this.cbButtonConfirm.CheckAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.cbButtonConfirm.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbButtonConfirm.Location = new System.Drawing.Point(440, 5);
+            this.cbButtonConfirm.Location = new System.Drawing.Point(447, 1);
             this.cbButtonConfirm.Name = "cbButtonConfirm";
-            this.cbButtonConfirm.Size = new System.Drawing.Size(141, 38);
+            this.cbButtonConfirm.Size = new System.Drawing.Size(75, 58);
             this.cbButtonConfirm.TabIndex = 48;
-            this.cbButtonConfirm.Text = "Confirm Popup?";
-            this.cbButtonConfirm.TextAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.cbButtonConfirm.Text = "Confirm Popup";
+            this.cbButtonConfirm.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.cbButtonConfirm.UseVisualStyleBackColor = true;
             // 
             // label4
@@ -296,7 +316,7 @@
             this.cmbRemoteID.FormattingEnabled = true;
             this.cmbRemoteID.Location = new System.Drawing.Point(110, 6);
             this.cmbRemoteID.Name = "cmbRemoteID";
-            this.cmbRemoteID.Size = new System.Drawing.Size(45, 28);
+            this.cmbRemoteID.Size = new System.Drawing.Size(147, 28);
             this.cmbRemoteID.TabIndex = 3;
             this.cmbRemoteID.SelectedIndexChanged += new System.EventHandler(this.cmbRemoteID_SelectedIndexChanged);
             // 
@@ -313,7 +333,7 @@
             // btnDeleteRemote
             // 
             this.btnDeleteRemote.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeleteRemote.Location = new System.Drawing.Point(161, 6);
+            this.btnDeleteRemote.Location = new System.Drawing.Point(100, 40);
             this.btnDeleteRemote.Name = "btnDeleteRemote";
             this.btnDeleteRemote.Size = new System.Drawing.Size(70, 28);
             this.btnDeleteRemote.TabIndex = 39;
@@ -347,7 +367,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(12, 39);
+            this.label7.Location = new System.Drawing.Point(12, 81);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(87, 20);
             this.label7.TabIndex = 16;
@@ -364,7 +384,7 @@
             "Button",
             "Blank Space",
             "New Line"});
-            this.cmbAddItem.Location = new System.Drawing.Point(12, 62);
+            this.cmbAddItem.Location = new System.Drawing.Point(12, 104);
             this.cmbAddItem.Name = "cmbAddItem";
             this.cmbAddItem.Size = new System.Drawing.Size(140, 28);
             this.cmbAddItem.TabIndex = 44;
@@ -380,7 +400,7 @@
             this.panelGroup.Controls.Add(this.tbGroupLabel);
             this.panelGroup.Controls.Add(this.btnAddGroup);
             this.panelGroup.Controls.Add(this.label6);
-            this.panelGroup.Location = new System.Drawing.Point(159, 40);
+            this.panelGroup.Location = new System.Drawing.Point(175, 40);
             this.panelGroup.Name = "panelGroup";
             this.panelGroup.Size = new System.Drawing.Size(428, 65);
             this.panelGroup.TabIndex = 45;
@@ -467,7 +487,7 @@
             this.panelBlank.Controls.Add(this.btnDeleteBlank);
             this.panelBlank.Controls.Add(this.btnAddBlank);
             this.panelBlank.Controls.Add(this.tbBlankSize);
-            this.panelBlank.Location = new System.Drawing.Point(159, 40);
+            this.panelBlank.Location = new System.Drawing.Point(175, 40);
             this.panelBlank.Name = "panelBlank";
             this.panelBlank.Size = new System.Drawing.Size(365, 65);
             this.panelBlank.TabIndex = 46;
@@ -533,7 +553,7 @@
             this.panelNewRow.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelNewRow.Controls.Add(this.btnDeleteNewRow);
             this.panelNewRow.Controls.Add(this.btnAddNewRow);
-            this.panelNewRow.Location = new System.Drawing.Point(159, 40);
+            this.panelNewRow.Location = new System.Drawing.Point(175, 40);
             this.panelNewRow.Name = "panelNewRow";
             this.panelNewRow.Size = new System.Drawing.Size(164, 65);
             this.panelNewRow.TabIndex = 47;
@@ -561,23 +581,23 @@
             this.btnAddNewRow.UseVisualStyleBackColor = true;
             this.btnAddNewRow.Click += new System.EventHandler(this.btnAddNewRow_Click);
             // 
-            // btnRemoteSave
+            // btnSaveRemote
             // 
-            this.btnRemoteSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRemoteSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemoteSave.Location = new System.Drawing.Point(840, 6);
-            this.btnRemoteSave.Name = "btnRemoteSave";
-            this.btnRemoteSave.Size = new System.Drawing.Size(60, 28);
-            this.btnRemoteSave.TabIndex = 50;
-            this.btnRemoteSave.Text = "Save";
-            this.btnRemoteSave.UseVisualStyleBackColor = true;
-            this.btnRemoteSave.Click += new System.EventHandler(this.btnRemoteSave_Click);
+            this.btnSaveRemote.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSaveRemote.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSaveRemote.Location = new System.Drawing.Point(857, 6);
+            this.btnSaveRemote.Name = "btnSaveRemote";
+            this.btnSaveRemote.Size = new System.Drawing.Size(60, 28);
+            this.btnSaveRemote.TabIndex = 50;
+            this.btnSaveRemote.Text = "Save";
+            this.btnSaveRemote.UseVisualStyleBackColor = true;
+            this.btnSaveRemote.Click += new System.EventHandler(this.btnRemoteSave_Click);
             // 
             // label15
             // 
             this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(723, -2);
+            this.label15.Location = new System.Drawing.Point(740, -2);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(69, 40);
             this.label15.TabIndex = 49;
@@ -588,7 +608,7 @@
             // 
             this.tbGlobalButtonHeight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.tbGlobalButtonHeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbGlobalButtonHeight.Location = new System.Drawing.Point(794, 7);
+            this.tbGlobalButtonHeight.Location = new System.Drawing.Point(811, 7);
             this.tbGlobalButtonHeight.Name = "tbGlobalButtonHeight";
             this.tbGlobalButtonHeight.Size = new System.Drawing.Size(40, 26);
             this.tbGlobalButtonHeight.TabIndex = 48;
@@ -598,27 +618,27 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(498, 114);
+            this.label2.Location = new System.Drawing.Point(506, 114);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(393, 15);
+            this.label2.Size = new System.Drawing.Size(389, 15);
             this.label2.TabIndex = 51;
-            this.label2.Text = "Buttons are just for show and wont actually send commands.";
+            this.label2.Text = "Buttons are just for show and wont actually send commands";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(9, 132);
+            this.label3.Location = new System.Drawing.Point(13, 147);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(404, 16);
+            this.label3.Size = new System.Drawing.Size(350, 16);
             this.label3.TabIndex = 52;
-            this.label3.Text = "Double-click a button row to add / edit remote commands,";
+            this.label3.Text = "Double-click a button row to Add / Edit commands";
             // 
             // label5
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(297, -1);
+            this.label5.Location = new System.Drawing.Point(314, -1);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(72, 40);
             this.label5.TabIndex = 54;
@@ -629,7 +649,7 @@
             // 
             this.tbRemoteName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.tbRemoteName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbRemoteName.Location = new System.Drawing.Point(370, 7);
+            this.tbRemoteName.Location = new System.Drawing.Point(387, 7);
             this.tbRemoteName.Name = "tbRemoteName";
             this.tbRemoteName.Size = new System.Drawing.Size(122, 26);
             this.tbRemoteName.TabIndex = 53;
@@ -638,7 +658,7 @@
             // 
             this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(499, -1);
+            this.label8.Location = new System.Drawing.Point(516, -1);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(57, 40);
             this.label8.TabIndex = 55;
@@ -649,7 +669,7 @@
             // 
             this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(593, -1);
+            this.label9.Location = new System.Drawing.Point(610, -1);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(80, 40);
             this.label9.TabIndex = 56;
@@ -660,7 +680,7 @@
             // 
             this.pnlBackColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlBackColor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pnlBackColor.Location = new System.Drawing.Point(557, 9);
+            this.pnlBackColor.Location = new System.Drawing.Point(574, 9);
             this.pnlBackColor.Name = "pnlBackColor";
             this.pnlBackColor.Size = new System.Drawing.Size(24, 24);
             this.pnlBackColor.TabIndex = 57;
@@ -669,9 +689,9 @@
             // btnCopy
             // 
             this.btnCopy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCopy.Location = new System.Drawing.Point(12, 98);
+            this.btnCopy.Location = new System.Drawing.Point(369, 115);
             this.btnCopy.Name = "btnCopy";
-            this.btnCopy.Size = new System.Drawing.Size(140, 30);
+            this.btnCopy.Size = new System.Drawing.Size(89, 50);
             this.btnCopy.TabIndex = 60;
             this.btnCopy.Text = "Copy Selected";
             this.btnCopy.UseVisualStyleBackColor = true;
@@ -682,7 +702,7 @@
             this.cbHideRemote.AutoSize = true;
             this.cbHideRemote.CheckAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.cbHideRemote.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbHideRemote.Location = new System.Drawing.Point(241, 0);
+            this.cbHideRemote.Location = new System.Drawing.Point(263, -2);
             this.cbHideRemote.Name = "cbHideRemote";
             this.cbHideRemote.Size = new System.Drawing.Size(50, 38);
             this.cbHideRemote.TabIndex = 56;
@@ -694,7 +714,7 @@
             // 
             this.tbShadingStrength.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.tbShadingStrength.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbShadingStrength.Location = new System.Drawing.Point(679, 8);
+            this.tbShadingStrength.Location = new System.Drawing.Point(696, 8);
             this.tbShadingStrength.Name = "tbShadingStrength";
             this.tbShadingStrength.Size = new System.Drawing.Size(40, 26);
             this.tbShadingStrength.TabIndex = 61;
@@ -707,15 +727,88 @@
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.Location = new System.Drawing.Point(9, 819);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(419, 16);
+            this.label12.Size = new System.Drawing.Size(272, 16);
             this.label12.TabIndex = 62;
-            this.label12.Text = "Right-click and drag or press PgUp / PgDn to move an item.";
+            this.label12.Text = "Ctrl / Shift click to select multiple items";
+            // 
+            // lblClearCopy
+            // 
+            this.lblClearCopy.AutoSize = true;
+            this.lblClearCopy.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblClearCopy.ForeColor = System.Drawing.Color.Red;
+            this.lblClearCopy.Location = new System.Drawing.Point(268, 121);
+            this.lblClearCopy.Name = "lblClearCopy";
+            this.lblClearCopy.Size = new System.Drawing.Size(95, 16);
+            this.lblClearCopy.TabIndex = 63;
+            this.lblClearCopy.Text = "[Clear Copy]";
+            this.lblClearCopy.Visible = false;
+            this.lblClearCopy.Click += new System.EventHandler(this.lblClearCopy_Click);
+            // 
+            // label17
+            // 
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Location = new System.Drawing.Point(458, 346);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(42, 17);
+            this.label17.TabIndex = 65;
+            this.label17.Text = "PgUp";
+            this.label17.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // label18
+            // 
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(458, 435);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(42, 17);
+            this.label18.TabIndex = 66;
+            this.label18.Text = "PgDn";
+            this.label18.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // btnReorderRemotes
+            // 
+            this.btnReorderRemotes.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReorderRemotes.Location = new System.Drawing.Point(12, 40);
+            this.btnReorderRemotes.Name = "btnReorderRemotes";
+            this.btnReorderRemotes.Size = new System.Drawing.Size(82, 28);
+            this.btnReorderRemotes.TabIndex = 67;
+            this.btnReorderRemotes.Text = "Reorder";
+            this.btnReorderRemotes.UseVisualStyleBackColor = true;
+            this.btnReorderRemotes.Click += new System.EventHandler(this.btnReorderRemotes_Click);
+            // 
+            // btnDeleteItems
+            // 
+            this.btnDeleteItems.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnDeleteItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDeleteItems.Location = new System.Drawing.Point(291, 817);
+            this.btnDeleteItems.Name = "btnDeleteItems";
+            this.btnDeleteItems.Size = new System.Drawing.Size(70, 25);
+            this.btnDeleteItems.TabIndex = 68;
+            this.btnDeleteItems.Text = "Delete";
+            this.btnDeleteItems.UseVisualStyleBackColor = true;
+            this.btnDeleteItems.Click += new System.EventHandler(this.btnDeleteItems_Click);
+            // 
+            // label16
+            // 
+            this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(366, 819);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(94, 16);
+            this.label16.TabIndex = 69;
+            this.label16.Text = "(Delete Key)";
             // 
             // RemoteEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(911, 844);
+            this.ClientSize = new System.Drawing.Size(928, 844);
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.btnDeleteItems);
+            this.Controls.Add(this.btnReorderRemotes);
+            this.Controls.Add(this.label18);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.lblClearCopy);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.tbShadingStrength);
             this.Controls.Add(this.cbHideRemote);
@@ -728,7 +821,7 @@
             this.Controls.Add(this.tbRemoteName);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.btnRemoteSave);
+            this.Controls.Add(this.btnSaveRemote);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.tbGlobalButtonHeight);
             this.Controls.Add(this.panelNewRow);
@@ -797,7 +890,7 @@
         private System.Windows.Forms.TextBox tbBlankSize;
         private System.Windows.Forms.Button btnAddNewRow;
         private System.Windows.Forms.Button btnDeleteNewRow;
-        private System.Windows.Forms.Button btnRemoteSave;
+        private System.Windows.Forms.Button btnSaveRemote;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox tbGlobalButtonHeight;
         private System.Windows.Forms.Label label2;
@@ -818,5 +911,12 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox tbButtonHeight;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.CheckBox cbHoldable;
+        private System.Windows.Forms.Label lblClearCopy;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Button btnReorderRemotes;
+        private System.Windows.Forms.Button btnDeleteItems;
+        private System.Windows.Forms.Label label16;
     }
 }

@@ -5,6 +5,7 @@ using System.Drawing;
 using System.IO.Ports;
 using System.Text.RegularExpressions;
 using System.Net.Http;
+using System.Linq;
 
 namespace HTWebRemote.Forms
 {
@@ -35,9 +36,11 @@ namespace HTWebRemote.Forms
             tbIP.Visible = true;
             cmbCOMport.Visible = false;
             cmbLinuxSerial.Visible = false;
+            cmbTPLinkDevices.Visible = false;
             lblIP.Text = "IP:(port optional):";
             lblSpecial.Visible = false;
             tbSpecial.Visible = false;
+            cbLGssl.Visible = false;
 
             try
             {
@@ -108,6 +111,37 @@ namespace HTWebRemote.Forms
                         tbSpecial.Visible = true;
                         tbSpecial.Text = values[3];
                         break;
+                    case "lgwebos":
+                        cbLGssl.Visible = true;
+                        try
+                        {
+                            cbLGssl.Checked = Convert.ToBoolean(values[3]);
+                        }
+                        catch { }
+                        break;
+                    case "minidsp-rs":
+                        lblSpecial.Text = "Device ID:";
+                        lblSpecial.Visible = true;
+                        tbSpecial.Visible = true;
+                        tbSpecial.Text = values.ElementAtOrDefault(3) ?? "0";
+                        break;
+                    case "kasa":
+                        lblSpecial.Text = "Device Type:";
+                        lblSpecial.Visible = true;
+                        cmbTPLinkDevices.Visible = true;
+                        try
+                        {
+                            if(string.IsNullOrEmpty(values[3]))
+                            {
+                                cmbTPLinkDevices.SelectedIndex = -1;
+                            }
+                            cmbTPLinkDevices.SelectedItem = values[3];
+                        }
+                        catch
+                        {
+                            cmbTPLinkDevices.SelectedIndex = -1;
+                        }
+                        break;
                     default:
                         break;
                 }
@@ -121,10 +155,12 @@ namespace HTWebRemote.Forms
             tbIP.Text = "";
             cmbCOMport.Visible = false;
             cmbLinuxSerial.Visible = false;
+            cmbTPLinkDevices.Visible = false;
             lblIP.Text = "IP:(port optional):";
             lblSpecial.Visible = false;
             tbSpecial.Visible = false;
             lbDevices.ClearSelected();
+            cbLGssl.Visible = false;
 
             if (cmbDeviceType.SelectedItem != null)
             {
@@ -185,6 +221,20 @@ namespace HTWebRemote.Forms
                         lblSpecial.Text = "Pass (optional):";
                         lblSpecial.Visible = true;
                         tbSpecial.Visible = true;
+                        break;
+                    case "lgwebos":
+                        cbLGssl.Visible = true;
+                        break;
+                    case "minidsp-rs":
+                        lblSpecial.Text = "Device ID:";
+                        lblSpecial.Visible = true;
+                        tbSpecial.Visible = true;
+                        tbSpecial.Text = "0";
+                        break;
+                    case "kasa":
+                        lblSpecial.Text = "Device Type:";
+                        lblSpecial.Visible = true;
+                        cmbTPLinkDevices.Visible = true;
                         break;
                     default:
                         break;
@@ -259,6 +309,14 @@ namespace HTWebRemote.Forms
                     {
                         dev += $",{tbSpecial.Text}";
                     }
+                    if(cmbTPLinkDevices.Visible)
+                    {
+                        dev += $",{cmbTPLinkDevices.SelectedItem}";
+                    }
+                    if(cbLGssl.Visible)
+                    {
+                        dev += $",{cbLGssl.Checked}";
+                    }
                     lbDevices.Items.Add(dev);
                 }
                 else
@@ -291,6 +349,14 @@ namespace HTWebRemote.Forms
                     if (tbSpecial.Visible)
                     {
                         dev += $",{tbSpecial.Text}";
+                    }
+                    if (cmbTPLinkDevices.Visible)
+                    {
+                        dev += $",{cmbTPLinkDevices.SelectedItem}";
+                    }
+                    if (cbLGssl.Visible)
+                    {
+                        dev += $",{cbLGssl.Checked}";
                     }
                     lbDevices.Items[lbDevices.SelectedIndex] = dev;
                 }

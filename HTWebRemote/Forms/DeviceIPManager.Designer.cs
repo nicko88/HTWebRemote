@@ -43,6 +43,8 @@
             this.tbSpecial = new System.Windows.Forms.TextBox();
             this.lblSpecial = new System.Windows.Forms.Label();
             this.cmbLinuxSerial = new System.Windows.Forms.ComboBox();
+            this.cmbTPLinkDevices = new System.Windows.Forms.ComboBox();
+            this.cbLGssl = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // lbDevices
@@ -215,11 +217,43 @@
             this.cmbLinuxSerial.TabIndex = 10;
             this.cmbLinuxSerial.Visible = false;
             // 
+            // cmbTPLinkDevices
+            // 
+            this.cmbTPLinkDevices.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbTPLinkDevices.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbTPLinkDevices.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbTPLinkDevices.FormattingEnabled = true;
+            this.cmbTPLinkDevices.Items.AddRange(new object[] {
+            "Plug",
+            "Bulb",
+            "Dimmer",
+            "PowerStrip"});
+            this.cmbTPLinkDevices.Location = new System.Drawing.Point(159, 106);
+            this.cmbTPLinkDevices.Name = "cmbTPLinkDevices";
+            this.cmbTPLinkDevices.Size = new System.Drawing.Size(160, 28);
+            this.cmbTPLinkDevices.TabIndex = 11;
+            this.cmbTPLinkDevices.Visible = false;
+            // 
+            // cbLGssl
+            // 
+            this.cbLGssl.AutoSize = true;
+            this.cbLGssl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbLGssl.Location = new System.Drawing.Point(160, 108);
+            this.cbLGssl.Name = "cbLGssl";
+            this.cbLGssl.Size = new System.Drawing.Size(280, 24);
+            this.cbLGssl.TabIndex = 12;
+            this.cbLGssl.Text = "SSL (2022 firmware and newer)";
+            this.cbLGssl.UseVisualStyleBackColor = true;
+            this.cbLGssl.Visible = false;
+            // 
             // DeviceIPManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(477, 365);
+            this.Controls.Add(this.cbLGssl);
+            this.Controls.Add(this.cmbTPLinkDevices);
             this.Controls.Add(this.tbSpecial);
             this.Controls.Add(this.cmbLinuxSerial);
             this.Controls.Add(this.lblSpecial);
@@ -264,5 +298,7 @@
         private System.Windows.Forms.TextBox tbSpecial;
         private System.Windows.Forms.Label lblSpecial;
         private System.Windows.Forms.ComboBox cmbLinuxSerial;
+        private System.Windows.Forms.ComboBox cmbTPLinkDevices;
+        private System.Windows.Forms.CheckBox cbLGssl;
     }
 }

@@ -25,6 +25,8 @@ namespace HTWebRemote.Devices.Controllers
                     { "mute", @"{""master_status"":{""mute"": true}}" },
                     { "unmute", @"{""master_status"":{""mute"": false}}" },
                     { "volume", @"{""master_status"":{""volume"": xx}}" },
+                    { "volup", @"{""master_status"":{""volume"": xx}}" },
+                    { "voldown", @"{""master_status"":{""volume"": xx}}" },
                     { "input_mute", @"{""inputs"":[{""index"":xx,""mute"":true}]}" },
                     { "input_unmute", @"{""inputs"":[{""index"":xx,""mute"":false}]}" },
                     { "input_gain", @"{""inputs"":[{""index"":xx,""gain"":yy}]}" },
@@ -36,8 +38,13 @@ namespace HTWebRemote.Devices.Controllers
                 return _commands;
             }
         }
-        public static void RunCmd(string IP, string cmd, string param)
+        public static void RunCmd(string IP, string cmd, string param, string devID)
         {
+            if(string.IsNullOrEmpty(devID))
+            {
+                devID = "0";
+            }
+
             try
             {
                 bool valid = Commands.TryGetValue(cmd, out string jsonCmd);
@@ -46,23 +53,25 @@ namespace HTWebRemote.Devices.Controllers
                 {
                     if (cmd == "volume")
                     {
-                        if (param.StartsWith("+") || param.StartsWith("-"))
+                        jsonCmd = jsonCmd.Replace("xx", param);
+                    }
+                    else if (cmd == "volup")
+                    {
+                        double newVol = Convert.ToDouble(getvol(IP, devID)) + Convert.ToDouble(param);
+                        if (newVol > 0)
                         {
-                            double newVol = Convert.ToDouble(getvol(IP)) + Convert.ToDouble(param);
-                            if(newVol > 0)
-                            {
-                                newVol = 0;
-                            }
-                            if (newVol < -127.5)
-                            {
-                                newVol = -127.5;
-                            }
-                            jsonCmd = jsonCmd.Replace("xx", newVol.ToString());
+                            newVol = 0;
                         }
-                        else
+                        jsonCmd = jsonCmd.Replace("xx", newVol.ToString());
+                    }
+                    else if (cmd == "voldown")
+                    {
+                        double newVol = Convert.ToDouble(getvol(IP, devID)) - Convert.ToDouble(param);
+                        if (newVol < -127.5)
                         {
-                            jsonCmd = jsonCmd.Replace("xx", param);
+                            newVol = -127.5;
                         }
+                        jsonCmd = jsonCmd.Replace("xx", newVol.ToString());
                     }
                     else if (cmd.Contains("_"))
                     {
@@ -85,9 +94,8 @@ namespace HTWebRemote.Devices.Controllers
                     using (HttpClient httpClient = new HttpClient())
                     {
                         httpClient.Timeout = TimeSpan.FromSeconds(5);
-
                         StringContent jsonContent = new StringContent(jsonCmd, Encoding.UTF8, "application/json");
-                        _ = httpClient.PostAsync($"http://{IP}:5380/devices/0/config", jsonContent).Result;
+                        _ = httpClient.PostAsync($"http://{IP}:5380/devices/{devID}/config", jsonContent).Result;
                     }
                 }
                 else
@@ -101,7 +109,7 @@ namespace HTWebRemote.Devices.Controllers
             }
         }
 
-        public static string getvol(string IP)
+        public static string getvol(string IP, string devID)
         {
             string volume = "??";
             string jsonStatus = "";
@@ -112,7 +120,7 @@ namespace HTWebRemote.Devices.Controllers
 
                 try
                 {
-                    jsonStatus = httpClient.GetStringAsync($"http://{IP}:5380/devices/0").Result;
+                    jsonStatus = httpClient.GetStringAsync($"http://{IP}:5380/devices/{devID}").Result;
                 }
                 catch (Exception e)
                 {

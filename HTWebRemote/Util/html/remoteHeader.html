@@ -152,13 +152,19 @@
     </style>
 
     <script>
-        function sendbtn(remoteID, btnIndex, popup) {
+        var intervalID;
+
+        function sendbtn(remoteID, btnIndex, popup, interval) {
             var r = true;
             if (popup == 'True') {
                 r = confirm("Are you sure?");
             }
             if (r == true) {
                 fetch('?remoteID=' + remoteID + '&btnIndex=' + btnIndex);
+            }
+            if (interval != null) {
+                clearInterval(intervalID);
+                intervalID = setInterval(sendbtn, interval, remoteID, btnIndex);
             }
         }
         function sendquery(remoteID, devName, cmd, popup) {

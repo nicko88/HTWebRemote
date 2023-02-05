@@ -16,6 +16,7 @@ namespace HTWebRemote.Forms
         public Remote currentRemote;
         private int _lastDeviceIndex = 0;
         private int _selectedIndex = 0;
+        private List<RemoteItem> _copiedItems = new List<RemoteItem>();
 
         public RemoteEditor()
         {
@@ -24,7 +25,14 @@ namespace HTWebRemote.Forms
             {
                 RegistryKey regKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\HTWebRemote", false);
                 int[] size = (regKey.GetValue("RemoteEditorSize") as string[]).Select(int.Parse).ToArray();
-                Width = size[0];
+                if(size[0] < 944)
+                {
+                    Width = 944;
+                }
+                else
+                {
+                    Width = size[0];
+                }
                 Height = size[1];
             }
             catch { }
@@ -64,6 +72,8 @@ namespace HTWebRemote.Forms
                 currentRemoteID = 0;
             }
 
+            AddRemoteNames();
+
             try
             {
                 cmbRemoteID.SelectedIndex = currentRemoteID;
@@ -71,6 +81,18 @@ namespace HTWebRemote.Forms
             catch
             {
                 cmbRemoteID.SelectedIndex = cmbRemoteID.Items.Count - 1;
+            }
+        }
+
+        private void AddRemoteNames()
+        {
+            for(int i = 1; i < cmbRemoteID.Items.Count; i++)
+            {
+                if (File.Exists(Path.Combine(ConfigHelper.WorkingPath, $"HTWebRemoteButtons{i}.json")))
+                {
+                    JObject oRemote = JObject.Parse(File.ReadAllText(Path.Combine(ConfigHelper.WorkingPath, $"HTWebRemoteButtons{i}.json")));
+                    cmbRemoteID.Items[i - 1] = i + $" - {oRemote.SelectToken("RemoteName")}";
+                }
             }
         }
 
@@ -116,6 +138,7 @@ namespace HTWebRemote.Forms
             tbButtonSize.Text = "";
             tbButtonHeight.Text = "";
             cbButtonConfirm.Checked = false;
+            cbHoldable.Checked = false;
             btnAddButton.Visible = true;
             btnSaveButton.Visible = false;
             btnDeleteButton.Visible = false;
@@ -138,8 +161,8 @@ namespace HTWebRemote.Forms
 
             try
             {
-                currentRemote = RemoteJSONLoader.LoadRemoteJSON(cmbRemoteID.SelectedItem.ToString());
-                currentRemote.RemoteID = Convert.ToInt32(cmbRemoteID.SelectedItem.ToString());
+                currentRemote = RemoteJSONLoader.LoadRemoteJSON((cmbRemoteID.SelectedIndex + 1).ToString());
+                currentRemote.RemoteID = cmbRemoteID.SelectedIndex + 1;
 
                 if (currentRemote.ButtonHeight > 0)
                 {
@@ -184,12 +207,12 @@ namespace HTWebRemote.Forms
                 lbRemoteItems.Items.Add("Please add items to create this remote.");
                 btnDeleteRemote.Visible = false;
 
-                currentRemote = new Remote(Convert.ToInt32(cmbRemoteID.SelectedItem.ToString()));
+                currentRemote = new Remote(cmbRemoteID.SelectedIndex + 1);
                 List<RemoteItem> items = new List<RemoteItem>();
                 currentRemote.RemoteItems = items;
             }
 
-            webBrowser.DocumentText = RemoteParser.GetRemoteHTML(cmbRemoteID.SelectedItem.ToString(), false);
+            webBrowser.DocumentText = RemoteParser.GetRemoteHTML((cmbRemoteID.SelectedIndex + 1).ToString(), false);
         }
 
         private void lbRemoteItems_SelectedIndexChanged(object sender, EventArgs e)
@@ -219,6 +242,7 @@ namespace HTWebRemote.Forms
                         }
                         pnlButtonColor.BackColor = ColorTranslator.FromHtml(ConfigHelper.ConvertLegacyColor(currentItem.Color));
                         cbButtonConfirm.Checked = currentItem.ConfirmPopup;
+                        cbHoldable.Checked = currentItem.Holdable;
                         btnAddButton.Visible = false;
                         btnSaveButton.Visible = true;
                         btnDeleteButton.Visible = true;
@@ -275,7 +299,7 @@ namespace HTWebRemote.Forms
             {
                 insertIndex = lbRemoteItems.SelectedIndex + 1;
             }
-            RemoteItem remoteItem = new RemoteItem(tbButtonLabel.Text, Convert.ToInt32(tbButtonSize.Text), btnHeight, $"#{pnlButtonColor.BackColor.R:X2}{pnlButtonColor.BackColor.G:X2}{pnlButtonColor.BackColor.B:X2}", cbButtonConfirm.Checked);
+            RemoteItem remoteItem = new RemoteItem(tbButtonLabel.Text, Convert.ToInt32(tbButtonSize.Text), btnHeight, $"#{pnlButtonColor.BackColor.R:X2}{pnlButtonColor.BackColor.G:X2}{pnlButtonColor.BackColor.B:X2}", cbButtonConfirm.Checked, cbHoldable.Checked);
             try
             {
                 currentRemote.RemoteItems.Insert(insertIndex, remoteItem);
@@ -308,6 +332,7 @@ namespace HTWebRemote.Forms
             }
             selectedItem.Color = $"#{pnlButtonColor.BackColor.R:X2}{pnlButtonColor.BackColor.G:X2}{pnlButtonColor.BackColor.B:X2}";
             selectedItem.ConfirmPopup = cbButtonConfirm.Checked;
+            selectedItem.Holdable = cbHoldable.Checked;
             SaveRemote(0);
         }
 
@@ -457,34 +482,64 @@ namespace HTWebRemote.Forms
 
         private void btnUp_Click(object sender, EventArgs e)
         {
-            if (lbRemoteItems.SelectedItem is RemoteItem)
+            if (lbRemoteItems.SelectedIndices[0] > 0)
             {
-                int index = lbRemoteItems.SelectedIndex;
-                if (index > 0)
-                {
-                    RemoteItem item = currentRemote.RemoteItems[index];
-                    currentRemote.RemoteItems.RemoveAt(index);
-                    currentRemote.RemoteItems.Insert(index - 1, item);
-                    SaveRemote(0);
+                List<int> updatedSelections = new List<int>();
 
-                    lbRemoteItems.SelectedIndex = index - 1;
+                foreach (int selectedIndex in lbRemoteItems.SelectedIndices)
+                {
+                    if (lbRemoteItems.Items[selectedIndex] is RemoteItem)
+                    {
+                        if (selectedIndex > 0)
+                        {
+                            RemoteItem item = currentRemote.RemoteItems[selectedIndex];
+                            currentRemote.RemoteItems.RemoveAt(selectedIndex);
+                            currentRemote.RemoteItems.Insert(selectedIndex - 1, item);
+
+                            updatedSelections.Add(selectedIndex - 1);
+                        }
+                    }
+                }
+
+                SaveRemote(0);
+
+                lbRemoteItems.ClearSelected();
+                foreach (int i in updatedSelections)
+                {
+                    lbRemoteItems.SetSelected(i, true);
                 }
             }
         }
 
         private void btnDown_Click(object sender, EventArgs e)
         {
-            if (lbRemoteItems.SelectedItem is RemoteItem)
+            if (lbRemoteItems.SelectedIndices[lbRemoteItems.SelectedIndices.Count - 1] < lbRemoteItems.Items.Count - 1)
             {
-                int index = lbRemoteItems.SelectedIndex;
-                if (index < lbRemoteItems.Items.Count - 1)
-                {
-                    RemoteItem item = currentRemote.RemoteItems[index];
-                    currentRemote.RemoteItems.RemoveAt(index);
-                    currentRemote.RemoteItems.Insert(index + 1, item);
-                    SaveRemote(0);
+                List<int> updatedSelections = new List<int>();
 
-                    lbRemoteItems.SelectedIndex = index + 1;
+                for (int i = lbRemoteItems.SelectedIndices.Count - 1; i >= 0; i--)
+                {
+                    int selectedIndex = lbRemoteItems.SelectedIndices[i];
+
+                    if (lbRemoteItems.Items[selectedIndex] is RemoteItem)
+                    {
+                        if (selectedIndex < lbRemoteItems.Items.Count - 1)
+                        {
+                            RemoteItem item = currentRemote.RemoteItems[selectedIndex];
+                            currentRemote.RemoteItems.RemoveAt(selectedIndex);
+                            currentRemote.RemoteItems.Insert(selectedIndex + 1, item);
+
+                            updatedSelections.Add(selectedIndex + 1);
+                        }
+                    }
+                }
+
+                SaveRemote(0);
+
+                lbRemoteItems.ClearSelected();
+                foreach (int i in updatedSelections)
+                {
+                    lbRemoteItems.SetSelected(i, true);
                 }
             }
         }
@@ -496,7 +551,7 @@ namespace HTWebRemote.Forms
                 if (currentItem.ItemType == RemoteItem.RemoteItemType.Button)
                 {
                     int index = lbRemoteItems.SelectedIndex;
-                    CommandEditor commandEditor = new CommandEditor(this, currentItem.Commands, index, _lastDeviceIndex);
+                    CommandEditor commandEditor = new CommandEditor(this, currentItem.Commands, currentItem.Label, index, _lastDeviceIndex);
                     commandEditor.ShowDialog();
                     _lastDeviceIndex = commandEditor.LastDeviceIndex;
 
@@ -514,7 +569,7 @@ namespace HTWebRemote.Forms
                 DialogResult result = MessageBox.Show($"Are you sure you want to delete remote #{cmbRemoteID.SelectedItem}?", "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-                    File.Delete($"{ConfigHelper.jsonButtonFiles}{cmbRemoteID.SelectedItem}.json");
+                    File.Delete($"{ConfigHelper.jsonButtonFiles}{cmbRemoteID.SelectedIndex + 1}.json");
                 }
             }
             catch { }
@@ -588,9 +643,26 @@ namespace HTWebRemote.Forms
         {
             try
             {
-                RemoteItem selectedRemoteItem = currentRemote.RemoteItems[lbRemoteItems.SelectedIndex];
-                currentRemote.RemoteItems.Insert(lbRemoteItems.SelectedIndex, selectedRemoteItem);
-                SaveRemote(1);
+                if (btnCopy.Text == "Copy Selected")
+                {
+                    btnCopy.Text = "Paste Selected";
+                    lblClearCopy.Visible = true;
+
+                    foreach (int itemIndex in lbRemoteItems.SelectedIndices)
+                    {
+                        _copiedItems.Add(currentRemote.RemoteItems[itemIndex]);
+                    }
+                }
+                else
+                {
+                    btnCopy.Text = "Copy Selected";
+                    lblClearCopy.Visible = false;
+
+                    currentRemote.RemoteItems.InsertRange(lbRemoteItems.SelectedIndex+1, _copiedItems);
+                    _copiedItems.Clear();
+
+                    SaveRemote(1);
+                }
             }
             catch { }
         }
@@ -646,11 +718,36 @@ namespace HTWebRemote.Forms
                 case Keys.PageDown:
                     btnDown.PerformClick();
                     break;
+                case Keys.Delete:
+                    btnDeleteItems.PerformClick();
+                    break;
                 default:
                     break;
             }
 
             e.Handled = true;
+        }
+
+        private void btnDeleteItems_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show($"Are you sure you want to delete selected items?", "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                List<RemoteItem> itemsToDelete = new List<RemoteItem>();
+
+                foreach (int itemIndex in lbRemoteItems.SelectedIndices)
+                {
+                    itemsToDelete.Add(currentRemote.RemoteItems[itemIndex]);
+                }
+
+                foreach (RemoteItem item in itemsToDelete)
+                {
+                    currentRemote.RemoteItems.Remove(item);
+                }
+
+                SaveRemote(-1);
+            }
         }
 
         private void RemoteEditor_KeyDown(object sender, KeyEventArgs e)
@@ -659,6 +756,24 @@ namespace HTWebRemote.Forms
             {
                 Close();
             }
+        }
+
+        private void lblClearCopy_Click(object sender, EventArgs e)
+        {
+            lblClearCopy.Visible = false;
+            btnCopy.Text = "Copy Selected";
+            _copiedItems.Clear();
+        }
+
+        private void btnReorderRemotes_Click(object sender, EventArgs e)
+        {
+            int selectedIndex = cmbRemoteID.SelectedIndex;
+
+            ReorderRemotes reorderRemotes = new ReorderRemotes();
+            reorderRemotes.ShowDialog();
+
+            FillRemoteNumDropDown();
+            cmbRemoteID.SelectedIndex = selectedIndex;
         }
     }
 }

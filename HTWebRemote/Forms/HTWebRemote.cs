@@ -267,13 +267,13 @@ namespace HTWebRemote
         private void btnEditRemoteUI_Click(object sender, EventArgs e)
         {
             Forms.RemoteEditor editRemoteUI = new Forms.RemoteEditor();
-            editRemoteUI.Show();
+            editRemoteUI.ShowDialog();
         }
 
         private void btnEditFileBrowser_Click(object sender, EventArgs e)
         {
             Forms.EditFileBrowser editFileBrowser = new Forms.EditFileBrowser();
-            editFileBrowser.Show();
+            editFileBrowser.ShowDialog();
         }
 
         private void cbStartAutomatically_CheckedChanged(object sender, EventArgs e)

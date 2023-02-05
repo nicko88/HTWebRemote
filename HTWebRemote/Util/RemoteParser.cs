@@ -194,7 +194,14 @@ namespace HTWebRemote.Util
 
                         if (!query)
                         {
-                            sb.AppendFormat(@"<div class=""nitem"" style=""flex-grow: {0};""><button onclick=""sendbtn('{1}', '{2}', '{3}')"" class=""btn"" style=""background-color: {4}; color: {5};{6}"">{7}</button></div>" + Environment.NewLine, item.RelativeSize, remote.RemoteID, i, item.ConfirmPopup, btnColorHex, textColor, btnHeight, item.Label);
+                            if(!item.Holdable)
+                            {
+                                sb.AppendFormat(@"<div class=""nitem"" style=""flex-grow: {0};""><button onclick=""sendbtn('{1}', '{2}', '{3}')"" class=""btn"" style=""background-color: {4}; color: {5};{6}"">{7}</button></div>" + Environment.NewLine, item.RelativeSize, remote.RemoteID, i, item.ConfirmPopup, btnColorHex, textColor, btnHeight, item.Label);
+                            }
+                            else
+                            {
+                                sb.AppendFormat(@"<div class=""nitem"" style=""flex-grow: {0};""><button onpointerdown=""sendbtn('{1}', '{2}', '{3}', 250)"" onpointerup=""clearInterval(intervalID)"" onpointerout=""clearInterval(intervalID)"" class=""btn"" style=""background-color: {4}; color: {5};{6}"">{7}</button></div>" + Environment.NewLine, item.RelativeSize, remote.RemoteID, i, item.ConfirmPopup, btnColorHex, textColor, btnHeight, item.Label);
+                            }
                         }
                         else
                         {
