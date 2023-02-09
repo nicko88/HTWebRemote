@@ -7,14 +7,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HTWebRemote", "HTWebRemote\
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B9E44033-829B-43E3-B5DB-A534F18B1BFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B9E44033-829B-43E3-B5DB-A534F18B1BFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B9E44033-829B-43E3-B5DB-A534F18B1BFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B9E44033-829B-43E3-B5DB-A534F18B1BFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9E44033-829B-43E3-B5DB-A534F18B1BFB}.Debug|x64.ActiveCfg = Debug|x64
+		{B9E44033-829B-43E3-B5DB-A534F18B1BFB}.Debug|x64.Build.0 = Debug|x64
+		{B9E44033-829B-43E3-B5DB-A534F18B1BFB}.Release|x64.ActiveCfg = Release|x64
+		{B9E44033-829B-43E3-B5DB-A534F18B1BFB}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
