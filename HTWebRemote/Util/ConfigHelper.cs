@@ -19,6 +19,29 @@ namespace HTWebRemote.Util
         public static string browsePaths = Path.Combine(WorkingPath, "HTWebRemoteBrowsePaths.txt");
         public static string jsonButtonFiles = Path.Combine(WorkingPath, "HTWebRemoteButtons");
 
+        public static string LocalIPAddress
+        {
+            get
+            {
+                string IP = "IPError";
+                foreach (NetworkInterface item in NetworkInterface.GetAllNetworkInterfaces())
+                {
+                    if ((item.NetworkInterfaceType == NetworkInterfaceType.Ethernet || item.NetworkInterfaceType == NetworkInterfaceType.Wireless80211) &&
+                        !item.Description.ToLower().Contains("virtual") && !item.Name.ToLower().Contains("virtual") && item.OperationalStatus == OperationalStatus.Up)
+                    {
+                        foreach (UnicastIPAddressInformation ip in item.GetIPProperties().UnicastAddresses)
+                        {
+                            if (ip.Address.AddressFamily == AddressFamily.InterNetwork && !ip.Address.ToString().StartsWith("127"))
+                            {
+                                IP = ip.Address.ToString();
+                            }
+                        }
+                    }
+                }
+                return IP;
+            }
+        }
+
         public static void Setup()
         {
             string adminCMD = null;
@@ -124,26 +147,6 @@ namespace HTWebRemote.Util
             catch { }
 
             return header;
-        }
-
-        public static string GetLocalIPAddress()
-        {
-            string IP = "IPError";
-            foreach (NetworkInterface item in NetworkInterface.GetAllNetworkInterfaces())
-            {
-                if ((item.NetworkInterfaceType == NetworkInterfaceType.Ethernet || item.NetworkInterfaceType == NetworkInterfaceType.Wireless80211) &&
-                    !item.Description.ToLower().Contains("virtual") && !item.Name.ToLower().Contains("virtual") && item.OperationalStatus == OperationalStatus.Up)
-                {
-                    foreach (UnicastIPAddressInformation ip in item.GetIPProperties().UnicastAddresses)
-                    {
-                        if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
-                        {
-                            IP = ip.Address.ToString();
-                        }
-                    }
-                }
-            }
-            return IP;
         }
 
         //stops MS Edge from blocking local IPs that failed to load

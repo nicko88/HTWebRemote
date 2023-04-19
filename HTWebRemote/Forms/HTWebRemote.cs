@@ -18,6 +18,7 @@ namespace HTWebRemote
     {
         private string IP;
         private readonly Thread httpThread;
+        private bool startFail = false;
 
         public HTWebRemote()
         {
@@ -27,18 +28,17 @@ namespace HTWebRemote
             Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
             trayIcon.Icon = Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
-            Setup();
+            ConfigHelper.Setup();
+            Setup(true);
 
             httpThread = new Thread(StartListen);
             httpThread.Start();
         }
 
-        public async void Setup()
+        public async void Setup(bool full)
         {
-            ConfigHelper.Setup();
-
             string version = Assembly.GetExecutingAssembly().GetName().Version.ToString().TrimEnd(new char[] { '.', '0' });
-            IP = ConfigHelper.GetLocalIPAddress();
+            IP = ConfigHelper.LocalIPAddress;
             Text = $"HTWebRemote v{version}   (IP: {IP}:5000)";
 
             if(ConfigHelper.CheckRegKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", "HTWebRemote"))
@@ -46,13 +46,16 @@ namespace HTWebRemote
                 cbStartAutomatically.Checked = true;
             }
 
-            if (ConfigHelper.CheckRegKey(@"SOFTWARE\HTWebRemote", "StartMinimized"))
+            if (full)
             {
-                cbStartMinimized.Checked = true;
+                if (ConfigHelper.CheckRegKey(@"SOFTWARE\HTWebRemote", "StartMinimized"))
+                {
+                    cbStartMinimized.Checked = true;
 
-                Hide();
-                WindowState = FormWindowState.Minimized;
-                ShowInTaskbar = false;
+                    Hide();
+                    WindowState = FormWindowState.Minimized;
+                    ShowInTaskbar = false;
+                }
             }
 
             if (ConfigHelper.CheckRegKey(@"SOFTWARE\HTWebRemote", "ShowErrors"))
@@ -70,22 +73,32 @@ namespace HTWebRemote
 
         public void StartListen()
         {
-            bool started = false;
+            bool running = false;
 
             HttpListener listener = new HttpListener();
             listener.Prefixes.Add("http://*:5000/");
 
-            while (!started)
+            while (!running)
             {
                 try
                 {
                     listener.Start();
-                    started = true;
+                    running = true;
                 }
                 catch (Exception e)
                 {
-                    Invoke(new Action(() => { MessageBox.Show("Cannot open Port: 5000\n\nTry running as Administrator.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }));
-                    Thread.Sleep(5000);
+                    if (!startFail)
+                    {
+                        startFail = true;
+                        Thread.Sleep(10000);
+                        Setup(false);
+                        StartListen();
+                    }
+                    else
+                    {
+                        Invoke(new Action(() => { MessageBox.Show("Cannot open Port: 5000\n\nTry running as Administrator.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }));
+                        Environment.Exit(0);
+                    }
                 }
             }
 

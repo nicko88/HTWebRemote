@@ -280,7 +280,7 @@ namespace HTWebRemote.Forms
 
         private void btnDoc_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start($"http://{Util.ConfigHelper.GetLocalIPAddress()}:5000/doc");
+            Process.Start($"http://{Util.ConfigHelper.LocalIPAddress}:5000/doc");
         }
 
         private void btnTestCmds_Click(object sender, EventArgs e)

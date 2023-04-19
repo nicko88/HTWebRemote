@@ -1,15 +1,15 @@
 ﻿<html>
 <head>
     <title>HTWebRemote</title>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="manifest" href='data:application/manifest+json,{"name": "HTWebRemote","short_name": "HTWebRemote","lang": "en-US","start_url": "/","scope": "/","display": "fullscreen"}' />
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="HTWebRemote">
     <meta name="apple-mobile-web-app-title" content="HTWebRemote">
     <meta name="msapplication-starturl" content="/">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no, viewport-fit=cover">
     <link rel="icon" type="image/png" href="https://i.ibb.co/gSSrZ2k/HTControl.png" />
     <link rel="apple-touch-icon" type="image/png" href="https://i.ibb.co/gSSrZ2k/HTControl.png" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
@@ -37,6 +37,12 @@
             height: 100%;
             justify-content: flex-start; /*change to 'space-between' for bottom nav */ /*change to 'flex-start' for top nav */
             align-items: center;
+            overscroll-behavior-y: none;
+            overflow: hidden;
+        }
+
+        .body-content {
+            -webkit-overflow-scrolling: touch;
         }
 
         .btn {
@@ -115,6 +121,7 @@
             flex-direction: row;
             display: flex;
             align-content: center;
+            padding-bottom: env(safe-area-inset-bottom);
         }
 
         .nav-item {

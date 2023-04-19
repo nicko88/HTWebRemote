@@ -9,7 +9,10 @@ namespace HTWebRemote.Devices.Controllers
     {
         public static void RunCmd(string IP, string cmd, string param, string auth)
         {
-            using (HttpClient httpClient = new HttpClient())
+            HttpClientHandler httpClientHandler = new HttpClientHandler();
+            httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, sslPolicyErrors) => { return true; };
+
+            using (HttpClient httpClient = new HttpClient(httpClientHandler))
             {
                 httpClient.Timeout = TimeSpan.FromSeconds(3);
 

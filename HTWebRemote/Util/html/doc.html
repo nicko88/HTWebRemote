@@ -141,16 +141,16 @@
 	<ul>
 		<li><code>devname</code> (The device name you defined in the device manager screen)</li>
 		<li><code>cmd</code> (The command you want to send)</li>
-		<li><code>param</code> (Optional command parameter than some devices and commands need)</li>
+		<li><code>param</code> (Optional command parameter that some devices and commands need)</li>
 	</ul>
 	<br />
 
 	<h2><a id="devices"></a>Supported Devices</h2>
 
 	<p>
-		HTWebRemote supports a few devices, but I would like to add more.<br />
+		HTWebRemote supports several devices, but I would like to add more.<br />
 		Please leave a comment on GitHub or one of the other discussion pages for the app and let me know what device you would like to see supported.<br />
-		I will need testers with access to the device in order to add new devices.
+		I will likely need a person with access to the device to help test in order to add new devices.
 	</p>
 
 	<p>I also welcome others to contribute more device support via GitHub.</p>
@@ -889,7 +889,7 @@
 		<li><code>keypress/FindRemote</code></li>
 	</ul>
 
-	<p>Some Roku's support these buttons:</p>
+	<p>Some Rokus support these buttons:</p>
 
 	<ul>
 		<li><code>keypress/FindRemote</code></li>
@@ -1335,7 +1335,6 @@
 	<h4>param:</h4>
 
 	<ul>
-		<li></li>
 		<li><code>0bf4</code> (Volume Up)</li>
 		<li><code>09f6</code> (Volume Down)</li>
 		<li><code>0af5</code> (Mute Toggle)</li>
@@ -1356,7 +1355,7 @@
 
 	<p>
 		Where XX is the volume you want to go to, and YYY is some number of milliseconds between each 1dB adjustment.<br />
-		Recommend numbers 300 and greater as lower seems to fast to work.
+		Recommend number of ms, 300 and greater as lower seems too fast to work.
 	</p>
 
 	<b>HTP-1 Query Command</b>
@@ -3846,7 +3845,7 @@
 
 	<p>If you need to send other special bytes to the device (which cannot be represented by normal keyboard characters), you can enter the entire command as a series of hex values.</p>
 
-	<p><b>In order do to this you must also enter "hex" into the command param.</b></p>
+	<p><b>In order do to this you must also enter "hex" into the param box.</b></p>
 
 	<p><code>param = hex</code></p>
 
@@ -3919,12 +3918,12 @@
 
 	<p>If needed, To POST JSON content to the HTTP server at this URL, simply enter the JSON content in the param box.</p>
 
-	If the HTTP server needs basic authenticaltion, enter the username and password into the <code>special</code> data field as follows:
+	If the HTTP server needs "basic" authentication, enter the username and password into the <code>special</code> data field as follows:
 	<ul>
 		<li><code>username:password</code></li>
 	</ul>
 
-	If the HTTP server needs Bearer token authenticaltion, enter the bearer token into the <code>special</code> data field as follows:
+	If the HTTP server needs "bearer token" authentication, enter the bearer token into the <code>special</code> data field as follows:
 	<ul>
 		<li><code>bearer:TokenValueHere</code></li>
 	</ul>

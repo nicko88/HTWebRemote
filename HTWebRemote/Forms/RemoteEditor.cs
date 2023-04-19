@@ -21,6 +21,8 @@ namespace HTWebRemote.Forms
         public RemoteEditor()
         {
             InitializeComponent();
+            Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+
             try
             {
                 RegistryKey regKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\HTWebRemote", false);
@@ -36,7 +38,6 @@ namespace HTWebRemote.Forms
                 Height = size[1];
             }
             catch { }
-            Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
             FillRemoteNumDropDown();
             cmbRemoteID.SelectedIndex = 0;
@@ -212,7 +213,9 @@ namespace HTWebRemote.Forms
                 currentRemote.RemoteItems = items;
             }
 
-            webBrowser.DocumentText = RemoteParser.GetRemoteHTML((cmbRemoteID.SelectedIndex + 1).ToString(), false);
+            string remoteHTML = RemoteParser.GetRemoteHTML((cmbRemoteID.SelectedIndex + 1).ToString(), false);
+            remoteHTML = remoteHTML.Replace("overflow: hidden;", "");
+            webBrowser.DocumentText = remoteHTML;
         }
 
         private void lbRemoteItems_SelectedIndexChanged(object sender, EventArgs e)
@@ -267,6 +270,8 @@ namespace HTWebRemote.Forms
 
         public void SaveRemote(int selectedIndexOffset)
         {
+            int topIndex = lbRemoteItems.TopIndex;
+
             _selectedIndex = lbRemoteItems.SelectedIndex;
 
             RemoteJSONLoader.SaveRemoteJSON(currentRemote);
@@ -279,6 +284,8 @@ namespace HTWebRemote.Forms
             catch { }
 
             FillRemoteNumDropDown();
+
+            lbRemoteItems.TopIndex = topIndex;
         }
 
         private void btnAddButton_Click(object sender, EventArgs e)
@@ -308,7 +315,10 @@ namespace HTWebRemote.Forms
             {
                 currentRemote.RemoteItems.Add(remoteItem);
             }
+
             SaveRemote(1);
+            lbRemoteItems.SelectedIndex = insertIndex;
+
             cmbAddItem.SelectedItem = "Button";
         }
 
@@ -363,7 +373,10 @@ namespace HTWebRemote.Forms
             {
                 currentRemote.RemoteItems.Add(remoteItem);
             }
+
             SaveRemote(1);
+            lbRemoteItems.SelectedIndex = insertIndex;
+
             cmbAddItem.SelectedItem = "Group";
         }
 
@@ -402,7 +415,10 @@ namespace HTWebRemote.Forms
             {
                 currentRemote.RemoteItems.Add(remoteItem);
             }
+
             SaveRemote(1);
+            lbRemoteItems.SelectedIndex = insertIndex;
+
             cmbAddItem.SelectedItem = "Blank Space";
         }
 
@@ -440,7 +456,10 @@ namespace HTWebRemote.Forms
             {
                 currentRemote.RemoteItems.Add(remoteItem);
             }
+
             SaveRemote(1);
+            lbRemoteItems.SelectedIndex = insertIndex;
+
             cmbAddItem.SelectedItem = "New Line";
         }
 
@@ -482,7 +501,7 @@ namespace HTWebRemote.Forms
 
         private void btnUp_Click(object sender, EventArgs e)
         {
-            if (lbRemoteItems.SelectedIndices[0] > 0)
+            if (lbRemoteItems.SelectedIndices.Count > 0 && lbRemoteItems.SelectedIndices[0] > 0)
             {
                 List<int> updatedSelections = new List<int>();
 
@@ -513,7 +532,7 @@ namespace HTWebRemote.Forms
 
         private void btnDown_Click(object sender, EventArgs e)
         {
-            if (lbRemoteItems.SelectedIndices[lbRemoteItems.SelectedIndices.Count - 1] < lbRemoteItems.Items.Count - 1)
+            if (lbRemoteItems.SelectedIndices.Count > 0 && lbRemoteItems.SelectedIndices[lbRemoteItems.SelectedIndices.Count - 1] < lbRemoteItems.Items.Count - 1)
             {
                 List<int> updatedSelections = new List<int>();
 
