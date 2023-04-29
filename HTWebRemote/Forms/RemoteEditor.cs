@@ -317,7 +317,11 @@ namespace HTWebRemote.Forms
             }
 
             SaveRemote(1);
-            lbRemoteItems.SelectedIndex = insertIndex;
+            try
+            {
+                lbRemoteItems.SelectedIndex = insertIndex;
+            }
+            catch { }
 
             cmbAddItem.SelectedItem = "Button";
         }
@@ -375,7 +379,11 @@ namespace HTWebRemote.Forms
             }
 
             SaveRemote(1);
-            lbRemoteItems.SelectedIndex = insertIndex;
+            try
+            {
+                lbRemoteItems.SelectedIndex = insertIndex;
+            }
+            catch { }
 
             cmbAddItem.SelectedItem = "Group";
         }
@@ -417,7 +425,11 @@ namespace HTWebRemote.Forms
             }
 
             SaveRemote(1);
-            lbRemoteItems.SelectedIndex = insertIndex;
+            try
+            {
+                lbRemoteItems.SelectedIndex = insertIndex;
+            }
+            catch { }
 
             cmbAddItem.SelectedItem = "Blank Space";
         }
@@ -458,7 +470,11 @@ namespace HTWebRemote.Forms
             }
 
             SaveRemote(1);
-            lbRemoteItems.SelectedIndex = insertIndex;
+            try
+            {
+                lbRemoteItems.SelectedIndex = insertIndex;
+            }
+            catch { }
 
             cmbAddItem.SelectedItem = "New Line";
         }

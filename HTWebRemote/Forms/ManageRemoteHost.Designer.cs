@@ -82,9 +82,9 @@ namespace HTWebRemote.Forms
             this.btnUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnUpdate.Enabled = false;
             this.btnUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUpdate.Location = new System.Drawing.Point(290, 76);
+            this.btnUpdate.Location = new System.Drawing.Point(283, 75);
             this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(83, 70);
+            this.btnUpdate.Size = new System.Drawing.Size(90, 70);
             this.btnUpdate.TabIndex = 3;
             this.btnUpdate.Text = "Update Remote Host";
             this.btnUpdate.UseVisualStyleBackColor = true;
