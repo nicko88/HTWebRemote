@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using HTWebRemote.Util;
+using Microsoft.Win32;
 
 namespace HTWebRemote
 {
@@ -12,7 +14,36 @@ namespace HTWebRemote
         [STAThread]
         static void Main(string[] args)
         {
-            if (args.Length > 0)
+            if(args.Length <= 1)
+            {
+                if (Process.GetProcessesByName(Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetEntryAssembly().Location)).Count() > 1)
+                {
+                    Process.GetCurrentProcess().Kill();
+                }
+                else
+                {
+                    int port = 5000;
+                    try
+                    {
+                        port = Convert.ToInt32(ConfigHelper.GetRegKey(@"SOFTWARE\HTWebRemote", "Port"));
+                    }
+                    catch { }
+
+                    try
+                    {
+                        port = Convert.ToInt32(args[0]);
+
+                        RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\HTWebRemote", true);
+                        key.SetValue("Port", port);
+                    }
+                    catch { }
+
+                    Application.EnableVisualStyles();
+                    Application.SetCompatibleTextRenderingDefault(false);
+                    Application.Run(new HTWebRemote(port.ToString()));
+                }
+            }
+            else
             {
                 try
                 {
@@ -53,19 +84,6 @@ namespace HTWebRemote
                 {
                     Console.WriteLine($"Incorrect Parameters.");
                     Console.WriteLine(e.Message);
-                }
-            }
-            else
-            {
-                if (Process.GetProcessesByName(Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetEntryAssembly().Location)).Count() > 1)
-                {
-                    Process.GetCurrentProcess().Kill();
-                }
-                else
-                {
-                    Application.EnableVisualStyles();
-                    Application.SetCompatibleTextRenderingDefault(false);
-                    Application.Run(new HTWebRemote());
                 }
             }
         }

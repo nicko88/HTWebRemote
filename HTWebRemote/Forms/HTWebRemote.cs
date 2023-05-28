@@ -17,18 +17,20 @@ namespace HTWebRemote
     public partial class HTWebRemote : Form
     {
         private string IP;
+        private string port;
         private readonly Thread httpThread;
         private bool startFail = false;
 
-        public HTWebRemote()
+        public HTWebRemote(string port)
         {
+            this.port = port;
             ConfigHelper.ConvertLegacyFiles();
 
             InitializeComponent();
             Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
             trayIcon.Icon = Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
-            ConfigHelper.Setup();
+            ConfigHelper.Setup(port);
             Setup(true);
 
             httpThread = new Thread(StartListen);
@@ -39,7 +41,7 @@ namespace HTWebRemote
         {
             string version = Assembly.GetExecutingAssembly().GetName().Version.ToString().TrimEnd(new char[] { '.', '0' });
             IP = ConfigHelper.LocalIPAddress;
-            Text = $"HTWebRemote v{version}   (IP: {IP}:5000)";
+            Text = $"HTWebRemote v{version}   (IP: {IP}:{port})";
 
             if(ConfigHelper.CheckRegKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", "HTWebRemote"))
             {
@@ -76,7 +78,7 @@ namespace HTWebRemote
             bool running = false;
 
             HttpListener listener = new HttpListener();
-            listener.Prefixes.Add("http://*:5000/");
+            listener.Prefixes.Add($"http://*:{port}/");
 
             while (!running)
             {
@@ -96,7 +98,7 @@ namespace HTWebRemote
                     }
                     else
                     {
-                        Invoke(new Action(() => { MessageBox.Show("Cannot open Port: 5000\n\nTry running as Administrator.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }));
+                        Invoke(new Action(() => { MessageBox.Show($"Cannot open Port: {port}\n\nTry running as Administrator.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }));
                         Environment.Exit(0);
                     }
                 }
@@ -189,6 +191,7 @@ namespace HTWebRemote
             {
                 htmlPage = ConfigHelper.GetEmbeddedResource("doc.html");
                 htmlPage = htmlPage.Replace("{BASEIP}", IP);
+                htmlPage = htmlPage.Replace("{port}", port);
             }
 
             if (request.RawUrl.Contains("closeyt"))
@@ -264,17 +267,17 @@ namespace HTWebRemote
 
         private void LblDoc_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start($"http://{IP}:5000/doc");
+            Process.Start($"http://{IP}:{port}/doc");
         }
 
         private void LblOpenFileBrowser_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start($"http://{IP}:5000/FB");
+            Process.Start($"http://{IP}:{port}/FB");
         }
 
         private void LblRemoteUI_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start($"http://{IP}:5000");
+            Process.Start($"http://{IP}:{port}");
         }
 
         private void btnEditRemoteUI_Click(object sender, EventArgs e)

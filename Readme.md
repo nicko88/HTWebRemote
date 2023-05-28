@@ -27,6 +27,10 @@ Consider adding your remote control page to the home screen of your phone or tab
 
 If you don't know how to do this, just do a web search for how to add a web page to your home screen for either iPhone or Android.
 
+##### Siri and Apple Widgets Integration
+
+To learn how to create Siri voice commands to send any HTWebRemote command or macro (on iPhone/iPad/AppleWatch/HomePod), or to create native homescreen Widget buttons (on iPhone/iPad/AppleWatch), see this [wiki page](https://github.com/nicko88/HTWebRemote/wiki/Control-HTWebRemote-on-iOS-Devices-Including-Apple-Watch-and-HomePod).
+
 #### Screenshots and Demo
 
 ###### Main screen
@@ -66,6 +70,7 @@ Finally, HTWebRemote includes a sort of API which lets you send commands from ot
 * Monoprice HTP-1 AVR
 * Anthem MRX AVRs
 * Lyngdorf AVRs
+* Onkyo/Integra/Pioneer AVRs (eISCP)
 * JVC Projectors
 * Sony Projectors
 * Epson Projectors

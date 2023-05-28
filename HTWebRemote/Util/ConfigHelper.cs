@@ -42,23 +42,23 @@ namespace HTWebRemote.Util
             }
         }
 
-        public static void Setup()
+        public static void Setup(string port)
         {
             string adminCMD = null;
             string firewall = RunCmd("netsh", "advfirewall firewall show rule name=HTWebRemote", false);
-            if (!firewall.Contains("HTWebRemote"))
+            if (!firewall.Contains("HTWebRemote") || !firewall.Contains(port))
             {
-                adminCMD = @"netsh advfirewall firewall add rule name=""HTWebRemote"" protocol=TCP dir=in localport=5000 action=allow";
+                adminCMD = $@"netsh advfirewall firewall add rule name=""HTWebRemote"" protocol=TCP dir=in localport={port} action=allow";
             }
 
-            string urlacl = RunCmd("netsh", "http show urlacl url=http://*:5000/", false);
-            if (!urlacl.Contains("http://*:5000/"))
+            string urlacl = RunCmd("netsh", $"http show urlacl url=http://*:{port}/", false);
+            if (!urlacl.Contains($"http://*:{port}/"))
             {
                 if (adminCMD != null)
                 {
                     adminCMD += " && ";
                 }
-                adminCMD += "netsh http add urlacl url=http://*:5000/ user=%computername%\\%username%";
+                adminCMD += $"netsh http add urlacl url=http://*:{port}/ user=%computername%\\%username%";
             }
 
             if (adminCMD != null)

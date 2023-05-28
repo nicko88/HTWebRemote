@@ -1,4 +1,5 @@
 ﻿using HTWebRemote.RemoteFile;
+using HTWebRemote.Util;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -280,7 +281,14 @@ namespace HTWebRemote.Forms
 
         private void btnDoc_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start($"http://{Util.ConfigHelper.LocalIPAddress}:5000/doc");
+            string port = "5000";
+            try
+            {
+                port = ConfigHelper.GetRegKey(@"SOFTWARE\HTWebRemote", "Port");
+            }
+            catch { }
+
+            Process.Start($"http://{ConfigHelper.LocalIPAddress}:{port}/doc");
         }
 
         private void btnTestCmds_Click(object sender, EventArgs e)

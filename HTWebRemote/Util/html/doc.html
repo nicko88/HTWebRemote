@@ -17,7 +17,7 @@
 	</p>
 
 	<p>
-		You must allow port 5000/TCP incoming on the PC that is running this software in order for the remote UI to function.<br />
+		You must allow port {port}/TCP incoming on the PC that is running this software in order for the remote UI to function.<br />
 		The software takes care of this firewall rule for you the first time you run it.
 	</p>
 
@@ -42,7 +42,7 @@
 		Then you will open the remote control most likely on your phone or tablet to press the buttons.
 	</p>
 
-	<p>The URL of your remote control will be here: <a href="http://{BASEIP}:5000">http://{BASEIP}:5000</a></p>
+	<p>The URL of your remote control will be here: <a href="http://{BASEIP}:{port}">http://{BASEIP}:{port}</a></p>
 
 	<h3>File Browser</h3>
 
@@ -51,7 +51,7 @@
 		The purpose of this feature is for you to add folder paths to it, and then you will be able to browse these folder paths from your phone or tablet to easily select media to play.
 	</p>
 
-	<p>The URL of your file browser will be here: <a href="http://{BASEIP}:5000/FB">http://{BASEIP}:5000/FB</a></p>
+	<p>The URL of your file browser will be here: <a href="http://{BASEIP}:{port}/FB">http://{BASEIP}:{port}/FB</a></p>
 
 	<h3>Mobile "WebApp" Mode</h3>
 
@@ -61,6 +61,13 @@
 	</p>
 
 	<p>If you don't know how to do this, just do a web search for how to add a web page to your home screen for either iPhone or Android.</p>
+	
+	<h3>Siri and Apple Widgets Integration</h3>
+
+	<p>
+		To learn how to create Siri voice commands to send any HTWebRemote command or macro (on iPhone/iPad/AppleWatch/HomePod),<br />
+		or to create native homescreen Widget buttons (on iPhone/iPad/AppleWatch), see this <a href="https://github.com/nicko88/HTWebRemote/wiki/Control-HTWebRemote-on-iOS-Devices-Including-Apple-Watch-and-HomePod">wiki page.</a>
+	</p>
 	<br />
 
 	<h2><a id="commandline"></a>Command Line Mode</h2>
@@ -118,7 +125,7 @@
 
 	<h3>URL Command Format 1</h3>
 
-	<p><code>http://{BASEIP}:5000?ip=<i>ip</i>&devtype=<i>devtype</i>&cmd=<i>command</i>&ampparam=<i>param</i>&special=<i>specialData</i></code></p>
+	<p><code>http://{BASEIP}:{port}?ip=<i>ip</i>&devtype=<i>devtype</i>&cmd=<i>command</i>&ampparam=<i>param</i>&special=<i>specialData</i></code></p>
 
 	<p>This URL command consists of 5 query strings:</p>
 
@@ -132,7 +139,7 @@
 
 	<h3>URL Command Format 2</h3>
 
-	<p><code>http://{BASEIP}:5000?devname=<i>devname</i>&cmd=<i>command</i>&ampparam=<i>param</i></code></p>
+	<p><code>http://{BASEIP}:{port}?devname=<i>devname</i>&cmd=<i>command</i>&ampparam=<i>param</i></code></p>
 
 	<p>To use this format, first you need to configure your device in the "Configure Devices" screen.</p>
 
@@ -180,6 +187,7 @@
 		<li><a href="#htp1">Monoprice HTP-1 AVR</a></li>
 		<li><a href="#anthem">Anthem MRX AVRs</a></li>
 		<li><a href="#lyngdorf">Lyngdorf AVRs</a></li>
+		<li><a href="#eiscp">Onkyo/Integra/Pioneer AVRs (eISCP)</a></li>
 		<li><a href="#jvc">JVC Projectors</a></li>
 		<li><a href="#sonyproj">Sony Projectors</a></li>
 		<li><a href="#epson">Epson Projectors</a></li>
@@ -1416,6 +1424,35 @@
 		For all lyngdorf commands, see the full Lyngdorf command document here:<br />
 		<a href="https://github.com/nicko88/HTWebRemote/blob/master/IP%20Control%20Spec%20Documents/Lyngdorf.pdf">Lyngdorf.pdf</a>
 	</p>
+	<br />
+
+	<h2><a id="eiscp"></a>Onkyo/Integra/Pioneer AVR Control (eISCP Protocol)</h2>
+
+	For eISCP Control, the device identifier is: <b>eiscp</b>
+
+	<p>
+		Many, but not all Onkyo/Integra/Pioneer AVRs and processors use the eISCP Protocol (Integra Serial Communication Protocol over Ethernet).
+	</p>
+
+	<h3>Some Basic Commands</h3>
+
+	<ul>
+		<li><code>PWR01</code> (Power ON)</li>
+		<li><code>PWR00</code> (Power OFF)</li>
+		<li><code>MVL50</code> (Volume level 80)</li>
+		<ul>
+			<li>Volume value must be specified in <a href="https://www.rapidtables.com/convert/number/decimal-to-hex.html">hexadecimal</a> (see command doc file for more detail)</li>
+		</ul>
+	</ul>
+
+	<p>
+		For all eISCP commands, see the following documents here:<br />
+		<a href="https://github.com/nicko88/HTWebRemote/blob/master/IP%20Control%20Spec%20Documents/Onkyo_Integra_AVR_2016.pdf">Onkyo_Integra_AVR_2016.pdf</a><br />
+		<a href="https://github.com/nicko88/HTWebRemote/blob/master/IP%20Control%20Spec%20Documents/Onkyo_Integra_AVR_2019.pdf">Onkyo_Integra_AVR_2019.pdf</a><br />
+		<a href="https://github.com/nicko88/HTWebRemote/blob/master/IP%20Control%20Spec%20Documents/Pioneer_AVR.pdf">Pioneer_AVR.pdf</a>
+	</p>
+	
+	<p>Or look up the eISCP document for your particular Onkyo/Integra/Pioneer AVR or processor.</p>
 	<br />
 
 	<h2><a id="jvc"></a>JVC Projector Control</h2>

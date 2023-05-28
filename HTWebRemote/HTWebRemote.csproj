@@ -61,8 +61,8 @@
     <Reference Include="Google.Apis.PlatformServices, Version=1.60.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Apis.1.60.0\lib\net45\Google.Apis.PlatformServices.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Apis.YouTube.v3, Version=1.60.0.2945, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Apis.YouTube.v3.1.60.0.2945\lib\net45\Google.Apis.YouTube.v3.dll</HintPath>
+    <Reference Include="Google.Apis.YouTube.v3, Version=1.60.0.3064, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.YouTube.v3.1.60.0.3064\lib\net45\Google.Apis.YouTube.v3.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=7.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.7.0.0\lib\net462\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
@@ -258,6 +258,7 @@
     <Compile Include="Devices\Controllers\LyngdorfControl.cs" />
     <Compile Include="Devices\Controllers\MiniDSPrsControl.cs" />
     <Compile Include="Devices\Controllers\MQTTControl.cs" />
+    <Compile Include="Devices\Controllers\EISCPControl.cs" />
     <Compile Include="Devices\Controllers\OppoControl.cs" />
     <Compile Include="Devices\Controllers\PanaProjControl.cs" />
     <Compile Include="Devices\Controllers\RokuControl.cs" />

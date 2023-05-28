@@ -35,7 +35,7 @@ namespace HTWebRemote.Devices.Controllers
 
                     if (!result.IsSuccessStatusCode)
                     {
-                        throw new Exception();
+                        Util.ErrorHandler.SendError($"Error sending http POST request to: {IP}{cmd}\n\nStatusCode: {result.StatusCode}\n\n{result.Content.ReadAsStringAsync().Result}");
                     }
                 }
                 catch (Exception e)
