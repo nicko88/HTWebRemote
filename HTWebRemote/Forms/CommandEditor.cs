@@ -33,7 +33,7 @@ namespace HTWebRemote.Forms
             Editor = editor;
             Commands = commands;
             ButtonIndex = buttonIndex;
-            this.Text = this.Text + $" - [{buttonLabel}]";
+            this.Text += $" - [{buttonLabel}]";
             LoadCommands();
 
             cmbDevices.DataSource = Devices.DeviceSelector.GetDeviceNames();
@@ -281,12 +281,11 @@ namespace HTWebRemote.Forms
 
         private void btnDoc_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            string port = "5000";
-            try
+            string port = ConfigHelper.GetRegKey(@"SOFTWARE\HTWebRemote", "Port");
+            if(string.IsNullOrEmpty(port))
             {
-                port = ConfigHelper.GetRegKey(@"SOFTWARE\HTWebRemote", "Port");
+                port = "5000";
             }
-            catch { }
 
             Process.Start($"http://{ConfigHelper.LocalIPAddress}:{port}/doc");
         }

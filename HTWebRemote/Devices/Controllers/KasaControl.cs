@@ -191,7 +191,7 @@ namespace HTWebRemote.Devices.Controllers
                         break;
                     case "toggle":
                         await powerStrip.Refresh();
-                        await powerStrip.SetPoweredOn(!powerStrip.Outlets[Convert.ToInt32(values[0])].OutletPowered);
+                        await powerStrip.SetPoweredOn(!powerStrip.Outlets[Convert.ToInt32(values[0])].OutletPowered, Convert.ToInt32(values[0]));
                         break;
                     default:
                         Util.ErrorHandler.SendError($"Unrecognized command: {param}");
