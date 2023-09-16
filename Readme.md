@@ -21,6 +21,12 @@ Included in the web page mode of operation is a simple file browser interface wh
 
 Also included in the web page mode of operation is a YouTube browser and video launching feature.  You can copy and paste a YouTube link or browse YouTube by search phrase and easily send the YouTube video to play on your HTPC in a browser or even send the YouTube video to your media player such as MPC-HC/BE or VLC.
 
+##### Global Hotkeys
+
+The Global Hotkeys manager allows you to define global hotkeys, that when pressed in Windows, can trigger HTWebRemote commands. Global meaning the hotkey will be triggered no matter what application is running or has keyboard focus.
+
+This feature works well with a [FLIRC USB IR reciever](https://flirc.tv/products/flirc-usb-receiver). Using a FLIRC allows you to use any random button on any random IR remote control to generate hotkey presses in Windows, and thus trigger any HTWebRemote commands.
+
 ##### Mobile "WebApp" Mode
 
 Consider adding your remote control page to the home screen of your phone or tablet.  This will give you more vertical space to see your remote control buttons and also give you a nice App icon to quickly access your remote control.
@@ -34,10 +40,10 @@ To learn how to create Siri voice commands to send any HTWebRemote command or ma
 #### Screenshots and Demo
 
 ###### Main screen
-<img src="https://user-images.githubusercontent.com/1866075/216807486-3056bcf7-a40d-4a41-9a9d-18c10a3f6f4c.png" width="600px" />
+<img src="https://github.com/nicko88/HTWebRemote/assets/1866075/df5601ae-172e-4b0c-8ae7-ddef3a877622" width="635px" />
 
 ###### Remote Editor
-<img src="https://user-images.githubusercontent.com/1866075/216807485-4fbe9984-c93c-41f7-b12a-c53854bb1dd6.png" width="600px" />
+<img src="https://user-images.githubusercontent.com/1866075/216807485-4fbe9984-c93c-41f7-b12a-c53854bb1dd6.png" width="635px" />
 
 ###### Usage Demo
 <img src="https://user-images.githubusercontent.com/1866075/182762525-38084139-6bc9-4414-a932-5d5febcc1baa.gif" width="222px" />
@@ -63,6 +69,7 @@ Finally, HTWebRemote includes a sort of API which lets you send commands from ot
 * [WinLIRC](http://winlirc.sourceforge.net/) and [LIRC](https://www.lirc.org/)
 * Belkin Wemo Smart Plug
 * TP-Link Kasa Smart Devices
+* Philips Hue Bridge
 * Denon / Marantz AVRs
 * Yamaha AVRs
 * Emotiva AVRs
@@ -70,6 +77,7 @@ Finally, HTWebRemote includes a sort of API which lets you send commands from ot
 * Monoprice HTP-1 AVR
 * Anthem MRX AVRs
 * Lyngdorf AVRs
+* Trinnov Altitude AVRs
 * Onkyo/Integra/Pioneer AVRs (eISCP)
 * JVC Projectors
 * Sony Projectors
@@ -84,10 +92,8 @@ Finally, HTWebRemote includes a sort of API which lets you send commands from ot
 * HDFury Devices
 * MiniDSP Devices (via [minidsp-rs](https://github.com/mrene/minidsp-rs))
 * RS232 Serial Devices
-* TCP Generic Devices
-* UDP Generic Devices
-* HTTP POST Requests
-* HTTP GET Requests
+* TCP/UDP Generic Devices
+* HTTP POST/GET/PUT Requests
 * MQTT Messaging Protocol
 * Wake-on-LAN
 

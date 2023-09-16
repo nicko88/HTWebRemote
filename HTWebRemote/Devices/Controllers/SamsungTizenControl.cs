@@ -57,7 +57,7 @@ namespace HTWebRemote.Devices.Controllers
                     }
                     catch (Exception e)
                     {
-                        Util.ErrorHandler.SendError($"Failed sending command to Samsung TizenOS at {IP}\n\n{e.Message}");
+                        Util.ErrorHandler.SendError($"Failed sending command to Samsung TizenOS at {IP}\n\n{e.AllMessages()}");
                     }
                 }
                 else if (cmd.Contains("openapp"))
@@ -72,7 +72,7 @@ namespace HTWebRemote.Devices.Controllers
                         }
                         catch (Exception e)
                         {
-                            Util.ErrorHandler.SendError($"Failed sending command to Samsung TizenOS at {IP}\n\n{e.Message}");
+                            Util.ErrorHandler.SendError($"Failed sending command to Samsung TizenOS at {IP}\n\n{e.AllMessages()}");
                         }
                     }
                 }
@@ -88,7 +88,7 @@ namespace HTWebRemote.Devices.Controllers
                         }
                         catch(Exception e)
                         {
-                            Util.ErrorHandler.SendError($"Failed sending command to Samsung TizenOS at {IP}\n\n{e.Message}");
+                            Util.ErrorHandler.SendError($"Failed sending command to Samsung TizenOS at {IP}\n\n{e.AllMessages()}");
                         }
                     }
                 }
@@ -153,7 +153,7 @@ namespace HTWebRemote.Devices.Controllers
                         }
                         catch (Exception e)
                         {
-                            Util.ErrorHandler.SendError($"Failed getting token from {IP}\n\n{e.Message}");
+                            Util.ErrorHandler.SendError($"Failed getting token from {IP}\n\n{e.AllMessages()}");
                             saveConfig = false;
                         }
                     }

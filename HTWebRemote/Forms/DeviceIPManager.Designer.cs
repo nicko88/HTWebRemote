@@ -45,6 +45,7 @@
             this.cmbLinuxSerial = new System.Windows.Forms.ComboBox();
             this.cmbTPLinkDevices = new System.Windows.Forms.ComboBox();
             this.cbLGssl = new System.Windows.Forms.CheckBox();
+            this.btnHueAuth = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lbDevices
@@ -247,6 +248,19 @@
             this.cbLGssl.UseVisualStyleBackColor = true;
             this.cbLGssl.Visible = false;
             // 
+            // btnHueAuth
+            // 
+            this.btnHueAuth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnHueAuth.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHueAuth.Location = new System.Drawing.Point(24, 105);
+            this.btnHueAuth.Name = "btnHueAuth";
+            this.btnHueAuth.Size = new System.Drawing.Size(129, 28);
+            this.btnHueAuth.TabIndex = 13;
+            this.btnHueAuth.Text = "Get Hue Auth";
+            this.btnHueAuth.UseVisualStyleBackColor = true;
+            this.btnHueAuth.Visible = false;
+            this.btnHueAuth.Click += new System.EventHandler(this.btnHueAuth_Click);
+            // 
             // DeviceIPManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -269,6 +283,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lbDevices);
             this.Controls.Add(this.cmbCOMport);
+            this.Controls.Add(this.btnHueAuth);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -300,5 +315,6 @@
         private System.Windows.Forms.ComboBox cmbLinuxSerial;
         private System.Windows.Forms.ComboBox cmbTPLinkDevices;
         private System.Windows.Forms.CheckBox cbLGssl;
+        private System.Windows.Forms.Button btnHueAuth;
     }
 }

@@ -119,7 +119,7 @@
             // btnDeleteCmd
             // 
             this.btnDeleteCmd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeleteCmd.Location = new System.Drawing.Point(246, 2);
+            this.btnDeleteCmd.Location = new System.Drawing.Point(246, 3);
             this.btnDeleteCmd.Name = "btnDeleteCmd";
             this.btnDeleteCmd.Size = new System.Drawing.Size(70, 28);
             this.btnDeleteCmd.TabIndex = 59;
@@ -130,7 +130,7 @@
             // btnAddCmd
             // 
             this.btnAddCmd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddCmd.Location = new System.Drawing.Point(165, 2);
+            this.btnAddCmd.Location = new System.Drawing.Point(165, 3);
             this.btnAddCmd.Name = "btnAddCmd";
             this.btnAddCmd.Size = new System.Drawing.Size(75, 28);
             this.btnAddCmd.TabIndex = 57;

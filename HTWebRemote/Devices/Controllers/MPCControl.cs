@@ -29,7 +29,7 @@ namespace HTWebRemote.Devices.Controllers
             }
             catch (Exception e)
             {
-                Util.ErrorHandler.SendError($"Cannot connect to MPC at {IP}\n\n{e.Message}");
+                Util.ErrorHandler.SendError($"Cannot connect to MPC at {IP}\n\n{e.AllMessages()}");
             }
         }
     }

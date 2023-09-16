@@ -5,7 +5,7 @@ using System.Text;
 
 namespace HTWebRemote.Devices.Controllers
 {
-    class HttpPostControl
+    class HttpPutControl
     {
         public static void RunCmd(string IP, string cmd, string param, string auth)
         {
@@ -31,23 +31,23 @@ namespace HTWebRemote.Devices.Controllers
                 HttpResponseMessage result;
                 try
                 {
-                    StringContent postData = null;
+                    StringContent putData = null;
 
                     if (!string.IsNullOrEmpty(param))
                     {
-                        postData = new StringContent(param, Encoding.UTF8, "application/json");
+                        putData = new StringContent(param, Encoding.UTF8, "application/json");
                     }
 
-                    result = httpClient.PostAsync($"{IP}{cmd}", postData).Result;
+                    result = httpClient.PutAsync($"{IP}{cmd}", putData).Result;
 
                     if (!result.IsSuccessStatusCode)
                     {
-                        Util.ErrorHandler.SendError($"Error sending http POST request to: {IP}{cmd}\n\nStatusCode: {result.StatusCode}\n\n{result.Content.ReadAsStringAsync().Result}");
+                        Util.ErrorHandler.SendError($"Error sending http PUT request to: {IP}{cmd}\n\nStatusCode: {result.StatusCode}\n\n{result.Content.ReadAsStringAsync().Result}");
                     }
                 }
                 catch (Exception e)
                 {
-                    Util.ErrorHandler.SendError($"Error sending http POST request to: {IP}{cmd}\n\n{e.AllMessages()}");
+                    Util.ErrorHandler.SendError($"Error sending http PUT request to: {IP}{cmd}\n\n{e.AllMessages()}");
                 }
             }
         }

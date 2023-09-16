@@ -17,6 +17,7 @@ namespace HTWebRemote.Devices
                                                                     "lirc",
                                                                     "wemo",
                                                                     "kasa",
+                                                                    "hue",
                                                                     "dm",
                                                                     "yamaha",
                                                                     "emotiva",
@@ -24,6 +25,7 @@ namespace HTWebRemote.Devices
                                                                     "htp1",
                                                                     "anthem",
                                                                     "lyngdorf",
+                                                                    "trinnov",
                                                                     "eiscp",
                                                                     "jvc",
                                                                     "sonyproj",
@@ -41,6 +43,7 @@ namespace HTWebRemote.Devices
                                                                     "tcp",
                                                                     "udp",
                                                                     "httppost",
+                                                                    "httpput",
                                                                     "httpget",
                                                                     "mqtt" };
 
@@ -135,6 +138,9 @@ namespace HTWebRemote.Devices
                 case "kasa":
                     KasaControl.RunCmd(IP, cmd, param, specialData);
                     break;
+                case "hue":
+                    PhilipsHueControl.RunCmd(IP, cmd, param, specialData);
+                    break;
                 case "dm":
                     DMControl.RunCmd(IP, cmd, param);
                     break;
@@ -155,6 +161,9 @@ namespace HTWebRemote.Devices
                     break;
                 case "lyngdorf":
                     LyngdorfControl.RunCmd(IP, cmd, param);
+                    break;
+                case "trinnov":
+                    TrinnovControl.RunCmd(IP, cmd);
                     break;
                 case "eiscp":
                     EISCPControl.RunCmd(IP, cmd);
@@ -207,6 +216,9 @@ namespace HTWebRemote.Devices
                 case "httppost":
                     HttpPostControl.RunCmd(IP, cmd, param, specialData);
                     break;
+                case "httpput":
+                    HttpPutControl.RunCmd(IP, cmd, param, specialData);
+                    break;
                 case "httpget":
                     HttpGetControl.RunCmd(IP, cmd, specialData);
                     break;
@@ -228,7 +240,7 @@ namespace HTWebRemote.Devices
                 switch (devType)
                 {
                     case "dm":
-                        returnQuery = (string)Type.GetType("HTWebRemote.Devices.Controllers.DMControl").GetMethod(values[1]).Invoke(null, new object[] { IP });
+                        returnQuery = (string)Type.GetType("HTWebRemote.Devices.Controllers.DMControl").GetMethod(values[0]).Invoke(null, new object[] { IP, values[1] });
                         break;
                     case "storm":
                         returnQuery = (string)Type.GetType("HTWebRemote.Devices.Controllers.StormControl").GetMethod(values[1]).Invoke(null, new object[] { IP });

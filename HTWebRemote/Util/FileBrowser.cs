@@ -112,7 +112,7 @@ namespace HTWebRemote.Util
 
                     if (currentPath.EndsWith(":"))
                     {
-                        currentPath = currentPath + @"\";
+                        currentPath += @"\";
                     }
 
                     List<string> paths = File.ReadLines($@"{ConfigHelper.WorkingPath}\HTWebRemoteBrowsePaths.txt").ToList();
@@ -193,7 +193,7 @@ namespace HTWebRemote.Util
                             }
                             catch (Exception e)
                             {
-                                ErrorHandler.SendError($"Error Playing Media. \n\n {e.Message}: {YTMediaPlayerPath}");
+                                ErrorHandler.SendError($"Error Playing Media. \n\n {e.AllMessages()}: {YTMediaPlayerPath}");
                             }
                         }
 
@@ -249,7 +249,7 @@ namespace HTWebRemote.Util
                     }
                     catch (Exception e)
                     {
-                        ErrorHandler.SendError($"Error Playing Media. \n\n {e.Message}: {FBMediaPlayerPath}");
+                        ErrorHandler.SendError($"Error Playing Media. \n\n {e.AllMessages()}: {FBMediaPlayerPath}");
                     }
 
                     _savedLocation = currentPath.Remove(currentPath.LastIndexOf(@"\"));

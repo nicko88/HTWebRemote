@@ -98,7 +98,7 @@ namespace HTWebRemote.Util
             }
             catch(Exception e)
             {
-                MessageBox.Show($"Error setting up networking permissions.\n\n{e.Message}", "Error");
+                MessageBox.Show($"Error setting up networking permissions.\n\n{e.AllMessages()}", "Error");
             }
 
             return output;

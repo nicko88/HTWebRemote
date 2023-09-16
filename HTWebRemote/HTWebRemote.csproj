@@ -46,23 +46,23 @@
     <Reference Include="Costura, Version=5.7.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Costura.Fody.5.7.0\lib\netstandard1.0\Costura.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Apis, Version=1.61.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Apis.1.61.0\lib\net45\Google.Apis.dll</HintPath>
+    <Reference Include="Google.Apis, Version=1.62.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.1.62.0\lib\net45\Google.Apis.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Apis.Auth, Version=1.61.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Apis.Auth.1.61.0\lib\net461\Google.Apis.Auth.dll</HintPath>
+    <Reference Include="Google.Apis.Auth, Version=1.62.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Auth.1.62.0\lib\net461\Google.Apis.Auth.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Apis.Auth.PlatformServices, Version=1.61.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Apis.Auth.1.61.0\lib\net461\Google.Apis.Auth.PlatformServices.dll</HintPath>
+    <Reference Include="Google.Apis.Auth.PlatformServices, Version=1.62.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Auth.1.62.0\lib\net461\Google.Apis.Auth.PlatformServices.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Apis.Core, Version=1.61.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Apis.Core.1.61.0\lib\net45\Google.Apis.Core.dll</HintPath>
+    <Reference Include="Google.Apis.Core, Version=1.62.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Core.1.62.0\lib\net45\Google.Apis.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Apis.PlatformServices, Version=1.61.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Apis.1.61.0\lib\net45\Google.Apis.PlatformServices.dll</HintPath>
+    <Reference Include="Google.Apis.PlatformServices, Version=1.62.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.1.62.0\lib\net45\Google.Apis.PlatformServices.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Apis.YouTube.v3, Version=1.61.0.3064, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Apis.YouTube.v3.1.61.0.3064\lib\net45\Google.Apis.YouTube.v3.dll</HintPath>
+    <Reference Include="Google.Apis.YouTube.v3, Version=1.62.0.3169, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.YouTube.v3.1.62.0.3169\lib\net45\Google.Apis.YouTube.v3.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=7.0.0.1, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.7.0.1\lib\net462\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
@@ -252,6 +252,7 @@
     <Compile Include="Devices\Controllers\HDFuryControl.cs" />
     <Compile Include="Devices\Controllers\HTP1Control.cs" />
     <Compile Include="Devices\Controllers\HttpGetControl.cs" />
+    <Compile Include="Devices\Controllers\HttpPutControl.cs" />
     <Compile Include="Devices\Controllers\HttpPostControl.cs" />
     <Compile Include="Devices\Controllers\KasaControl.cs" />
     <Compile Include="Devices\Controllers\KodiControl.cs" />
@@ -261,6 +262,7 @@
     <Compile Include="Devices\Controllers\EISCPControl.cs" />
     <Compile Include="Devices\Controllers\OppoControl.cs" />
     <Compile Include="Devices\Controllers\PanaProjControl.cs" />
+    <Compile Include="Devices\Controllers\PhilipsHueControl.cs" />
     <Compile Include="Devices\Controllers\RokuControl.cs" />
     <Compile Include="Devices\Controllers\RS232Control.cs" />
     <Compile Include="Devices\Controllers\NVShieldControl.cs" />
@@ -269,6 +271,7 @@
     <Compile Include="Devices\Controllers\StormControl.cs" />
     <Compile Include="Devices\Controllers\TCPUDPControl.cs" />
     <Compile Include="Devices\Controllers\LGwebOSControl.cs" />
+    <Compile Include="Devices\Controllers\TrinnovControl.cs" />
     <Compile Include="Devices\Controllers\WOLControl.cs" />
     <Compile Include="Devices\Controllers\YamahaControl.cs" />
     <Compile Include="Devices\Controllers\ZappitiControl.cs" />
@@ -290,6 +293,12 @@
     <Compile Include="Forms\ButtonSizeExample.Designer.cs">
       <DependentUpon>ButtonSizeExample.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\CaptureKey.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CaptureKey.Designer.cs">
+      <DependentUpon>CaptureKey.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\CommandEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -307,6 +316,12 @@
     </Compile>
     <Compile Include="Forms\EditFileBrowser.Designer.cs">
       <DependentUpon>EditFileBrowser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\HotkeyManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\HotkeyManager.Designer.cs">
+      <DependentUpon>HotkeyManager.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\HTWebRemote.cs">
       <SubType>Form</SubType>
@@ -347,18 +362,23 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemoteFile\Command.cs" />
+    <Compile Include="RemoteFile\HotKey.cs" />
     <Compile Include="RemoteFile\Remote.cs" />
     <Compile Include="RemoteFile\RemoteItem.cs" />
-    <Compile Include="RemoteFile\RemoteJSONLoader.cs" />
+    <Compile Include="RemoteFile\JSONLoader.cs" />
     <Compile Include="Util\ConfigHelper.cs" />
     <Compile Include="Util\ErrorHandler.cs" />
     <Compile Include="Util\FileBrowser.cs" />
+    <Compile Include="Util\KeyboardHook.cs" />
     <Compile Include="Util\RemoteParser.cs" />
     <Compile Include="Util\TelnetInterface.cs" />
     <Compile Include="Util\WindowsAudioControl.cs" />
     <Compile Include="Util\YoutubeSearch.cs" />
     <EmbeddedResource Include="Forms\ButtonSizeExample.resx">
       <DependentUpon>ButtonSizeExample.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CaptureKey.resx">
+      <DependentUpon>CaptureKey.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CommandEditor.resx">
       <DependentUpon>CommandEditor.cs</DependentUpon>
@@ -368,6 +388,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\EditFileBrowser.resx">
       <DependentUpon>EditFileBrowser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\HotkeyManager.resx">
+      <DependentUpon>HotkeyManager.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\HTWebRemote.resx">
       <DependentUpon>HTWebRemote.cs</DependentUpon>

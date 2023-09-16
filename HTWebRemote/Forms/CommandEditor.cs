@@ -12,12 +12,12 @@ namespace HTWebRemote.Forms
 {
     public partial class CommandEditor : Form
     {
-        private RemoteEditor Editor;
+        private Form Editor;
         private List<Command> Commands;
         public int LastDeviceIndex;
         private int ButtonIndex;
 
-        public CommandEditor(RemoteEditor editor, List<Command> commands, string buttonLabel, int buttonIndex, int lastDeviceIndex)
+        public CommandEditor(Form editor, List<Command> commands, string buttonLabel, int buttonIndex, int lastDeviceIndex)
         {
             InitializeComponent();
             try
@@ -292,7 +292,14 @@ namespace HTWebRemote.Forms
 
         private void btnTestCmds_Click(object sender, EventArgs e)
         {
-            Editor.currentRemote.RemoteItems[ButtonIndex].RunButtonCommands();
+            if (Editor is RemoteEditor remoteEditor)
+            {
+                remoteEditor.currentRemote.RemoteItems[ButtonIndex].RunButtonCommands();
+            }
+            else if (Editor is HotkeyManager hotkeyManager)
+            {
+                hotkeyManager.Hotkeys[ButtonIndex].RunButtonCommands();
+            }
         }
 
         private void CommandEditor_KeyDown(object sender, KeyEventArgs e)

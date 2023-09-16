@@ -60,7 +60,7 @@ namespace HTWebRemote.Util
             }
             catch (Exception e)
             {
-                ErrorHandler.SendError($"Error getting volume: \n\n{e.Message}");
+                ErrorHandler.SendError($"Error getting volume: \n\n{e.AllMessages()}");
             }
 
             return 0;
@@ -85,7 +85,7 @@ namespace HTWebRemote.Util
             }
             catch (Exception e)
             {
-                ErrorHandler.SendError($"Error setting volume: \n\n{e.Message}");
+                ErrorHandler.SendError($"Error setting volume: \n\n{e.AllMessages()}");
             }
         }
 
@@ -113,7 +113,7 @@ namespace HTWebRemote.Util
             }
             catch(Exception e)
             {
-                ErrorHandler.SendError($"Error muting volume: \n\n{e.Message}");
+                ErrorHandler.SendError($"Error muting volume: \n\n{e.AllMessages()}");
             }
         }
     }

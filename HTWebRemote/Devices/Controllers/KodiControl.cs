@@ -81,7 +81,7 @@ namespace HTWebRemote.Devices.Controllers
             }
             catch (Exception e)
             {
-                Util.ErrorHandler.SendError($"Cannot send command to to Kodi at {IP}\n\n{e.Message}");
+                Util.ErrorHandler.SendError($"Cannot send command to to Kodi at {IP}\n\n{e.AllMessages()}");
             }
         }
 

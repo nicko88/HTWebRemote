@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace HTWebRemote.Util
 {
@@ -8,16 +9,32 @@ namespace HTWebRemote.Util
         {
             if (ConfigHelper.CheckRegKey(@"SOFTWARE\HTWebRemote", "ShowErrors"))
             {
-                MessageBox.Show(error, "Error");
+                MessageBox.Show(error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         public static void SendMsg(string msg)
         {
-            if (ConfigHelper.CheckRegKey(@"SOFTWARE\HTWebRemote", "ShowErrors"))
+            MessageBox.Show(msg, "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+    }
+}
+
+namespace HTWebRemote
+{
+    public static class ExceptionExtensions
+    {
+        public static string AllMessages(this Exception ex)
+        {
+            string allMessages = string.Empty;
+
+            while (ex.InnerException != null)
             {
-                MessageBox.Show(msg, "Message");
+                ex = ex.InnerException;
+                allMessages += ex.Message + "\n\n";
             }
+
+            return allMessages;
         }
     }
 }

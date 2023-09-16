@@ -32,7 +32,7 @@ namespace HTWebRemote.Devices
             }
             catch(Exception e)
             {
-                Util.ErrorHandler.SendError($"Cannot setup connection for {remoteEndPoint.Address}:{remoteEndPoint.Port} {socket.ProtocolType}\n\n{e.Message}");
+                Util.ErrorHandler.SendError($"Cannot setup connection for {remoteEndPoint.Address}:{remoteEndPoint.Port} {socket.ProtocolType}\n\n{e.AllMessages()}");
             }
         }
 
@@ -44,7 +44,7 @@ namespace HTWebRemote.Devices
             }
             catch(Exception e)
             {
-                Util.ErrorHandler.SendError($"Cannot connect to device at {remoteEndPoint.Address}:{remoteEndPoint.Port} {socket.ProtocolType}\n\n{e.Message}");
+                Util.ErrorHandler.SendError($"Cannot connect to device at {remoteEndPoint.Address}:{remoteEndPoint.Port} {socket.ProtocolType}\n\n{e.AllMessages()}");
             }
 
             return socket.Connected;
@@ -58,7 +58,7 @@ namespace HTWebRemote.Devices
             }
             catch(Exception e)
             {
-                Util.ErrorHandler.SendError($"Cannot send Command: {data} to device at {remoteEndPoint.Address}:{remoteEndPoint.Port} {socket.ProtocolType}\n\n{e.Message}");
+                Util.ErrorHandler.SendError($"Cannot send Command: {data} to device at {remoteEndPoint.Address}:{remoteEndPoint.Port} {socket.ProtocolType}\n\n{e.AllMessages()}");
             }
         }
 
@@ -73,7 +73,7 @@ namespace HTWebRemote.Devices
             }
             catch (Exception e)
             {
-                Util.ErrorHandler.SendError($"Failed to recieve expected data from device at {remoteEndPoint.Address}:{remoteEndPoint.Port} {socket.ProtocolType}\n\n{e.Message}");
+                Util.ErrorHandler.SendError($"Failed to recieve expected data from device at {remoteEndPoint.Address}:{remoteEndPoint.Port} {socket.ProtocolType}\n\n{e.AllMessages()}");
             }
 
             return reply;

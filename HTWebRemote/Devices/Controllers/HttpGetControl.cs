@@ -40,7 +40,7 @@ namespace HTWebRemote.Devices.Controllers
                 }
                 catch (Exception e)
                 {
-                    Util.ErrorHandler.SendError($"Error sending http GET request to: {IP}{cmd}\n\n{e.Message}");
+                    Util.ErrorHandler.SendError($"Error sending http GET request to: {IP}{cmd}\n\n{e.AllMessages()}");
                 }
             }
         }

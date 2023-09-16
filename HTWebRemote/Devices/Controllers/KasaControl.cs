@@ -20,7 +20,7 @@ namespace HTWebRemote.Devices.Controllers
                 }
                 catch (Exception e)
                 {
-                    Util.ErrorHandler.SendError($"Error sending command:\n\n{cmd}\n\nTo IP: {IP}\n\n{e.Message}");
+                    Util.ErrorHandler.SendError($"Error sending command:\n\n{cmd}\n\nTo IP: {IP}\n\n{e.AllMessages()}");
                 }
 
                 if (msg.Contains("err_msg"))
@@ -76,7 +76,7 @@ namespace HTWebRemote.Devices.Controllers
             }
             catch (Exception e)
             {
-                Util.ErrorHandler.SendError($"Error sending command:\n\n{cmd}\n\nTo IP: {IP}\n\n{e.Message}");
+                Util.ErrorHandler.SendError($"Error sending command:\n\n{cmd}\n\nTo IP: {IP}\n\n{e.AllMessages()}");
             }
         }
 
@@ -124,7 +124,7 @@ namespace HTWebRemote.Devices.Controllers
             }
             catch (Exception e)
             {
-                Util.ErrorHandler.SendError($"Error sending command:\n\n{param}\n\nTo IP: {IP}\n\n{e.Message}");
+                Util.ErrorHandler.SendError($"Error sending command:\n\n{param}\n\nTo IP: {IP}\n\n{e.AllMessages()}");
             }
         }
 
@@ -165,7 +165,7 @@ namespace HTWebRemote.Devices.Controllers
             }
             catch (Exception e)
             {
-                Util.ErrorHandler.SendError($"Error sending command:\n\n{param}\n\nTo IP: {IP}\n\n{e.Message}");
+                Util.ErrorHandler.SendError($"Error sending command:\n\n{param}\n\nTo IP: {IP}\n\n{e.AllMessages()}");
             }
         }
 
@@ -200,7 +200,7 @@ namespace HTWebRemote.Devices.Controllers
             }
             catch (Exception e)
             {
-                Util.ErrorHandler.SendError($"Error sending command:\n\n{param}\n\nTo IP: {IP}\n\n{e.Message}");
+                Util.ErrorHandler.SendError($"Error sending command:\n\n{param}\n\nTo IP: {IP}\n\n{e.AllMessages()}");
             }
         }
 

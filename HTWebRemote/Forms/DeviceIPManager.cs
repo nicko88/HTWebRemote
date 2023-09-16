@@ -6,6 +6,10 @@ using System.IO.Ports;
 using System.Text.RegularExpressions;
 using System.Net.Http;
 using System.Linq;
+using System.Text;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 
 namespace HTWebRemote.Forms
 {
@@ -40,7 +44,9 @@ namespace HTWebRemote.Forms
             lblIP.Text = "IP:(port optional):";
             lblSpecial.Visible = false;
             tbSpecial.Visible = false;
+            tbSpecial.Enabled = true;
             cbLGssl.Visible = false;
+            btnHueAuth.Visible = false;
 
             try
             {
@@ -142,6 +148,13 @@ namespace HTWebRemote.Forms
                             cmbTPLinkDevices.SelectedIndex = -1;
                         }
                         break;
+                    case "hue":
+                        lblIP.Text = "IP:";
+                        btnHueAuth.Visible = true;
+                        tbSpecial.Visible = true;
+                        tbSpecial.Enabled = false;
+                        tbSpecial.Text = values[3];
+                        break;
                     default:
                         break;
                 }
@@ -159,8 +172,10 @@ namespace HTWebRemote.Forms
             lblIP.Text = "IP:(port optional):";
             lblSpecial.Visible = false;
             tbSpecial.Visible = false;
+            tbSpecial.Enabled = true;
             lbDevices.ClearSelected();
             cbLGssl.Visible = false;
+            btnHueAuth.Visible = false;
 
             if (cmbDeviceType.SelectedItem != null)
             {
@@ -235,6 +250,12 @@ namespace HTWebRemote.Forms
                         lblSpecial.Text = "Device Type:";
                         lblSpecial.Visible = true;
                         cmbTPLinkDevices.Visible = true;
+                        break;
+                    case "hue":
+                        lblIP.Text = "IP:";
+                        btnHueAuth.Visible = true;
+                        tbSpecial.Visible = true;
+                        tbSpecial.Enabled = false;
                         break;
                     default:
                         break;
@@ -332,6 +353,7 @@ namespace HTWebRemote.Forms
                     catch { }
                     lbDevices.Items.Add(dev);
                 }
+
                 cmbDeviceType.SelectedIndex = -1;
                 tbDevName.Text = "";
                 tbIP.Text = "";
@@ -389,6 +411,51 @@ namespace HTWebRemote.Forms
                 tbDevName.Text = "";
                 tbIP.Text = "";
                 tbSpecial.Text = "";
+            }
+        }
+
+        private void btnHueAuth_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Please press the Link Button on your Hue Bridge, and then click OK.", "Authentcate with Hue Bridge", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+
+            if (dialogResult == DialogResult.OK)
+            {
+                string registerMsg = @"{""devicetype"": ""HTWebRemote""}";
+                StringContent postData = new StringContent(registerMsg, Encoding.UTF8, "application/json");
+
+                HttpClientHandler httpClientHandler = new HttpClientHandler();
+                httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, sslPolicyErrors) => { return true; };
+
+                using (HttpClient httpClient = new HttpClient(httpClientHandler))
+                {
+                    try
+                    {
+                        httpClient.Timeout = TimeSpan.FromSeconds(3);
+
+                        HttpResponseMessage result = httpClient.PostAsync($"https://{tbIP.Text}/api", postData).Result;
+                        string jsonResponse = result.Content.ReadAsStringAsync().Result;
+
+                        List<JObject> data = JsonConvert.DeserializeObject<List<JObject>>(jsonResponse);
+
+                        if (data[0].First.Path == "success")
+                        {
+                            tbSpecial.Text = data[0]["success"]["username"].ToString();
+                        }
+                        else if (data[0].First.Path == "error")
+                        {
+                            MessageBox.Show(data[0]["error"]["description"].ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                        if (!result.IsSuccessStatusCode)
+                        {
+                            MessageBox.Show($"Error registering HTWebRemote with Philips Hue Bridge at: {tbIP.Text}\n\nStatusCode: {result.StatusCode}\n\n{result.Content.ReadAsStringAsync().Result}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error registering HTWebRemote with Philips Hue Bridge at: {tbIP.Text}\n\n{ex.AllMessages()}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             }
         }
     }

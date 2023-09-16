@@ -110,7 +110,7 @@ namespace HTWebRemote.Forms
             }
             catch(Exception e)
             {
-                errors += e.Message + "\n\n" + e.InnerException + "\n\n";
+                errors += e.AllMessages() + "\n\n" + e.InnerException + "\n\n";
                 success = false;
             }
 

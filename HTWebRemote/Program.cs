@@ -83,7 +83,7 @@ namespace HTWebRemote
                 catch (Exception e)
                 {
                     Console.WriteLine($"Incorrect Parameters.");
-                    Console.WriteLine(e.Message);
+                    Console.WriteLine(e.AllMessages());
                 }
             }
         }

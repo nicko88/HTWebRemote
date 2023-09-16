@@ -45,6 +45,7 @@
             this.lblNewVersion = new System.Windows.Forms.Label();
             this.lnkNewVersion = new System.Windows.Forms.LinkLabel();
             this.cbxBottomTabs = new System.Windows.Forms.CheckBox();
+            this.btnEditHotkeys = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbDonate)).BeginInit();
             this.SuspendLayout();
             // 
@@ -60,7 +61,7 @@
             // 
             this.lblRemoteUI.AutoSize = true;
             this.lblRemoteUI.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRemoteUI.Location = new System.Drawing.Point(164, 44);
+            this.lblRemoteUI.Location = new System.Drawing.Point(164, 50);
             this.lblRemoteUI.Name = "lblRemoteUI";
             this.lblRemoteUI.Size = new System.Drawing.Size(111, 16);
             this.lblRemoteUI.TabIndex = 11;
@@ -72,7 +73,7 @@
             // 
             this.cbxShowErrors.AutoSize = true;
             this.cbxShowErrors.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbxShowErrors.Location = new System.Drawing.Point(473, 92);
+            this.cbxShowErrors.Location = new System.Drawing.Point(475, 130);
             this.cbxShowErrors.Name = "cbxShowErrors";
             this.cbxShowErrors.Size = new System.Drawing.Size(110, 20);
             this.cbxShowErrors.TabIndex = 12;
@@ -84,7 +85,7 @@
             // 
             this.lblOpenFileBrowser.AutoSize = true;
             this.lblOpenFileBrowser.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblOpenFileBrowser.Location = new System.Drawing.Point(164, 91);
+            this.lblOpenFileBrowser.Location = new System.Drawing.Point(164, 127);
             this.lblOpenFileBrowser.Name = "lblOpenFileBrowser";
             this.lblOpenFileBrowser.Size = new System.Drawing.Size(135, 16);
             this.lblOpenFileBrowser.TabIndex = 14;
@@ -118,7 +119,7 @@
             // btnEditFileBrowser
             // 
             this.btnEditFileBrowser.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEditFileBrowser.Location = new System.Drawing.Point(12, 84);
+            this.btnEditFileBrowser.Location = new System.Drawing.Point(12, 120);
             this.btnEditFileBrowser.Name = "btnEditFileBrowser";
             this.btnEditFileBrowser.Size = new System.Drawing.Size(146, 30);
             this.btnEditFileBrowser.TabIndex = 22;
@@ -130,7 +131,7 @@
             // 
             this.cbStartAutomatically.AutoSize = true;
             this.cbStartAutomatically.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbStartAutomatically.Location = new System.Drawing.Point(473, 48);
+            this.cbStartAutomatically.Location = new System.Drawing.Point(475, 86);
             this.cbStartAutomatically.Name = "cbStartAutomatically";
             this.cbStartAutomatically.Size = new System.Drawing.Size(156, 20);
             this.cbStartAutomatically.TabIndex = 24;
@@ -142,7 +143,7 @@
             // 
             this.cbStartMinimized.AutoSize = true;
             this.cbStartMinimized.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbStartMinimized.Location = new System.Drawing.Point(473, 70);
+            this.cbStartMinimized.Location = new System.Drawing.Point(475, 108);
             this.cbStartMinimized.Name = "cbStartMinimized";
             this.cbStartMinimized.Size = new System.Drawing.Size(132, 20);
             this.cbStartMinimized.TabIndex = 26;
@@ -176,7 +177,7 @@
             // 
             this.pbDonate.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pbDonate.Image = global::HTWebRemote.Properties.Resources.paypal;
-            this.pbDonate.Location = new System.Drawing.Point(340, 80);
+            this.pbDonate.Location = new System.Drawing.Point(340, 113);
             this.pbDonate.Name = "pbDonate";
             this.pbDonate.Size = new System.Drawing.Size(85, 34);
             this.pbDonate.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -187,7 +188,7 @@
             // btnSyncRemotes
             // 
             this.btnSyncRemotes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSyncRemotes.Location = new System.Drawing.Point(298, 44);
+            this.btnSyncRemotes.Location = new System.Drawing.Point(294, 58);
             this.btnSyncRemotes.Name = "btnSyncRemotes";
             this.btnSyncRemotes.Size = new System.Drawing.Size(166, 30);
             this.btnSyncRemotes.TabIndex = 30;
@@ -224,7 +225,7 @@
             // 
             this.cbxBottomTabs.AutoSize = true;
             this.cbxBottomTabs.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbxBottomTabs.Location = new System.Drawing.Point(167, 63);
+            this.cbxBottomTabs.Location = new System.Drawing.Point(167, 70);
             this.cbxBottomTabs.Name = "cbxBottomTabs";
             this.cbxBottomTabs.Size = new System.Drawing.Size(115, 20);
             this.cbxBottomTabs.TabIndex = 33;
@@ -232,12 +233,24 @@
             this.cbxBottomTabs.UseVisualStyleBackColor = true;
             this.cbxBottomTabs.CheckedChanged += new System.EventHandler(this.cbxBottomTabs_CheckedChanged);
             // 
+            // btnEditHotkeys
+            // 
+            this.btnEditHotkeys.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEditHotkeys.Location = new System.Drawing.Point(12, 84);
+            this.btnEditHotkeys.Name = "btnEditHotkeys";
+            this.btnEditHotkeys.Size = new System.Drawing.Size(146, 30);
+            this.btnEditHotkeys.TabIndex = 34;
+            this.btnEditHotkeys.Text = "Edit Hotkeys";
+            this.btnEditHotkeys.UseVisualStyleBackColor = true;
+            this.btnEditHotkeys.Click += new System.EventHandler(this.btnEditHotkeys_Click);
+            // 
             // HTWebRemote
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(627, 121);
+            this.ClientSize = new System.Drawing.Size(627, 159);
+            this.Controls.Add(this.btnEditHotkeys);
             this.Controls.Add(this.cbxBottomTabs);
             this.Controls.Add(this.lnkNewVersion);
             this.Controls.Add(this.lblNewVersion);
@@ -283,6 +296,7 @@
         private System.Windows.Forms.Label lblNewVersion;
         private System.Windows.Forms.LinkLabel lnkNewVersion;
         private System.Windows.Forms.CheckBox cbxBottomTabs;
+        private System.Windows.Forms.Button btnEditHotkeys;
     }
 }
 

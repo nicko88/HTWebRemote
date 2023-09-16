@@ -50,8 +50,27 @@
 		In the web page interface, there is also a file browser feature.<br />
 		The purpose of this feature is for you to add folder paths to it, and then you will be able to browse these folder paths from your phone or tablet to easily select media to play.
 	</p>
-
+	
 	<p>The URL of your file browser will be here: <a href="http://{BASEIP}:{port}/FB">http://{BASEIP}:{port}/FB</a></p>
+	
+	<h3>YouTube Browser</h3>
+	
+	<p>
+		Also included in the web page mode of operation is a YouTube browser and video launching feature.<br />
+		You can copy and paste a YouTube link or browse YouTube by search phrase and easily send the YouTube video to play on your HTPC in a browser or even send the YouTube video to your media player such as MPC-HC/BE or VLC.
+	</p>
+	
+	<h3>Global Hotkeys</h3>
+
+	<p>
+		The Global Hotkeys manager allows you to define global hotkeys, that when pressed in Windows, can trigger HTWebRemote commands.<br />
+		Global meaning the hotkey will be triggered no matter what application is running or has keyboard focus.<br />
+	</p>
+	
+	<p>
+		This feature works well with a <a href="https://flirc.tv/products/flirc-usb-receiver">FLIRC USB IR reciever</a>.<br />
+		Using a FLIRC allows you to use any random button on any random IR remote control to generate hotkey presses in Windows, and thus trigger any HTWebRemote commands.<br />
+	</p>
 
 	<h3>Mobile "WebApp" Mode</h3>
 
@@ -66,7 +85,7 @@
 
 	<p>
 		To learn how to create Siri voice commands to send any HTWebRemote command or macro (on iPhone/iPad/AppleWatch/HomePod),<br />
-		or to create native homescreen Widget buttons (on iPhone/iPad/AppleWatch), see this <a href="https://github.com/nicko88/HTWebRemote/wiki/Control-HTWebRemote-on-iOS-Devices-Including-Apple-Watch-and-HomePod">wiki page.</a>
+		or to create native homescreen Widget buttons (on iPhone/iPad/AppleWatch), see this <a href="https://github.com/nicko88/HTWebRemote/wiki/Control-HTWebRemote-on-iOS-Devices-Including-Apple-Watch-and-HomePod">wiki page</a>.
 	</p>
 	<br />
 
@@ -180,6 +199,7 @@
 		<li><a href="#lirc">LIRC / WinLIRC</a></li>
 		<li><a href="#wemo">Belkin Wemo Smart Plug</a></li>
 		<li><a href="#kasa">TP-Link Kasa Smart Devices</a></li>
+		<li><a href="#hue">Philips Hue Bridge</a></li>
 		<li><a href="#dm">Denon / Marantz AVRs</a></li>
 		<li><a href="#yamaha">Yamaha AVRs</a></li>
 		<li><a href="#emotiva">Emotiva AVRs</a></li>
@@ -187,6 +207,7 @@
 		<li><a href="#htp1">Monoprice HTP-1 AVR</a></li>
 		<li><a href="#anthem">Anthem MRX AVRs</a></li>
 		<li><a href="#lyngdorf">Lyngdorf AVRs</a></li>
+		<li><a href="#trinnov">Trinnov Altitude AVRs</a></li>
 		<li><a href="#eiscp">Onkyo/Integra/Pioneer AVRs (eISCP)</a></li>
 		<li><a href="#jvc">JVC Projectors</a></li>
 		<li><a href="#sonyproj">Sony Projectors</a></li>
@@ -204,6 +225,7 @@
 		<li><a href="#tcp">TCP Generic Devices</a></li>
 		<li><a href="#udp">UDP Generic Devices</a></li>
 		<li><a href="#httppost">HTTP POST Requests</a></li>
+		<li><a href="#httpput">HTTP PUT Requests</a></li>
 		<li><a href="#httpget">HTTP GET Requests</a></li>
 		<li><a href="#mqtt">MQTT Messaging Protocol</a></li>
 		<li><a href="#wol">Wake-on-LAN</a></li>
@@ -1195,6 +1217,89 @@
 	</ul>
 	<br />
 
+	<h2><a id="hue"></a>Philips Hue Bridge</h2>
+
+	For Philips Hue Bridge control, the device identifier is: <b>hue</b>
+	
+	<p>
+		Before you can send commands to your Philips Hue Bridge, you first need to authorize HTWebRemote.<br />
+		To do this follow these steps:
+	</p>
+	
+	<ol>
+		<li>Add your Philips Hue Bridge IP to the "Configure Devices" screen.</li>
+		<li>Click the "Get Hue Auth" button.</li>
+		<li>Press the Link Button on your Hue Bridge, and then click the OK button on the popup in HTWebRemote.</li>
+	</ol>
+	
+	<p>
+		Hue lights have a set of values that are not necessarily easy to understand.<br />
+		The best way to find out what settings you want to set your lights to, is to set your lights how you like in the official Hue App first, and then print out the values of those lights in HTWebRemote.<br />
+		Values can either be set for an individual light, or a group of lights.  In the official Hue app, these groups of lights are called Rooms or Zones.<br />
+	</p>
+	
+	<p>To view the current values of your Lights, Rooms, and Zones you can create a button in HTWebRemote with the following commands:</p>
+	
+	<ul>
+		<li>cmd = lights</li>
+		<li>cmd = rooms</li>
+		<li>cmd = zones</li>
+	</ul>
+	
+	<p>
+		Once you add one of these words to a button command, you can click the "Test CMDs" button and you should see a pop-up with a list of all your lights, rooms, or zones.<br />
+		From here you can click on an item to see all the properties of that item.  For Lights, this shows you the ID as well as the various current settings for that light.<br />
+		For Rooms and Zones, it shows you the ID as well as the available Scenes that can be activated that apply to that Room or Zone.
+	</p>
+
+	<h3>Supported Light/Room/Zone Commands</h3>
+	
+	<ul>
+		<li><code>light=#</code> (where # is the light ID, ex. ID looks like: 112f7026-03c5-4a9c-ac32-74982cdbea51)</li>
+		<li><code>room=#</code> (where # is the room ID)</li>
+		<li><code>zone=#</code> (where # is the zone ID)</li>
+	</ul>
+	
+	<h3>Supported Light/Room/Zone Parameters</h3>
+	
+	<ul>
+		<li><code>on=X</code> (Where X is "true" or "false" to turn the lights on or off)</li>
+		<li><code>br=#</code> (Brightness: 0-100)</li>
+		<li><code>ct=#</code> (Color temperature: 154-500 (cold-to-warm))</li>
+		<li><code>xy=0.####:0.####</code> (Color CIE x,y coordinate each between 0 and 1, written like: 0.3143:0.3302)</li>
+		<li><code>inc=#</code> (Increase brightness by #%)</li>
+		<li><code>dec=#</code> (Decrease brightness by #%)</li>
+		<li><code>tt=#</code> (Transition time in milliseconds. (How fast the lights change to these new values))</li>
+	</ul>
+	
+	<h3>Supported Scene Commands</h3>
+	
+	<ul>
+		<li><code>scene=#</code> (where # is the scene ID)</li>
+	</ul>
+	
+	<h3>Supported Scene Parameters</h3>
+	
+	<ul>
+		<li><code>dynamic</code> (If you include the word dynamic, this will activate the scene in dynamic mode)</li>
+		<li><code>tt=#</code> (Transition time in milliseconds. (How fast the lights will change to the new Scene))</li>
+	</ul>
+	
+	<h3>Notes and Tips</h3>
+	
+	<ul>
+		<li>These commands are meant to be combined together into a single command (comma separated) like so:</li>
+			<ul><li>on=true,bri=100,ct=366,tt=5000</li></ul>
+		<li>When you turn a light ON, you will also likely need to specify a desired brightness value.</li>
+			<ul>
+				<li>Because the brightness value probably went way down as the light dimmed to OFF.</li>
+				<li>Just experiment with combinations of commands, or maybe in some cases you need to send some commands one at a time in separate steps.</li>
+			</ul>
+		<li>When using a transition time, you may need to include a "wait" command in the button if you plan to send another command to the same light.
+			<ul><li>Otherwise the commands will all be sent at the same time becore the transition time has completed.</li></ul>
+	</ul>
+	<br />
+
 	<h2><a id="dm"></a>Denon / Marantz AVR Control</h2>
 
 	For Denon / Marantz control, the device identifier is: <b>dm</b>
@@ -1219,10 +1324,11 @@
 	</ul>
 
 	<p class="tab">
-		<b>Denon and Marantz Query Command</b>
+		<b>Denon and Marantz Query Commands</b>
 		<br />
 		<ul>
-			<li><code>query:getvol</code> (Displays the current Denon / Marantz Volume)</li>
+			<li><code>query:getvol</code> (Special command that displays the current volume relative to reference (0dB))</li>
+			<li><code>query:PSDELAY ?</code> (Display Lipsync delay value)</li>
 		</ul>
 
 	<p>
@@ -1421,8 +1527,39 @@
 	</ul>
 
 	<p>
-		For all lyngdorf commands, see the full Lyngdorf command document here:<br />
+		For all Lyngdorf commands, see the full Lyngdorf command document here:<br />
 		<a href="https://github.com/nicko88/HTWebRemote/blob/master/IP%20Control%20Spec%20Documents/Lyngdorf.pdf">Lyngdorf.pdf</a>
+	</p>
+	<br />
+	
+	<h2><a id="trinnov"></a>Trinnov Altitude AVR Control</h2>
+
+	For Trinnov control, the device identifier is: <b>trinnov</b>
+
+	<h3>Some Basic Commands</h3>
+
+	<ul>
+		<li><code>volume -10</code> (Set Volume to -10.0dB)</li>
+		<li><code>dvolume 1</code> (Increase Volume by 1)</li>
+		<li><code>volume_ramp -10 5000</code> (Set Volume to -10 over 5000 milliseconds)</li>
+		<li><code>mute 1</code> (Mute)</li>
+		<ul>
+			<li><code>0</code> = Unmute</li>
+			<li><code>2</code> = Toggle Mute</li>
+		</ul>
+		<li><code>remapping_mode none</code> (Disable remapping)</li>
+		<ul>
+			<li><code>2D</code> = 2D remapping</li>
+			<li><code>3D</code> = 3D remapping</li>
+			<li><code>autoroute</code> = autorouting mode</li>
+			<li><code>manual</code> = manual remapping</li>
+		</ul>
+		<li><code>power_off_SECURED_FHZMCH48FE</code> (Power OFF)</li>
+	</ul>
+
+	<p>
+		For all Trinnov Altitude commands, see the full Trinnov Altitude command document here:<br />
+		<a href="https://github.com/nicko88/HTWebRemote/blob/master/IP%20Control%20Spec%20Documents/Trinnov_Altitude.pdf">Trinnov_Altitude.pdf</a>
 	</p>
 	<br />
 
@@ -3935,9 +4072,9 @@
 	<p>Please see the <a href="#tcp">TCP Generic Control</a> section above for instructions on how to use this device controller as it works the exact same way.<p>
 		<br />
 
-		<h2><a id="httppost"></a>HTTP POST Requests</h2>
+	<h2><a id="httppost"></a>HTTP POST Requests</h2>
 
-		For HTTP POST requests, the device identifier is: <b>httppost</b>
+	For HTTP POST requests, the device identifier is: <b>httppost</b>
 
 	<p>This device controller is meant to be used to send simple HTTP POST requests to a server.</p>
 
@@ -3965,6 +4102,15 @@
 		<li><code>bearer:TokenValueHere</code></li>
 	</ul>
 	<br />
+	
+	<h2><a id="httpput"></a>HTTP PUT Requests</h2>
+
+	For HTTP PUT requests, the device identifier is: <b>httpput</b>
+
+	<p>This device controller is meant to be used to send simple HTTP PUT requests to a server.</p>
+
+	<p>Please see the <a href="#httppost">HTTP POST requests</a> section above for instructions on how to use this device controller as it works the same way.<p>
+	<br />
 
 	<h2><a id="httpget"></a>HTTP GET Requests</h2>
 
@@ -3972,12 +4118,12 @@
 
 	<p>This device controller is meant to be used to send simple HTTP GET requests to a server.</p>
 
-	<p>Please see the <a href="#httppost">HTTP POST requests</a> section above for instructions on how to use this device controller as it works the exact same way, except for no POST data.<p>
-		<br />
+	<p>Please see the <a href="#httppost">HTTP POST requests</a> section above for instructions on how to use this device controller as it works the same way, except for no POST data.<p>
+	<br />
 
-		<h2><a id="mqtt"></a>MQTT Messaging Protocol Control</h2>
+	<h2><a id="mqtt"></a>MQTT Messaging Protocol Control</h2>
 
-		For MQTT Messaging Protocol control, the device identifier is: <b>mqtt</b>
+	For MQTT Messaging Protocol control, the device identifier is: <b>mqtt</b>
 
 	<p>This device controller is meant to be used to send commands via the MQTT messaging protocol.</p>
 

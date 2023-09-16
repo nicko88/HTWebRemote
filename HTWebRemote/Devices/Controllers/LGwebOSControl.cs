@@ -26,7 +26,7 @@ namespace HTWebRemote.Devices.Controllers
             }
             catch (Exception e)
             {
-                Util.ErrorHandler.SendError($"Error sending command to webOS.\n\n{e.Message}");
+                Util.ErrorHandler.SendError($"Error sending command to webOS.\n\n{e.AllMessages()}");
             }
         }
 
@@ -186,7 +186,7 @@ namespace HTWebRemote.Devices.Controllers
             }
             catch(Exception e)
             {
-                Util.ErrorHandler.SendError($"Error processing command:\n\ncmd={cmd}\nparam={param}\n\n{e.Message}");
+                Util.ErrorHandler.SendError($"Error processing command:\n\ncmd={cmd}\nparam={param}\n\n{e.AllMessages()}");
             }
         }
 
@@ -195,7 +195,7 @@ namespace HTWebRemote.Devices.Controllers
             ListLaunchPointsResponse.LaunchPoint[] applist = await service.Apps.ListAsync();
             ExternalInputListResponse.Device[] inputlist = await service.Tv.ListInputsAsync();
 
-            System.Drawing.Size size = new System.Drawing.Size(350, 10 + 17 * (applist.Length + inputlist.Length));
+            System.Drawing.Size size = new System.Drawing.Size(500, 10 + 20 * (applist.Length + inputlist.Length));
             Form textbox = new Form();
 
             textbox.FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -203,8 +203,9 @@ namespace HTWebRemote.Devices.Controllers
             textbox.Text = "Available Apps";
 
             RichTextBox rtb = new RichTextBox();
-            rtb.Size = new System.Drawing.Size(size.Width - 10, 17 * (applist.Length + inputlist.Length));
+            rtb.Size = new System.Drawing.Size(size.Width - 10, 20 * (applist.Length + inputlist.Length));
             rtb.Location = new System.Drawing.Point(5, 5);
+            rtb.Font = new System.Drawing.Font("Consolas", 10);
             textbox.Controls.Add(rtb);
 
             string apps = "";

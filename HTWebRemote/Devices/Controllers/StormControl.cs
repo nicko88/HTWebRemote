@@ -38,7 +38,7 @@ namespace HTWebRemote.Devices.Controllers
             }
             catch (Exception e)
             {
-                Util.ErrorHandler.SendError($"Cannot connect to Stormaudio at {IP}:23\n\n{e.Message}");
+                Util.ErrorHandler.SendError($"Cannot connect to Stormaudio at {IP}:23\n\n{e.AllMessages()}");
             }
             finally
             {

@@ -18,41 +18,61 @@ namespace HTWebRemote.Devices.Controllers
             }
         }
 
-        public static string getvol(string IP)
+        public static string query(string IP, string cmd)
         {
-            double vol;
+            string result = "Error getting data";
+
             Util.TelnetConnection conn = null;
 
             try
             {
                 conn = new Util.TelnetConnection(IP, 23);
-                conn.Write("MV?");
-                Thread.Sleep(100);
 
-                string strVol = conn.Read();
-                if (strVol.Substring(4, 1) == "5")
+                if (cmd == "getvol")
                 {
-                    vol = Convert.ToInt32(strVol.Substring(2, 2)) - 80 + 0.5;
+                    double vol;
+
+                    conn.Write("MV?");
+                    Thread.Sleep(100);
+
+                    string strVol = conn.Read();
+
+                    if (!string.IsNullOrEmpty(strVol) && strVol.Substring(4, 1) == "5")
+                    {
+                        vol = Convert.ToInt32(strVol.Substring(2, 2)) - 80 + 0.5;
+                    }
+                    else
+                    {
+                        vol = Convert.ToInt32(strVol.Substring(2, 2)) - 80;
+                    }
+
+                    result = $"{vol}dB";
                 }
                 else
                 {
-                    vol = Convert.ToInt32(strVol.Substring(2, 2)) - 80;
+                    conn.Write(cmd);
+                    Thread.Sleep(100);
+
+                    result = conn.Read().Replace("\r", "");
+
+                    if (string.IsNullOrEmpty(result))
+                    {
+                        result = "Error getting data";
+                    }
                 }
-
-                conn.Close();
-
-                return $"{vol}dB";
             }
             catch (Exception e)
             {
-                Util.ErrorHandler.SendError($"Cannot connect to Denon/Marantz at {IP}:23\n\n{e.Message}");
+                Util.ErrorHandler.SendError($"Cannot connect to Denon/Marantz at {IP}:23\n\n{e.AllMessages()}");
             }
             finally
             {
                 conn?.Close();
             }
 
-            return "??dB";
+            conn.Close();
+
+            return result;
         }
     }
 }

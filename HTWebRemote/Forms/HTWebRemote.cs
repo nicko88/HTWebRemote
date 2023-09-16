@@ -11,6 +11,7 @@ using System.Drawing;
 using System.Net.Http;
 using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace HTWebRemote
 {
@@ -20,6 +21,7 @@ namespace HTWebRemote
         private string port;
         private readonly Thread httpThread;
         private bool startFail = false;
+        private List<HotKey> hotKeys;
 
         public HTWebRemote(string port)
         {
@@ -69,6 +71,8 @@ namespace HTWebRemote
             {
                 cbxBottomTabs.Checked = true;
             }
+
+            RegisterHotkeys();
 
             await CheckNewVersion();
         }
@@ -169,7 +173,7 @@ namespace HTWebRemote
             else if (!string.IsNullOrEmpty(btnIndex))
             {
                 string remoteID = request.QueryString["remoteID"];
-                Remote remote = RemoteJSONLoader.LoadRemoteJSON(remoteID);
+                Remote remote = JSONLoader.LoadRemoteJSON(remoteID);
 
                 remote.RemoteItems[Convert.ToInt32(btnIndex)].RunButtonCommands();
             }
@@ -221,6 +225,51 @@ namespace HTWebRemote
             return htmlPage;
         }
 
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
+
+            if (m.Msg == 786)
+            {
+                int KeyValue = (m.LParam.ToInt32()) >> 16 & 0xFFFF;
+                int ModifierValue = m.LParam.ToInt32() & 0xFFFF;
+
+                foreach (HotKey hotKey in hotKeys)
+                {
+                    if (hotKey.KeyValue == KeyValue && hotKey.ModifierValue == ModifierValue)
+                    {
+                        hotKey.RunButtonCommands();
+                    }
+                }
+            }
+        }
+
+        private void RegisterHotkeys()
+        {
+            hotKeys = JSONLoader.LoadHotkeyJSON();
+
+            try
+            {
+                foreach (HotKey hotkey in hotKeys)
+                {
+                    KeyboardHook.Register(hotkey.KeyValue, hotkey.ModifierValue, this.Handle);
+                }
+            }
+            catch { }
+        }
+
+        private void UnregisterHotkeys()
+        {
+            try
+            {
+                foreach (HotKey hotkey in hotKeys)
+                {
+                    KeyboardHook.Unregister(hotkey.KeyValue, hotkey.ModifierValue, this.Handle);
+                }
+            }
+            catch { }
+        }
+
         private async Task CheckNewVersion()
         {
             using (HttpClient httpClient = new HttpClient())
@@ -262,6 +311,9 @@ namespace HTWebRemote
                 Process.GetProcessesByName("adb")[0].Kill();
             }
             catch { }
+
+            UnregisterHotkeys();
+
             Environment.Exit(0);
         }
 
@@ -290,6 +342,14 @@ namespace HTWebRemote
         {
             Forms.EditFileBrowser editFileBrowser = new Forms.EditFileBrowser();
             editFileBrowser.ShowDialog();
+        }
+
+        private void btnEditHotkeys_Click(object sender, EventArgs e)
+        {
+            Forms.HotkeyManager hotkeyManager = new Forms.HotkeyManager(this.Handle);
+            hotkeyManager.ShowDialog();
+
+            hotKeys = JSONLoader.LoadHotkeyJSON();
         }
 
         private void cbStartAutomatically_CheckedChanged(object sender, EventArgs e)

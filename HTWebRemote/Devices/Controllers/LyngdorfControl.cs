@@ -24,7 +24,7 @@ namespace HTWebRemote.Devices.Controllers
                 }
                 catch (Exception e)
                 {
-                    Util.ErrorHandler.SendError($"Error adjusting lipsync.\n\n{e.Message}");
+                    Util.ErrorHandler.SendError($"Error adjusting lipsync.\n\n{e.AllMessages()}");
                 }
 
                 LyngdorfSocket.SendData(Encoding.ASCII.GetBytes($"{cmd}\r"));
@@ -67,7 +67,7 @@ namespace HTWebRemote.Devices.Controllers
             }
             catch (Exception e)
             {
-                Util.ErrorHandler.SendError($"Cannot connect to Lyngdorf at {IP}:84\n\n{e.Message}");
+                Util.ErrorHandler.SendError($"Cannot connect to Lyngdorf at {IP}:84\n\n{e.AllMessages()}");
             }
             finally
             {

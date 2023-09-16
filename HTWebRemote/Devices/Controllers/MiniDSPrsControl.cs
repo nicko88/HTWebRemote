@@ -105,7 +105,7 @@ namespace HTWebRemote.Devices.Controllers
             }
             catch (Exception e)
             {
-                Util.ErrorHandler.SendError($"Cannot send command to to minidsp-rs at {IP}\n\n{e.Message}");
+                Util.ErrorHandler.SendError($"Cannot send command to to minidsp-rs at {IP}\n\n{e.AllMessages()}");
             }
         }
 
@@ -124,7 +124,7 @@ namespace HTWebRemote.Devices.Controllers
                 }
                 catch (Exception e)
                 {
-                    Util.ErrorHandler.SendError($"Error querying minidsp-rs at: http://{IP}\n\n{e.Message}");
+                    Util.ErrorHandler.SendError($"Error querying minidsp-rs at: http://{IP}\n\n{e.AllMessages()}");
                 }
             }
 

@@ -23,7 +23,7 @@ namespace HTWebRemote.Devices.Controllers
                 }
                 catch (Exception e)
                 {
-                    Util.ErrorHandler.SendError($"Error sending command to Roku: http://{IP}:8060{cmd}\n\n{e.Message}");
+                    Util.ErrorHandler.SendError($"Error sending command to Roku: http://{IP}:8060{cmd}\n\n{e.AllMessages()}");
                 }
             }
         }

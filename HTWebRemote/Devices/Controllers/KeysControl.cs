@@ -26,7 +26,7 @@ namespace HTWebRemote.Devices.Controllers
                 }
                 catch (Exception e)
                 {
-                    Util.ErrorHandler.SendError($"Cannot find program: {app} to send keys to.\n\n{e.Message}");
+                    Util.ErrorHandler.SendError($"Cannot find program: {app} to send keys to.\n\n{e.AllMessages()}");
                 }
             }
 
@@ -41,7 +41,7 @@ namespace HTWebRemote.Devices.Controllers
             }
             catch (Exception e)
             {
-                Util.ErrorHandler.SendError($"Error sending key: {keys}\n\n{e.Message}");
+                Util.ErrorHandler.SendError($"Error sending key: {keys}\n\n{e.AllMessages()}");
             }
         }
     }

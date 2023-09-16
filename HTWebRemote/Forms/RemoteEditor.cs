@@ -162,7 +162,7 @@ namespace HTWebRemote.Forms
 
             try
             {
-                currentRemote = RemoteJSONLoader.LoadRemoteJSON((cmbRemoteID.SelectedIndex + 1).ToString());
+                currentRemote = JSONLoader.LoadRemoteJSON((cmbRemoteID.SelectedIndex + 1).ToString());
                 currentRemote.RemoteID = cmbRemoteID.SelectedIndex + 1;
 
                 if (currentRemote.ButtonHeight > 0)
@@ -274,7 +274,7 @@ namespace HTWebRemote.Forms
 
             _selectedIndex = lbRemoteItems.SelectedIndex;
 
-            RemoteJSONLoader.SaveRemoteJSON(currentRemote);
+            JSONLoader.SaveRemoteJSON(currentRemote);
             LoadRemote();
 
             try

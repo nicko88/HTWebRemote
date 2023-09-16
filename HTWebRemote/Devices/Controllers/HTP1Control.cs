@@ -66,7 +66,7 @@ namespace HTWebRemote.Devices.Controllers
                 }
                 catch (Exception e)
                 {
-                    Util.ErrorHandler.SendError($"Error sending command to HTP-1: http://{IP}/ircmd?code={cmd}\n\n{e.Message}");
+                    Util.ErrorHandler.SendError($"Error sending command to HTP-1: http://{IP}/ircmd?code={cmd}\n\n{e.AllMessages()}");
                 }
             }
         }
@@ -86,7 +86,7 @@ namespace HTWebRemote.Devices.Controllers
                 }
                 catch (Exception e)
                 {
-                    Util.ErrorHandler.SendError($"Error querying HTP-1 at: http://{IP}\n\n{e.Message}");
+                    Util.ErrorHandler.SendError($"Error querying HTP-1 at: http://{IP}\n\n{e.AllMessages()}");
                 }
             }
 
