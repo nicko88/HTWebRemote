@@ -38,9 +38,9 @@ namespace HTWebRemote.Devices.Controllers
                 IAsyncResult result = mqttClient.ConnectAsync(options);
                 result.AsyncWaitHandle.WaitOne(5000);
             }
-            catch
+            catch (Exception e)
             {
-                Util.ErrorHandler.SendError($"Failed to connect to MQTT broker at: {IP}");
+                Util.ErrorHandler.SendError($"Failed to connect to MQTT broker at: {IP}\n\n{e.AllMessages()}");
             }
 
             if (mqttClient.IsConnected)
@@ -57,9 +57,9 @@ namespace HTWebRemote.Devices.Controllers
 
                     mqttClient.DisconnectAsync();
                 }
-                catch
+                catch (Exception e)
                 {
-                    Util.ErrorHandler.SendError($@"Failed sending Topic: ""{cmd}"" and Payload: ""{param}"" to MQTT broker at: {IP}");
+                    Util.ErrorHandler.SendError($@"Failed sending Topic: ""{cmd}"" and Payload: ""{param}"" to MQTT broker at: {IP}\n\n{e.AllMessages()}");
                 }
             }
             else
