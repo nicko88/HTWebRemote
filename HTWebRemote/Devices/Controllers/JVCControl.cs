@@ -59,6 +59,11 @@ namespace HTWebRemote.Devices.Controllers
 
                             try
                             {
+                                if (cmd == "PMCV")
+                                {
+                                    param = getLaserLevel(param);
+                                }
+
                                 //+ turns into space via querystring
                                 if ((param.StartsWith("+") || param.StartsWith(" ")) && param.Length > 1)
                                 {
@@ -93,14 +98,29 @@ namespace HTWebRemote.Devices.Controllers
                     }
                     else
                     {
-                        Util.ErrorHandler.SendError($"PJACK not recieved.");
+                        Util.ErrorHandler.SendError("PJACK not received.");
                     }
                 }
                 else
                 {
-                    Util.ErrorHandler.SendError($"PJ_OK not recieved.");
+                    Util.ErrorHandler.SendError("PJ_OK not received.");
                 }
             }
+        }
+
+        private static string getLaserLevel(string param)
+        {
+            byte percent;
+            if (!byte.TryParse(param, out percent))
+            {
+                return param;
+            }
+            if (percent > 100)
+            {
+                return param;
+            }
+            double scaled = 109 + Math.Floor(1.1 * percent + 0.5);
+            return "+" + scaled.ToString("F0");
         }
     }
 }
