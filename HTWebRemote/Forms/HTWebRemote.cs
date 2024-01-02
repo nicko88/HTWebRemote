@@ -91,7 +91,7 @@ namespace HTWebRemote
                     listener.Start();
                     running = true;
                 }
-                catch (Exception e)
+                catch
                 {
                     if (!startFail)
                     {

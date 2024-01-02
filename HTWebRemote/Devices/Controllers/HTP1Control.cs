@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Net.Http;
+using System.Net.WebSockets;
+using System.Text;
 using System.Threading;
 
 namespace HTWebRemote.Devices.Controllers
@@ -9,46 +11,46 @@ namespace HTWebRemote.Devices.Controllers
     {
         public static void RunCmd(string IP, string cmd, string param)
         {
-            if(cmd.ToLower() == "ir")
+            if (cmd.ToLower() == "ir")
             {
-                SendCmd(IP, param);
+                SendIRCmd(IP, param);
             }
-            else if (cmd.Equals("vol"))
+            else
             {
-                string result = getvol(IP);
-
-                try
+                using (ClientWebSocket HTP1WebSocket = new ClientWebSocket())
                 {
-                    string[] vals = param.Split(',');
-
-                    int currentVol = Convert.ToInt32(result);
-                    int targetVol = Convert.ToInt32(vals[0]);
-                    int adjustAmount = Math.Abs(currentVol - targetVol);
-
-                    string commandDirection = "0bf4";
-                    if(currentVol > targetVol)
-                    {
-                        commandDirection = "09f6";
-                    }
-
-                    int delay = 300;
                     try
                     {
-                        delay = Convert.ToInt32(vals[1]);
-                    }
-                    catch { }
+                        string value = "";
+                        if(Int32.TryParse(param, out int result) || param == "true" || param == "false")
+                        {
+                            value = param;
+                        }
+                        else
+                        {
+                            value = $@"""{param}""";
+                        }
 
-                    for(int i = 0; i < adjustAmount; i++)
+                        string json = @"[{""op"":""replace"", ""path"": ""X"", ""value"": Y}]";
+                        json = json.Replace("X", cmd);
+                        json = json.Replace("Y", value);
+
+                        ArraySegment<byte> payload = new ArraySegment<byte>(Encoding.UTF8.GetBytes($"changemso {json}"));
+
+                        HTP1WebSocket.ConnectAsync(new Uri($"ws://{IP}/ws/controller"), new CancellationTokenSource().Token).Wait();
+                        HTP1WebSocket.SendAsync(payload, WebSocketMessageType.Text, true, new CancellationTokenSource().Token).Wait();
+                        HTP1WebSocket.CloseOutputAsync(WebSocketCloseStatus.NormalClosure, "CloseOutputConnection", new CancellationTokenSource().Token).Wait();
+                        HTP1WebSocket.Dispose();
+                    }
+                    catch (Exception e)
                     {
-                        SendCmd(IP, commandDirection);
-                        Thread.Sleep(delay);
+                        Util.ErrorHandler.SendError($"Failed sending command to HTP-1 at {IP}\n\n{e.AllMessages()}");
                     }
                 }
-                catch { }
             }
         }
 
-        private static void SendCmd(string IP, string cmd)
+        private static void SendIRCmd(string IP, string cmd)
         {
             using (HttpClient httpClient = new HttpClient())
             {

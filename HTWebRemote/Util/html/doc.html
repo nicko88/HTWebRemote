@@ -1438,9 +1438,7 @@
 
 	For Monoprice HTP-1 control, the device identifier is: <b>htp1</b>
 
-	<p>For now, only basic IR (NEC Code) commands are supported.  More advanced HTP-1 control support is coming in a future version.</p>
-
-	<h3>Some Basic Commands (IR NEC Code)</h3>
+	<h3>Some Basic Commands (IR NEC Codes)</h3>
 
 	<ul>
 		<li><code>cmd = ir</code></li>
@@ -1451,26 +1449,51 @@
 	<ul>
 		<li><code>0bf4</code> (Volume Up)</li>
 		<li><code>09f6</code> (Volume Down)</li>
-		<li><code>0af5</code> (Mute Toggle)</li>
+		<li><code>0af5</code> (Toggle Mute)</li>
 	</ul>
 
 	<p>You can also include multiple IR NEC Codes in one command by separating them with commas.</p>
-
-	<h3>Go to Volume:</h3>
+	
+	<h3>Advanced Commands</h3>
+	
+	<p>To find out the <code>cmd</code> and <code>param</code> for advanced commands you need to follow these steps:</p>
+	
+	<ul>
+		<li>Go to the HTP-1 WebUI (http://IPADDR) in a browser (ideally Chrome)</li>
+		<li>Open the developer console for your web browser (F12 in Chrome and look for the console)</li>
+		<li>Clear the console (circle with line through it icon), (or Ctrl+L in Chrome)</li>
+		<li>Do the action you want in the HTP-1 WebUI (click a button, change some number value, move a slider or check a checkbox, etc)</li>
+		<li>In the console, look for the line that begins with: changemso</li>
+		<li>Example: changemso 1 Proxy(Object) {op: 'replace', path: '/volume', value: -10}</li>
+		<li>The text after path: is your <code>cmd</code> ex: <code>/volume</code></li>
+		<li>The text after value: is your <code>param</code> ex: <code>-10</code></li>
+		<li>Do not include the ' ' characters when putting the <code>cmd</code> or <code>param</code> into HTWebRemote</li>
+	</ul>
+	
+	<h3>Some Example Advanced Commands</h3>
 
 	<ul>
-		<li><code>cmd = vol</code></li>
+		<li><code>/PowerIsOn</code> (Power ON)</li>
 		<ul>
-			<li><code>param = XX,YYY</code></li>
+			<li><code>param = true</code></li>
+		</ul>
+		<li><code>/powerAction</code> (Sleep Mode)</li>
+		<ul>
+			<li><code>param = sleep</code></li>
+		</ul>
+		<li><code>/volume</code> (Set Volume to -10)</li>
+		<ul>
+			<li><code>param = -10</code></li>
+		</ul>
+		<li><code>/upmix/select</code> (Upmix Direct)</li>
+		<ul>
+			<li><code>param = off</code></li>
+		</ul>
+			<li><code>/upmix/select</code> (Upmix Dolby Surround)</li>
+		<ul>
+			<li><code>param = dolby</code></li>
 		</ul>
 	</ul>
-
-	<p>This will "fade" your volume from it's current value to your target value 1 dB at a time.</p>
-
-	<p>
-		Where XX is the volume you want to go to, and YYY is some number of milliseconds between each 1dB adjustment.<br />
-		Recommend number of ms, 300 and greater as lower seems too fast to work.
-	</p>
 
 	<b>HTP-1 Query Command</b>
 	<br />
@@ -1479,7 +1502,7 @@
 	</ul>
 
 	<p>
-		For all Monoprice HTP-1 commands, see the full Monoprice HTP-1 command document here:<br />
+		For all Monoprice HTP-1 IR commands, see the full Monoprice HTP-1 command document here (IR commands near the end):<br />
 		<a href="https://github.com/nicko88/HTWebRemote/blob/master/IP%20Control%20Spec%20Documents/Monoprice_HTP-1.pdf">Monoprice_HTP-1.pdf</a>
 	</p>
 	<br />

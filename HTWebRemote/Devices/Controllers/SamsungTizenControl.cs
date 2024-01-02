@@ -53,7 +53,8 @@ namespace HTWebRemote.Devices.Controllers
                     {
                         samsungTizenSocket.ConnectAsync(new Uri(remoteEndpoint), new CancellationTokenSource().Token).Wait();
                         samsungTizenSocket.SendAsync(payload, WebSocketMessageType.Text, true, new CancellationTokenSource().Token).Wait();
-                        samsungTizenSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "CloseConnection", new CancellationTokenSource().Token).Wait();
+                        samsungTizenSocket.CloseOutputAsync(WebSocketCloseStatus.NormalClosure, "CloseOutputConnection", new CancellationTokenSource().Token).Wait();
+                        samsungTizenSocket.Dispose();
                     }
                     catch (Exception e)
                     {
@@ -149,7 +150,9 @@ namespace HTWebRemote.Devices.Controllers
                                 config[1] = token;
                             }
 
-                            samsungTizenSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "CloseConnection", new CancellationTokenSource().Token).Wait();
+                            samsungTizenSocket.CloseOutputAsync(WebSocketCloseStatus.NormalClosure, "CloseOutputConnection", new CancellationTokenSource().Token).Wait();
+                            samsungTizenSocket.Dispose();
+
                         }
                         catch (Exception e)
                         {
