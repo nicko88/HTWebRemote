@@ -18,6 +18,7 @@ namespace HTWebRemote.Forms
             Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
             FillRemoteNumDropDown();
+            FillGroupDropDown();
             LoadPaths();
             LoadSettings();
         }
@@ -55,6 +56,7 @@ namespace HTWebRemote.Forms
             }
 
             cmbFileBrowserRemote.SelectedItem = ConfigHelper.GetRegKey(@"SOFTWARE\HTWebRemote", "FileBrowserRemote");
+            cmbFileBrowserGroup.SelectedItem = ConfigHelper.GetRegKey(@"SOFTWARE\HTWebRemote", "FileBrowserGroup");
 
             string FBMediaPlayerPath = ConfigHelper.GetRegKey(@"SOFTWARE\HTWebRemote", "FileBrowserMediaPlayer");
             if (!string.IsNullOrEmpty(FBMediaPlayerPath))
@@ -95,6 +97,30 @@ namespace HTWebRemote.Forms
             {
                 cmbFileBrowserRemote.Items.Add(i.ToString());
             }
+        }
+
+        private void FillGroupDropDown()
+        {
+            cmbFileBrowserGroup.Items.Clear();
+
+            string[] remoteFiles = Directory.GetFiles(ConfigHelper.WorkingPath, "HTWebRemoteButtons*").CustomSort().ToArray();
+            List<string> groups = new List<string>();
+
+            foreach (string file in remoteFiles)
+            {
+                if (file.Contains(".json"))
+                {
+                    JObject oRemote = JObject.Parse(File.ReadAllText(file));
+                    string remoteGroup = (string)oRemote.SelectToken("RemoteGroup");
+
+                    if (!string.IsNullOrEmpty(remoteGroup) && !groups.Contains(remoteGroup))
+                    {
+                        groups.Add(remoteGroup);
+                    }
+                }
+            }
+
+            cmbFileBrowserGroup.DataSource = groups;
         }
 
         private void BtnAdd_Click(object sender, EventArgs e)
@@ -246,6 +272,7 @@ namespace HTWebRemote.Forms
             RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\HTWebRemote", true);
             key.SetValue("YoutubeAPIKey", tbYoutubeAPIKey.Text);
             key.SetValue("ItemRowHeight", tbItemRowHeight.Text);
+            key.SetValue("FileBrowserGroup", cmbFileBrowserGroup.SelectedItem);
         }
 
         private void lblAPIHelp_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

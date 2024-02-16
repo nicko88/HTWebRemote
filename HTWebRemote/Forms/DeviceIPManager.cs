@@ -46,6 +46,7 @@ namespace HTWebRemote.Forms
             tbSpecial.Visible = false;
             tbSpecial.Enabled = true;
             cbLGssl.Visible = false;
+            cbTCPUDPRecvWelcome.Visible = false;
             btnHueAuth.Visible = false;
 
             try
@@ -101,9 +102,21 @@ namespace HTWebRemote.Forms
                         break;
                     case "tcp":
                         lblIP.Text = "IP:port";
+                        cbTCPUDPRecvWelcome.Visible = true;
+                        try
+                        {
+                            cbTCPUDPRecvWelcome.Checked = Convert.ToBoolean(values[3]);
+                        }
+                        catch { }
                         break;
                     case "udp":
                         lblIP.Text = "IP:port";
+                        cbTCPUDPRecvWelcome.Visible = true;
+                        try
+                        {
+                            cbTCPUDPRecvWelcome.Checked = Convert.ToBoolean(values[3]);
+                        }
+                        catch { }
                         break;
                     case "jvc":
                         lblSpecial.Text = "Password (NZ):";
@@ -175,6 +188,7 @@ namespace HTWebRemote.Forms
             tbSpecial.Enabled = true;
             lbDevices.ClearSelected();
             cbLGssl.Visible = false;
+            cbTCPUDPRecvWelcome.Visible = false;
             btnHueAuth.Visible = false;
 
             if (cmbDeviceType.SelectedItem != null)
@@ -223,9 +237,11 @@ namespace HTWebRemote.Forms
                         break;
                     case "tcp":
                         lblIP.Text = "IP:port";
+                        cbTCPUDPRecvWelcome.Visible = true;
                         break;
                     case "udp":
                         lblIP.Text = "IP:port";
+                        cbTCPUDPRecvWelcome.Visible = true;
                         break;
                     case "jvc":
                         lblSpecial.Text = "Password (NZ):";
@@ -338,6 +354,10 @@ namespace HTWebRemote.Forms
                     {
                         dev += $",{cbLGssl.Checked}";
                     }
+                    if (cbTCPUDPRecvWelcome.Visible)
+                    {
+                        dev += $",{cbTCPUDPRecvWelcome.Checked}";
+                    }
                     lbDevices.Items.Add(dev);
                 }
                 else
@@ -379,6 +399,10 @@ namespace HTWebRemote.Forms
                     if (cbLGssl.Visible)
                     {
                         dev += $",{cbLGssl.Checked}";
+                    }
+                    if (cbTCPUDPRecvWelcome.Visible)
+                    {
+                        dev += $",{cbTCPUDPRecvWelcome.Checked}";
                     }
                     lbDevices.Items[lbDevices.SelectedIndex] = dev;
                 }

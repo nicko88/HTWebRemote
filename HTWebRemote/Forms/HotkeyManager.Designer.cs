@@ -47,7 +47,7 @@ namespace HTWebRemote.Forms
             this.lbHotkeys.Location = new System.Drawing.Point(12, 66);
             this.lbHotkeys.Name = "lbHotkeys";
             this.lbHotkeys.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lbHotkeys.Size = new System.Drawing.Size(354, 364);
+            this.lbHotkeys.Size = new System.Drawing.Size(313, 364);
             this.lbHotkeys.TabIndex = 1;
             this.lbHotkeys.DoubleClick += new System.EventHandler(this.lbHotkeys_DoubleClick);
             // 
@@ -65,7 +65,7 @@ namespace HTWebRemote.Forms
             // btnDelete
             // 
             this.btnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDelete.Location = new System.Drawing.Point(223, 12);
+            this.btnDelete.Location = new System.Drawing.Point(182, 12);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(143, 28);
             this.btnDelete.TabIndex = 52;
@@ -87,7 +87,7 @@ namespace HTWebRemote.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(377, 439);
+            this.ClientSize = new System.Drawing.Size(336, 439);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnAdd);

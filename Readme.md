@@ -21,6 +21,12 @@ Included in the web page mode of operation is a simple file browser interface wh
 
 Also included in the web page mode of operation is a YouTube browser and video launching feature.  You can copy and paste a YouTube link or browse YouTube by search phrase and easily send the YouTube video to play on your HTPC in a browser or even send the YouTube video to your media player such as MPC-HC/BE or VLC.
 
+##### Voice Commands
+
+The Voice Command manager allows you to define voice commands that when spoken, can trigger HTWebRemote commands.  This is a completely offline service and is very fast.  Voice commands are also only supported by HTWebRemote when running on Windows, and it uses the audio input device that is set to the default in Windows.
+
+You can set a confidence value for each voice command that can help fine-tune the sensitivity to triggering. There is a "Test Mode" provided that can help you determine the optimal confidence value to set, by showing you what the confidence value is when you speak one of the commands phrases.
+
 ##### Global Hotkeys
 
 The Global Hotkeys manager allows you to define global hotkeys, that when pressed in Windows, can trigger HTWebRemote commands. Global meaning the hotkey will be triggered no matter what application is running or has keyboard focus.
@@ -40,10 +46,10 @@ To learn how to create Siri voice commands to send any HTWebRemote command or ma
 #### Screenshots and Demo
 
 ###### Main screen
-<img src="https://github.com/nicko88/HTWebRemote/assets/1866075/df5601ae-172e-4b0c-8ae7-ddef3a877622" width="635px" />
+<img src="https://github.com/nicko88/HTWebRemote/assets/1866075/d6b770f2-2ed0-4bfb-ae51-bc690ccebcba" width="592px" />
 
 ###### Remote Editor
-<img src="https://user-images.githubusercontent.com/1866075/216807485-4fbe9984-c93c-41f7-b12a-c53854bb1dd6.png" width="635px" />
+<img src="https://github.com/nicko88/HTWebRemote/assets/1866075/ecb4e988-8c1c-4163-954b-dc317820aa28" width="px" />
 
 ###### Usage Demo
 <img src="https://user-images.githubusercontent.com/1866075/182762525-38084139-6bc9-4414-a932-5d5febcc1baa.gif" width="222px" />
@@ -56,7 +62,7 @@ HTWebRemote also offers a command line mode of operation that lets you send comm
 
 Finally, HTWebRemote includes a sort of API which lets you send commands from other network devices simply by crafting a URL with a few query strings that again tell it which command to send to which device.
 
-### Supported Devices
+### Directly Supported Devices
 
 * Windows / Linux (open and close programs, run scripts, etc)
 * Keyboard Hotkeys (Control any program that supports hotkeys like most media players)
@@ -96,6 +102,13 @@ Finally, HTWebRemote includes a sort of API which lets you send commands from ot
 * HTTP POST/GET/PUT Requests
 * MQTT Messaging Protocol
 * Wake-on-LAN
+
+### Unofficially Supported Devices (Tested Working by the Community)
+
+HTWebRemote can support controlling a lot of other devices through generic control methods such as generic TCP/UDP sockets and HTTP REST APIs.  
+The following page is a list of devices that users have successfully controlled with HTWebRemote.
+
+[Other Device Support](https://github.com/nicko88/HTWebRemote/wiki/Other-Device-Support)
 
 Support for more devices is subject to community requests and their ability to run tests for me as I try to add the support for their device.
 

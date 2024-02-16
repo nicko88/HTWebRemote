@@ -11,7 +11,6 @@ using System.Drawing;
 using System.Net.Http;
 using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 
 namespace HTWebRemote
 {
@@ -21,7 +20,9 @@ namespace HTWebRemote
         private string port;
         private readonly Thread httpThread;
         private bool startFail = false;
-        private List<HotKey> hotKeys;
+
+        private Forms.VoiceCommandManager voiceCommandManager;
+        private Forms.HotkeyManager hotkeyManager;
 
         public HTWebRemote(string port)
         {
@@ -41,13 +42,37 @@ namespace HTWebRemote
 
         public async void Setup(bool full)
         {
-            string version = Assembly.GetExecutingAssembly().GetName().Version.ToString().TrimEnd(new char[] { '.', '0' });
+            string version = Assembly.GetExecutingAssembly().GetName().Version.ToString().Replace(".0", "");
             IP = ConfigHelper.LocalIPAddress;
             Text = $"HTWebRemote v{version}   (IP: {IP}:{port})";
 
             if(ConfigHelper.CheckRegKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", "HTWebRemote"))
             {
                 cbStartAutomatically.Checked = true;
+            }
+            if (ConfigHelper.CheckRegKey(@"SOFTWARE\HTWebRemote", "ShowErrors"))
+            {
+                cbxShowErrors.Checked = true;
+            }
+            if (ConfigHelper.CheckRegKey(@"SOFTWARE\HTWebRemote", "BottomTabs"))
+            {
+                cbxBottomTabs.Checked = true;
+            }
+            if (ConfigHelper.CheckRegKey(@"SOFTWARE\HTWebRemote", "GroupListButton"))
+            {
+                cbxGroupListButton.Checked = true;
+            }
+
+            hotkeyManager = new Forms.HotkeyManager(this);
+            if (ConfigHelper.CheckRegKey(@"SOFTWARE\HTWebRemote", "HotkeysEnabled"))
+            {
+                cbxHotkeys.Checked = true;
+            }
+
+            voiceCommandManager = new Forms.VoiceCommandManager(this);
+            if (ConfigHelper.CheckRegKey(@"SOFTWARE\HTWebRemote", "VoiceEnabled"))
+            {
+                cbxVoiceControl.Checked = true;
             }
 
             if (full)
@@ -61,18 +86,6 @@ namespace HTWebRemote
                     ShowInTaskbar = false;
                 }
             }
-
-            if (ConfigHelper.CheckRegKey(@"SOFTWARE\HTWebRemote", "ShowErrors"))
-            {
-                cbxShowErrors.Checked = true;
-            }
-
-            if (ConfigHelper.CheckRegKey(@"SOFTWARE\HTWebRemote", "BottomTabs"))
-            {
-                cbxBottomTabs.Checked = true;
-            }
-
-            RegisterHotkeys();
 
             await CheckNewVersion();
         }
@@ -205,7 +218,7 @@ namespace HTWebRemote
 
             if (request.RawUrl == "/")
             {
-                RemoteID = "1";
+                htmlPage = RemoteParser.GetGroupListHTML();
             }
             else if(request.RawUrl.Length == 2 || request.RawUrl.Length == 3 && !request.RawUrl.Contains("/FB"))
             {
@@ -217,7 +230,7 @@ namespace HTWebRemote
                 RemoteID = request.QueryString["rID"];
             }
 
-            if (RemoteID != null)
+            if (!string.IsNullOrEmpty(RemoteID))
             {
                 htmlPage = RemoteParser.GetRemoteHTML(RemoteID, true);
             }
@@ -234,40 +247,8 @@ namespace HTWebRemote
                 int KeyValue = (m.LParam.ToInt32()) >> 16 & 0xFFFF;
                 int ModifierValue = m.LParam.ToInt32() & 0xFFFF;
 
-                foreach (HotKey hotKey in hotKeys)
-                {
-                    if (hotKey.KeyValue == KeyValue && hotKey.ModifierValue == ModifierValue)
-                    {
-                        hotKey.RunButtonCommands();
-                    }
-                }
+                hotkeyManager.ProcessHotkey(KeyValue, ModifierValue);
             }
-        }
-
-        private void RegisterHotkeys()
-        {
-            hotKeys = JSONLoader.LoadHotkeyJSON();
-
-            try
-            {
-                foreach (HotKey hotkey in hotKeys)
-                {
-                    KeyboardHook.Register(hotkey.KeyValue, hotkey.ModifierValue, this.Handle);
-                }
-            }
-            catch { }
-        }
-
-        private void UnregisterHotkeys()
-        {
-            try
-            {
-                foreach (HotKey hotkey in hotKeys)
-                {
-                    KeyboardHook.Unregister(hotkey.KeyValue, hotkey.ModifierValue, this.Handle);
-                }
-            }
-            catch { }
         }
 
         private async Task CheckNewVersion()
@@ -312,7 +293,7 @@ namespace HTWebRemote
             }
             catch { }
 
-            UnregisterHotkeys();
+            hotkeyManager.UnregisterHotkeys();
 
             Environment.Exit(0);
         }
@@ -346,10 +327,12 @@ namespace HTWebRemote
 
         private void btnEditHotkeys_Click(object sender, EventArgs e)
         {
-            Forms.HotkeyManager hotkeyManager = new Forms.HotkeyManager(this.Handle);
             hotkeyManager.ShowDialog();
+        }
 
-            hotKeys = JSONLoader.LoadHotkeyJSON();
+        private void btnEditVoiceCommands_Click(object sender, EventArgs e)
+        {
+            voiceCommandManager.ShowDialog();
         }
 
         private void cbStartAutomatically_CheckedChanged(object sender, EventArgs e)
@@ -405,6 +388,56 @@ namespace HTWebRemote
             {
                 Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\HTWebRemote", true);
                 key.DeleteValue("BottomTabs", false);
+            }
+        }
+
+        private void cbxGroupListButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbxGroupListButton.Checked)
+            {
+                Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(@"SOFTWARE\HTWebRemote", true);
+                key.SetValue("GroupListButton", true);
+            }
+            else
+            {
+                Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\HTWebRemote", true);
+                key.DeleteValue("GroupListButton", false);
+            }
+        }
+
+        private void cbxHotkeys_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbxHotkeys.Checked)
+            {
+                Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(@"SOFTWARE\HTWebRemote", true);
+                key.SetValue("HotkeysEnabled", true);
+
+                hotkeyManager.RegisterHotkeys();
+            }
+            else
+            {
+                Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(@"SOFTWARE\HTWebRemote", true);
+                key.DeleteValue("HotkeysEnabled", false);
+
+                hotkeyManager.UnregisterHotkeys();
+            }
+        }
+
+        private void cbVoiceControl_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbxVoiceControl.Checked)
+            {
+                Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(@"SOFTWARE\HTWebRemote", true);
+                key.SetValue("VoiceEnabled", true);
+
+                voiceCommandManager.StartListen();
+            }
+            else
+            {
+                Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(@"SOFTWARE\HTWebRemote", true);
+                key.DeleteValue("VoiceEnabled", false);
+
+                voiceCommandManager.StopListen();
             }
         }
 

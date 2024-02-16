@@ -75,6 +75,7 @@ namespace HTWebRemote.Forms
                 StringBuilder sb = new StringBuilder();
 
                 sb.AppendLine($"BottomTabs={ConfigHelper.CheckRegKey(@"SOFTWARE\HTWebRemote", "BottomTabs")}");
+                sb.AppendLine($"GroupListButton={ConfigHelper.CheckRegKey(@"SOFTWARE\HTWebRemote", "GroupListButton")}");
 
                 SendFile("HTWebRemoteSettings.txt", sb.ToString());
             }

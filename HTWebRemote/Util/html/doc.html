@@ -60,6 +60,18 @@
 		You can copy and paste a YouTube link or browse YouTube by search phrase and easily send the YouTube video to play on your HTPC in a browser or even send the YouTube video to your media player such as MPC-HC/BE or VLC.
 	</p>
 	
+	<h3>Voice Commands</h3>
+	
+	<p>
+		The Voice Command manager allows you to define voice commands that when spoken, can trigger HTWebRemote commands. This is a completely offline service and is very fast.<br />
+		Voice commands are also only supported by HTWebRemote when running on Windows, and it uses the audio input device that is set to the default in Windows.
+	</p>
+	
+	<p>
+		You can set a confidence value for each voice command that can help fine-tune the sensitivity to triggering.<br />
+		There is a "Test Mode" provided that can help you determine the optimal confidence value to set, by showing you what the confidence value is when you speak one of the commands phrases.
+	</p>
+	
 	<h3>Global Hotkeys</h3>
 
 	<p>
@@ -171,7 +183,7 @@
 	</ul>
 	<br />
 
-	<h2><a id="devices"></a>Supported Devices</h2>
+	<h2><a id="devices"></a>Directly Supported Devices</h2>
 
 	<p>
 		HTWebRemote supports several devices, but I would like to add more.<br />
@@ -230,6 +242,15 @@
 		<li><a href="#mqtt">MQTT Messaging Protocol</a></li>
 		<li><a href="#wol">Wake-on-LAN</a></li>
 	</ul>
+	
+	<h2><a id="devices"></a>Unofficially Supported Devices (Tested Working by the Community)</h2>
+	
+	<p>
+		HTWebRemote can support controlling a lot of other devices through generic control methods such as generic TCP/UDP sockets and HTTP REST APIs.<br />
+		The following page is a list of devices that users have successfully controlled with HTWebRemote.
+	</p>
+	
+	<a href="https://github.com/nicko88/HTWebRemote/wiki/Other-Device-Support">Other Device Support</a>
 
 	<h2><a id="pc"></a>Windows / Linux Control</h2>
 
@@ -1459,12 +1480,12 @@
 	<p>To find out the <code>cmd</code> and <code>param</code> for advanced commands you need to follow these steps:</p>
 	
 	<ul>
-		<li>Go to the HTP-1 WebUI (http://IPADDR) in a browser (ideally Chrome)</li>
+		<li>Go to the HTP-1 WebUI (http://IP.ADDRESS) in a browser (ideally Chrome)</li>
 		<li>Open the developer console for your web browser (F12 in Chrome and look for the console)</li>
 		<li>Clear the console (circle with line through it icon), (or Ctrl+L in Chrome)</li>
 		<li>Do the action you want in the HTP-1 WebUI (click a button, change some number value, move a slider or check a checkbox, etc)</li>
 		<li>In the console, look for the line that begins with: changemso</li>
-		<li>Example: changemso 1 Proxy(Object) {op: 'replace', path: '/volume', value: -10}</li>
+		<li>Example: <code>changemso 1 Proxy(Object) {op: 'replace', path: '/volume', value: -10}</code></li>
 		<li>The text after path: is your <code>cmd</code> ex: <code>/volume</code></li>
 		<li>The text after value: is your <code>param</code> ex: <code>-10</code></li>
 		<li>Do not include the ' ' characters when putting the <code>cmd</code> or <code>param</code> into HTWebRemote</li>
@@ -1473,7 +1494,7 @@
 	<h3>Some Example Advanced Commands</h3>
 
 	<ul>
-		<li><code>/PowerIsOn</code> (Power ON)</li>
+		<li><code>/powerIsOn</code> (Power ON)</li>
 		<ul>
 			<li><code>param = true</code></li>
 		</ul>
@@ -4084,6 +4105,8 @@
 	<p>Simply enter your command to send to the device into the cmd box.</p>
 
 	<p>If you need to send special chracters that you can't simply enter into the cmd box, please see the <a href="#specialchars">Special Characters</a> section under the RS232 Device Control.</p>
+	
+	<p>If your device sends a sort of "welcome message" or similar message back after something connects to it, enable the "Receive Welcome Message" checkbox in the Device Configuration screen.</p>
 	<br />
 
 	<h2><a id="udp"></a>UDP Generic Control</h2>

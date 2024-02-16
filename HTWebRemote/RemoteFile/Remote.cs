@@ -6,6 +6,7 @@ namespace HTWebRemote.RemoteFile
     {
         public int RemoteID { get; set; }
         public string RemoteName { get; set; }
+        public string RemoteGroup { get; set; }
         public bool HideRemote { get; set; }
         public int ButtonHeight { get; set; }
         public string RemoteBackColor { get; set; }

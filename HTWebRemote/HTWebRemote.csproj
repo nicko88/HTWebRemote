@@ -46,23 +46,17 @@
     <Reference Include="Costura, Version=5.7.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Costura.Fody.5.7.0\lib\netstandard1.0\Costura.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Apis, Version=1.64.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Apis.1.64.0\lib\net45\Google.Apis.dll</HintPath>
+    <Reference Include="Google.Apis, Version=1.66.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.1.66.0\lib\net462\Google.Apis.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Apis.Auth, Version=1.64.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Apis.Auth.1.64.0\lib\net461\Google.Apis.Auth.dll</HintPath>
+    <Reference Include="Google.Apis.Auth, Version=1.66.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Auth.1.66.0\lib\net462\Google.Apis.Auth.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Apis.Auth.PlatformServices, Version=1.64.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Apis.Auth.1.64.0\lib\net461\Google.Apis.Auth.PlatformServices.dll</HintPath>
+    <Reference Include="Google.Apis.Core, Version=1.66.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Core.1.66.0\lib\net462\Google.Apis.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Apis.Core, Version=1.64.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Apis.Core.1.64.0\lib\net45\Google.Apis.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Apis.PlatformServices, Version=1.64.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Apis.1.64.0\lib\net45\Google.Apis.PlatformServices.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Apis.YouTube.v3, Version=1.64.0.3205, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Apis.YouTube.v3.1.64.0.3205\lib\net45\Google.Apis.YouTube.v3.dll</HintPath>
+    <Reference Include="Google.Apis.YouTube.v3, Version=1.66.0.3309, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.YouTube.v3.1.66.0.3309\lib\net462\Google.Apis.YouTube.v3.dll</HintPath>
     </Reference>
     <Reference Include="MQTTnet, Version=3.1.2.0, Culture=neutral, PublicKeyToken=b69712f52770c0a7, processorArchitecture=MSIL">
       <HintPath>..\packages\MQTTnet.3.1.2\lib\net461\MQTTnet.dll</HintPath>
@@ -128,6 +122,7 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Speech" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
@@ -267,13 +262,20 @@
     <Compile Include="Forms\ReorderRemotes.Designer.cs">
       <DependentUpon>ReorderRemotes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\VoiceCommandManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\VoiceCommandManager.Designer.cs">
+      <DependentUpon>VoiceCommandManager.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemoteFile\Command.cs" />
     <Compile Include="RemoteFile\HotKey.cs" />
+    <Compile Include="RemoteFile\JSONLoader.cs" />
     <Compile Include="RemoteFile\Remote.cs" />
     <Compile Include="RemoteFile\RemoteItem.cs" />
-    <Compile Include="RemoteFile\JSONLoader.cs" />
+    <Compile Include="RemoteFile\VoiceCommand.cs" />
     <Compile Include="Util\ConfigHelper.cs" />
     <Compile Include="Util\ErrorHandler.cs" />
     <Compile Include="Util\FileBrowser.cs" />
@@ -319,6 +321,9 @@
     <EmbeddedResource Include="Forms\ReorderRemotes.resx">
       <DependentUpon>ReorderRemotes.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\VoiceCommandManager.resx">
+      <DependentUpon>VoiceCommandManager.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -350,6 +355,7 @@
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
     <Content Include="HTWebRemote.ico" />
+    <EmbeddedResource Include="Util\html\grouplistHeader.html" />
     <None Include="Resources\QR Code.png" />
     <EmbeddedResource Include="Util\html\youtubeSearchHeader.html" />
     <None Include="Resources\button-PayPal-donate.png" />

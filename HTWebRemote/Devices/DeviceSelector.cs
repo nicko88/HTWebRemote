@@ -208,10 +208,10 @@ namespace HTWebRemote.Devices
                     RS232Control.RunCmd(IP, cmd, param);
                     break;
                 case "tcp":
-                    TCPUDPControl.RunCmd(true, IP, cmd, param);
+                    TCPUDPControl.RunCmd(true, IP, cmd, param, specialData);
                     break;
                 case "udp":
-                    TCPUDPControl.RunCmd(false, IP, cmd, param);
+                    TCPUDPControl.RunCmd(false, IP, cmd, param, specialData);
                     break;
                 case "httppost":
                     HttpPostControl.RunCmd(IP, cmd, param, specialData);

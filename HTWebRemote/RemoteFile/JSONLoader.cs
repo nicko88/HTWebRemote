@@ -59,5 +59,32 @@ namespace HTWebRemote.RemoteFile
             }
             catch { }
         }
+
+        public static List<VoiceCommand> LoadVoiceCommandJSON()
+        {
+            List<VoiceCommand> voiceCommands = new List<VoiceCommand>();
+            try
+            {
+                string json = File.ReadAllText(Path.Combine(Util.ConfigHelper.WorkingPath, "HTWebRemoteVoiceCommands.json"));
+                voiceCommands = JsonConvert.DeserializeObject<List<VoiceCommand>>(json);
+            }
+            catch { }
+
+            return voiceCommands;
+        }
+
+        public static void SaveVoiceCommandJSON(List<VoiceCommand> voiceCommands)
+        {
+            try
+            {
+                JsonSerializerSettings settings = new JsonSerializerSettings();
+                settings.DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate;
+
+                string json = JsonConvert.SerializeObject(voiceCommands, Formatting.Indented, settings);
+
+                File.WriteAllText(Path.Combine(Util.ConfigHelper.WorkingPath, "HTWebRemoteVoiceCommands.json"), json);
+            }
+            catch { }
+        }
     }
 }

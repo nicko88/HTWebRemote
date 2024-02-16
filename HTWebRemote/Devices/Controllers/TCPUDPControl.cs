@@ -8,8 +8,13 @@ namespace HTWebRemote.Devices.Controllers
 {
     class TCPUDPControl
     {
-        public static void RunCmd(bool tcp, string IP, string cmd, string param)
+        public static void RunCmd(bool tcp, string IP, string cmd, string param, string recvWelcome)
         {
+            if (string.IsNullOrEmpty(recvWelcome))
+            {
+                recvWelcome = "False";
+            }
+
             SocketConnection Socket;
             if (tcp)
             {
@@ -36,7 +41,15 @@ namespace HTWebRemote.Devices.Controllers
 
             if (Socket.Connect())
             {
-                Thread.Sleep(100);
+                if (Convert.ToBoolean(recvWelcome))
+                {
+                    Socket.ReceiveData();
+                }
+                else
+                {
+                    Thread.Sleep(100);
+                }
+
                 Socket.SendData(cmdBytes);
                 Thread.Sleep(100);
 

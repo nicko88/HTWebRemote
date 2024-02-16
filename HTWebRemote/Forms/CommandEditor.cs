@@ -300,6 +300,10 @@ namespace HTWebRemote.Forms
             {
                 hotkeyManager.Hotkeys[ButtonIndex].RunButtonCommands();
             }
+            else if (Editor is VoiceCommandManager voiceCommandManager)
+            {
+                voiceCommandManager.VoiceCommands[ButtonIndex].RunButtonCommands();
+            }
         }
 
         private void CommandEditor_KeyDown(object sender, KeyEventArgs e)

@@ -9,16 +9,55 @@ namespace HTWebRemote.Forms
 {
     public partial class HotkeyManager : Form
     {
-        private IntPtr _hWnd;
         public List<HotKey> Hotkeys;
+        private HTWebRemote MainForm;
 
-        public HotkeyManager(IntPtr hWnd)
+        public HotkeyManager(HTWebRemote form)
         {
             InitializeComponent();
             Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
-            _hWnd = hWnd;
+            MainForm = form;
 
             LoadHotKeys();
+        }
+
+        public void RegisterHotkeys()
+        {
+            Hotkeys = JSONLoader.LoadHotkeyJSON();
+
+            try
+            {
+                foreach (HotKey hotkey in Hotkeys)
+                {
+                    KeyboardHook.Register(hotkey.KeyValue, hotkey.ModifierValue, MainForm.Handle);
+                }
+            }
+            catch { }
+        }
+
+        public void UnregisterHotkeys()
+        {
+            Hotkeys = JSONLoader.LoadHotkeyJSON();
+
+            try
+            {
+                foreach (HotKey hotkey in Hotkeys)
+                {
+                    KeyboardHook.Unregister(hotkey.KeyValue, hotkey.ModifierValue, MainForm.Handle);
+                }
+            }
+            catch { }
+        }
+
+        public void ProcessHotkey(int KeyValue, int ModifierValue)
+        {
+            foreach (HotKey hotKey in Hotkeys)
+            {
+                if (hotKey.KeyValue == KeyValue && hotKey.ModifierValue == ModifierValue)
+                {
+                    hotKey.RunButtonCommands();
+                }
+            }
         }
 
         private void LoadHotKeys()
@@ -46,7 +85,11 @@ namespace HTWebRemote.Forms
 
                 if (captureKey.CapturedHotkey != null && !captureKey.CapturedHotkey.KeyName.EndsWith("+"))
                 {
-                    bool success = KeyboardHook.Register(captureKey.CapturedHotkey.KeyValue, captureKey.CapturedHotkey.ModifierValue, _hWnd);
+                    bool success = true;
+                    if (MainForm.cbxHotkeys.Checked)
+                    {
+                        success = KeyboardHook.Register(captureKey.CapturedHotkey.KeyValue, captureKey.CapturedHotkey.ModifierValue, MainForm.Handle);
+                    }
 
                     if(success)
                     {
@@ -73,7 +116,11 @@ namespace HTWebRemote.Forms
                 if (result == DialogResult.Yes)
                 {
                     Hotkeys.Remove(hotKey);
-                    KeyboardHook.Unregister(hotKey.KeyValue, hotKey.ModifierValue, _hWnd);
+
+                    if (MainForm.cbxHotkeys.Checked)
+                    {
+                        KeyboardHook.Unregister(hotKey.KeyValue, hotKey.ModifierValue, MainForm.Handle);
+                    }
 
                     JSONLoader.SaveHotkeyJSON(Hotkeys);
                     LoadHotKeys();

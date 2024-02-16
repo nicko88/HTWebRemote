@@ -30,7 +30,7 @@ namespace HTWebRemote.Util
             page.Append(header);
             page.Append(GetHTMLRemoteTabs());
             page.AppendLine(@"<div class=""container body-content"">");
-            page.AppendLine(@"<button onclick=""closetab()"" class=""btn btn-primary"">Close YouTube Tab</button>");
+            page.AppendLine(@"<button onclick=""closetab()"" class=""btn"" style=""background-color: #424548; color: #FFFFFF;"">Close YouTube Tab</button>");
 
             page.AppendLine(@"<form method=""POST"" id=""youtubeform"" action=""FByoutube"">");
             page.AppendLine(@"<input type=""hidden"" id=""youtube"" name=""youtube"" value="""">");
@@ -111,6 +111,8 @@ namespace HTWebRemote.Util
 
         public static string GetHTMLRemoteTabs()
         {
+            string fileBrowserGroup = ConfigHelper.GetRegKey(@"SOFTWARE\HTWebRemote", "FileBrowserGroup");
+
             StringBuilder sb = new StringBuilder();
 
             try
@@ -120,6 +122,14 @@ namespace HTWebRemote.Util
                 sb.AppendLine(@"<div class=""nav-container"">");
                 sb.AppendLine(@"<ul class=""nav nav-tabs sticky-top"">");
 
+                if (ConfigHelper.CheckRegKey(@"SOFTWARE\HTWebRemote", "GroupListButton"))
+                {
+                    sb.AppendLine($@"<li class=""nav-item"" style=""display: contents;""><a class=""nav-link"" href=""/"">");
+                    sb.AppendLine($@"<svg width=""24"" height=""24"" viewBox=""0 0 16 16"" fill=""none"" xmlns=""http://www.w3.org/2000/svg"">");
+                    sb.AppendLine($@"<path d=""M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"" fill=""white"" />");
+                    sb.AppendLine("</svg></a></li>");
+                }
+
                 foreach (string file in remoteFiles)
                 {
                     if (file.Contains(".json"))
@@ -128,6 +138,7 @@ namespace HTWebRemote.Util
 
                         string remoteNum = (string)oRemote.SelectToken("RemoteID");
                         string remoteName = (string)oRemote.SelectToken("RemoteName");
+                        string remoteGroup = (string)oRemote.SelectToken("RemoteGroup");
 
                         bool hideRemote = false;
                         try
@@ -135,6 +146,11 @@ namespace HTWebRemote.Util
                             hideRemote = (bool)oRemote.SelectToken("HideRemote");
                         }
                         catch { }
+
+                        if (fileBrowserGroup != remoteGroup)
+                        {
+                            hideRemote = true;
+                        }
 
                         if (!hideRemote)
                         {

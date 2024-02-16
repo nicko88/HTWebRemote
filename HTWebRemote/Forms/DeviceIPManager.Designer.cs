@@ -46,6 +46,7 @@
             this.cmbTPLinkDevices = new System.Windows.Forms.ComboBox();
             this.cbLGssl = new System.Windows.Forms.CheckBox();
             this.btnHueAuth = new System.Windows.Forms.Button();
+            this.cbTCPUDPRecvWelcome = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // lbDevices
@@ -261,11 +262,24 @@
             this.btnHueAuth.Visible = false;
             this.btnHueAuth.Click += new System.EventHandler(this.btnHueAuth_Click);
             // 
+            // cbTCPUDPRecvWelcome
+            // 
+            this.cbTCPUDPRecvWelcome.AutoSize = true;
+            this.cbTCPUDPRecvWelcome.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbTCPUDPRecvWelcome.Location = new System.Drawing.Point(159, 108);
+            this.cbTCPUDPRecvWelcome.Name = "cbTCPUDPRecvWelcome";
+            this.cbTCPUDPRecvWelcome.Size = new System.Drawing.Size(247, 24);
+            this.cbTCPUDPRecvWelcome.TabIndex = 14;
+            this.cbTCPUDPRecvWelcome.Text = "Receive Welcome Message";
+            this.cbTCPUDPRecvWelcome.UseVisualStyleBackColor = true;
+            this.cbTCPUDPRecvWelcome.Visible = false;
+            // 
             // DeviceIPManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(477, 365);
+            this.Controls.Add(this.cbTCPUDPRecvWelcome);
             this.Controls.Add(this.cbLGssl);
             this.Controls.Add(this.cmbTPLinkDevices);
             this.Controls.Add(this.tbSpecial);
@@ -316,5 +330,6 @@
         private System.Windows.Forms.ComboBox cmbTPLinkDevices;
         private System.Windows.Forms.CheckBox cbLGssl;
         private System.Windows.Forms.Button btnHueAuth;
+        private System.Windows.Forms.CheckBox cbTCPUDPRecvWelcome;
     }
 }

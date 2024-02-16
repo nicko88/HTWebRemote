@@ -43,9 +43,9 @@ namespace HTWebRemote.Devices.Controllers
                 {
                     process.Start();
                 }
-                catch
+                catch (Exception e)
                 {
-                    Util.ErrorHandler.SendError($"Cannot open or run file: \n\n{process.StartInfo.FileName}");
+                    Util.ErrorHandler.SendError($"Cannot open or run file: \n\n{process.StartInfo.FileName}\n\n{e.Message}");
                 }
             }
         }

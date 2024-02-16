@@ -193,6 +193,7 @@ namespace HTWebRemote.Forms
                 }
 
                 tbRemoteName.Text = currentRemote.RemoteName;
+                tbRemoteGroup.Text = currentRemote.RemoteGroup;
                 cbHideRemote.Checked = currentRemote.HideRemote;
 
                 lbRemoteItems.DataSource = currentRemote.RemoteItems;
@@ -286,6 +287,14 @@ namespace HTWebRemote.Forms
             FillRemoteNumDropDown();
 
             lbRemoteItems.TopIndex = topIndex;
+
+            //make sure file browser group is set to something
+            string fileBrowserGroup = ConfigHelper.GetRegKey(@"SOFTWARE\HTWebRemote", "FileBrowserGroup");
+            if (currentRemote.RemoteID == 1 && string.IsNullOrEmpty(fileBrowserGroup) && !string.IsNullOrEmpty(tbRemoteGroup.Text))
+            {
+                RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\HTWebRemote", true);
+                key.SetValue("FileBrowserGroup", tbRemoteGroup.Text);
+            }
         }
 
         private void btnAddButton_Click(object sender, EventArgs e)
@@ -508,6 +517,14 @@ namespace HTWebRemote.Forms
             else
             {
                 currentRemote.RemoteName = tbRemoteName.Text;
+            }
+            if (string.IsNullOrEmpty(tbRemoteGroup.Text))
+            {
+                currentRemote.RemoteGroup = null;
+            }
+            else
+            {
+                currentRemote.RemoteGroup = tbRemoteGroup.Text;
             }
 
             currentRemote.HideRemote = cbHideRemote.Checked;

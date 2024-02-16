@@ -56,6 +56,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.btnAddAlias = new System.Windows.Forms.Button();
             this.tbAlias = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.cmbFileBrowserGroup = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -112,7 +114,7 @@
             this.cmbFileBrowserRemote.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbFileBrowserRemote.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbFileBrowserRemote.FormattingEnabled = true;
-            this.cmbFileBrowserRemote.Location = new System.Drawing.Point(623, 24);
+            this.cmbFileBrowserRemote.Location = new System.Drawing.Point(623, 26);
             this.cmbFileBrowserRemote.Name = "cmbFileBrowserRemote";
             this.cmbFileBrowserRemote.Size = new System.Drawing.Size(66, 28);
             this.cmbFileBrowserRemote.TabIndex = 4;
@@ -121,20 +123,19 @@
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(489, 18);
+            this.label2.Location = new System.Drawing.Point(521, 24);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(128, 40);
+            this.label2.Size = new System.Drawing.Size(100, 31);
             this.label2.TabIndex = 5;
-            this.label2.Text = "File Browser Remote #:";
+            this.label2.Text = "Remote #:";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // cbShowFileBrowser
             // 
-            this.cbShowFileBrowser.AutoSize = true;
             this.cbShowFileBrowser.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbShowFileBrowser.Location = new System.Drawing.Point(6, 26);
+            this.cbShowFileBrowser.Location = new System.Drawing.Point(9, 18);
             this.cbShowFileBrowser.Name = "cbShowFileBrowser";
-            this.cbShowFileBrowser.Size = new System.Drawing.Size(211, 24);
+            this.cbShowFileBrowser.Size = new System.Drawing.Size(128, 44);
             this.cbShowFileBrowser.TabIndex = 6;
             this.cbShowFileBrowser.Text = "Show File Browser Tab";
             this.cbShowFileBrowser.UseVisualStyleBackColor = true;
@@ -149,7 +150,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(2, 64);
+            this.label3.Location = new System.Drawing.Point(2, 68);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(220, 20);
             this.label3.TabIndex = 7;
@@ -158,7 +159,7 @@
             // btnChooseFBMediaPlayer
             // 
             this.btnChooseFBMediaPlayer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChooseFBMediaPlayer.Location = new System.Drawing.Point(228, 60);
+            this.btnChooseFBMediaPlayer.Location = new System.Drawing.Point(223, 64);
             this.btnChooseFBMediaPlayer.Name = "btnChooseFBMediaPlayer";
             this.btnChooseFBMediaPlayer.Size = new System.Drawing.Size(81, 28);
             this.btnChooseFBMediaPlayer.TabIndex = 8;
@@ -170,7 +171,7 @@
             // 
             this.lblFBMediaPlayerPath.AutoSize = true;
             this.lblFBMediaPlayerPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFBMediaPlayerPath.Location = new System.Drawing.Point(315, 64);
+            this.lblFBMediaPlayerPath.Location = new System.Drawing.Point(306, 68);
             this.lblFBMediaPlayerPath.Name = "lblFBMediaPlayerPath";
             this.lblFBMediaPlayerPath.Size = new System.Drawing.Size(155, 20);
             this.lblFBMediaPlayerPath.TabIndex = 9;
@@ -178,6 +179,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cmbFileBrowserGroup);
+            this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.tbItemRowHeight);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.btnChooseFBMediaPlayer);
@@ -189,7 +192,7 @@
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(13, 339);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(696, 98);
+            this.groupBox1.Size = new System.Drawing.Size(696, 100);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "File Browser Settings";
@@ -199,19 +202,18 @@
             this.tbItemRowHeight.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbItemRowHeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbItemRowHeight.Location = new System.Drawing.Point(428, 24);
+            this.tbItemRowHeight.Location = new System.Drawing.Point(251, 26);
             this.tbItemRowHeight.Name = "tbItemRowHeight";
-            this.tbItemRowHeight.Size = new System.Drawing.Size(52, 26);
+            this.tbItemRowHeight.Size = new System.Drawing.Size(38, 26);
             this.tbItemRowHeight.TabIndex = 23;
             this.tbItemRowHeight.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbNumOnly_KeyPress);
             // 
             // label6
             // 
-            this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(240, 26);
+            this.label6.Location = new System.Drawing.Point(140, 18);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(182, 20);
+            this.label6.Size = new System.Drawing.Size(109, 46);
             this.label6.TabIndex = 10;
             this.label6.Text = "Increase Row Height:";
             // 
@@ -373,6 +375,26 @@
             this.tbAlias.Size = new System.Drawing.Size(407, 26);
             this.tbAlias.TabIndex = 20;
             // 
+            // label7
+            // 
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(293, 18);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(68, 40);
+            this.label7.TabIndex = 25;
+            this.label7.Text = "Group:";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // cmbFileBrowserGroup
+            // 
+            this.cmbFileBrowserGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbFileBrowserGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbFileBrowserGroup.FormattingEnabled = true;
+            this.cmbFileBrowserGroup.Location = new System.Drawing.Point(363, 25);
+            this.cmbFileBrowserGroup.Name = "cmbFileBrowserGroup";
+            this.cmbFileBrowserGroup.Size = new System.Drawing.Size(152, 28);
+            this.cmbFileBrowserGroup.TabIndex = 26;
+            // 
             // EditFileBrowser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -434,5 +456,7 @@
         private System.Windows.Forms.TextBox tbAlias;
         private System.Windows.Forms.TextBox tbItemRowHeight;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ComboBox cmbFileBrowserGroup;
     }
 }
