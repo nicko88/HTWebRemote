@@ -11,6 +11,7 @@ namespace HTWebRemote.RemoteFile
             Button = 2,
             Blank = 3,
             NewRow = 4,
+            EndGroup = 99
         }
 
         public RemoteItemType ItemType { get; set; }
@@ -95,6 +96,8 @@ namespace HTWebRemote.RemoteFile
                     return $"  BLANK={RelativeSize}";
                 case RemoteItemType.NewRow:
                     return "  ----------------------------------------------------------------------";
+                case RemoteItemType.EndGroup:
+                    return $"EndGroup";
                 default:
                     return "";
             }

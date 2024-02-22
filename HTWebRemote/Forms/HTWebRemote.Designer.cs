@@ -269,7 +269,7 @@
             this.cbxVoiceControl.TabIndex = 36;
             this.cbxVoiceControl.Text = "Enable Voice Control";
             this.cbxVoiceControl.UseVisualStyleBackColor = true;
-            this.cbxVoiceControl.CheckedChanged += new System.EventHandler(this.cbVoiceControl_CheckedChanged);
+            this.cbxVoiceControl.Click += new System.EventHandler(this.cbxVoiceControl_Click);
             // 
             // cbxHotkeys
             // 

@@ -34,7 +34,6 @@ namespace HTWebRemote.Util
 
             string[] remoteFiles = Directory.GetFiles(ConfigHelper.WorkingPath, "HTWebRemoteButtons*").CustomSort().ToArray();
 
-            bool hasGroups = false;
             foreach (string file in remoteFiles)
             {
                 JObject oRemote = JObject.Parse(File.ReadAllText(file));
@@ -46,26 +45,35 @@ namespace HTWebRemote.Util
 
                 if (!hidden.HasValue || !hidden.Value)
                 {
+                    if(remoteGroup is null)
+                    {
+                        remoteGroup = "Ungrouped";
+                    }
+
                     remotes.Add((remoteID, remoteName, remoteGroup));
 
                     if (!string.IsNullOrEmpty(remoteGroup) && !groups.Contains(remoteGroup))
                     {
                         groups.Add(remoteGroup);
-                        hasGroups = true;
                     }
                 }
+            }
+
+            bool hasGroups = false;
+            if(groups.Count > 1)
+            {
+                hasGroups = true;
             }
 
             StringBuilder sb = new StringBuilder();
             sb.AppendLine(@"<div class=""container body-content"">");
 
-            int count = 0;
             foreach (string group in groups)
             {
                 sb.AppendLine($@"<h4 style=""color: #FFFFFF;"">{group}</h4>");
                 sb.AppendLine(@"<div class=""form-group ngroup"">");
 
-                count = 0;
+                int count = 0;
                 foreach ((string, string, string) remote in remotes)
                 {
                     if (remote.Item3 == group)
@@ -83,7 +91,7 @@ namespace HTWebRemote.Util
                     }
                 }
 
-                if(count % 2 != 0)
+                if (count % 2 != 0)
                 {
                     sb.AppendLine(@"</div>");
                 }
@@ -169,6 +177,10 @@ namespace HTWebRemote.Util
                     }
 
                     string fileBrowserGroup = ConfigHelper.GetRegKey(@"SOFTWARE\HTWebRemote", "FileBrowserGroup");
+                    if(string.IsNullOrEmpty(fileBrowserGroup))
+                    {
+                        fileBrowserGroup = null;
+                    }
 
                     if (ConfigHelper.CheckRegKey(@"SOFTWARE\HTWebRemote", "ShowFileBrowser") && fileBrowserGroup == currentRemoteGroup)
                     {
@@ -259,6 +271,16 @@ namespace HTWebRemote.Util
                         }
                         buttonRowStarted = false;
                         prevItemType = RemoteItem.RemoteItemType.NewRow;
+                    }
+                    else if (item.ItemType == RemoteItem.RemoteItemType.EndGroup)
+                    {
+                        if (buttonRowStarted)
+                        {
+                            sb.AppendLine("</div>");
+                        }
+                        sb.AppendLine("</div>");
+                        buttonRowStarted = false;
+                        groupStarted = false;
                     }
                     else
                     {

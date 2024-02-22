@@ -53,6 +53,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnDoc = new System.Windows.Forms.LinkLabel();
             this.btnTestCmds = new System.Windows.Forms.Button();
+            this.btnURLAPI = new System.Windows.Forms.LinkLabel();
             this.panelCommand.SuspendLayout();
             this.panelWaitTime.SuspendLayout();
             this.SuspendLayout();
@@ -67,7 +68,7 @@
             this.lbCommands.ItemHeight = 20;
             this.lbCommands.Location = new System.Drawing.Point(10, 124);
             this.lbCommands.Name = "lbCommands";
-            this.lbCommands.Size = new System.Drawing.Size(598, 144);
+            this.lbCommands.Size = new System.Drawing.Size(598, 164);
             this.lbCommands.TabIndex = 0;
             this.lbCommands.SelectedIndexChanged += new System.EventHandler(this.lbCommands_SelectedIndexChanged);
             // 
@@ -327,7 +328,7 @@
             this.btnDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDoc.AutoSize = true;
             this.btnDoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDoc.Location = new System.Drawing.Point(626, 249);
+            this.btnDoc.Location = new System.Drawing.Point(626, 270);
             this.btnDoc.Name = "btnDoc";
             this.btnDoc.Size = new System.Drawing.Size(41, 20);
             this.btnDoc.TabIndex = 67;
@@ -347,11 +348,25 @@
             this.btnTestCmds.UseVisualStyleBackColor = true;
             this.btnTestCmds.Click += new System.EventHandler(this.btnTestCmds_Click);
             // 
+            // btnURLAPI
+            // 
+            this.btnURLAPI.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnURLAPI.AutoSize = true;
+            this.btnURLAPI.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnURLAPI.Location = new System.Drawing.Point(610, 247);
+            this.btnURLAPI.Name = "btnURLAPI";
+            this.btnURLAPI.Size = new System.Drawing.Size(71, 20);
+            this.btnURLAPI.TabIndex = 69;
+            this.btnURLAPI.TabStop = true;
+            this.btnURLAPI.Text = "Url-cmd";
+            this.btnURLAPI.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.btnURLAPI_LinkClicked);
+            // 
             // CommandEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(684, 276);
+            this.ClientSize = new System.Drawing.Size(684, 297);
+            this.Controls.Add(this.btnURLAPI);
             this.Controls.Add(this.btnTestCmds);
             this.Controls.Add(this.btnDoc);
             this.Controls.Add(this.label1);
@@ -405,5 +420,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.LinkLabel btnDoc;
         private System.Windows.Forms.Button btnTestCmds;
+        private System.Windows.Forms.LinkLabel btnURLAPI;
     }
 }

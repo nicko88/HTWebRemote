@@ -313,5 +313,34 @@ namespace HTWebRemote.Forms
                 Close();
             }
         }
+
+        private void btnURLAPI_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (Editor is RemoteEditor editor)
+            {
+                Form textbox = new Form();
+
+                textbox.FormBorderStyle = FormBorderStyle.FixedSingle;
+                textbox.MinimizeBox = false;
+                textbox.MaximizeBox = false;
+                textbox.ClientSize = new Size(400, 40);
+                textbox.Text = "URL API Button Link (This URL triggers this button)";
+
+                RichTextBox rtb = new RichTextBox();
+                rtb.Size = new Size(390, 30);
+                rtb.Location = new Point(5, 5);
+                rtb.Font = new Font("Consolas", 10);
+                textbox.Controls.Add(rtb);
+
+                rtb.Text = $"http://{ConfigHelper.LocalIPAddress}:5000/?remoteID={editor.currentRemote.RemoteID}&btnIndex={ButtonIndex}";
+
+                textbox.StartPosition = FormStartPosition.CenterParent;
+                textbox.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Not Supported");
+            }
+        }
     }
 }

@@ -73,6 +73,7 @@ namespace HTWebRemote
             if (ConfigHelper.CheckRegKey(@"SOFTWARE\HTWebRemote", "VoiceEnabled"))
             {
                 cbxVoiceControl.Checked = true;
+                voiceCommandManager.StartListen();
             }
 
             if (full)
@@ -262,7 +263,7 @@ namespace HTWebRemote
                     JObject data = JObject.Parse(releaseJSON);
                     string latest = (string)data["tag_name"];
 
-                    string version = "v" + Assembly.GetExecutingAssembly().GetName().Version.ToString().TrimEnd(new char[] { '.', '0' });
+                    string version = "v" + Assembly.GetExecutingAssembly().GetName().Version.ToString().Replace(".0", "");
 
                     if (version != latest)
                     {
@@ -423,7 +424,7 @@ namespace HTWebRemote
             }
         }
 
-        private void cbVoiceControl_CheckedChanged(object sender, EventArgs e)
+        private void cbxVoiceControl_Click(object sender, EventArgs e)
         {
             if (cbxVoiceControl.Checked)
             {

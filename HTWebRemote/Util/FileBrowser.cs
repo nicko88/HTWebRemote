@@ -417,6 +417,10 @@ namespace HTWebRemote.Util
         public static string GetHTMLRemoteTabs()
         {
             string fileBrowserGroup = ConfigHelper.GetRegKey(@"SOFTWARE\HTWebRemote", "FileBrowserGroup");
+            if (string.IsNullOrEmpty(fileBrowserGroup))
+            {
+                fileBrowserGroup = null;
+            }
 
             StringBuilder sb = new StringBuilder();
 

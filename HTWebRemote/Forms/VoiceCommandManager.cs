@@ -1,7 +1,9 @@
 ﻿using HTWebRemote.RemoteFile;
+using HTWebRemote.Util;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Speech.Recognition;
 using System.Windows.Forms;
 
@@ -19,7 +21,18 @@ namespace HTWebRemote.Forms
             Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
             MainForm = form;
 
+            if (ConfigHelper.CheckRegKey(@"SOFTWARE\HTWebRemote", "LogVoiceMatches"))
+            {
+                cbxLogMatches.Checked = true;
+            }
+            if (ConfigHelper.CheckRegKey(@"SOFTWARE\HTWebRemote", "VoiceAutoReload"))
+            {
+                cbxAutoReload.Checked = true;
+            }
+
             recognizer.SpeechRecognized += recognizer_SpeechRecognized;
+            recognizer.RecognizeCompleted += recognizer_RecognizeCompleted;
+
             LoadVoiceCommands();
         }
 
@@ -34,6 +47,11 @@ namespace HTWebRemote.Forms
                     recognizer.SetInputToDefaultAudioDevice();
                     recognizer.RecognizeAsync(RecognizeMode.Multiple);
                     MainForm.cbxVoiceControl.Checked = true;
+
+                    if(cbxAutoReload.Checked)
+                    {
+                        autoReloadTimer.Start();
+                    }
                 }
                 catch { }
             }
@@ -45,7 +63,8 @@ namespace HTWebRemote.Forms
 
         public void StopListen()
         {
-            recognizer.RecognizeAsyncStop();
+            autoReloadTimer.Stop();
+            recognizer.RecognizeAsyncCancel();
         }
 
         private void LoadVoiceCommands()
@@ -85,12 +104,27 @@ namespace HTWebRemote.Forms
                     }
                     else
                     {
-                        if (e.Result.Confidence * 100 > voiceCommand.Confidence)
+                        bool match = e.Result.Confidence * 100 > voiceCommand.Confidence;
+                        if (match)
                         {
                             voiceCommand.RunButtonCommands();
                         }
+
+                        if (cbxLogMatches.Checked)
+                        {
+                            File.AppendAllText(Path.Combine(ConfigHelper.WorkingPath, "VoiceCommandLog.txt"), $"[{DateTime.Now:hh:mm:ss tt}]: {e.Result.Text} ({e.Result.Confidence * 100}) Triggered={match}" + Environment.NewLine);
+                        }
                     }
                 }
+            }
+        }
+
+        protected void recognizer_RecognizeCompleted(object sender, RecognizeCompletedEventArgs e)
+        {
+            if(!e.Cancelled)
+            {
+                MainForm.cbxVoiceControl.Checked = false;
+                //recognizerBrokeTimer.Start();
             }
         }
 
@@ -202,6 +236,55 @@ namespace HTWebRemote.Forms
         private void tbConfidence_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+        }
+
+        private void cbxLogMatches_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbxLogMatches.Checked)
+            {
+                Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(@"SOFTWARE\HTWebRemote", true);
+                key.SetValue("LogVoiceMatches", true);
+            }
+            else
+            {
+                Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(@"SOFTWARE\HTWebRemote", true);
+                key.DeleteValue("LogVoiceMatches", false);
+            }
+        }
+
+        private void cbxAutoReload_Click(object sender, EventArgs e)
+        {
+            if (cbxAutoReload.Checked)
+            {
+                MessageBox.Show("When this is enabled, the voice control system will automatically try to restart itself every 5 minutes.\n\nOnly use this option if you find that your voice control randomly stops working after awhile.", "Enabling Auto Reload", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(@"SOFTWARE\HTWebRemote", true);
+                key.SetValue("VoiceAutoReload", true);
+
+                autoReloadTimer.Start();
+            }
+            else
+            {
+                Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(@"SOFTWARE\HTWebRemote", true);
+                key.DeleteValue("VoiceAutoReload", false);
+
+                autoReloadTimer.Stop();
+            }
+        }
+
+        private void recognizerBrokeTimer_Tick(object sender, EventArgs e)
+        {
+            if (!MainForm.cbxVoiceControl.Checked)
+            {
+                StartListen();
+                recognizerBrokeTimer.Stop();
+            }
+        }
+
+        private void autoReloadTimer_Tick(object sender, EventArgs e)
+        {
+            StopListen();
+            StartListen();
         }
     }
 }

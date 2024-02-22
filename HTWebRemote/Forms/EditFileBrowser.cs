@@ -272,7 +272,14 @@ namespace HTWebRemote.Forms
             RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\HTWebRemote", true);
             key.SetValue("YoutubeAPIKey", tbYoutubeAPIKey.Text);
             key.SetValue("ItemRowHeight", tbItemRowHeight.Text);
-            key.SetValue("FileBrowserGroup", cmbFileBrowserGroup.SelectedItem);
+            if (cmbFileBrowserGroup.SelectedItem != null)
+            {
+                key.SetValue("FileBrowserGroup", cmbFileBrowserGroup.SelectedItem);
+            }
+            else
+            {
+                key.DeleteValue("FileBrowserGroup", false);
+            }
         }
 
         private void lblAPIHelp_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

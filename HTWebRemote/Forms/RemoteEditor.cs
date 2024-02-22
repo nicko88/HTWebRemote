@@ -287,14 +287,6 @@ namespace HTWebRemote.Forms
             FillRemoteNumDropDown();
 
             lbRemoteItems.TopIndex = topIndex;
-
-            //make sure file browser group is set to something
-            string fileBrowserGroup = ConfigHelper.GetRegKey(@"SOFTWARE\HTWebRemote", "FileBrowserGroup");
-            if (currentRemote.RemoteID == 1 && string.IsNullOrEmpty(fileBrowserGroup) && !string.IsNullOrEmpty(tbRemoteGroup.Text))
-            {
-                RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\HTWebRemote", true);
-                key.SetValue("FileBrowserGroup", tbRemoteGroup.Text);
-            }
         }
 
         private void btnAddButton_Click(object sender, EventArgs e)
@@ -695,9 +687,9 @@ namespace HTWebRemote.Forms
         {
             try
             {
-                if (btnCopy.Text == "Copy Selected")
+                if (btnCopy.Text == "Copy")
                 {
-                    btnCopy.Text = "Paste Selected";
+                    btnCopy.Text = "Paste";
                     lblClearCopy.Visible = true;
 
                     foreach (int itemIndex in lbRemoteItems.SelectedIndices)
@@ -707,7 +699,7 @@ namespace HTWebRemote.Forms
                 }
                 else
                 {
-                    btnCopy.Text = "Copy Selected";
+                    btnCopy.Text = "Copy";
                     lblClearCopy.Visible = false;
 
                     currentRemote.RemoteItems.InsertRange(lbRemoteItems.SelectedIndex+1, _copiedItems);
